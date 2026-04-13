@@ -1,4 +1,33 @@
 # anatomy-app 
+
+## Quick Start
+
+### Prerequisites
+- **PostgreSQL must be running** before running `npm run db:setup`
+
+**Option 1: Start PostgreSQL (easiest)**
+- **Windows:** Open Services (search `services.msc`) → find `postgresql-x64-18` → right-click → Start
+- **Mac:** `brew services start postgresql@16` (adjust version if needed)
+- **Linux:** `sudo systemctl start postgresql`
+
+**Option 2: Generic way (using pg_ctl command)**
+```bash
+# Tell PostgreSQL where its data is stored, then start it
+pg_ctl -D /path/to/postgres/data start
+
+# Example paths:
+# Windows: pg_ctl -D "C:\Program Files\PostgreSQL\18\data" start
+# Mac: pg_ctl -D "/usr/local/var/postgres" start
+# Linux: pg_ctl -D "/var/lib/postgresql/16/main" start
+```
+
+```bash
+npm run db:setup  # Generates Prisma, runs migrations, seeds database
+npm run dev       # Start development server on port 3000
+```
+
+---
+
 # my plan: https://claude.ai/share/84f71dfc-5247-4a22-9aff-bca0e2f1b272
 
 # I want to create an anatomy app using AI and need help planning. The point of building this app is to transition myself from a senior react developer to an AI integration expert. With this in mind create me a clear roadmap of how to generate this app step by step in vscode using copilot, in a way I can still understand the whole project.  I need a clear and well structured backend (probably in node/typescript which is more familiar), perhaps there are open API's for these kinds of things.  I'm considering creating a database with each bone on the skeleton with an id, name, placement coordinates that can map to the FE and perhaps a vector svg for generating a 3d representation on the screen.  
