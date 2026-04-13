@@ -11,7 +11,9 @@
     "prisma:migrate": "prisma migrate dev",
     "prisma:generate": "prisma generate",
     "seed": "tsx prisma/seed.ts",
-    "db:setup": "npm run prisma:generate && npm run prisma:migrate && npm run seed"
+    "db:setup": "npm run prisma:generate && npm run prisma:migrate && npm run seed",
+    "db:connect": "psql -U postgres -d anatomy_app",
+    "db:init": "npm run db:setup && npm run db:connect"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
