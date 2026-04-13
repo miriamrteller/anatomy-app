@@ -15,7 +15,7 @@ model Structure {
   coordinates Json?
   svgPathId   String?  @map("svg_path_id")
   description String
-  embedding   Json
+  embedding   Unsupported("vector(1536)")?
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
 

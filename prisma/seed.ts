@@ -1,9 +1,14 @@
 /// <reference types="node" />
+import { randomUUID } from "node:crypto";
 import { db } from "../src/lib/db";
 
 // Generate a random vector of length 1536
 function generateRandomVector(): number[] {
   return Array.from({ length: 1536 }, () => Math.random() * 2 - 1);
+}
+
+function toPgvectorLiteral(values: number[]): string {
+  return `[${values.join(",")}]`;
 }
 
 async function main() {
@@ -86,10 +91,34 @@ async function main() {
   ];
 
   for (const bone of exampleBones) {
-    const structure = await db.structure.create({
-      data: bone,
-    });
-    console.log(`✅ Created structure: ${structure.name}`);
+    const structureId = randomUUID();
+    const vectorLiteral = toPgvectorLiteral(bone.embedding);
+    await db.$executeRaw`
+      INSERT INTO structures (
+        id,
+        name,
+        latin_name,
+        system,
+        coordinates,
+        svg_path_id,
+        description,
+        embedding,
+        updated_at
+      )
+      VALUES (
+        ${structureId}::uuid,
+        ${bone.name},
+        ${bone.latinName},
+        ${bone.system}::"System",
+        ${JSON.stringify(bone.coordinates)}::jsonb,
+        ${bone.svgPathId},
+        ${bone.description},
+        ${vectorLiteral}::vector,
+        CURRENT_TIMESTAMP
+      )
+    `;
+
+    console.log(`✅ Created structure: ${bone.name}`);
   }
 
   console.log("✨ Seeding completed successfully!");
