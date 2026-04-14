@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect } from "react";
+import React, { useMemo, useEffect, useRef } from "react";
 import { useAnatomyStore } from "../stores/anatomy";
 import { SystemEnum } from "../types";
 import { useSystemSVGs } from "../hooks/useSystemSVGs";
@@ -29,16 +29,33 @@ export const LayerControls: React.FC = () => {
     return available;
   }, [systems]);
 
-  // Auto-collapse if only 1 system available
+  const prevCountRef = useRef<number | null>(null);
+
+  // Auto-collapse if only 1 system, auto-expand if 2+
+  // Only adjust when system count changes, not when user manually toggles
   useEffect(() => {
-    if (availableSystems.length === 1 && !isLayerControlsMinimized) {
-      toggleLayerControlsMinimize();
+    const systemCount = availableSystems.length;
+
+    if (prevCountRef.current === null) {
+      // Initial load
+      prevCountRef.current = systemCount;
+      if (systemCount === 1 && !isLayerControlsMinimized) {
+        toggleLayerControlsMinimize();
+      } else if (systemCount > 1 && isLayerControlsMinimized) {
+        toggleLayerControlsMinimize();
+      }
+    } else if (prevCountRef.current !== systemCount) {
+      // Count changed - adjust state based on new count
+      prevCountRef.current = systemCount;
+      if (systemCount === 1 && !isLayerControlsMinimized) {
+        toggleLayerControlsMinimize();
+      } else if (systemCount > 1 && isLayerControlsMinimized) {
+        toggleLayerControlsMinimize();
+      }
     }
-  }, [
-    availableSystems.length,
-    isLayerControlsMinimized,
-    toggleLayerControlsMinimize,
-  ]);
+    // Only depend on availableSystems.length, not on isLayerControlsMinimized
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [availableSystems.length, toggleLayerControlsMinimize]);
 
   return (
     <div
@@ -47,7 +64,9 @@ export const LayerControls: React.FC = () => {
         height: isLayerControlsMinimized ? "2.5rem" : "auto",
       }}
     >
-      <div className="p-4 h-full flex flex-col">
+      <div
+        className={`h-full flex flex-col ${isLayerControlsMinimized ? "p-2" : "p-4"}`}
+      >
         {/* Header */}
         <div className="flex items-center justify-between flex-shrink-0">
           <button
@@ -55,9 +74,13 @@ export const LayerControls: React.FC = () => {
             className="text-gray-600 hover:text-blue-600 font-bold text-lg transition"
             title="Toggle layer controls"
           >
-            {isLayerControlsMinimized ? "∨" : "∧"}
+            {isLayerControlsMinimized ? "∧" : "∨"}
           </button>
-          <h2 className="text-sm font-bold text-gray-900 ml-2">Body Systems</h2>
+          {!isLayerControlsMinimized && (
+            <h2 className="text-sm font-bold text-gray-900 ml-2">
+              Body Systems
+            </h2>
+          )}
         </div>
 
         {/* Content */}

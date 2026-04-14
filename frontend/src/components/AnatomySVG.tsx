@@ -174,24 +174,22 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
       )}
 
       {/* Main SVG container - render all systems as overlays */}
-      <div className="absolute inset-0 flex items-center justify-center">
+      <div className="absolute inset-0">
         {Object.entries(systems).map(([system]) => (
           <div
             key={system}
             ref={(el) => {
               if (el) svgRefsMap.current[system as SystemEnum] = el
             }}
-            className="relative flex items-center justify-center"
+            className="w-full h-full"
             style={{
-              width: '100%',
-              height: '100%',
               opacity: visibleSystems.has(system as SystemEnum) ? 1 : 0,
               pointerEvents: visibleSystems.has(system as SystemEnum) ? 'auto' : 'none',
               transition: 'opacity 200ms ease',
             }}
           >
             <div
-              className="w-full h-full flex items-center justify-center"
+              className="w-full h-full"
               dangerouslySetInnerHTML={{ __html: systems[system as SystemEnum] }}
               onClick={() => clearHighlight()}
             />
@@ -209,10 +207,8 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
           }
         }
         svg {
-          max-width: 100%;
-          max-height: 100%;
-          width: auto;
-          height: auto;
+          width: 100%;
+          height: 100%;
           object-fit: contain;
         }
         path {
