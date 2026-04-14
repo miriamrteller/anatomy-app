@@ -1,17 +1,52 @@
-import React from 'react'
-import { useAnatomyStore } from '../stores/anatomy'
-import { SystemEnum } from '../types'
+import React, { useMemo, useEffect } from "react";
+import { useAnatomyStore } from "../stores/anatomy";
+import { SystemEnum } from "../types";
+import { useSystemSVGs } from "../hooks/useSystemSVGs";
 
 export const LayerControls: React.FC = () => {
-  const { visibleSystems, toggleSystem, showAllSystems, hideAllSystems, isLayerControlsMinimized, toggleLayerControlsMinimize } =
-    useAnatomyStore()
+  const {
+    visibleSystems,
+    toggleSystem,
+    showAllSystems,
+    hideAllSystems,
+    isLayerControlsMinimized,
+    toggleLayerControlsMinimize,
+  } = useAnatomyStore();
 
-  const systems = Object.values(SystemEnum)
+  const { systems } = useSystemSVGs();
+
+  // Only show systems that have loaded content successfully (no errors)
+  const availableSystems = useMemo(() => {
+    const available = Object.values(SystemEnum).filter((system) => {
+      const sysData = systems[system];
+      const isValid =
+        sysData &&
+        sysData.content.length > 0 &&
+        !sysData.error &&
+        sysData.content.includes("<svg");
+      return isValid;
+    });
+    return available;
+  }, [systems]);
+
+  // Auto-collapse if only 1 system available
+  useEffect(() => {
+    if (availableSystems.length === 1 && !isLayerControlsMinimized) {
+      toggleLayerControlsMinimize();
+    }
+  }, [
+    availableSystems.length,
+    isLayerControlsMinimized,
+    toggleLayerControlsMinimize,
+  ]);
 
   return (
-    <div className="bg-white shadow-lg rounded-lg w-full transition-all duration-300 ease-in-out overflow-hidden flex-shrink-0" style={{
-      height: isLayerControlsMinimized ? '2.5rem' : 'auto'
-    }}>
+    <div
+      className="bg-white shadow-lg rounded-lg w-full transition-all duration-300 ease-in-out overflow-hidden flex-shrink-0"
+      style={{
+        height: isLayerControlsMinimized ? "2.5rem" : "auto",
+      }}
+    >
       <div className="p-4 h-full flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between flex-shrink-0">
@@ -20,7 +55,7 @@ export const LayerControls: React.FC = () => {
             className="text-gray-600 hover:text-blue-600 font-bold text-lg transition"
             title="Toggle layer controls"
           >
-            {isLayerControlsMinimized ? '∨' : '∧'}
+            {isLayerControlsMinimized ? "∨" : "∧"}
           </button>
           <h2 className="text-sm font-bold text-gray-900 ml-2">Body Systems</h2>
         </div>
@@ -44,42 +79,44 @@ export const LayerControls: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-2 gap-2">
-              {systems.map((system) => (
+              {availableSystems.map((system) => (
                 <button
                   key={system}
                   onClick={() => toggleSystem(system)}
                   className={`px-3 py-2 rounded text-sm font-medium transition ${
                     visibleSystems.has(system)
-                      ? 'bg-blue-500 text-white shadow-md'
-                      : 'bg-gray-200 text-gray-600 shadow'
+                      ? "bg-blue-500 text-white shadow-md"
+                      : "bg-gray-200 text-gray-600 shadow"
                   }`}
                 >
                   <span className="flex items-center justify-center">
-                    {visibleSystems.has(system) ? '✓' : '○'} {system}
+                    {visibleSystems.has(system) ? "✓" : "○"} {system}
                   </span>
                 </button>
               ))}
             </div>
 
             <div className="mt-3 text-xs text-gray-500 flex-shrink-0">
-              {visibleSystems.size} of {systems.length} systems visible
+              {visibleSystems.size} of {availableSystems.length} systems visible
             </div>
           </>
         ) : (
           <div className="flex items-center gap-2 mt-2 overflow-x-auto">
-            {Array.from(visibleSystems).map((system) => (
-              <span
-                key={system}
-                className="inline-flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium flex-shrink-0 cursor-pointer hover:bg-blue-200 transition"
-                onClick={() => toggleSystem(system)}
-                title={`Click to hide ${system}`}
-              >
-                {system}
-              </span>
-            ))}
+            {Array.from(visibleSystems)
+              .filter((system) => availableSystems.includes(system))
+              .map((system) => (
+                <span
+                  key={system}
+                  className="inline-flex items-center gap-1 px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium flex-shrink-0 cursor-pointer hover:bg-blue-200 transition"
+                  onClick={() => toggleSystem(system)}
+                  title={`Click to hide ${system}`}
+                >
+                  {system}
+                </span>
+              ))}
           </div>
         )}
       </div>
     </div>
-  )
-}
+  );
+};
