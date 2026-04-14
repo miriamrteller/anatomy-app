@@ -6,6 +6,10 @@ interface AnatomyStore {
   setSelectedStructure: (structure: Structure | null) => void
   hoveredStructure: Structure | null
   setHoveredStructure: (structure: Structure | null) => void
+  isRightPanelOpen: boolean
+  toggleRightPanel: () => void
+  isPanelMinimized: boolean
+  togglePanelMinimize: () => void
   visibleSystems: Set<SystemEnum>
   toggleSystem: (system: SystemEnum) => void
   showAllSystems: () => void
@@ -23,6 +27,14 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
   hoveredStructure: null,
   setHoveredStructure: (structure: Structure | null) =>
     set({ hoveredStructure: structure }),
+
+  isRightPanelOpen: true,
+  toggleRightPanel: () =>
+    set((state) => ({ isRightPanelOpen: !state.isRightPanelOpen })),
+
+  isPanelMinimized: false,
+  togglePanelMinimize: () =>
+    set((state) => ({ isPanelMinimized: !state.isPanelMinimized })),
 
   visibleSystems: new Set<SystemEnum>(Object.values(SystemEnum)),
   toggleSystem: (system: SystemEnum) =>

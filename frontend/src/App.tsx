@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useAnatomyStore } from './stores/anatomy'
 import { AnatomySVG } from './components/AnatomySVG'
 import { SidePanel } from './components/SidePanel'
 import { LayerControls } from './components/LayerControls'
@@ -7,6 +8,7 @@ export function App(): React.ReactElement {
   const [svgContent, setSvgContent] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | null>(null)
+  const { isRightPanelOpen, toggleRightPanel, isPanelMinimized } = useAnatomyStore()
 
   useEffect(() => {
     fetch('/svgs/skeleton.svg')
@@ -34,7 +36,7 @@ export function App(): React.ReactElement {
         </div>
 
         {/* Main Content Area */}
-        <div className="flex-1 flex gap-4">
+        <div className="flex-1 flex gap-4 relative">
           {/* Left: SVG Canvas */}
           <div className="flex-1 flex flex-col gap-4">
             <div className="flex-1 bg-white rounded-lg shadow-md overflow-hidden">
@@ -45,8 +47,25 @@ export function App(): React.ReactElement {
             <LayerControls />
           </div>
 
-          {/* Right: Side Panel */}
-          <SidePanel />
+          {/* Right: Side Panel - Collapsible with width toggle */}
+          {isRightPanelOpen && (
+            <div className={`transition-all duration-300 ease-in-out fixed top-20 right-4 h-[calc(100vh-140px)] ${
+              isPanelMinimized ? 'w-16' : 'w-80'
+            } z-10`}>
+              <SidePanel />
+            </div>
+          )}
+          
+          {/* Collapse Button - Slides panel off screen */}
+          {!isRightPanelOpen && (
+            <button
+              onClick={toggleRightPanel}
+              className="fixed right-4 top-20 h-12 w-12 bg-blue-500 hover:bg-blue-600 text-white flex items-center justify-center transition z-20 rounded-lg shadow-lg"
+              title="Open sidebar"
+            >
+              &lt;
+            </button>
+          )}
         </div>
       </div>
     </div>
