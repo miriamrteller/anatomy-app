@@ -68,7 +68,7 @@
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
-      "SKELETAL": ["FootRight"]
+      "SKELETAL": ["FootRight", "TarsalsRight", "MetatarsalsRight", "PhalangesFootRight"]
     },
     "description": "The human foot is a complex structure consisting of 26 bones (in each foot) along with muscles, ligaments, and nerves.",
     "metadata": {
@@ -139,7 +139,7 @@
     "aliases": ["Head bone", "Cranium"],
     "system": "SKELETAL",
     "category": "BONE",
-    "svgPathIds": { "SKELETAL": ["Skull"] },
+    "svgPathIds": { "SKELETAL": ["Skull", "Cranium"] },
     "description": "The skull is a bony structure that encloses and protects the brain and other cranial contents.",
     "metadata": {
       "articulations": ["Vertebral column", "Mandible"],
