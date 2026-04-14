@@ -74,6 +74,7 @@ export function useAnatomyData() {
 
       setLoadingState(system, 'IDLE')
       console.log(`✓ Loaded ${data.data.length} structures for ${system} system`)
+      console.log(`✓ Built lookup map with ${Object.keys(pathMap).length} SVG path IDs:`, Object.keys(pathMap).slice(0, 10))
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Unknown error'
       setError(system, message)

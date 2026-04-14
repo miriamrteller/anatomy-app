@@ -43,9 +43,8 @@ async function main() {
   const bonesPath = join(process.cwd(), "prisma", "data", "bones.json");
   const bonesData: BoneData[] = JSON.parse(readFileSync(bonesPath, "utf-8"));
 
-  const exampleBones = bonesData.slice(0, 12);
-
-  for (const bone of exampleBones) {
+  // Seed all bones from bones.json
+  for (const bone of bonesData) {
     const structureId = randomUUID();
     const vectorLiteral = toPgvectorLiteral(generateRandomVector());
     const svgPaths = buildSvgPaths(bone.svgPathIds, bone.system);

@@ -30,13 +30,20 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
     // Try each visible system
     for (const system of visibleSystems) {
       const structure = getStructureByPathId(pathId, system)
-      if (structure) return structure
+      if (structure) {
+        console.log(`✓ Found structure in cache (${system}):`, structure.name, `for pathId:`, pathId)
+        return structure
+      }
     }
     // If not found in visible systems, search all systems
     for (const system of Object.values(SystemEnum)) {
       const structure = getStructureByPathId(pathId, system)
-      if (structure) return structure
+      if (structure) {
+        console.log(`✓ Found structure in fallback cache (${system}):`, structure.name, `for pathId:`, pathId)
+        return structure
+      }
     }
+    console.warn(`✗ Structure not found in cache for pathId: "${pathId}", visible systems:`, Array.from(visibleSystems))
     return undefined
   }
 
@@ -63,16 +70,25 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
         let groupElement = pathElement.parentElement as SVGGElement | null
         let groupId: string | null = null
 
-        // Walk up the DOM to find the first <g> with an ID
+        // Walk up the DOM to find a <g> with an ID that exists in our cache
+        // (Skip generic IDs like g123, g1511, etc. and find the actual bone group)
         while (groupElement && groupElement !== svg) {
           if (groupElement.tagName === 'g' || groupElement.tagName === 'G') {
-            groupId = groupElement.getAttribute('id')
-            if (groupId) break
+            const id = groupElement.getAttribute('id')
+            if (id && !id.match(/^g\d+$/)) {
+              // Found a non-generic ID (not just g followed by numbers)
+              groupId = id
+              console.log(`✓ Found anatomical group ID: "${groupId}"`)
+              break
+            }
           }
           groupElement = groupElement.parentElement as SVGGElement | null
         }
 
-        if (!groupId) return // Skip paths without a meaningful parent group ID
+        if (!groupId) {
+          console.log(`⚠ Skipping path - no anatomical parent group ID found (only found generic g### IDs)`)
+          return // Skip paths without a meaningful parent group ID
+        }
 
         pathElement.style.cursor = 'pointer'
         pathElement.style.transition = 'all 200ms ease'
