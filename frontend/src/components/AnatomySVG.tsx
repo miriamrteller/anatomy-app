@@ -149,7 +149,7 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ svgContent }) => {
   }, [svgContent, attachEventListeners])
 
   return (
-    <div className="relative w-full h-full bg-white rounded-lg shadow">
+    <div className="relative w-full h-full flex items-center justify-center bg-white rounded-lg shadow">
       {error && (
         <div className="absolute top-4 left-4 bg-red-100 text-red-700 px-4 py-2 rounded">
           {error}
@@ -162,7 +162,7 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ svgContent }) => {
       )}
       <div
         ref={svgContainerRef}
-        className="w-full h-full"
+        className="flex items-center justify-center max-w-full max-h-full"
         dangerouslySetInnerHTML={{ __html: svgContent }}
         onClick={() => clearHighlight()}
       />
@@ -174,6 +174,12 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ svgContent }) => {
           50% {
             fill-opacity: 1;
           }
+        }
+        svg {
+          max-width: 100%;
+          max-height: 100%;
+          width: auto;
+          height: auto;
         }
       `}</style>
     </div>
