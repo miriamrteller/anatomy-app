@@ -8,7 +8,7 @@ export function App(): React.ReactElement {
   const [svgContent, setSvgContent] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | null>(null)
-  const { isRightPanelOpen, toggleRightPanel, isPanelMinimized } = useAnatomyStore()
+  const { isPanelMinimized } = useAnatomyStore()
 
   useEffect(() => {
     fetch('/svgs/skeleton.svg')
@@ -36,7 +36,7 @@ export function App(): React.ReactElement {
         </div>
 
         {/* Main Content Area */}
-        <div className="flex-1 flex gap-4 relative">
+        <div className="flex-1 flex gap-4">
           {/* Left: SVG Canvas */}
           <div className="flex-1 flex flex-col gap-4">
             <div className="flex-1 bg-white rounded-lg shadow-md overflow-hidden">
@@ -47,25 +47,12 @@ export function App(): React.ReactElement {
             <LayerControls />
           </div>
 
-          {/* Right: Side Panel - Collapsible with width toggle */}
-          {isRightPanelOpen && (
-            <div className={`transition-all duration-300 ease-in-out fixed top-20 right-4 h-[calc(100vh-140px)] ${
-              isPanelMinimized ? 'w-16' : 'w-80'
-            } z-10`}>
-              <SidePanel />
-            </div>
-          )}
-          
-          {/* Collapse Button - Slides panel off screen */}
-          {!isRightPanelOpen && (
-            <button
-              onClick={toggleRightPanel}
-              className="fixed right-4 top-20 h-12 w-12 bg-blue-500 hover:bg-blue-600 text-white flex items-center justify-center transition z-20 rounded-lg shadow-lg"
-              title="Open sidebar"
-            >
-              &lt;
-            </button>
-          )}
+          {/* Right: Side Panel - Collapsible width */}
+          <div className={`transition-all duration-300 ease-in-out flex-shrink-0 overflow-hidden ${
+            isPanelMinimized ? 'w-16' : 'w-80'
+          }`}>
+            <SidePanel />
+          </div>
         </div>
       </div>
     </div>
