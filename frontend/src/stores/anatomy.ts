@@ -10,6 +10,8 @@ interface AnatomyStore {
   toggleRightPanel: () => void
   isPanelMinimized: boolean
   togglePanelMinimize: () => void
+  isLayerControlsMinimized: boolean
+  toggleLayerControlsMinimize: () => void
   visibleSystems: Set<SystemEnum>
   toggleSystem: (system: SystemEnum) => void
   showAllSystems: () => void
@@ -35,6 +37,10 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
   isPanelMinimized: false,
   togglePanelMinimize: () =>
     set((state) => ({ isPanelMinimized: !state.isPanelMinimized })),
+
+  isLayerControlsMinimized: false,
+  toggleLayerControlsMinimize: () =>
+    set((state) => ({ isLayerControlsMinimized: !state.isLayerControlsMinimized })),
 
   visibleSystems: new Set<SystemEnum>(Object.values(SystemEnum)),
   toggleSystem: (system: SystemEnum) =>
