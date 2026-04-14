@@ -39,7 +39,7 @@ export const SidePanel: React.FC<SidePanelProps> = () => {
                 <h2 className="text-lg font-bold text-gray-900">
                   {activeStructure.name}
                 </h2>
-                <p className="text-sm text-gray-600 italic">{activeStructure.latin_name}</p>
+                <p className="text-sm text-gray-600 italic">{activeStructure.latinName}</p>
               </div>
 
               <div className="border-t pt-3">
@@ -72,14 +72,16 @@ export const SidePanel: React.FC<SidePanelProps> = () => {
                 </div>
               )}
 
-              {activeStructure.svg_path_id && (
+              {activeStructure.svgPaths && activeStructure.svgPaths.length > 0 && (
                 <div className="border-t pt-3">
                   <h3 className="text-xs font-semibold text-gray-700 mb-2">
-                    SVG Path ID
+                    SVG Paths ({activeStructure.svgPaths.length})
                   </h3>
-                  <p className="text-gray-600 text-xs font-mono bg-gray-50 rounded p-2 break-all">
-                    {activeStructure.svg_path_id}
-                  </p>
+                  <div className="text-gray-600 text-xs font-mono bg-gray-50 rounded p-2 space-y-1">
+                    {activeStructure.svgPaths.map((path, idx) => (
+                      <p key={idx}>{path.id}</p>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>

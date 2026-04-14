@@ -1,7 +1,10 @@
 import { create } from 'zustand'
 import { Structure, SystemEnum } from '../types'
 
+type LoadingState = 'IDLE' | 'LOADING' | 'ERROR'
+
 interface AnatomyStore {
+  // Existing UI state
   selectedStructure: Structure | null
   setSelectedStructure: (structure: Structure | null) => void
   hoveredStructure: Structure | null
@@ -19,6 +22,19 @@ interface AnatomyStore {
   highlightedIds: Set<string>
   setHighlightedIds: (ids: Set<string>) => void
   clearHighlight: () => void
+
+  // NEW: Data caching fields
+  structures: Record<string, Structure[]>
+  setStructures: (system: SystemEnum, structures: Structure[]) => void
+
+  loadingState: Record<string, LoadingState>
+  setLoadingState: (system: SystemEnum, state: LoadingState) => void
+
+  svgPathToStructure: Record<string, Record<string, Structure>>
+  setSvgPathToStructure: (system: SystemEnum, map: Record<string, Structure>) => void
+
+  error: Record<string, string>
+  setError: (system: SystemEnum, error: string) => void
 }
 
 export const useAnatomyStore = create<AnatomyStore>((set) => ({
@@ -64,4 +80,41 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
     set({ highlightedIds: ids }),
 
   clearHighlight: () => set({ highlightedIds: new Set<string>() }),
+
+  // NEW: Data caching implementations
+  structures: {},
+  setStructures: (system: SystemEnum, structures: Structure[]) =>
+    set((state) => ({
+      structures: {
+        ...state.structures,
+        [system]: structures,
+      },
+    })),
+
+  loadingState: {},
+  setLoadingState: (system: SystemEnum, newLoadingState: LoadingState) =>
+    set((state) => ({
+      loadingState: {
+        ...state.loadingState,
+        [system]: newLoadingState,
+      },
+    })),
+
+  svgPathToStructure: {},
+  setSvgPathToStructure: (system: SystemEnum, map: Record<string, Structure>) =>
+    set((state) => ({
+      svgPathToStructure: {
+        ...state.svgPathToStructure,
+        [system]: map,
+      },
+    })),
+
+  error: {},
+  setError: (system: SystemEnum, errorMsg: string) =>
+    set((state) => ({
+      error: {
+        ...state.error,
+        [system]: errorMsg,
+      },
+    })),
 }))
