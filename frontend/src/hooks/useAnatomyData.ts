@@ -3,13 +3,12 @@ import { useAnatomyStore } from '../stores/anatomy'
 import { Structure, SystemEnum } from '../types'
 
 interface BulkResponse {
+  success: boolean
   data: Structure[]
-  pagination: {
-    total: number
-    limit: number
-    offset: number
-    hasMore: boolean
-  }
+  count: number
+  total: number
+  limit: number
+  offset: number
 }
 
 /**
