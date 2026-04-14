@@ -58,7 +58,7 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
   toggleLayerControlsMinimize: () =>
     set((state) => ({ isLayerControlsMinimized: !state.isLayerControlsMinimized })),
 
-  visibleSystems: new Set<SystemEnum>(Object.values(SystemEnum)),
+  visibleSystems: new Set<SystemEnum>([SystemEnum.SKELETAL]),
   toggleSystem: (system: SystemEnum) =>
     set((state) => {
       const newSet = new Set(state.visibleSystems)

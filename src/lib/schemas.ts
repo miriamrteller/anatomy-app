@@ -42,8 +42,8 @@ export const CreateStructureSchema = z.object({
 
 export const BulkStructureQuerySchema = z.object({
   system: SystemEnum.optional(),
-  limit: z.number().int().min(1).max(1000).default(100),
-  offset: z.number().int().min(0).default(0),
+  limit: z.coerce.number().int().min(1).max(1000).default(100),
+  offset: z.coerce.number().int().min(0).default(0),
 });
 
 export const SvgPathLookupSchema = z.object({

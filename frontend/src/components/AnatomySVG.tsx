@@ -58,10 +58,22 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
       const paths = svg.querySelectorAll('path[id]')
 
       paths.forEach((path) => {
-        const pathId = path.getAttribute('id')
-        if (!pathId) return
-
+        // Get the meaningful ID from parent <g> element, not the path itself
         const pathElement = path as SVGPathElement
+        let groupElement = pathElement.parentElement as SVGGElement | null
+        let groupId: string | null = null
+
+        // Walk up the DOM to find the first <g> with an ID
+        while (groupElement && groupElement !== svg) {
+          if (groupElement.tagName === 'g' || groupElement.tagName === 'G') {
+            groupId = groupElement.getAttribute('id')
+            if (groupId) break
+          }
+          groupElement = groupElement.parentElement as SVGGElement | null
+        }
+
+        if (!groupId) return // Skip paths without a meaningful parent group ID
+
         pathElement.style.cursor = 'pointer'
         pathElement.style.transition = 'all 200ms ease'
         pathElement.style.transformOrigin = 'center'
@@ -70,19 +82,20 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
         const newPath = pathElement.cloneNode(true) as SVGPathElement
         pathElement.parentNode?.replaceChild(newPath, pathElement)
 
+        const pathId = newPath.getAttribute('id')
         const updatedPath = svg.querySelector(`path[id="${pathId}"]`) as SVGPathElement
         if (!updatedPath) return
 
-        // INSTANT: mouseenter - lookup from cache (no API call)
+        // INSTANT: mouseenter - lookup from cache using parent group ID (no API call)
         updatedPath.addEventListener('mouseenter', () => {
           updatedPath.style.fillOpacity = '0.8'
           updatedPath.style.filter = 'drop-shadow(0 0 8px rgba(59, 130, 246, 0.5))'
-          
-          const structure = getStructureFromCache(pathId)
+
+          const structure = getStructureFromCache(groupId)
           if (structure) {
             setHoveredStructure(structure)
           } else {
-            console.warn(`Structure not found for path ID: ${pathId}`)
+            console.warn(`Structure not found for group ID: ${groupId}`)
           }
         })
 
@@ -93,15 +106,15 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
           setHoveredStructure(null)
         })
 
-        // INSTANT: click - lookup from cache (no API call)
+        // INSTANT: click - lookup from cache using parent group ID (no API call)
         updatedPath.addEventListener('click', (e) => {
           e.stopPropagation()
-          
-          const structure = getStructureFromCache(pathId)
+
+          const structure = getStructureFromCache(groupId)
           if (structure) {
             setSelectedStructure(structure)
           } else {
-            setError(`Structure not found for: ${pathId}`)
+            setError(`Structure not found for: ${groupId}`)
             setSelectedStructure(null)
           }
         })
