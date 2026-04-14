@@ -8,18 +8,39 @@ datasource db {
 }
 
 model Structure {
-  id          String   @id @default(uuid()) @db.Uuid
-  name        String
-  latinName   String   @map("latin_name")
-  system      System
-  coordinates Json?
-  svgPathId   String?  @map("svg_path_id")
-  description String
-  embedding   Unsupported("vector(1536)")?
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
+  id              String                @id @default(uuid()) @db.Uuid
+  name            String
+  latinName       String                @map("latin_name")
+  system          System
+  category        StructureCategory
+  svgPaths        Json                  @default("[]")
+  coordinates     Json?
+  svgPathId       String?               @map("svg_path_id")
+  aliases         String[]              @default([])
+  hierarchyParent String?               @map("hierarchy_parent") @db.Uuid
+  metadata        Json?
+  description     String
+  embedding       Unsupported("vector(1536)")?
+  createdAt       DateTime              @default(now()) @map("created_at")
+  updatedAt       DateTime              @updatedAt @map("updated_at")
 
+  @@index([svgPathId])
+  @@index([system])
+  @@index([category])
   @@map("structures")
+}
+
+enum StructureCategory {
+  BONE
+  CARTILAGE
+  LIGAMENT
+  MUSCLE
+  TENDON
+  ORGAN
+  VASCULAR_VESSEL
+  NERVE
+  LYMPH_NODE
+  TISSUE
 }
 
 enum System {
