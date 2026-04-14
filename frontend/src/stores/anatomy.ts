@@ -4,6 +4,8 @@ import { Structure, SystemEnum } from '../types'
 interface AnatomyStore {
   selectedStructure: Structure | null
   setSelectedStructure: (structure: Structure | null) => void
+  hoveredStructure: Structure | null
+  setHoveredStructure: (structure: Structure | null) => void
   visibleSystems: Set<SystemEnum>
   toggleSystem: (system: SystemEnum) => void
   showAllSystems: () => void
@@ -17,6 +19,10 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
   selectedStructure: null,
   setSelectedStructure: (structure: Structure | null) =>
     set({ selectedStructure: structure }),
+
+  hoveredStructure: null,
+  setHoveredStructure: (structure: Structure | null) =>
+    set({ hoveredStructure: structure }),
 
   visibleSystems: new Set<SystemEnum>(Object.values(SystemEnum)),
   toggleSystem: (system: SystemEnum) =>

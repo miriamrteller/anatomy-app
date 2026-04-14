@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { useAnatomyStore } from '../stores/anatomy'
 import { Structure } from '../types'
 
@@ -7,38 +7,69 @@ interface AnatomySVGProps {
 }
 
 export const AnatomySVG: React.FC<AnatomySVGProps> = ({ svgContent }) => {
-  const [hoveredId, setHoveredId] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
 
   const {
     setSelectedStructure,
+    setHoveredStructure,
     visibleSystems,
     highlightedIds,
     clearHighlight,
   } = useAnatomyStore()
 
+  const fetchStructureData = useCallback(
+    async (pathId: string): Promise<Structure | null> => {
+      try {
+        const response = await fetch(
+          `/api/structures?svg_path_id=${encodeURIComponent(pathId)}`
+        )
+        if (!response.ok) {
+          throw new Error('Failed to fetch structure')
+        }
+        const data: Structure[] = await response.json()
+        return data && data.length > 0 ? data[0] : null
+      } catch (err) {
+        const errorMessage = err instanceof Error ? err.message : 'Unknown error'
+        setError(errorMessage)
+        return null
+      }
+    },
+    []
+  )
+
+  const handlePathMouseEnter = async (
+    pathId: string,
+    element: SVGPathElement
+  ): Promise<void> => {
+    // Visual feedback: scale and highlight
+    element.style.fillOpacity = '0.8'
+    element.style.filter = 'drop-shadow(0 0 8px rgba(59, 130, 246, 0.5))'
+
+    // Fetch and display bone data on hover
+    const structure = await fetchStructureData(pathId)
+    if (structure) {
+      setHoveredStructure(structure)
+    }
+  }
+
+  const handlePathMouseLeave = (element: SVGPathElement): void => {
+    element.style.fillOpacity = '0.5'
+    element.style.filter = 'none'
+    setHoveredStructure(null)
+  }
+
   const handlePathClick = async (pathId: string): Promise<void> => {
     setIsLoading(true)
     setError(null)
     try {
-      const response = await fetch(
-        `/api/structures?svg_path_id=${encodeURIComponent(pathId)}`
-      )
-      if (!response.ok) {
-        throw new Error('Failed to fetch structure')
-      }
-      const data: Structure[] = await response.json()
-      if (data && data.length > 0) {
-        setSelectedStructure(data[0])
+      const structure = await fetchStructureData(pathId)
+      if (structure) {
+        setSelectedStructure(structure)
       } else {
         setError('Structure not found')
         setSelectedStructure(null)
       }
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Unknown error'
-      setError(errorMessage)
-      setSelectedStructure(null)
     } finally {
       setIsLoading(false)
     }
@@ -52,16 +83,17 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ svgContent }) => {
       const pathId = path.getAttribute('id')
       if (pathId) {
         path.style.cursor = 'pointer'
+        path.style.transition = 'all 200ms ease'
+        path.style.transformOrigin = 'center'
+
+        const pathElement = path as SVGPathElement
 
         path.addEventListener('mouseenter', () => {
-          setHoveredId(pathId)
-          path.style.fillOpacity = '0.7'
-          path.style.transition = 'fill-opacity 200ms ease'
+          void handlePathMouseEnter(pathId, pathElement)
         })
 
         path.addEventListener('mouseleave', () => {
-          setHoveredId(null)
-          path.style.fillOpacity = highlightedIds.has(pathId) ? '0.8' : '0.5'
+          handlePathMouseLeave(pathElement)
         })
 
         path.addEventListener('click', (e) => {
@@ -101,18 +133,13 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ svgContent }) => {
       const paths = svg.querySelectorAll('path')
       paths.forEach((path) => {
         const pathId = path.getAttribute('id')
-        if (pathId) {
-          if (highlightedIds.has(pathId)) {
-            path.style.animation = 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
-            path.style.fillOpacity = '0.8'
-          } else {
-            path.style.animation = 'none'
-            path.style.fillOpacity = hoveredId === pathId ? '0.7' : '0.5'
-          }
+        if (pathId && highlightedIds.has(pathId)) {
+          path.style.animation = 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+          path.style.fillOpacity = '0.8'
         }
       })
     }
-  }, [highlightedIds, hoveredId])
+  }, [highlightedIds])
 
   return (
     <div className="relative w-full h-full bg-white rounded-lg shadow">
