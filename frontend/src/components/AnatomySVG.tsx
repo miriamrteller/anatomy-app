@@ -1,13 +1,13 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react'
 import { useAnatomyStore } from '../stores/anatomy'
-import { Structure } from '../types'
+import { Structure, SystemEnum } from '../types'
 
 interface AnatomySVGProps {
-  svgContent: string
+  systems: Record<SystemEnum, string>
 }
 
-export const AnatomySVG: React.FC<AnatomySVGProps> = ({ svgContent }) => {
-  const svgContainerRef = useRef<HTMLDivElement>(null)
+export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
+  const svgRefsMap = useRef<Record<SystemEnum, HTMLDivElement | null>>({} as any)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -40,69 +40,73 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ svgContent }) => {
   )
 
   const attachEventListeners = useCallback((): void => {
-    if (!svgContainerRef.current) return
+    // Attach listeners to all visible system SVGs
+    Object.values(SystemEnum).forEach((system) => {
+      const systemContainer = svgRefsMap.current[system]
+      if (!systemContainer) return
 
-    const svg = svgContainerRef.current.querySelector('svg')
-    if (!svg) return
+      const svg = systemContainer.querySelector('svg')
+      if (!svg) return
 
-    const paths = svg.querySelectorAll('path[id]')
-    
-    paths.forEach((path) => {
-      const pathId = path.getAttribute('id')
-      if (!pathId) return
+      const paths = svg.querySelectorAll('path[id]')
 
-      const pathElement = path as SVGPathElement
-      pathElement.style.cursor = 'pointer'
-      pathElement.style.transition = 'all 200ms ease'
-      pathElement.style.transformOrigin = 'center'
+      paths.forEach((path) => {
+        const pathId = path.getAttribute('id')
+        if (!pathId) return
 
-      // Clone to remove old listeners
-      const newPath = pathElement.cloneNode(true) as SVGPathElement
-      pathElement.parentNode?.replaceChild(newPath, pathElement)
+        const pathElement = path as SVGPathElement
+        pathElement.style.cursor = 'pointer'
+        pathElement.style.transition = 'all 200ms ease'
+        pathElement.style.transformOrigin = 'center'
 
-      const updatedPath = svg.querySelector(`path[id="${pathId}"]`) as SVGPathElement
-      if (!updatedPath) return
+        // Clone to remove old listeners
+        const newPath = pathElement.cloneNode(true) as SVGPathElement
+        pathElement.parentNode?.replaceChild(newPath, pathElement)
 
-      updatedPath.addEventListener('mouseenter', async () => {
-        updatedPath.style.fillOpacity = '0.8'
-        updatedPath.style.filter = 'drop-shadow(0 0 8px rgba(59, 130, 246, 0.5))'
-        const structure = await fetchStructureData(pathId)
-        if (structure) {
-          setHoveredStructure(structure)
-        }
-      })
+        const updatedPath = svg.querySelector(`path[id="${pathId}"]`) as SVGPathElement
+        if (!updatedPath) return
 
-      updatedPath.addEventListener('mouseleave', () => {
-        updatedPath.style.fillOpacity = '0.5'
-        updatedPath.style.filter = 'none'
-        setHoveredStructure(null)
-      })
-
-      updatedPath.addEventListener('click', async (e) => {
-        e.stopPropagation()
-        setIsLoading(true)
-        setError(null)
-        try {
-          const response = await fetch(
-            `/api/structures?svg_path_id=${encodeURIComponent(pathId)}`
-          )
-          if (!response.ok) {
-            throw new Error('Failed to fetch structure')
+        updatedPath.addEventListener('mouseenter', async () => {
+          updatedPath.style.fillOpacity = '0.8'
+          updatedPath.style.filter = 'drop-shadow(0 0 8px rgba(59, 130, 246, 0.5))'
+          const structure = await fetchStructureData(pathId)
+          if (structure) {
+            setHoveredStructure(structure)
           }
-          const data: Structure[] = await response.json()
-          if (data && data.length > 0) {
-            setSelectedStructure(data[0])
-          } else {
-            setError('Structure not found')
+        })
+
+        updatedPath.addEventListener('mouseleave', () => {
+          updatedPath.style.fillOpacity = '0.5'
+          updatedPath.style.filter = 'none'
+          setHoveredStructure(null)
+        })
+
+        updatedPath.addEventListener('click', async (e) => {
+          e.stopPropagation()
+          setIsLoading(true)
+          setError(null)
+          try {
+            const response = await fetch(
+              `/api/structures?svg_path_id=${encodeURIComponent(pathId)}`
+            )
+            if (!response.ok) {
+              throw new Error('Failed to fetch structure')
+            }
+            const data: Structure[] = await response.json()
+            if (data && data.length > 0) {
+              setSelectedStructure(data[0])
+            } else {
+              setError('Structure not found')
+              setSelectedStructure(null)
+            }
+          } catch (err) {
+            const errorMessage = err instanceof Error ? err.message : 'Unknown error'
+            setError(errorMessage)
             setSelectedStructure(null)
+          } finally {
+            setIsLoading(false)
           }
-        } catch (err) {
-          const errorMessage = err instanceof Error ? err.message : 'Unknown error'
-          setError(errorMessage)
-          setSelectedStructure(null)
-        } finally {
-          setIsLoading(false)
-        }
+        })
       })
     })
   }, [fetchStructureData, setSelectedStructure, setHoveredStructure])
@@ -113,26 +117,34 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ svgContent }) => {
     return visibleSystems.has(dataSystem as any)
   }
 
-  const updatePathVisibility = (event: React.SyntheticEvent<SVGSVGElement>): void => {
-    const svg = event.currentTarget
-    const paths = svg.querySelectorAll('path')
+  const updatePathVisibility = (): void => {
+    Object.values(SystemEnum).forEach((system) => {
+      const systemContainer = svgRefsMap.current[system]
+      if (!systemContainer) return
 
-    paths.forEach((path) => {
-      const isVisible = isSystemVisible(path)
-      path.style.visibility = isVisible ? 'visible' : 'hidden'
+      const svg = systemContainer.querySelector('svg')
+      if (!svg) return
+
+      const paths = svg.querySelectorAll('path')
+      paths.forEach((path) => {
+        const isVisible = isSystemVisible(path)
+        path.style.visibility = isVisible ? 'visible' : 'hidden'
+      })
     })
   }
 
   React.useEffect(() => {
-    const svg = document.querySelector('svg')
-    if (svg) {
-      updatePathVisibility({ currentTarget: svg } as any)
-    }
+    updatePathVisibility()
   }, [visibleSystems])
 
   React.useEffect(() => {
-    const svg = document.querySelector('svg')
-    if (svg) {
+    Object.values(SystemEnum).forEach((system) => {
+      const systemContainer = svgRefsMap.current[system]
+      if (!systemContainer) return
+
+      const svg = systemContainer.querySelector('svg')
+      if (!svg) return
+
       const paths = svg.querySelectorAll('path')
       paths.forEach((path) => {
         const pathId = path.getAttribute('id')
@@ -141,31 +153,52 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ svgContent }) => {
           path.style.fillOpacity = '0.8'
         }
       })
-    }
+    })
   }, [highlightedIds])
 
   useEffect(() => {
     attachEventListeners()
-  }, [svgContent, attachEventListeners])
+  }, [systems, attachEventListeners])
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center bg-white rounded-lg shadow">
+    <div className="relative w-full h-full bg-white rounded-lg shadow">
       {error && (
-        <div className="absolute top-4 left-4 bg-red-100 text-red-700 px-4 py-2 rounded">
+        <div className="absolute top-4 left-4 bg-red-100 text-red-700 px-4 py-2 rounded z-50">
           {error}
         </div>
       )}
       {isLoading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-10 rounded-lg">
+        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-10 rounded-lg z-40">
           <div className="text-gray-600">Loading...</div>
         </div>
       )}
-      <div
-        ref={svgContainerRef}
-        className="flex items-center justify-center max-w-full max-h-full"
-        dangerouslySetInnerHTML={{ __html: svgContent }}
-        onClick={() => clearHighlight()}
-      />
+
+      {/* Main SVG container - render all systems as overlays */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        {Object.entries(systems).map(([system]) => (
+          <div
+            key={system}
+            ref={(el) => {
+              if (el) svgRefsMap.current[system as SystemEnum] = el
+            }}
+            className="relative flex items-center justify-center"
+            style={{
+              width: '100%',
+              height: '100%',
+              opacity: visibleSystems.has(system as SystemEnum) ? 1 : 0,
+              pointerEvents: visibleSystems.has(system as SystemEnum) ? 'auto' : 'none',
+              transition: 'opacity 200ms ease',
+            }}
+          >
+            <div
+              className="w-full h-full flex items-center justify-center"
+              dangerouslySetInnerHTML={{ __html: systems[system as SystemEnum] }}
+              onClick={() => clearHighlight()}
+            />
+          </div>
+        ))}
+      </div>
+
       <style>{`
         @keyframes pulse {
           0%, 100% {
@@ -180,6 +213,10 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ svgContent }) => {
           max-height: 100%;
           width: auto;
           height: auto;
+          object-fit: contain;
+        }
+        path {
+          pointer-events: auto;
         }
       `}</style>
     </div>
