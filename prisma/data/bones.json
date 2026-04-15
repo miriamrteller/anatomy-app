@@ -1,8 +1,11 @@
 [
   {
-    "name": "Femur Right",
-    "latinName": "Femur Right",
-    "aliases": [],
+    "name": "Femur",
+    "latinName": "Os femoris",
+    "aliases": [
+      "Thigh bone",
+      "Thighbone"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -10,16 +13,26 @@
         "FemurRight"
       ]
     },
-    "description": "Femur Right from the skeletal system.",
+    "description": "The femur is the longest, heaviest, and strongest bone in the human body. It extends from the pelvis to the knee, bearing the weight of the upper body during standing and movement.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Long",
+      "region": "Lower limb",
+      "side": "Right",
+      "length": "45-50 cm",
+      "articulations": [
+        "Hip joint (acetabulum)",
+        "Knee joint (tibia, patella)"
+      ],
+      "innervation": "Femoral nerve, Sciatic nerve",
+      "bloodSupply": "Femoral artery, Profunda femoris artery"
     }
   },
   {
-    "name": "Foot Left",
-    "latinName": "Foot Left",
-    "aliases": [],
+    "name": "Foot (Left)",
+    "latinName": "Pes sinister",
+    "aliases": [
+      "Left foot"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -27,16 +40,29 @@
         "FootLeft"
       ]
     },
-    "description": "Foot Left from the skeletal system.",
+    "description": "The foot is a complex structure consisting of 26 bones that support the body weight and enable walking and running.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Multiple",
+      "region": "Lower limb",
+      "side": "Left",
+      "boneCount": 26,
+      "components": [
+        "7 tarsal bones",
+        "5 metatarsal bones",
+        "14 phalanges"
+      ],
+      "articulations": [
+        "Tibia",
+        "Fibula"
+      ]
     }
   },
   {
-    "name": "Tarsals Left",
-    "latinName": "Tarsals Left",
-    "aliases": [],
+    "name": "Tarsal Bones (Left)",
+    "latinName": "Ossa tarsi",
+    "aliases": [
+      "Ankle bones"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -44,16 +70,27 @@
         "TarsalsLeft"
       ]
     },
-    "description": "Tarsals Left from the skeletal system.",
+    "description": "The tarsal bones are seven short bones in the ankle that form the foundation of the foot and transfer weight from the leg to the foot.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Short",
+      "region": "Lower limb",
+      "side": "Left",
+      "count": 7,
+      "bones": [
+        "Talus",
+        "Calcaneus",
+        "Navicular",
+        "Cuneiforms (3)",
+        "Cuboid"
+      ]
     }
   },
   {
-    "name": "Metatarsals Left",
-    "latinName": "Metatarsals Left",
-    "aliases": [],
+    "name": "Metatarsal Bones (Left)",
+    "latinName": "Ossa metatarsalia",
+    "aliases": [
+      "Foot long bones"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -61,16 +98,21 @@
         "MetatarsalsLeft"
       ]
     },
-    "description": "Metatarsals Left from the skeletal system.",
+    "description": "The metatarsals are five long bones in the mid-foot that form the sole of the foot and connect the ankle to the toes.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Long",
+      "region": "Lower limb",
+      "side": "Left",
+      "count": 5,
+      "function": "Form mid-foot structure"
     }
   },
   {
-    "name": "Phalanges Foot Left",
-    "latinName": "Phalanges Foot Left",
-    "aliases": [],
+    "name": "Phalanges (Left Foot)",
+    "latinName": "Phalanges pedis",
+    "aliases": [
+      "Toe bones"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -78,16 +120,21 @@
         "PhalangesFootLeft"
       ]
     },
-    "description": "Phalanges Foot Left from the skeletal system.",
+    "description": "The phalanges are the small bones that form the toes. There are 14 phalanges in each foot (2 in the big toe, 3 in each other toe).",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Long",
+      "region": "Lower limb",
+      "side": "Left",
+      "count": 14,
+      "distribution": "2 proximal, 2 middle, 2 distal (x5) + 1 distal (hallux)"
     }
   },
   {
-    "name": "Foot Right",
-    "latinName": "Foot Right",
-    "aliases": [],
+    "name": "Foot (Right)",
+    "latinName": "Pes dexter",
+    "aliases": [
+      "Right foot"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -95,16 +142,29 @@
         "FootRight"
       ]
     },
-    "description": "Foot Right from the skeletal system.",
+    "description": "The foot is a complex structure consisting of 26 bones that support the body weight and enable walking and running.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Multiple",
+      "region": "Lower limb",
+      "side": "Right",
+      "boneCount": 26,
+      "components": [
+        "7 tarsal bones",
+        "5 metatarsal bones",
+        "14 phalanges"
+      ],
+      "articulations": [
+        "Tibia",
+        "Fibula"
+      ]
     }
   },
   {
-    "name": "Tarsals Right",
-    "latinName": "Tarsals Right",
-    "aliases": [],
+    "name": "Tarsal Bones (Right)",
+    "latinName": "Ossa tarsi",
+    "aliases": [
+      "Ankle bones"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -112,16 +172,27 @@
         "TarsalsRight"
       ]
     },
-    "description": "Tarsals Right from the skeletal system.",
+    "description": "The tarsal bones are seven short bones in the ankle that form the foundation of the foot and transfer weight from the leg to the foot.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Short",
+      "region": "Lower limb",
+      "side": "Right",
+      "count": 7,
+      "bones": [
+        "Talus",
+        "Calcaneus",
+        "Navicular",
+        "Cuneiforms (3)",
+        "Cuboid"
+      ]
     }
   },
   {
-    "name": "Metatarsals Right",
-    "latinName": "Metatarsals Right",
-    "aliases": [],
+    "name": "Metatarsal Bones (Right)",
+    "latinName": "Ossa metatarsalia",
+    "aliases": [
+      "Foot long bones"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -129,16 +200,21 @@
         "MetatarsalsRight"
       ]
     },
-    "description": "Metatarsals Right from the skeletal system.",
+    "description": "The metatarsals are five long bones in the mid-foot that form the sole of the foot and connect the ankle to the toes.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Long",
+      "region": "Lower limb",
+      "side": "Right",
+      "count": 5,
+      "function": "Form mid-foot structure"
     }
   },
   {
-    "name": "Phalanges Foot Right",
-    "latinName": "Phalanges Foot Right",
-    "aliases": [],
+    "name": "Phalanges (Right Foot)",
+    "latinName": "Phalanges pedis",
+    "aliases": [
+      "Toe bones"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -146,16 +222,22 @@
         "PhalangesFootRight"
       ]
     },
-    "description": "Phalanges Foot Right from the skeletal system.",
+    "description": "The phalanges are the small bones that form the toes. There are 14 phalanges in each foot (2 in the big toe, 3 in each other toe).",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Long",
+      "region": "Lower limb",
+      "side": "Right",
+      "count": 14,
+      "distribution": "2 proximal, 2 middle, 2 distal (x5) + 1 distal (hallux)"
     }
   },
   {
-    "name": "Fibula Right",
-    "latinName": "Fibula Right",
-    "aliases": [],
+    "name": "Fibula",
+    "latinName": "Fibula",
+    "aliases": [
+      "Smaller bone of leg",
+      "Calf bone"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -163,16 +245,26 @@
         "FibulaRight"
       ]
     },
-    "description": "Fibula Right from the skeletal system.",
+    "description": "The fibula is the smaller and thinner of the two bones in the lower leg, situated on the lateral (outer) side. It does not bear significant weight.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Long",
+      "region": "Lower limb",
+      "side": "Right",
+      "articulations": [
+        "Tibia (tibiofibular joint)",
+        "Talus (ankle)"
+      ],
+      "innervation": "Common fibular nerve",
+      "bloodSupply": "Fibular artery"
     }
   },
   {
-    "name": "Tibia Right",
-    "latinName": "Tibia Right",
-    "aliases": [],
+    "name": "Tibia",
+    "latinName": "Tibia",
+    "aliases": [
+      "Shin bone",
+      "Shinbone"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -180,16 +272,30 @@
         "TibiaRight"
       ]
     },
-    "description": "Tibia Right from the skeletal system.",
+    "description": "The tibia is the larger and stronger of the two bones in the lower leg, located on the medial (inner) side. It bears most of the weight of the leg.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Long",
+      "region": "Lower limb",
+      "side": "Right",
+      "articulations": [
+        "Femur (knee)",
+        "Fibula (tibiofibular joint)",
+        "Talus (ankle)"
+      ],
+      "innervation": "Tibial nerve",
+      "landmarks": [
+        "Tibial tuberosity",
+        "Medial malleolus"
+      ]
     }
   },
   {
-    "name": "Femur Left",
-    "latinName": "Femur Left",
-    "aliases": [],
+    "name": "Femur",
+    "latinName": "Os femoris",
+    "aliases": [
+      "Thigh bone",
+      "Thighbone"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -197,16 +303,27 @@
         "FemurLeft"
       ]
     },
-    "description": "Femur Left from the skeletal system.",
+    "description": "The femur is the longest, heaviest, and strongest bone in the human body. It extends from the pelvis to the knee, bearing the weight of the upper body during standing and movement.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Long",
+      "region": "Lower limb",
+      "side": "Left",
+      "length": "45-50 cm",
+      "articulations": [
+        "Hip joint (acetabulum)",
+        "Knee joint (tibia, patella)"
+      ],
+      "innervation": "Femoral nerve, Sciatic nerve",
+      "bloodSupply": "Femoral artery, Profunda femoris artery"
     }
   },
   {
-    "name": "Pelvic Girdle",
-    "latinName": "Pelvic Girdle",
-    "aliases": [],
+    "name": "Pelvis",
+    "latinName": "Pelvis",
+    "aliases": [
+      "Hip girdle",
+      "Pelvic girdle"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -214,16 +331,30 @@
         "PelvicGirdle"
       ]
     },
-    "description": "Pelvic Girdle from the skeletal system.",
+    "description": "The pelvis is a large bony structure formed by the fusion of several bones that connect the vertebral column to the femurs. It protects reproductive and digestive organs.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Irregular",
+      "region": "Trunk",
+      "components": [
+        "Ilium",
+        "Ischium",
+        "Pubis",
+        "Sacrum"
+      ],
+      "articulations": [
+        "Lumbar spine",
+        "Femurs",
+        "Coccyx"
+      ],
+      "function": "Support organs, weight bearing"
     }
   },
   {
     "name": "Scapula",
     "latinName": "Scapula",
-    "aliases": [],
+    "aliases": [
+      "Shoulder blade"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -231,16 +362,28 @@
         "Scapula"
       ]
     },
-    "description": "Scapula from the skeletal system.",
+    "description": "The scapula is a flat triangular bone on the back of the shoulder. It articulates with the humerus and clavicle to form the shoulder joint.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Irregular",
+      "region": "Upper limb",
+      "articulations": [
+        "Humerus (shoulder joint)",
+        "Clavicle"
+      ],
+      "innervation": "Suprascapular nerve",
+      "landmarks": [
+        "Acromion",
+        "Coracoid process",
+        "Scapular spine"
+      ]
     }
   },
   {
     "name": "Coccyx",
-    "latinName": "Coccyx",
-    "aliases": [],
+    "latinName": "Os coccygis",
+    "aliases": [
+      "Tailbone"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -248,16 +391,24 @@
         "Coccyx"
       ]
     },
-    "description": "Coccyx from the skeletal system.",
+    "description": "The coccyx is a small triangular bone at the base of the spinal column, formed from three to five fused coccygeal vertebrae. It serves as an attachment point for muscles and ligaments.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Irregular",
+      "region": "Spine",
+      "fusedVertebrae": "3-5",
+      "articulations": [
+        "Sacrum"
+      ],
+      "innervation": "Coccygeal plexus"
     }
   },
   {
     "name": "Sacrum",
-    "latinName": "Sacrum",
-    "aliases": [],
+    "latinName": "Os sacrum",
+    "aliases": [
+      "Sacral bone",
+      "Lower spine base"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -265,16 +416,26 @@
         "Sacrum"
       ]
     },
-    "description": "Sacrum from the skeletal system.",
+    "description": "The sacrum is a large triangular bone formed by the fusion of five sacral vertebrae. It forms the base of the spine and articulates with the pelvis.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Irregular",
+      "region": "Spine",
+      "fusedVertebrae": 5,
+      "articulations": [
+        "Lumbar spine (L5)",
+        "Coccyx",
+        "Pelvic girdle"
+      ],
+      "foramen": "Sacral foramina"
     }
   },
   {
     "name": "Lumbar Vertebrae",
-    "latinName": "Lumbar Vertebrae",
-    "aliases": [],
+    "latinName": "Vertebrae lumbales",
+    "aliases": [
+      "Lower back vertebrae",
+      "L1-L5"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -282,16 +443,22 @@
         "LumbarVertebrae"
       ]
     },
-    "description": "Lumbar Vertebrae from the skeletal system.",
+    "description": "The lumbar vertebrae are the five vertebrae of the lower back. They are the largest and strongest vertebrae, designed to support the weight of the upper body.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Irregular",
+      "region": "Spine",
+      "count": 5,
+      "range": "L1-L5",
+      "function": "Support weight of upper body"
     }
   },
   {
     "name": "Thoracic Vertebrae",
-    "latinName": "Thoracic Vertebrae",
-    "aliases": [],
+    "latinName": "Vertebrae thoracicae",
+    "aliases": [
+      "Mid-back vertebrae",
+      "T1-T12"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -299,16 +466,22 @@
         "ThoracicVertebrae"
       ]
     },
-    "description": "Thoracic Vertebrae from the skeletal system.",
+    "description": "The thoracic vertebrae are the 12 vertebrae of the mid-back. They articulate with the ribs and have heart-shaped bodies.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Irregular",
+      "region": "Spine",
+      "count": 12,
+      "range": "T1-T12",
+      "ribArticulations": 12
     }
   },
   {
     "name": "Cervical Vertebrae",
-    "latinName": "Cervical Vertebrae",
-    "aliases": [],
+    "latinName": "Vertebrae cervicales",
+    "aliases": [
+      "Neck vertebrae",
+      "C3-C7"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -316,16 +489,22 @@
         "CervicalVertebrae"
       ]
     },
-    "description": "Cervical Vertebrae from the skeletal system.",
+    "description": "The cervical vertebrae are the seven vertebrae of the neck. They are the smallest vertebrae and allow for a wide range of head and neck movements.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Irregular",
+      "region": "Spine",
+      "count": 7,
+      "range": "C1-C7",
+      "function": "Support head, allow neck movement"
     }
   },
   {
     "name": "Skull",
-    "latinName": "Skull",
-    "aliases": [],
+    "latinName": "Cranium",
+    "aliases": [
+      "Cranial bones",
+      "Braincase"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -333,16 +512,26 @@
         "Skull"
       ]
     },
-    "description": "Skull from the skeletal system.",
+    "description": "The skull is a bony structure that forms the head of the skeleton. It protects the brain and other sensitive structures, including the eyes, ears, and nasal passages. The skull consists of 22 bones in adults, including the cranium and mandible.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Irregular",
+      "region": "Head",
+      "boneCount": 22,
+      "articulations": [
+        "Vertebral column",
+        "Mandible",
+        "Hyoid"
+      ],
+      "innervation": "Trigeminal nerve, Facial nerve"
     }
   },
   {
     "name": "Mandible",
-    "latinName": "Mandible",
-    "aliases": [],
+    "latinName": "Mandibula",
+    "aliases": [
+      "Lower jaw",
+      "Jawbone"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -350,16 +539,27 @@
         "Mandible"
       ]
     },
-    "description": "Mandible from the skeletal system.",
+    "description": "The mandible is the lower jawbone and the only movable bone of the skull. It articulates with the skull at the temporomandibular joint and supports the lower teeth.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Irregular",
+      "region": "Head",
+      "articulations": [
+        "Temporal bone (TMJ)"
+      ],
+      "landmarks": [
+        "Condyle",
+        "Coronoid process",
+        "Mental foramen"
+      ]
     }
   },
   {
     "name": "Cranium",
-    "latinName": "Cranium",
-    "aliases": [],
+    "latinName": "Neurocranium",
+    "aliases": [
+      "Braincase",
+      "Brain box"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -367,16 +567,25 @@
         "Cranium"
       ]
     },
-    "description": "Cranium from the skeletal system.",
+    "description": "The cranium is the portion of the skull that encloses and protects the brain. It consists of eight bones: the frontal, two parietals, two temporals, occipital, sphenoid, and ethmoid.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Irregular",
+      "region": "Head",
+      "boneCount": 8,
+      "foramina": [
+        "Foramen magnum",
+        "Optic foramen",
+        "Foramen ovale"
+      ]
     }
   },
   {
     "name": "Manubrium",
-    "latinName": "Manubrium",
-    "aliases": [],
+    "latinName": "Manubrium sterni",
+    "aliases": [
+      "Upper sternum",
+      "Manubrium"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -384,16 +593,24 @@
         "Manubrium"
       ]
     },
-    "description": "Manubrium from the skeletal system.",
+    "description": "The manubrium is the broad upper portion of the sternum that articulates with the clavicles and first pair of ribs.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Flat",
+      "region": "Trunk",
+      "sternumPart": "Superior",
+      "articulations": [
+        "Clavicles",
+        "First ribs",
+        "Sternum body"
+      ]
     }
   },
   {
-    "name": "Clavicle Right",
-    "latinName": "Clavicle Right",
-    "aliases": [],
+    "name": "Clavicle",
+    "latinName": "Clavicula",
+    "aliases": [
+      "Collarbone"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -401,16 +618,24 @@
         "ClavicleRight"
       ]
     },
-    "description": "Clavicle Right from the skeletal system.",
+    "description": "The clavicle is a long slender bone that connects the sternum to the scapula, forming the anterior part of the shoulder girdle.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Long",
+      "region": "Upper limb",
+      "side": "Right",
+      "articulations": [
+        "Sternum (sternoclavicular joint)",
+        "Scapula (acromioclavicular joint)"
+      ],
+      "innervation": "Supraclavicular nerve"
     }
   },
   {
-    "name": "Clavicle Left",
-    "latinName": "Clavicle Left",
-    "aliases": [],
+    "name": "Clavicle",
+    "latinName": "Clavicula",
+    "aliases": [
+      "Collarbone"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -418,16 +643,24 @@
         "ClavicleLeft"
       ]
     },
-    "description": "Clavicle Left from the skeletal system.",
+    "description": "The clavicle is a long slender bone that connects the sternum to the scapula, forming the anterior part of the shoulder girdle.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Long",
+      "region": "Upper limb",
+      "side": "Left",
+      "articulations": [
+        "Sternum (sternoclavicular joint)",
+        "Scapula (acromioclavicular joint)"
+      ],
+      "innervation": "Supraclavicular nerve"
     }
   },
   {
-    "name": "Humerus Left",
-    "latinName": "Humerus Left",
-    "aliases": [],
+    "name": "Humerus",
+    "latinName": "Humerus",
+    "aliases": [
+      "Upper arm bone"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -435,16 +668,26 @@
         "HumerusLeft"
       ]
     },
-    "description": "Humerus Left from the skeletal system.",
+    "description": "The humerus is the bone of the upper arm, extending from the shoulder to the elbow. It articulates with the scapula at the shoulder and with the radius and ulna at the elbow.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Long",
+      "region": "Upper limb",
+      "side": "Left",
+      "articulations": [
+        "Scapula (shoulder joint)",
+        "Radius (elbow)",
+        "Ulna (elbow)"
+      ],
+      "innervation": "Radial nerve, Axillary nerve",
+      "bloodSupply": "Anterior circumflex humeral artery"
     }
   },
   {
-    "name": "Radius Left",
-    "latinName": "Radius Left",
-    "aliases": [],
+    "name": "Radius",
+    "latinName": "Radius",
+    "aliases": [
+      "Lateral forearm bone"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -452,16 +695,26 @@
         "RadiusLeft"
       ]
     },
-    "description": "Radius Left from the skeletal system.",
+    "description": "The radius is the lateral and shorter of the two forearm bones. It enables pronation and supination of the forearm.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Long",
+      "region": "Upper limb",
+      "side": "Left",
+      "articulations": [
+        "Humerus (elbow)",
+        "Ulna (radioulnar joint)",
+        "Carpal bones (wrist)"
+      ],
+      "innervation": "Radial nerve",
+      "bloodSupply": "Radial artery"
     }
   },
   {
-    "name": "Ulna Left",
-    "latinName": "Ulna Left",
-    "aliases": [],
+    "name": "Ulna",
+    "latinName": "Ulna",
+    "aliases": [
+      "Medial forearm bone"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -469,16 +722,30 @@
         "UlnaLeft"
       ]
     },
-    "description": "Ulna Left from the skeletal system.",
+    "description": "The ulna is the medial and longer of the two forearm bones. It forms the prominent bump on the back of the wrist.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Long",
+      "region": "Upper limb",
+      "side": "Left",
+      "articulations": [
+        "Humerus (elbow)",
+        "Radius (radioulnar joint)",
+        "Carpal bones (wrist)"
+      ],
+      "innervation": "Ulnar nerve",
+      "bloodSupply": "Ulnar artery",
+      "landmarks": [
+        "Olecranon process",
+        "Styloid process"
+      ]
     }
   },
   {
-    "name": "Humerus Right",
-    "latinName": "Humerus Right",
-    "aliases": [],
+    "name": "Humerus",
+    "latinName": "Humerus",
+    "aliases": [
+      "Upper arm bone"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -486,16 +753,26 @@
         "HumerusRight"
       ]
     },
-    "description": "Humerus Right from the skeletal system.",
+    "description": "The humerus is the bone of the upper arm, extending from the shoulder to the elbow. It articulates with the scapula at the shoulder and with the radius and ulna at the elbow.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Long",
+      "region": "Upper limb",
+      "side": "Right",
+      "articulations": [
+        "Scapula (shoulder joint)",
+        "Radius (elbow)",
+        "Ulna (elbow)"
+      ],
+      "innervation": "Radial nerve, Axillary nerve",
+      "bloodSupply": "Anterior circumflex humeral artery"
     }
   },
   {
-    "name": "Ulna Right",
-    "latinName": "Ulna Right",
-    "aliases": [],
+    "name": "Ulna",
+    "latinName": "Ulna",
+    "aliases": [
+      "Medial forearm bone"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -503,16 +780,30 @@
         "UlnaRight"
       ]
     },
-    "description": "Ulna Right from the skeletal system.",
+    "description": "The ulna is the medial and longer of the two forearm bones. It forms the prominent bump on the back of the wrist.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Long",
+      "region": "Upper limb",
+      "side": "Right",
+      "articulations": [
+        "Humerus (elbow)",
+        "Radius (radioulnar joint)",
+        "Carpal bones (wrist)"
+      ],
+      "innervation": "Ulnar nerve",
+      "bloodSupply": "Ulnar artery",
+      "landmarks": [
+        "Olecranon process",
+        "Styloid process"
+      ]
     }
   },
   {
-    "name": "Radius Right",
-    "latinName": "Radius Right",
-    "aliases": [],
+    "name": "Radius",
+    "latinName": "Radius",
+    "aliases": [
+      "Lateral forearm bone"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -520,16 +811,26 @@
         "RadiusRight"
       ]
     },
-    "description": "Radius Right from the skeletal system.",
+    "description": "The radius is the lateral and shorter of the two forearm bones. It enables pronation and supination of the forearm.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Long",
+      "region": "Upper limb",
+      "side": "Right",
+      "articulations": [
+        "Humerus (elbow)",
+        "Ulna (radioulnar joint)",
+        "Carpal bones (wrist)"
+      ],
+      "innervation": "Radial nerve",
+      "bloodSupply": "Radial artery"
     }
   },
   {
-    "name": "Hand Left",
-    "latinName": "Hand Left",
-    "aliases": [],
+    "name": "Hand (Left)",
+    "latinName": "Manus sinister",
+    "aliases": [
+      "Left hand"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -537,16 +838,25 @@
         "HandLeft"
       ]
     },
-    "description": "Hand Left from the skeletal system.",
+    "description": "The hand is composed of 27 bones (including the wrist) that provide dexterity and precision for manipulation.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Multiple",
+      "region": "Upper limb",
+      "side": "Left",
+      "boneCount": 27,
+      "components": [
+        "8 carpal bones",
+        "5 metacarpal bones",
+        "14 phalanges"
+      ]
     }
   },
   {
-    "name": "Carpals Left",
-    "latinName": "Carpals Left",
-    "aliases": [],
+    "name": "Carpal Bones (Left)",
+    "latinName": "Ossa carpi",
+    "aliases": [
+      "Wrist bones"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -554,16 +864,31 @@
         "CarpalsLeft"
       ]
     },
-    "description": "Carpals Left from the skeletal system.",
+    "description": "The carpal bones are eight small bones arranged in two rows that form the wrist and connect the forearm to the hand.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Short",
+      "region": "Upper limb",
+      "side": "Left",
+      "count": 8,
+      "arrangement": "2 rows of 4",
+      "bones": [
+        "Scaphoid",
+        "Lunate",
+        "Triquetrum",
+        "Pisiform",
+        "Trapezium",
+        "Trapezoid",
+        "Capitate",
+        "Hamate"
+      ]
     }
   },
   {
-    "name": "Metacarpals Left",
-    "latinName": "Metacarpals Left",
-    "aliases": [],
+    "name": "Metacarpal Bones (Left)",
+    "latinName": "Ossa metacarpalia",
+    "aliases": [
+      "Hand long bones"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -571,16 +896,21 @@
         "MetacarpalsLeft"
       ]
     },
-    "description": "Metacarpals Left from the skeletal system.",
+    "description": "The metacarpals are five long bones in the palm that form the structure of the hand and connect the wrist to the fingers.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Long",
+      "region": "Upper limb",
+      "side": "Left",
+      "count": 5,
+      "function": "Form hand structure"
     }
   },
   {
-    "name": "Phalanges Left",
-    "latinName": "Phalanges Left",
-    "aliases": [],
+    "name": "Phalanges (Left Hand)",
+    "latinName": "Phalanges manus",
+    "aliases": [
+      "Finger bones"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -588,16 +918,21 @@
         "PhalangesLeft"
       ]
     },
-    "description": "Phalanges Left from the skeletal system.",
+    "description": "The phalanges are the small bones that form the fingers. There are 14 phalanges in each hand (2 in the thumb, 3 in each of the other fingers).",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Long",
+      "region": "Upper limb",
+      "side": "Left",
+      "count": 14,
+      "distribution": "2 proximal, 2 middle, 2 distal (x4) + 1 distal (thumb)"
     }
   },
   {
-    "name": "Hand Right",
-    "latinName": "Hand Right",
-    "aliases": [],
+    "name": "Hand (Right)",
+    "latinName": "Manus dexter",
+    "aliases": [
+      "Right hand"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -605,16 +940,25 @@
         "HandRight"
       ]
     },
-    "description": "Hand Right from the skeletal system.",
+    "description": "The hand is composed of 27 bones (including the wrist) that provide dexterity and precision for manipulation.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Multiple",
+      "region": "Upper limb",
+      "side": "Right",
+      "boneCount": 27,
+      "components": [
+        "8 carpal bones",
+        "5 metacarpal bones",
+        "14 phalanges"
+      ]
     }
   },
   {
-    "name": "Carpals Right",
-    "latinName": "Carpals Right",
-    "aliases": [],
+    "name": "Carpal Bones (Right)",
+    "latinName": "Ossa carpi",
+    "aliases": [
+      "Wrist bones"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -622,16 +966,31 @@
         "CarpalsRight"
       ]
     },
-    "description": "Carpals Right from the skeletal system.",
+    "description": "The carpal bones are eight small bones arranged in two rows that form the wrist and connect the forearm to the hand.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Short",
+      "region": "Upper limb",
+      "side": "Right",
+      "count": 8,
+      "arrangement": "2 rows of 4",
+      "bones": [
+        "Scaphoid",
+        "Lunate",
+        "Triquetrum",
+        "Pisiform",
+        "Trapezium",
+        "Trapezoid",
+        "Capitate",
+        "Hamate"
+      ]
     }
   },
   {
-    "name": "Phalanges Right",
-    "latinName": "Phalanges Right",
-    "aliases": [],
+    "name": "Phalanges (Right Hand)",
+    "latinName": "Phalanges manus",
+    "aliases": [
+      "Finger bones"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -639,16 +998,21 @@
         "PhalangesRight"
       ]
     },
-    "description": "Phalanges Right from the skeletal system.",
+    "description": "The phalanges are the small bones that form the fingers. There are 14 phalanges in each hand (2 in the thumb, 3 in each of the other fingers).",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Long",
+      "region": "Upper limb",
+      "side": "Right",
+      "count": 14,
+      "distribution": "2 proximal, 2 middle, 2 distal (x4) + 1 distal (thumb)"
     }
   },
   {
-    "name": "Metacarpals Right",
-    "latinName": "Metacarpals Right",
-    "aliases": [],
+    "name": "Metacarpal Bones (Right)",
+    "latinName": "Ossa metacarpalia",
+    "aliases": [
+      "Hand long bones"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -656,16 +1020,21 @@
         "MetacarpalsRight"
       ]
     },
-    "description": "Metacarpals Right from the skeletal system.",
+    "description": "The metacarpals are five long bones in the palm that form the structure of the hand and connect the wrist to the fingers.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Long",
+      "region": "Upper limb",
+      "side": "Right",
+      "count": 5,
+      "function": "Form hand structure"
     }
   },
   {
     "name": "Sternum",
     "latinName": "Sternum",
-    "aliases": [],
+    "aliases": [
+      "Breastbone"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -673,16 +1042,26 @@
         "Sternum"
       ]
     },
-    "description": "Sternum from the skeletal system.",
+    "description": "The sternum is a flat bone in the center of the chest that articulates with the ribs and clavicles. It protects the heart and lungs.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Flat",
+      "region": "Trunk",
+      "parts": [
+        "Manubrium",
+        "Body",
+        "Xiphoid process"
+      ],
+      "ribArticulations": 7,
+      "function": "Protect thoracic organs"
     }
   },
   {
-    "name": "Fibula Left",
-    "latinName": "Fibula Left",
-    "aliases": [],
+    "name": "Fibula",
+    "latinName": "Fibula",
+    "aliases": [
+      "Smaller bone of leg",
+      "Calf bone"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -690,16 +1069,26 @@
         "FibulaLeft"
       ]
     },
-    "description": "Fibula Left from the skeletal system.",
+    "description": "The fibula is the smaller and thinner of the two bones in the lower leg, situated on the lateral (outer) side. It does not bear significant weight.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Long",
+      "region": "Lower limb",
+      "side": "Left",
+      "articulations": [
+        "Tibia (tibiofibular joint)",
+        "Talus (ankle)"
+      ],
+      "innervation": "Common fibular nerve",
+      "bloodSupply": "Fibular artery"
     }
   },
   {
-    "name": "Tibia Left",
-    "latinName": "Tibia Left",
-    "aliases": [],
+    "name": "Tibia",
+    "latinName": "Tibia",
+    "aliases": [
+      "Shin bone",
+      "Shinbone"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -707,16 +1096,29 @@
         "TibiaLeft"
       ]
     },
-    "description": "Tibia Left from the skeletal system.",
+    "description": "The tibia is the larger and stronger of the two bones in the lower leg, located on the medial (inner) side. It bears most of the weight of the leg.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Long",
+      "region": "Lower limb",
+      "side": "Left",
+      "articulations": [
+        "Femur (knee)",
+        "Fibula (tibiofibular joint)",
+        "Talus (ankle)"
+      ],
+      "innervation": "Tibial nerve",
+      "landmarks": [
+        "Tibial tuberosity",
+        "Medial malleolus"
+      ]
     }
   },
   {
-    "name": "Patella Right",
-    "latinName": "Patella Right",
-    "aliases": [],
+    "name": "Patella",
+    "latinName": "Patella",
+    "aliases": [
+      "Kneecap"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -724,16 +1126,25 @@
         "PatellaRight"
       ]
     },
-    "description": "Patella Right from the skeletal system.",
+    "description": "The patella is a flat triangular bone located anterior to the knee joint. It protects the knee and improves the mechanical advantage of the quadriceps muscle.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Sesamoid",
+      "region": "Lower limb",
+      "side": "Right",
+      "articulations": [
+        "Femur (knee joint)",
+        "Tibia (knee joint)"
+      ],
+      "innervation": "Femoral nerve",
+      "function": "Protect knee, improve leverage"
     }
   },
   {
-    "name": "Patella Left",
-    "latinName": "Patella Left",
-    "aliases": [],
+    "name": "Patella",
+    "latinName": "Patella",
+    "aliases": [
+      "Kneecap"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -741,10 +1152,63 @@
         "PatellaLeft"
       ]
     },
-    "description": "Patella Left from the skeletal system.",
+    "description": "The patella is a flat triangular bone located anterior to the knee joint. It protects the knee and improves the mechanical advantage of the quadriceps muscle.",
     "metadata": {
-      "source": "auto-generated from SVG",
-      "extractedFrom": "SKELETAL"
+      "boneType": "Sesamoid",
+      "region": "Lower limb",
+      "side": "Left",
+      "articulations": [
+        "Femur (knee joint)",
+        "Tibia (knee joint)"
+      ],
+      "innervation": "Femoral nerve",
+      "function": "Protect knee, improve leverage"
+    }
+  },
+  {
+    "name": "Atlas (C1)",
+    "latinName": "Vertebra cervicalis prima",
+    "aliases": [
+      "First cervical vertebra",
+      "C1"
+    ],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {},
+    "description": "The atlas is the first cervical vertebra and supports the skull. Unlike other vertebrae, it lacks a body and instead consists of two lateral masses connected by anterior and posterior arches.",
+    "metadata": {
+      "boneType": "Irregular",
+      "region": "Spine",
+      "vertebralLevel": "C1",
+      "articulations": [
+        "Occipital condyles (skull)",
+        "Axis (C2)"
+      ],
+      "function": "Supports skull",
+      "source": "anatomical reference (database only)"
+    }
+  },
+  {
+    "name": "Axis (C2)",
+    "latinName": "Vertebra cervicalis secunda",
+    "aliases": [
+      "Second cervical vertebra",
+      "C2"
+    ],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {},
+    "description": "The axis is the second cervical vertebra. It has a distinctive odontoid process (dens) that acts as a pivot for head rotation.",
+    "metadata": {
+      "boneType": "Irregular",
+      "region": "Spine",
+      "vertebralLevel": "C2",
+      "articulations": [
+        "Atlas (C1)",
+        "C3"
+      ],
+      "landmark": "Odontoid process (dens)",
+      "source": "anatomical reference (database only)"
     }
   }
 ]
