@@ -1,0 +1,331 @@
+{
+  "SKELETAL": {
+    "perspective3100": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "base": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "layer4": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "FemurRight": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "FootLeft": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "TarsalsLeft": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "MetatarsalsLeft": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "PhalangesFootLeft": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "FootRight": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "TarsalsRight": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "MetatarsalsRight": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "PhalangesFootRight": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "FibulaRight": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "TibiaRight": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "FemurLeft": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "PelvicGirdle": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "Scapula": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "Coccyx": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "Sacrum": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "LumbarVertebrae": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "ThoracicVertebrae": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "CervicalVertebrae": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "Skull": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "Mandible": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "Cranium": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "XMLID_7_": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1348": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1350": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1352": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1354": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1356": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1358": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1360": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1362": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1364": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1366": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "XMLID_8_": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1377": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1379": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1381": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1383": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1385": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1387": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1389": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1391": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1393": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "XMLID_9_": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1416": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1418": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1420": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1422": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1424": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1426": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1428": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1430": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1432": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "XMLID_10_": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1445": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1447": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1449": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1451": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1453": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1455": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1457": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1459": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1461": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "XMLID_11_": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1536": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1538": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1540": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1542": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1544": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1546": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1548": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1550": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1552": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "XMLID_12_": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1557": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1559": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1561": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1563": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1565": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1567": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1569": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1571": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "stop1573": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "Manubrium": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "ClavicleRight": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "ClavicleLeft": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "HumerusLeft": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "RadiusLeft": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "UlnaLeft": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "HumerusRight": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "UlnaRight": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "RadiusRight": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "HandLeft": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "CarpalsLeft": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "MetacarpalsLeft": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "PhalangesLeft": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "HandRight": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "CarpalsRight": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "PhalangesRight": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "MetacarpalsRight": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "Sternum": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "FibulaLeft": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "TibiaLeft": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "PatellaRight": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "PatellaLeft": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "layer1": {
+      "viewBox": "0 0 435.687 841.89"
+    }
+  }
+}
