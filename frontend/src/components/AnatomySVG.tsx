@@ -6,6 +6,12 @@ interface AnatomySVGProps {
   systems: Record<SystemEnum, string>
 }
 
+// ===== CONSTANTS =====
+const PULSE_ANIMATION = 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
+const HIGHLIGHT_OPACITY = 0.8
+const DEFAULT_OPACITY = 0.5
+const HOVER_SHADOW = 'drop-shadow(0 0 8px rgba(59, 130, 246, 0.5))'
+
 export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
   const svgRefsMap = useRef<Record<SystemEnum, HTMLDivElement | null>>({} as any)
   const [isReady, setIsReady] = useState(false)
@@ -18,104 +24,80 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
     clearHighlight,
   } = useAnatomyStore()
 
-  const attachEventListeners = useCallback((): void => {
-    // Attach listeners to all visible system SVGs
-    Object.values(SystemEnum).forEach((system) => {
-      const systemContainer = svgRefsMap.current[system]
-      if (!systemContainer) return
+  // ===== HELPER FUNCTIONS =====
 
-      const svg = systemContainer.querySelector('svg')
-      if (!svg) return
+  /**
+   * Find the group ID for a path element by walking up the DOM
+   * Returns the path's own ID as fallback if no parent group found
+   */
+  const getGroupId = useCallback((pathElement: SVGPathElement): string | null => {
+    // First try the path's own ID (most reliable)
+    const pathId = pathElement.getAttribute('id')
+    if (pathId) return pathId
 
-      const paths = svg.querySelectorAll('path')
+    // Then walk up to find a parent group with a meaningful ID
+    let parent = pathElement.parentElement as HTMLElement | null
+    while (parent) {
+      // Stop if we've reached the SVG element (by tag name)
+      if (parent.tagName.toLowerCase() === 'svg') break
 
-      paths.forEach((path) => {
-        const pathElement = path as SVGPathElement
-        let groupElement = pathElement.parentElement as SVGGElement | null
-        let groupId: string | null = null
-
-        // Walk up the DOM to find a <g> with an ID that exists in our data
-        // (Skip generic IDs like g123, g1511, etc. and find the actual bone group)
-        while (groupElement && groupElement !== svg) {
-          if (groupElement.tagName === 'g' || groupElement.tagName === 'G') {
-            const id = groupElement.getAttribute('id')
-            if (id && !id.match(/^g\d+$/)) {
-              // Found a non-generic ID (not just g followed by numbers)
-              groupId = id
-              break
-            }
-          }
-          groupElement = groupElement.parentElement as SVGGElement | null
+      if (parent.tagName === 'g' || parent.tagName === 'G') {
+        const id = parent.getAttribute('id')
+        // Accept non-generic IDs (avoid g123, g1511, etc)
+        if (id && !/^g\d+$/.test(id)) {
+          return id
         }
+      }
+      parent = parent.parentElement
+    }
 
-        if (!groupId) {
-          return // Skip paths without a meaningful parent group ID
+    return null
+  }, [])
+
+  /**
+   * Fetch structure data for a given group ID and system
+   */
+  const fetchStructureData = useCallback(
+    async (groupId: string, system: SystemEnum) => {
+      try {
+        const response = await fetch(`/api/structures/by-svg-path/lookup?pathIds=${groupId}&system=${system}`)
+        if (response.ok) {
+          const data = await response.json()
+          return data.data?.[0] || null
         }
+      } catch (err) {
+        console.error('Error fetching structure:', err)
+      }
+      return null
+    },
+    []
+  )
 
-        pathElement.style.cursor = 'pointer'
-        pathElement.style.transition = 'all 200ms ease'
-        pathElement.style.transformOrigin = 'center'
+  /**
+   * Update path styling based on highlight and hover state
+   */
+  const updatePathStyle = useCallback(
+    (path: SVGPathElement, isHovered: boolean, isHighlighted: boolean) => {
+      if (isHovered) {
+        path.style.fillOpacity = String(HIGHLIGHT_OPACITY)
+        path.style.filter = HOVER_SHADOW
+      } else if (isHighlighted) {
+        path.style.fillOpacity = String(HIGHLIGHT_OPACITY)
+        path.style.animation = PULSE_ANIMATION
+        path.style.filter = 'none'
+      } else {
+        path.style.fillOpacity = String(DEFAULT_OPACITY)
+        path.style.animation = 'none'
+        path.style.filter = 'none'
+      }
+    },
+    []
+  )
 
-        // Clone to remove old listeners
-        const newPath = pathElement.cloneNode(true) as SVGPathElement
-        pathElement.parentNode?.replaceChild(newPath, pathElement)
-
-        const pathId = newPath.getAttribute('id')
-        const updatedPath = svg.querySelector(`path[id="${pathId}"]`) as SVGPathElement
-        if (!updatedPath) return
-
-        // mouseenter - fetch structure data
-        updatedPath.addEventListener('mouseenter', async () => {
-          updatedPath.style.fillOpacity = '0.8'
-          updatedPath.style.filter = 'drop-shadow(0 0 8px rgba(59, 130, 246, 0.5))'
-
-          try {
-            const response = await fetch(`/api/structures/by-svg-path/lookup?pathIds=${groupId}&system=${system}`)
-            if (response.ok) {
-              const data = await response.json()
-              if (data.data && data.data.length > 0) {
-                setHoveredStructure(data.data[0])
-              }
-            }
-          } catch (err) {
-            console.error('Error fetching structure:', err)
-          }
-        })
-
-        // mouseleave
-        updatedPath.addEventListener('mouseleave', () => {
-          updatedPath.style.fillOpacity = '0.5'
-          updatedPath.style.filter = 'none'
-          setHoveredStructure(null)
-        })
-
-        // click
-        updatedPath.addEventListener('click', async (e) => {
-          e.stopPropagation()
-
-          try {
-            const response = await fetch(`/api/structures/by-svg-path/lookup?pathIds=${groupId}&system=${system}`)
-            if (response.ok) {
-              const data = await response.json()
-              if (data.data && data.data.length > 0) {
-                setSelectedStructure(data.data[0])
-              }
-            }
-          } catch (err) {
-            console.error('Error fetching structure:', err)
-          }
-        })
-      })
-    })
-  }, [setSelectedStructure, setHoveredStructure])
-
-  const isSystemVisible = (path: SVGPathElement): boolean => {
-    const dataSystem = path.getAttribute('data-system')
-    if (!dataSystem) return true
-    return visibleSystems.has(dataSystem as any)
-  }
-
-  const updatePathVisibility = (): void => {
+  /**
+   * Update path visibility based on visible systems
+   */
+  const updatePathVisibility = useCallback((): void => {
     Object.values(SystemEnum).forEach((system) => {
       const systemContainer = svgRefsMap.current[system]
       if (!systemContainer) return
@@ -125,17 +107,15 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
 
       const paths = svg.querySelectorAll('path')
       paths.forEach((path) => {
-        const isVisible = isSystemVisible(path)
-        path.style.visibility = isVisible ? 'visible' : 'hidden'
+        path.style.visibility = visibleSystems.has(system) ? 'visible' : 'hidden'
       })
     })
-  }
-
-  useEffect(() => {
-    updatePathVisibility()
   }, [visibleSystems])
 
-  useEffect(() => {
+  /**
+   * Update highlighting for all paths based on chat highlights
+   */
+  const updatePathHighlighting = useCallback((): void => {
     Object.values(SystemEnum).forEach((system) => {
       const systemContainer = svgRefsMap.current[system]
       if (!systemContainer) return
@@ -147,24 +127,97 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
       paths.forEach((path) => {
         const pathId = path.getAttribute('id')
         if (pathId && highlightedIds.has(pathId)) {
-          path.style.animation = 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite'
-          path.style.fillOpacity = '0.8'
+          path.style.animation = PULSE_ANIMATION
+          path.style.fillOpacity = String(HIGHLIGHT_OPACITY)
+        } else if (path.style.animation !== 'none') {
+          // Only reset if it was animated (avoid overwriting hover states)
+          updatePathStyle(path, false, false)
         }
       })
     })
-  }, [highlightedIds])
+  }, [highlightedIds, updatePathStyle])
 
-  useEffect(() => {
-    if (isReady) {
-      attachEventListeners()
-    }
-  }, [systems, attachEventListeners, isReady])
+  /**
+   * Attach interactive event listeners to all paths in SVG
+   */
+  const attachEventListeners = useCallback((): void => {
+    Object.values(SystemEnum).forEach((system) => {
+      const systemContainer = svgRefsMap.current[system]
+      if (!systemContainer) return
 
-  // Wait a moment for SVG to render, then attach listeners
+      const svg = systemContainer.querySelector('svg')
+      if (!svg) return
+
+      const paths = svg.querySelectorAll('path')
+
+      paths.forEach((path) => {
+        const pathElement = path as SVGPathElement
+        const groupId = getGroupId(pathElement)
+
+        // Skip paths without a valid ID
+        if (!groupId) return
+
+        // Set up visual feedback
+        pathElement.style.cursor = 'pointer'
+        pathElement.style.transition = 'all 200ms ease'
+        pathElement.style.transformOrigin = 'center'
+
+        // Mouseenter: fetch and show structure data
+        pathElement.addEventListener('mouseenter', async () => {
+          const pathId = pathElement.getAttribute('id')
+          const isHighlighted = Boolean(pathId && highlightedIds.has(pathId))
+          updatePathStyle(pathElement, true, isHighlighted)
+
+          const structure = await fetchStructureData(groupId, system)
+          if (structure) {
+            setHoveredStructure(structure)
+          }
+        })
+
+        // Mouseleave: restore previous state
+        pathElement.addEventListener('mouseleave', () => {
+          const pathId = pathElement.getAttribute('id')
+          const isHighlighted = Boolean(pathId && highlightedIds.has(pathId))
+          updatePathStyle(pathElement, false, isHighlighted)
+          setHoveredStructure(null)
+        })
+
+        // Click: select structure
+        pathElement.addEventListener('click', async (e) => {
+          e.stopPropagation()
+          const structure = await fetchStructureData(groupId, system)
+          if (structure) {
+            setSelectedStructure(structure)
+          }
+        })
+      })
+    })
+  }, [getGroupId, fetchStructureData, updatePathStyle, highlightedIds, setHoveredStructure, setSelectedStructure])
+
+  // ===== EFFECTS =====
+
+  // Initialize SVG after a brief delay to ensure rendering
   useEffect(() => {
     const timer = setTimeout(() => setIsReady(true), 100)
     return () => clearTimeout(timer)
   }, [])
+
+  // Attach event listeners when SVG is ready
+  useEffect(() => {
+    if (isReady) {
+      attachEventListeners()
+    }
+  }, [isReady, attachEventListeners])
+
+  // Update visibility when visible systems change
+  useEffect(() => {
+    updatePathVisibility()
+  }, [updatePathVisibility])
+
+  // Update highlighting when chat highlights change
+  useEffect(() => {
+    updatePathHighlighting()
+  }, [updatePathHighlighting])
 
   return (
     <div className="relative w-full h-full bg-white rounded-lg shadow">
