@@ -1,5 +1,6 @@
 import express from "express";
 import { structureRouter } from "./routes/structures";
+import chatRoutes from "./routes/chat";
 import { errorHandler } from "./middleware/validation";
 
 const app = express();
@@ -10,8 +11,9 @@ app.use(express.json());
 
 // Routes
 app.use("/api/structures", structureRouter);
+app.use("/api", chatRoutes);
 app.get("/", (_req, res) => {
-  res.json({message: "Anatomy API", endpoints: ["/api/structures", "/health"]});  
+  res.json({message: "Anatomy API", endpoints: ["/api/structures", "/api/chat", "/health"]});  
 })
 
 // Health check
