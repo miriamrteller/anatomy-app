@@ -31,13 +31,13 @@ export const CreateStructureSchema = z.object({
   latinName: z.string().min(1, "Latin name is required"),
   system: SystemEnum,
   category: StructureCategoryEnum,
-  svgPaths: z.array(SvgPathSchema),
+  svgPathIds: z.array(z.string().min(1)).optional(), // NEW: Simple array of IDs
   aliases: z.array(z.string()).optional(),
   hierarchyParent: z.string().uuid().optional(),
   metadata: z.any().optional(),
   coordinates: z.record(z.any()).optional(),
   description: z.string().min(1, "Description is required"),
-  svgPathId: z.string().optional(),
+  svgPathId: z.string().optional(), // DEPRECATED: For backwards compatibility
 });
 
 export const BulkStructureQuerySchema = z.object({

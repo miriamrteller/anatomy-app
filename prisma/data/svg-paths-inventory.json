@@ -1,0 +1,549 @@
+{
+  "SKELETAL": [
+    {
+      "id": "perspective3100",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "base",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "layer4",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "FemurRight",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "FootLeft",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "TarsalsLeft",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "MetatarsalsLeft",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "PhalangesFootLeft",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "FootRight",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "TarsalsRight",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "MetatarsalsRight",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "PhalangesFootRight",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "FibulaRight",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "TibiaRight",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "FemurLeft",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "PelvicGirdle",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "Scapula",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "Coccyx",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "Sacrum",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "LumbarVertebrae",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "ThoracicVertebrae",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "CervicalVertebrae",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "Skull",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "Mandible",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "Cranium",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "XMLID_7_",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1348",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1350",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1352",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1354",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1356",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1358",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1360",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1362",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1364",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1366",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "XMLID_8_",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1377",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1379",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1381",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1383",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1385",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1387",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1389",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1391",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1393",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "XMLID_9_",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1416",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1418",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1420",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1422",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1424",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1426",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1428",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1430",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1432",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "XMLID_10_",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1445",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1447",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1449",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1451",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1453",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1455",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1457",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1459",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1461",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "XMLID_11_",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1536",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1538",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1540",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1542",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1544",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1546",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1548",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1550",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1552",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "XMLID_12_",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1557",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1559",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1561",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1563",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1565",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1567",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1569",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1571",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "stop1573",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "Manubrium",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "ClavicleRight",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "ClavicleLeft",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "HumerusLeft",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "RadiusLeft",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "UlnaLeft",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "HumerusRight",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "UlnaRight",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "RadiusRight",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "HandLeft",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "CarpalsLeft",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "MetacarpalsLeft",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "PhalangesLeft",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "HandRight",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "CarpalsRight",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "PhalangesRight",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "MetacarpalsRight",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "Sternum",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "FibulaLeft",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "TibiaLeft",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "PatellaRight",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "PatellaLeft",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    },
+    {
+      "id": "layer1",
+      "system": "SKELETAL",
+      "viewBox": "0 0 435.687 841.89"
+    }
+  ]
+}

@@ -13,9 +13,13 @@ model Structure {
   latinName       String                @map("latin_name")
   system          System
   category        StructureCategory
-  svgPaths        Json                  @default("[]")
-  coordinates     Json?
+  // NEW: Simple array of SVG path IDs (geometry lives in SVG files + index)
+  svgPathIds      String[]              @default([])
+  // DEPRECATED: Will be removed in future version. Use svgPathIds instead.
   svgPathId       String?               @map("svg_path_id")
+  // Optional position/layout data (NOT geometry from SVG)
+  coordinates     Json?
+  // Anatomical data: articulations, innervation, etc. (NOT geometry)
   aliases         String[]              @default([])
   hierarchyParent String?               @map("hierarchy_parent") @db.Uuid
   metadata        Json?
@@ -24,7 +28,6 @@ model Structure {
   createdAt       DateTime              @default(now()) @map("created_at")
   updatedAt       DateTime              @updatedAt @map("updated_at")
 
-  @@index([svgPathId])
   @@index([system])
   @@index([category])
   @@map("structures")

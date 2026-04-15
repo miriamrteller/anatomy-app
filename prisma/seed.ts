@@ -25,12 +25,11 @@ function toPgvectorLiteral(values: number[]): string {
 }
 
 // Convert SvgPathIds from bone data to new array format
-function buildSvgPaths(
+function buildSvgPathIds(
   svgPathIds: Record<string, string[]>,
   system: string
-): Array<{ id: string; system: string }> {
-  const pathIds = svgPathIds[system] || [];
-  return pathIds.map((id) => ({ id, system }));
+): string[] {
+  return svgPathIds[system] || [];
 }
 
 async function main() {
@@ -47,7 +46,7 @@ async function main() {
   for (const bone of bonesData) {
     const structureId = randomUUID();
     const vectorLiteral = toPgvectorLiteral(generateRandomVector());
-    const svgPaths = buildSvgPaths(bone.svgPathIds, bone.system);
+    const svgPathIdArray = buildSvgPathIds(bone.svgPathIds, bone.system);
 
     await db.$executeRaw`
       INSERT INTO structures (
@@ -56,7 +55,7 @@ async function main() {
         latin_name,
         system,
         category,
-        "svgPaths",
+        "svgPathIds",
         aliases,
         metadata,
         description,
@@ -70,7 +69,7 @@ async function main() {
         ${bone.latinName},
         ${bone.system}::"System",
         ${bone.category.toUpperCase()}::"StructureCategory",
-        ${JSON.stringify(svgPaths)}::jsonb,
+        ${svgPathIdArray}::text[],
         ${bone.aliases}::text[],
         ${JSON.stringify(bone.metadata)}::jsonb,
         ${bone.description},

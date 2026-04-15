@@ -16,7 +16,7 @@ export const getAllStructures = async (_req: Request, res: Response) => {
       latinName: true,
       system: true,
       category: true,
-      svgPaths: true,
+      svgPathIds: true,
       aliases: true,
       description: true,
       createdAt: true,
@@ -43,7 +43,7 @@ export const getStructureById = async (req: Request, res: Response) => {
       system: true,
       category: true,
       coordinates: true,
-      svgPaths: true,
+      svgPathIds: true,
       aliases: true,
       metadata: true,
       description: true,
@@ -83,7 +83,7 @@ export const getBulkStructures = async (req: Request, res: Response) => {
         latinName: true,
         system: true,
         category: true,
-        svgPaths: true,
+        svgPathIds: true,
         aliases: true,
         description: true,
         updatedAt: true,
@@ -112,27 +112,29 @@ export const getBulkStructures = async (req: Request, res: Response) => {
 export const getStructuresBySvgPath = async (req: Request, res: Response) => {
   const query = SvgPathLookupSchema.parse(req.query);
 
-  // Fetch structures and filter by SVG path IDs in application layer
-  // (simpler than complex JSON queries in Prisma)
-  const allStructures = await db.structure.findMany({
-    where: query.system ? { system: query.system as any } : {},
+  // Use Prisma hasSome operator to find structures with matching path IDs
+  const structures = await db.structure.findMany({
+    where: {
+      AND: [
+        query.system ? { system: query.system as any } : {},
+        {
+          svgPathIds: {
+            hasSome: query.pathIds,
+          },
+        },
+      ],
+    },
     select: {
       id: true,
       name: true,
       latinName: true,
       system: true,
       category: true,
-      svgPaths: true,
+      svgPathIds: true,
       aliases: true,
       metadata: true,
       description: true,
     },
-  });
-
-  // Filter for structures containing any of the requested SVG path IDs
-  const structures = allStructures.filter((struct) => {
-    const svgPathData = struct.svgPaths as Array<{ id: string; system?: string }>;
-    return svgPathData.some((path) => query.pathIds.includes(path.id));
   });
 
   if (structures.length === 0) {
@@ -174,7 +176,7 @@ export const searchStructures = async (req: Request, res: Response) => {
       latinName: true,
       system: true,
       category: true,
-      svgPaths: true,
+      svgPathIds: true,
       aliases: true,
       description: true,
     },
