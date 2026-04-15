@@ -63,7 +63,10 @@ async function extractSvgPaths(): Promise<Omit<SvgIndex, "_version">> {
         id.startsWith("metadata") ||
         id.startsWith("defs") ||
         id.includes("Layer") ||
-        id.match(/^(rect|g|path)\d+$/)
+        id.match(/^(rect|g|path)\d+$/) ||
+        id.match(/^stop\d+$/) ||
+        id.match(/^XMLID_\d+_?$/) ||
+        id.match(/^(layer|base|perspective)\d*$/)
       ) {
         return;
       }

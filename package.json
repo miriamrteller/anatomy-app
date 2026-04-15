@@ -13,6 +13,7 @@
     "seed": "tsx prisma/seed.ts",
     "embed": "tsx scripts/embed-structures.ts",
     "extract-svg-paths": "tsx scripts/extract-svg-paths.ts",
+    "generate-bones": "tsx scripts/svg-utils/generate-bones-from-svgs.ts",
     "db:setup": "npm run prisma:generate && npm run prisma:migrate && npm run seed",
     "db:connect": "psql -U postgres -d anatomy_app",
     "db:init": "npm run db:setup && npm run db:connect"

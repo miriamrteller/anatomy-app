@@ -1,304 +1,750 @@
 [
   {
-    "name": "Femur",
-    "latinName": "Femur",
-    "aliases": ["Thigh bone", "Thighbone"],
+    "name": "Femur Right",
+    "latinName": "Femur Right",
+    "aliases": [],
     "system": "SKELETAL",
     "category": "BONE",
-    "svgPathIds": { "SKELETAL": ["FemurLeft", "FemurRight"] },
-    "description": "The femur is the longest, heaviest, and strongest bone of the human skeleton. It extends from the pelvis to the knee.",
+    "svgPathIds": {
+      "SKELETAL": [
+        "FemurRight"
+      ]
+    },
+    "description": "Femur Right from the skeletal system.",
     "metadata": {
-      "articulations": ["Pelvis (hip joint)", "Tibia (knee joint)"],
-      "innervation": "Femoral nerve, sciatic nerve",
-      "bloodSupply": "Femoral artery, profunda femoris artery",
-      "insertions": {
-        "proximal": ["Hip joint capsule"],
-        "distal": ["Knee joint capsule"]
-      }
-    }
-  },
-  {
-    "name": "Tibia",
-    "latinName": "Tibia",
-    "aliases": ["Shin bone", "Shinbone"],
-    "system": "SKELETAL",
-    "category": "BONE",
-    "svgPathIds": { "SKELETAL": ["TibiaLeft", "TibiaRight"] },
-    "description": "The tibia, commonly known as the shin bone, is the larger and stronger of the two bones in the lower leg, located on the medial side.",
-    "metadata": {
-      "articulations": ["Femur (knee joint)", "Fibula (tibiofibular joint)", "Talus (ankle joint)"],
-      "innervation": "Tibial nerve, saphenous nerve",
-      "bloodSupply": "Anterior tibial artery, posterior tibial artery"
-    }
-  },
-  {
-    "name": "Fibula",
-    "latinName": "Fibula",
-    "aliases": ["Smaller bone of leg", "Calf bone"],
-    "system": "SKELETAL",
-    "category": "BONE",
-    "svgPathIds": { "SKELETAL": ["FibularLeft", "FibularRight"] },
-    "description": "The fibula is the smaller and thinner of the two bones in the lower leg, situated on the lateral side.",
-    "metadata": {
-      "articulations": ["Tibia (tibiofibular joint)", "Talus (ankle joint)"],
-      "innervation": "Common fibular nerve",
-      "bloodSupply": "Fibular artery"
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
     }
   },
   {
     "name": "Foot Left",
-    "latinName": "Pes Sinister",
-    "aliases": ["Left foot"],
+    "latinName": "Foot Left",
+    "aliases": [],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
-      "SKELETAL": ["FootLeft", "TarsalsLeft", "MetatarsalsLeft", "PhalangesFootLeft"]
+      "SKELETAL": [
+        "FootLeft"
+      ]
     },
-    "description": "The human foot is a complex structure consisting of 26 bones (in each foot) along with muscles, ligaments, and nerves.",
+    "description": "Foot Left from the skeletal system.",
     "metadata": {
-      "boneCount": 26,
-      "components": ["7 tarsal bones", "5 metatarsal bones", "14 phalanges"],
-      "articulations": ["Tibia", "Fibula"]
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
+    }
+  },
+  {
+    "name": "Tarsals Left",
+    "latinName": "Tarsals Left",
+    "aliases": [],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {
+      "SKELETAL": [
+        "TarsalsLeft"
+      ]
+    },
+    "description": "Tarsals Left from the skeletal system.",
+    "metadata": {
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
+    }
+  },
+  {
+    "name": "Metatarsals Left",
+    "latinName": "Metatarsals Left",
+    "aliases": [],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {
+      "SKELETAL": [
+        "MetatarsalsLeft"
+      ]
+    },
+    "description": "Metatarsals Left from the skeletal system.",
+    "metadata": {
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
+    }
+  },
+  {
+    "name": "Phalanges Foot Left",
+    "latinName": "Phalanges Foot Left",
+    "aliases": [],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {
+      "SKELETAL": [
+        "PhalangesFootLeft"
+      ]
+    },
+    "description": "Phalanges Foot Left from the skeletal system.",
+    "metadata": {
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
     }
   },
   {
     "name": "Foot Right",
-    "latinName": "Pes Dexter",
-    "aliases": ["Right foot"],
+    "latinName": "Foot Right",
+    "aliases": [],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
-      "SKELETAL": ["FootRight", "TarsalsRight", "MetatarsalsRight", "PhalangesFootRight"]
+      "SKELETAL": [
+        "FootRight"
+      ]
     },
-    "description": "The human foot is a complex structure consisting of 26 bones (in each foot) along with muscles, ligaments, and nerves.",
+    "description": "Foot Right from the skeletal system.",
     "metadata": {
-      "boneCount": 26,
-      "components": ["7 tarsal bones", "5 metatarsal bones", "14 phalanges"],
-      "articulations": ["Tibia", "Fibula"]
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
+    }
+  },
+  {
+    "name": "Tarsals Right",
+    "latinName": "Tarsals Right",
+    "aliases": [],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {
+      "SKELETAL": [
+        "TarsalsRight"
+      ]
+    },
+    "description": "Tarsals Right from the skeletal system.",
+    "metadata": {
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
+    }
+  },
+  {
+    "name": "Metatarsals Right",
+    "latinName": "Metatarsals Right",
+    "aliases": [],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {
+      "SKELETAL": [
+        "MetatarsalsRight"
+      ]
+    },
+    "description": "Metatarsals Right from the skeletal system.",
+    "metadata": {
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
+    }
+  },
+  {
+    "name": "Phalanges Foot Right",
+    "latinName": "Phalanges Foot Right",
+    "aliases": [],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {
+      "SKELETAL": [
+        "PhalangesFootRight"
+      ]
+    },
+    "description": "Phalanges Foot Right from the skeletal system.",
+    "metadata": {
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
+    }
+  },
+  {
+    "name": "Fibula Right",
+    "latinName": "Fibula Right",
+    "aliases": [],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {
+      "SKELETAL": [
+        "FibulaRight"
+      ]
+    },
+    "description": "Fibula Right from the skeletal system.",
+    "metadata": {
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
+    }
+  },
+  {
+    "name": "Tibia Right",
+    "latinName": "Tibia Right",
+    "aliases": [],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {
+      "SKELETAL": [
+        "TibiaRight"
+      ]
+    },
+    "description": "Tibia Right from the skeletal system.",
+    "metadata": {
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
+    }
+  },
+  {
+    "name": "Femur Left",
+    "latinName": "Femur Left",
+    "aliases": [],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {
+      "SKELETAL": [
+        "FemurLeft"
+      ]
+    },
+    "description": "Femur Left from the skeletal system.",
+    "metadata": {
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
     }
   },
   {
     "name": "Pelvic Girdle",
-    "latinName": "Cingulum Pelvicum",
-    "aliases": ["Pelvis", "Hip bones"],
+    "latinName": "Pelvic Girdle",
+    "aliases": [],
     "system": "SKELETAL",
     "category": "BONE",
-    "svgPathIds": { "SKELETAL": ["PelvicGirdle"] },
-    "description": "The pelvic girdle is a large bony structure in the lower part of the spine that connects the vertebral column to the femurs.",
+    "svgPathIds": {
+      "SKELETAL": [
+        "PelvicGirdle"
+      ]
+    },
+    "description": "Pelvic Girdle from the skeletal system.",
     "metadata": {
-      "articulations": ["Vertebral column", "Femurs"],
-      "innervation": "Pelvic plexus",
-      "bloodSupply": "Iliac arteries"
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
     }
   },
   {
     "name": "Scapula",
     "latinName": "Scapula",
-    "aliases": ["Shoulder blade"],
+    "aliases": [],
     "system": "SKELETAL",
     "category": "BONE",
-    "svgPathIds": { "SKELETAL": ["Scapula"] },
-    "description": "The scapula is a flat triangular bone that forms the posterior part of the shoulder girdle.",
+    "svgPathIds": {
+      "SKELETAL": [
+        "Scapula"
+      ]
+    },
+    "description": "Scapula from the skeletal system.",
     "metadata": {
-      "articulations": ["Clavicle", "Humerus"],
-      "innervation": "Suprascapular nerve",
-      "bloodSupply": "Suprascapular artery"
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
     }
   },
   {
     "name": "Coccyx",
     "latinName": "Coccyx",
-    "aliases": ["Tailbone", "Coccygeal vertebrae"],
+    "aliases": [],
     "system": "SKELETAL",
     "category": "BONE",
-    "svgPathIds": { "SKELETAL": ["Coccyx"] },
-    "description": "The coccyx is a small triangular bone at the base of the spinal column, formed from four fused coccygeal vertebrae.",
+    "svgPathIds": {
+      "SKELETAL": [
+        "Coccyx"
+      ]
+    },
+    "description": "Coccyx from the skeletal system.",
     "metadata": {
-      "articulations": ["Sacrum"],
-      "innervation": "Coccygeal plexus",
-      "bloodSupply": "Median sacral artery"
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
     }
   },
   {
     "name": "Sacrum",
     "latinName": "Sacrum",
-    "aliases": ["Sacral region"],
+    "aliases": [],
     "system": "SKELETAL",
     "category": "BONE",
-    "svgPathIds": { "SKELETAL": ["Scarum"] },
-    "description": "The sacrum is a fusion of five sacral vertebrae forming the base of the spine, positioned between the lumbar vertebrae and the coccyx.",
+    "svgPathIds": {
+      "SKELETAL": [
+        "Sacrum"
+      ]
+    },
+    "description": "Sacrum from the skeletal system.",
     "metadata": {
-      "articulations": ["Lumbar vertebrae", "Coccyx", "Pelvic girdle"],
-      "innervation": "Sacral plexus",
-      "bloodSupply": "Sacral arteries"
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
+    }
+  },
+  {
+    "name": "Lumbar Vertebrae",
+    "latinName": "Lumbar Vertebrae",
+    "aliases": [],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {
+      "SKELETAL": [
+        "LumbarVertebrae"
+      ]
+    },
+    "description": "Lumbar Vertebrae from the skeletal system.",
+    "metadata": {
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
+    }
+  },
+  {
+    "name": "Thoracic Vertebrae",
+    "latinName": "Thoracic Vertebrae",
+    "aliases": [],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {
+      "SKELETAL": [
+        "ThoracicVertebrae"
+      ]
+    },
+    "description": "Thoracic Vertebrae from the skeletal system.",
+    "metadata": {
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
+    }
+  },
+  {
+    "name": "Cervical Vertebrae",
+    "latinName": "Cervical Vertebrae",
+    "aliases": [],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {
+      "SKELETAL": [
+        "CervicalVertebrae"
+      ]
+    },
+    "description": "Cervical Vertebrae from the skeletal system.",
+    "metadata": {
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
     }
   },
   {
     "name": "Skull",
-    "latinName": "Cranium",
-    "aliases": ["Head bone", "Cranium"],
+    "latinName": "Skull",
+    "aliases": [],
     "system": "SKELETAL",
     "category": "BONE",
-    "svgPathIds": { "SKELETAL": ["Skull", "Cranium"] },
-    "description": "The skull is a bony structure that encloses and protects the brain and other cranial contents.",
+    "svgPathIds": {
+      "SKELETAL": [
+        "Skull"
+      ]
+    },
+    "description": "Skull from the skeletal system.",
     "metadata": {
-      "articulations": ["Vertebral column", "Mandible"],
-      "innervation": "Trigeminal nerve, facial nerve",
-      "bloodSupply": "Carotid arteries, vertebral arteries"
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
+    }
+  },
+  {
+    "name": "Mandible",
+    "latinName": "Mandible",
+    "aliases": [],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {
+      "SKELETAL": [
+        "Mandible"
+      ]
+    },
+    "description": "Mandible from the skeletal system.",
+    "metadata": {
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
+    }
+  },
+  {
+    "name": "Cranium",
+    "latinName": "Cranium",
+    "aliases": [],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {
+      "SKELETAL": [
+        "Cranium"
+      ]
+    },
+    "description": "Cranium from the skeletal system.",
+    "metadata": {
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
     }
   },
   {
     "name": "Manubrium",
-    "latinName": "Manubrium Sterni",
-    "aliases": ["Upper sternum"],
+    "latinName": "Manubrium",
+    "aliases": [],
     "system": "SKELETAL",
     "category": "BONE",
-    "svgPathIds": { "SKELETAL": ["Manubrium"] },
-    "description": "The manubrium is the broad upper portion of the sternum that articulates with the clavicles and first pair of ribs.",
+    "svgPathIds": {
+      "SKELETAL": [
+        "Manubrium"
+      ]
+    },
+    "description": "Manubrium from the skeletal system.",
     "metadata": {
-      "articulations": ["Clavicles", "Ribs", "Body of sternum"],
-      "innervation": "Thoracic nerves",
-      "bloodSupply": "Internal thoracic artery"
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
     }
   },
   {
     "name": "Clavicle Right",
-    "latinName": "Clavicula Dexter",
-    "aliases": ["Right collarbone"],
+    "latinName": "Clavicle Right",
+    "aliases": [],
     "system": "SKELETAL",
     "category": "BONE",
-    "svgPathIds": { "SKELETAL": ["ClavicleRight"] },
-    "description": "The right clavicle is a long, slender bone that connects the sternum to the scapula, forming the anterior part of the shoulder girdle.",
+    "svgPathIds": {
+      "SKELETAL": [
+        "ClavicleRight"
+      ]
+    },
+    "description": "Clavicle Right from the skeletal system.",
     "metadata": {
-      "articulations": ["Sternum", "Scapula"],
-      "innervation": "Suprascapular nerve",
-      "bloodSupply": "Suprascapular artery"
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
     }
   },
   {
     "name": "Clavicle Left",
-    "latinName": "Clavicula Sinister",
-    "aliases": ["Left collarbone"],
+    "latinName": "Clavicle Left",
+    "aliases": [],
     "system": "SKELETAL",
     "category": "BONE",
-    "svgPathIds": { "SKELETAL": ["ClavicleLeft"] },
-    "description": "The left clavicle is a long, slender bone that connects the sternum to the scapula, forming the anterior part of the shoulder girdle.",
+    "svgPathIds": {
+      "SKELETAL": [
+        "ClavicleLeft"
+      ]
+    },
+    "description": "Clavicle Left from the skeletal system.",
     "metadata": {
-      "articulations": ["Sternum", "Scapula"],
-      "innervation": "Suprascapular nerve",
-      "bloodSupply": "Suprascapular artery"
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
     }
   },
   {
     "name": "Humerus Left",
-    "latinName": "Humerus Sinister",
-    "aliases": ["Left upper arm bone"],
+    "latinName": "Humerus Left",
+    "aliases": [],
     "system": "SKELETAL",
     "category": "BONE",
-    "svgPathIds": { "SKELETAL": ["HumerusLeft"] },
-    "description": "The left humerus is the upper arm bone that articulates with the scapula at the shoulder and the radius and ulna at the elbow.",
+    "svgPathIds": {
+      "SKELETAL": [
+        "HumerusLeft"
+      ]
+    },
+    "description": "Humerus Left from the skeletal system.",
     "metadata": {
-      "articulations": ["Scapula (shoulder joint)", "Radius (elbow joint)", "Ulna (elbow joint)"],
-      "innervation": "Radial nerve, ulnar nerve",
-      "bloodSupply": "Axillary artery, brachial artery"
-    }
-  },
-  {
-    "name": "Humerus Right",
-    "latinName": "Humerus Dexter",
-    "aliases": ["Right upper arm bone"],
-    "system": "SKELETAL",
-    "category": "BONE",
-    "svgPathIds": { "SKELETAL": ["HumerusRight"] },
-    "description": "The right humerus is the upper arm bone that articulates with the scapula at the shoulder and the radius and ulna at the elbow.",
-    "metadata": {
-      "articulations": ["Scapula (shoulder joint)", "Radius (elbow joint)", "Ulna (elbow joint)"],
-      "innervation": "Radial nerve, ulnar nerve",
-      "bloodSupply": "Axillary artery, brachial artery"
-    }
-  },
-  {
-    "name": "Ulna Left",
-    "latinName": "Ulna Sinistra",
-    "aliases": ["Left medial forearm bone"],
-    "system": "SKELETAL",
-    "category": "BONE",
-    "svgPathIds": { "SKELETAL": ["UlnaLeft"] },
-    "description": "The left ulna is the medial and larger of the two forearm bones, extending from elbow to wrist.",
-    "metadata": {
-      "articulations": ["Humerus (elbow joint)", "Radius (radioulnar joint)", "Carpal bones"],
-      "innervation": "Ulnar nerve",
-      "bloodSupply": "Ulnar artery"
-    }
-  },
-  {
-    "name": "Ulna Right",
-    "latinName": "Ulna Dextra",
-    "aliases": ["Right medial forearm bone"],
-    "system": "SKELETAL",
-    "category": "BONE",
-    "svgPathIds": { "SKELETAL": ["UlnaRight"] },
-    "description": "The right ulna is the medial and larger of the two forearm bones, extending from elbow to wrist.",
-    "metadata": {
-      "articulations": ["Humerus (elbow joint)", "Radius (radioulnar joint)", "Carpal bones"],
-      "innervation": "Ulnar nerve",
-      "bloodSupply": "Ulnar artery"
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
     }
   },
   {
     "name": "Radius Left",
-    "latinName": "Radius Sinister",
-    "aliases": ["Left lateral forearm bone"],
+    "latinName": "Radius Left",
+    "aliases": [],
     "system": "SKELETAL",
     "category": "BONE",
-    "svgPathIds": { "SKELETAL": ["RadiusLeft"] },
-    "description": "The left radius is the lateral and smaller of the two forearm bones, extending from below the elbow to the wrist.",
+    "svgPathIds": {
+      "SKELETAL": [
+        "RadiusLeft"
+      ]
+    },
+    "description": "Radius Left from the skeletal system.",
     "metadata": {
-      "articulations": ["Humerus (elbow joint)", "Ulna (radioulnar joint)", "Carpal bones"],
-      "innervation": "Radial nerve",
-      "bloodSupply": "Radial artery"
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
+    }
+  },
+  {
+    "name": "Ulna Left",
+    "latinName": "Ulna Left",
+    "aliases": [],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {
+      "SKELETAL": [
+        "UlnaLeft"
+      ]
+    },
+    "description": "Ulna Left from the skeletal system.",
+    "metadata": {
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
+    }
+  },
+  {
+    "name": "Humerus Right",
+    "latinName": "Humerus Right",
+    "aliases": [],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {
+      "SKELETAL": [
+        "HumerusRight"
+      ]
+    },
+    "description": "Humerus Right from the skeletal system.",
+    "metadata": {
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
+    }
+  },
+  {
+    "name": "Ulna Right",
+    "latinName": "Ulna Right",
+    "aliases": [],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {
+      "SKELETAL": [
+        "UlnaRight"
+      ]
+    },
+    "description": "Ulna Right from the skeletal system.",
+    "metadata": {
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
     }
   },
   {
     "name": "Radius Right",
-    "latinName": "Radius Dexter",
-    "aliases": ["Right lateral forearm bone"],
+    "latinName": "Radius Right",
+    "aliases": [],
     "system": "SKELETAL",
     "category": "BONE",
-    "svgPathIds": { "SKELETAL": ["RadiusRight"] },
-    "description": "The right radius is the lateral and smaller of the two forearm bones, extending from below the elbow to the wrist.",
+    "svgPathIds": {
+      "SKELETAL": [
+        "RadiusRight"
+      ]
+    },
+    "description": "Radius Right from the skeletal system.",
     "metadata": {
-      "articulations": ["Humerus (elbow joint)", "Ulna (radioulnar joint)", "Carpal bones"],
-      "innervation": "Radial nerve",
-      "bloodSupply": "Radial artery"
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
+    }
+  },
+  {
+    "name": "Hand Left",
+    "latinName": "Hand Left",
+    "aliases": [],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {
+      "SKELETAL": [
+        "HandLeft"
+      ]
+    },
+    "description": "Hand Left from the skeletal system.",
+    "metadata": {
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
+    }
+  },
+  {
+    "name": "Carpals Left",
+    "latinName": "Carpals Left",
+    "aliases": [],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {
+      "SKELETAL": [
+        "CarpalsLeft"
+      ]
+    },
+    "description": "Carpals Left from the skeletal system.",
+    "metadata": {
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
+    }
+  },
+  {
+    "name": "Metacarpals Left",
+    "latinName": "Metacarpals Left",
+    "aliases": [],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {
+      "SKELETAL": [
+        "MetacarpalsLeft"
+      ]
+    },
+    "description": "Metacarpals Left from the skeletal system.",
+    "metadata": {
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
+    }
+  },
+  {
+    "name": "Phalanges Left",
+    "latinName": "Phalanges Left",
+    "aliases": [],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {
+      "SKELETAL": [
+        "PhalangesLeft"
+      ]
+    },
+    "description": "Phalanges Left from the skeletal system.",
+    "metadata": {
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
+    }
+  },
+  {
+    "name": "Hand Right",
+    "latinName": "Hand Right",
+    "aliases": [],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {
+      "SKELETAL": [
+        "HandRight"
+      ]
+    },
+    "description": "Hand Right from the skeletal system.",
+    "metadata": {
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
+    }
+  },
+  {
+    "name": "Carpals Right",
+    "latinName": "Carpals Right",
+    "aliases": [],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {
+      "SKELETAL": [
+        "CarpalsRight"
+      ]
+    },
+    "description": "Carpals Right from the skeletal system.",
+    "metadata": {
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
+    }
+  },
+  {
+    "name": "Phalanges Right",
+    "latinName": "Phalanges Right",
+    "aliases": [],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {
+      "SKELETAL": [
+        "PhalangesRight"
+      ]
+    },
+    "description": "Phalanges Right from the skeletal system.",
+    "metadata": {
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
+    }
+  },
+  {
+    "name": "Metacarpals Right",
+    "latinName": "Metacarpals Right",
+    "aliases": [],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {
+      "SKELETAL": [
+        "MetacarpalsRight"
+      ]
+    },
+    "description": "Metacarpals Right from the skeletal system.",
+    "metadata": {
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
+    }
+  },
+  {
+    "name": "Sternum",
+    "latinName": "Sternum",
+    "aliases": [],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {
+      "SKELETAL": [
+        "Sternum"
+      ]
+    },
+    "description": "Sternum from the skeletal system.",
+    "metadata": {
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
+    }
+  },
+  {
+    "name": "Fibula Left",
+    "latinName": "Fibula Left",
+    "aliases": [],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {
+      "SKELETAL": [
+        "FibulaLeft"
+      ]
+    },
+    "description": "Fibula Left from the skeletal system.",
+    "metadata": {
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
+    }
+  },
+  {
+    "name": "Tibia Left",
+    "latinName": "Tibia Left",
+    "aliases": [],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {
+      "SKELETAL": [
+        "TibiaLeft"
+      ]
+    },
+    "description": "Tibia Left from the skeletal system.",
+    "metadata": {
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
     }
   },
   {
     "name": "Patella Right",
-    "latinName": "Patella Dextra",
-    "aliases": ["Right kneecap"],
+    "latinName": "Patella Right",
+    "aliases": [],
     "system": "SKELETAL",
     "category": "BONE",
-    "svgPathIds": { "SKELETAL": ["PatellaRight"] },
-    "description": "The right patella is a flat triangular bone located anterior to the knee joint, serving as a point of attachment for the quadriceps and patellar tendons.",
+    "svgPathIds": {
+      "SKELETAL": [
+        "PatellaRight"
+      ]
+    },
+    "description": "Patella Right from the skeletal system.",
     "metadata": {
-      "articulations": ["Femur", "Tibia"],
-      "innervation": "Femoral nerve",
-      "bloodSupply": "Popliteal artery"
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
     }
   },
   {
     "name": "Patella Left",
-    "latinName": "Patella Sinistra",
-    "aliases": ["Left kneecap"],
+    "latinName": "Patella Left",
+    "aliases": [],
     "system": "SKELETAL",
     "category": "BONE",
-    "svgPathIds": { "SKELETAL": ["PatellaLeft"] },
-    "description": "The left patella is a flat triangular bone located anterior to the knee joint, serving as a point of attachment for the quadriceps and patellar tendons.",
+    "svgPathIds": {
+      "SKELETAL": [
+        "PatellaLeft"
+      ]
+    },
+    "description": "Patella Left from the skeletal system.",
     "metadata": {
-      "articulations": ["Femur", "Tibia"],
-      "innervation": "Femoral nerve",
-      "bloodSupply": "Popliteal artery"
+      "source": "auto-generated from SVG",
+      "extractedFrom": "SKELETAL"
     }
   }
 ]
