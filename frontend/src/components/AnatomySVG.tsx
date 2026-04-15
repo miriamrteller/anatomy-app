@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useEffect, useState } from 'react'
 import { useAnatomyStore } from '../stores/anatomy'
-import { Structure, SystemEnum } from '../types'
+import { SystemEnum } from '../types'
 
 interface AnatomySVGProps {
   systems: Record<SystemEnum, string>

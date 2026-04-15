@@ -90,16 +90,7 @@ export function createExpectedStructure(boneId: string) {
     latinName: boneId,
     system: 'SKELETAL',
     category: 'BONE',
-    svgPaths: [
-      {
-        id: boneId,
-        viewBox: undefined,
-        x: undefined,
-        y: undefined,
-        width: undefined,
-        height: undefined
-      }
-    ],
+    svgPathIds: [boneId],
     coordinates: undefined,
     aliases: [],
     description: `This is the ${boneId} bone`,
@@ -121,16 +112,7 @@ export function populateStoreWithTestData(): void {
     latinName: boneId,
     system: SystemEnum.SKELETAL,
     category: StructureCategory.BONE,
-    svgPaths: [
-      {
-        id: boneId,
-        viewBox: undefined,
-        x: undefined,
-        y: undefined,
-        width: undefined,
-        height: undefined
-      }
-    ],
+    svgPathIds: [boneId],
     coordinates: undefined,
     aliases: [],
     description: `Test structure for ${boneId}`,
@@ -140,8 +122,8 @@ export function populateStoreWithTestData(): void {
   // Build SVG path → structure lookup map
   const pathMap: Record<string, any> = {}
   structures.forEach(struct => {
-    struct.svgPaths.forEach((svgPath: any) => {
-      pathMap[svgPath.id] = struct
+    struct.svgPathIds.forEach((pathId) => {
+      pathMap[pathId] = struct
     })
   })
 
@@ -156,8 +138,6 @@ export function populateStoreWithTestData(): void {
  * Always returns successful structure data for any lookup request
  */
 export function setupFetchMock(): void {
-  const boneIds = loadVerifiedBoneIds()
-
   ;(global as any).fetch = async (url: string) => {
     // Log all fetch calls for debugging
     console.log('FETCH MOCK:', url)
@@ -177,7 +157,7 @@ export function setupFetchMock(): void {
         latinName: pathIds[0] || 'Unknown',
         system,
         category: 'BONE',
-        svgPaths: [{ id: pathIds[0] || 'unknown' }],
+        svgPathIds: pathIds || ['unknown'],
         coordinates: undefined,
         aliases: [],
         description: `Test structure`,

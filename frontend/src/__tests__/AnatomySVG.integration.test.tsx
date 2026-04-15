@@ -10,7 +10,6 @@ import { render, fireEvent, waitFor } from '@testing-library/react'
 import { act } from 'react'
 import { AnatomySVG } from '../components/AnatomySVG'
 import { useAnatomyStore } from '../stores/anatomy'
-import { SystemEnum } from '../types'
 import {
   getFirstVerifiedBoneId,
   createMockSystems,
@@ -75,9 +74,7 @@ describe('AnatomySVG Component - User Interactions', () => {
       expect(hoveredStructure).toBeTruthy()
 
       if (hoveredStructure) {
-        expect(hoveredStructure.svgPaths).toContainEqual(
-          expect.objectContaining({ id: testBoneId })
-        )
+        expect(hoveredStructure.svgPathIds).toContain(testBoneId)
       }
     })
   })
@@ -170,9 +167,7 @@ describe('AnatomySVG Component - User Interactions', () => {
       expect(selectedStructure).toBeTruthy()
 
       if (selectedStructure) {
-        expect(selectedStructure.svgPaths).toContainEqual(
-          expect.objectContaining({ id: testBoneId })
-        )
+        expect(selectedStructure.svgPathIds).toContain(testBoneId)
       }
     })
   })

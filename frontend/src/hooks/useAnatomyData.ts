@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useAnatomyStore } from '../stores/anatomy'
 import { Structure, SystemEnum } from '../types'
+import { useSvgIndex } from './useSvgIndex'
 
 interface BulkResponse {
   success: boolean
@@ -19,6 +20,7 @@ interface BulkResponse {
  * - Fetches all structures for SKELETAL system (preload for instant interactions)
  * - Caches structures in Zustand store
  * - Builds lookup map: SVG path ID → Structure (O(1) instant lookup)
+ * - Validates all svgPathIds against SVG index (catches sync errors early)
  *
  * Usage:
  * const { getStructureByPathId, loadingState } = useAnatomyData()
@@ -36,6 +38,7 @@ export function useAnatomyData() {
     setError,
   } = useAnatomyStore()
 
+  const { validatePathIds } = useSvgIndex()
   const [initialLoadComplete, setInitialLoadComplete] = useState(false)
 
   /**
@@ -59,21 +62,40 @@ export function useAnatomyData() {
 
       const data: BulkResponse = await response.json()
 
+      // VALIDATE: Check all svgPathIds exist in SVG index
+      let syncErrors: string[] = []
+      data.data.forEach((struct) => {
+        const { missing } = validatePathIds(struct.svgPathIds, system)
+        if (missing.length > 0) {
+          syncErrors.push(
+            `❌ ${struct.name}: paths not in index: ${missing.join(', ')}`
+          )
+        }
+      })
+
+      if (syncErrors.length > 0) {
+        console.error('\n🚨 SVG SYNC ERRORS:\n')
+        syncErrors.forEach((err) => console.error(err))
+      }
+
       // Store structures in Zustand
       setStructures(system, data.data)
 
       // Build SVG path ID → structure lookup map for instant O(1) lookup
       const pathMap: Record<string, Structure> = {}
       data.data.forEach((struct) => {
-        struct.svgPaths.forEach((svgPath) => {
-          pathMap[svgPath.id] = struct
+        struct.svgPathIds.forEach((pathId) => {
+          pathMap[pathId] = struct
         })
       })
       setSvgPathToStructure(system, pathMap)
 
       setLoadingState(system, 'IDLE')
       console.log(`✓ Loaded ${data.data.length} structures for ${system} system`)
-      console.log(`✓ Built lookup map with ${Object.keys(pathMap).length} SVG path IDs:`, Object.keys(pathMap).slice(0, 10))
+      console.log(
+        `✓ Built lookup map with ${Object.keys(pathMap).length} SVG path IDs:`,
+        Object.keys(pathMap).slice(0, 10)
+      )
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Unknown error'
       setError(system, message)
@@ -131,5 +153,7 @@ export function useAnatomyData() {
     loadSystem,
     fetchStructures,
     initialLoadComplete,
+    validatePathIds,
   }
 }
+

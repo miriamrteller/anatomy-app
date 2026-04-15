@@ -43,7 +43,7 @@ export interface Structure {
   latinName: string
   system: SystemEnum
   category: StructureCategory
-  svgPaths: SvgPath[]
+  svgPathIds: string[]
   coordinates?: Coordinates
   aliases?: string[]
   hierarchyParent?: string
