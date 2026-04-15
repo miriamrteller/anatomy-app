@@ -55,6 +55,9 @@ export interface ProcessorConfig {
 
   /** Timeout waiting for response. Default: 30000ms */
   timeoutMs?: number
+
+  /** AbortSignal to cancel the stream */
+  signal?: AbortSignal
 }
 
 /**

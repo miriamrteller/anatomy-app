@@ -33,7 +33,7 @@ const DEFAULT_CONFIG: ProcessorConfig = {
  * 
  * @param response - Response object from fetch (must have body stream)
  * @param callbacks - Event handlers (onData, onComplete, onError, onStart)
- * @param config - Optional config (batchIntervalMs, timeoutMs)
+ * @param config - Optional config (batchIntervalMs, timeoutMs, signal)
  * @returns StreamResponse with sources, accumulated response, and duration
  */
 export async function processStream(
@@ -50,6 +50,13 @@ export async function processStream(
     throw new Error(error)
   }
 
+  // Check if stream was aborted before starting
+  if (config.signal?.aborted) {
+    const error = 'Stream cancelled'
+    callbacks.onError(error)
+    throw new Error(error)
+  }
+
   // Get readable stream
   const reader = response.body?.getReader()
   if (!reader) {
@@ -57,6 +64,14 @@ export async function processStream(
     callbacks.onError(error)
     throw new Error(error)
   }
+
+  // Listen for abort signal
+  let isAborted = false
+  const abortListener = () => {
+    isAborted = true
+    reader.cancel().catch(() => {}) // Ignore cancellation errors
+  }
+  config.signal?.addEventListener('abort', abortListener)
 
   // Signal stream start
   callbacks.onStart?.()
@@ -73,6 +88,11 @@ export async function processStream(
   try {
     // Process stream chunks
     while (true) {
+      // Check if aborted
+      if (isAborted) {
+        throw new Error('Stream cancelled by user')
+      }
+
       const { done, value } = await reader.read()
       if (done) break
 
@@ -188,5 +208,8 @@ export async function processStream(
     const message = error instanceof Error ? error.message : 'Unknown error'
     callbacks.onError(message)
     throw error
+  } finally {
+    // Clean up abort listener
+    config.signal?.removeEventListener('abort', abortListener)
   }
 }

@@ -28,6 +28,8 @@ export interface UseChatReturn {
   history: ChatMessage[]
   /** Send a question (triggers startChat) */
   send: (question: string) => Promise<void>
+  /** Cancel active chat request */
+  cancel: () => void
   /** Clear history and current response */
   clear: () => void
 }
@@ -52,6 +54,7 @@ export function useChat(): UseChatReturn {
     streamError,
     chatResponses,
     clearChatHistory,
+    cancelChat,
     setStreamError
   } = useAnatomyStore()
 
@@ -63,6 +66,11 @@ export function useChat(): UseChatReturn {
     },
     [setStreamError]
   )
+
+  // Memoize cancel to prevent unnecessary re-renders
+  const cancel = useCallback(() => {
+    cancelChat()
+  }, [cancelChat])
 
   // Memoize clear to prevent unnecessary re-renders
   const clear = useCallback(() => {
@@ -76,6 +84,7 @@ export function useChat(): UseChatReturn {
     error: streamError,
     history: chatResponses,
     send,
+    cancel,
     clear
   }
 }

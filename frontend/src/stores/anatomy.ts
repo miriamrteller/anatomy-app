@@ -14,6 +14,47 @@ export interface ChatMessage {
   duration: number
 }
 
+// ===== PERSISTENCE HELPERS =====
+const STORAGE_KEY = 'anatomy-app-chat-history'
+
+/**
+ * Load chat history from localStorage
+ * Returns empty array if no history found or JSON is invalid
+ */
+function loadChatHistory(): ChatMessage[] {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY)
+    if (!stored) return []
+    const parsed = JSON.parse(stored)
+    return Array.isArray(parsed) ? parsed : []
+  } catch (error) {
+    console.warn('Failed to load chat history from localStorage:', error)
+    return []
+  }
+}
+
+/**
+ * Save chat history to localStorage
+ */
+function saveChatHistory(messages: ChatMessage[]): void {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(messages))
+  } catch (error) {
+    console.warn('Failed to save chat history to localStorage:', error)
+  }
+}
+
+/**
+ * Clear chat history from localStorage
+ */
+function clearChatHistoryStorage(): void {
+  try {
+    localStorage.removeItem(STORAGE_KEY)
+  } catch (error) {
+    console.warn('Failed to clear chat history from localStorage:', error)
+  }
+}
+
 interface AnatomyStore {
   // Existing UI state
   selectedStructure: Structure | null
@@ -52,6 +93,7 @@ interface AnatomyStore {
   currentResponse: string
   isStreamingChat: boolean
   streamError: string | null
+  chatAbortController: AbortController | null
 
   // ===== CHAT ACTIONS (Basic Setters) =====
   setCurrentResponse: (response: string) => void
@@ -59,6 +101,7 @@ interface AnatomyStore {
   setStreamError: (error: string | null) => void
   addChatMessage: (message: ChatMessage) => void
   clearChatHistory: () => void
+  cancelChat: () => void
 
   // ===== CHAT MIDDLEWARE ACTION (Orchestrates streaming) =====
   startChat: (question: string) => Promise<void>
@@ -146,10 +189,11 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
     })),
 
   // ===== CHAT STATE IMPLEMENTATIONS =====
-  chatResponses: [],
+  chatResponses: loadChatHistory(),  // Load persisted history on initialization
   currentResponse: '',
   isStreamingChat: false,
   streamError: null,
+  chatAbortController: null as AbortController | null,
 
   // ===== CHAT BASIC ACTIONS =====
   setCurrentResponse: (response: string) =>
@@ -162,27 +206,44 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
     set({ streamError: error }),
 
   addChatMessage: (message: ChatMessage) =>
-    set((state) => ({
-      chatResponses: [message, ...state.chatResponses].slice(0, 5)
-    })),
+    set((state) => {
+      const updated = [message, ...state.chatResponses].slice(0, 5)
+      saveChatHistory(updated)  // Persist to localStorage
+      return { chatResponses: updated }
+    }),
 
-  clearChatHistory: () =>
-    set({ chatResponses: [] }),
+  clearChatHistory: () => {
+    clearChatHistoryStorage()  // Clear from localStorage
+    set({ chatResponses: [] })
+  },
+
+  cancelChat: () => {
+    const state = useAnatomyStore.getState()
+    state.chatAbortController?.abort()
+    set({ 
+      isStreamingChat: false,
+      streamError: 'Chat cancelled by user'
+    })
+  },
 
   // ===== CHAT MIDDLEWARE ACTION: Orchestrates the streaming flow =====
   startChat: async (question: string) => {
     const messageId = Date.now().toString()
     const startTime = Date.now()
 
+    // Create new AbortController for this request
+    const abortController = new AbortController()
+
     // Reset state
     set({
       isStreamingChat: true,
       currentResponse: '',
-      streamError: null
+      streamError: null,
+      chatAbortController: abortController
     })
 
     try {
-      // Call handler with callbacks
+      // Call handler with callbacks and abort signal
       const result = await handleChat(
         question,
         {
@@ -222,7 +283,8 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
               streamError: error
             })
           }
-        }
+        },
+        { signal: abortController.signal }  // Pass abort signal for cancellation support
       )
 
       // Optional: Log metrics

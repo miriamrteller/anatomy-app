@@ -14,7 +14,7 @@ import { useState } from 'react'
 import { useChat } from '../hooks/useChat'
 
 export function ChatPanel() {
-  const { response, isLoading, error, history, send, clear } = useChat()
+  const { response, isLoading, error, history, send, cancel, clear } = useChat()
   const [input, setInput] = useState('')
   const [isExpanded, setIsExpanded] = useState(false)
 
@@ -140,13 +140,24 @@ export function ChatPanel() {
           disabled={isLoading}
           className="flex-1 border border-gray-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100 disabled:text-gray-500"
         />
-        <button
-          onClick={handleSend}
-          disabled={isLoading || !input.trim()}
-          className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded text-sm font-medium transition disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {isLoading ? '...' : 'Send'}
-        </button>
+        {isLoading ? (
+          <>
+            <button
+              onClick={cancel}
+              className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded text-sm font-medium transition"
+            >
+              Cancel
+            </button>
+          </>
+        ) : (
+          <button
+            onClick={handleSend}
+            disabled={!input.trim()}
+            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded text-sm font-medium transition disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            Send
+          </button>
+        )}
         <button
           onClick={handleClear}
           className="bg-gray-300 hover:bg-gray-400 text-gray-800 px-3 py-2 rounded text-sm font-medium transition"
