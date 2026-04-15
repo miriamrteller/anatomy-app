@@ -1,4 +1,4 @@
-# anatomy-app 
+# anatomy-app
 
 ## Quick Start
 
@@ -25,16 +25,6 @@ pg_ctl -D /path/to/postgres/data start
 npm run db:setup  # Generates Prisma, runs migrations, seeds database
 npm run dev       # Start development server on port 3000
 ```
-
----
-
-# my plan: https://claude.ai/share/84f71dfc-5247-4a22-9aff-bca0e2f1b272
-
-# I want to create an anatomy app using AI and need help planning. The point of building this app is to transition myself from a senior react developer to an AI integration expert. With this in mind create me a clear roadmap of how to generate this app step by step in vscode using copilot, in a way I can still understand the whole project.  I need a clear and well structured backend (probably in node/typescript which is more familiar), perhaps there are open API's for these kinds of things.  I'm considering creating a database with each bone on the skeleton with an id, name, placement coordinates that can map to the FE and perhaps a vector svg for generating a 3d representation on the screen.  
-# I also need advice on how to create the frontend image - in later iterations I will want the image to be dynamic, so a user have hover/click to access more features and information.  I will want to repeat this idea to add the muscle structure onto the skeleton, each muscle documented as the bones were. Then it will be followed by other biological systems such as other organs like the lungs, the vascular system and heart, the brain and nervous system, the hormone systems etc.
-# Give me a well thought out and detailed plan, with suggested technology given for backend, frontend, AI integration etc. keeping in mind I am doing this to transition from a senior react.ts developer to an AI Integration expert
-
-# Here's a comprehensive roadmap for building your AI-powered anatomy app — designed specifically to take you from senior React dev to AI integration expert, with each phase deliberately deepening your AI skills.Now let me break down each layer in detail.
 
 ---
 
@@ -71,7 +61,6 @@ The function calling phase (Phase 4) is where you'll really feel the transition.
 The key insight for using Copilot to learn rather than just to ship: always write the intent as a comment first, then let Copilot generate. Then read the output critically. For AI-specific code (embedding functions, prompt templates, streaming parsers), write Copilot's output in a test file first and inspect the shapes of data at each step. This builds the mental model you need to debug production issues later.
 
 The observability setup in Phase 6 is non-negotiable if you want to be taken seriously as an AI integrator — being able to say "our RAG pipeline has 87% answer accuracy at P90 latency of 1.2 seconds and costs $0.003 per query" is the difference between a demo project and a production credential.
-
 
 Here's how to use this — for each phase, **copy the prompt into Copilot Chat** (not the editor), then follow the "you do" instruction before moving to the next.
 
@@ -204,178 +193,113 @@ Here's how to use this — for each phase, **copy the prompt into Copilot Chat**
 
 **You do after:** Run your evals. Your F1 score will probably be disappointing the first time — that's the point. Tweak your system prompt or embedding text format, re-run, and observe the change. Do this 3 times. You've now done what AI engineers do every day.
 
-Phase 7 — Production deployment
-You do first: Create accounts on Railway (backend + database) and Vercel (frontend). Both have free tiers sufficient for a portfolio project. Have your OpenAI API key and LangSmith API key ready.
+---
 
-Note on the getBBox() issue: Your extract-svg-paths.ts script uses JSDOM which doesn't implement SVG geometry methods — every boundingBox in the index will be undefined in the Node environment. This is fine for now since only path IDs are needed for the app to function. Don't spend time debugging this before deploying.
+## Phase 7 — Production hardening
 
+**You do first:** Create a `.env.example` file listing every variable from your `.env` with placeholder values. Commit this. Never commit `.env`. This is the reference you'll use when setting variables on Railway and Vercel.
 
-PHASE G: Pre-deployment Hardening
-Step G1: Add a Dockerfile to the backend root
-dockerfileFROM node:20-alpine
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci --only=production
-COPY . .
-RUN npx prisma generate
-RUN npm run build
-EXPOSE 3000
-CMD ["node", "dist/server.js"]
-Action items:
+> **Copy into Copilot Chat:**
+> ```
+> Add production hardening to my existing Node.js TypeScript Express anatomy app:
+>
+> - Create src/lib/config.ts that uses Zod to validate all environment variables on startup.
+>   Required variables: DATABASE_URL, OPENAI_API_KEY, FRONTEND_URL.
+>   Optional: LANGSMITH_API_KEY.
+>   Include PORT (default 3000) and NODE_ENV (default 'development').
+>   If any required variable is missing, log the specific missing fields and call process.exit(1).
+>   Export a typed `config` object. Replace all process.env references throughout the codebase with config.X.
+>
+> - Add CORS to src/server.ts using the `cors` package.
+>   In production, allow only config.FRONTEND_URL.
+>   In development, allow http://localhost:5173.
+>
+> - Add per-IP rate limiting using `express-rate-limit` to the three AI endpoints:
+>   /api/chat, /api/analyse-image, /api/tour.
+>   Limit: 20 requests per minute. Return a clear JSON error message on 429.
+>
+> - Add a Dockerfile to the project root:
+>   Base image node:20-alpine, working directory /app, production npm install,
+>   run prisma generate, run npm run build, expose port 3000, start with node dist/server.js.
+>
+> - Add a .dockerignore file excluding: node_modules, .env, dist, .git.
+>
+> - In the frontend, replace all hardcoded http://localhost:3000 references with
+>   import.meta.env.VITE_API_URL ?? 'http://localhost:3000'.
+>
+> Full TypeScript types throughout. Install any missing packages.
+> ```
 
- Create Dockerfile in backend root
- Add .dockerignore (node_modules, .env, dist)
- Run docker build -t anatomy-app . locally to confirm it builds
- Run docker run -p 3000:3000 anatomy-app and hit one endpoint to confirm
+**You do after:** Run `docker build -t anatomy-app .` and confirm it builds without errors. Run `docker run -p 3000:3000 --env-file .env anatomy-app` and hit `/api/structures` to confirm it works inside the container. Make 25 rapid requests to `/api/chat` locally and confirm the 429 kicks in at 20.
 
+---
 
-Step G2: Harden environment variable handling
-File: src/lib/config.ts
-typescriptimport { z } from 'zod';
+## Phase 8 — Deployment
 
-const ConfigSchema = z.object({
-  DATABASE_URL: z.string().min(1),
-  OPENAI_API_KEY: z.string().startsWith('sk-'),
-  LANGSMITH_API_KEY: z.string().optional(),
-  NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
-  PORT: z.coerce.number().default(3000),
-  FRONTEND_URL: z.string().url(),
-});
+> **Note:** This phase is human-driven — it's CLI commands and dashboard clicks that Copilot cannot do for you. Work through the steps in order. Don't move to the next step until the current one is verified.
 
-const parsed = ConfigSchema.safeParse(process.env);
+**You do first:** Create accounts on [Railway](https://railway.app) and [Vercel](https://vercel.com) if you don't have them. Have your OpenAI API key, LangSmith API key, and `.env.example` open as a checklist. Install the CLIs:
 
-if (!parsed.success) {
-  console.error('❌ Invalid environment variables:');
-  console.error(parsed.error.flatten().fieldErrors);
-  process.exit(1);
-}
+```bash
+npm install -g @railway/cli vercel
+```
 
-export const config = parsed.data;
-Action items:
+**Deploy the database and backend:**
 
- Create src/lib/config.ts
- Replace all process.env.X references throughout the codebase with config.X
- Create .env.example listing every required variable with placeholder values (commit this, never commit .env)
- Verify app crashes loudly on startup if any required variable is missing
-
-
-Step G3: Add CORS and rate limiting for production
-File: src/server.ts
-typescriptimport cors from 'cors';
-import rateLimit from 'express-rate-limit';
-
-// CORS: only allow your Vercel frontend in production
-app.use(cors({
-  origin: config.NODE_ENV === 'production'
-    ? config.FRONTEND_URL
-    : 'http://localhost:5173',
-  credentials: true,
-}));
-
-// Rate limit AI endpoints — they cost money per call
-const aiLimiter = rateLimit({
-  windowMs: 60 * 1000,   // 1 minute
-  max: 20,                // 20 requests per minute per IP
-  message: { error: 'Too many requests, slow down' }
-});
-
-app.use('/api/chat', aiLimiter);
-app.use('/api/analyse-image', aiLimiter);
-app.use('/api/tour', aiLimiter);
-Action items:
-
- npm install cors express-rate-limit
- npm install -D @types/cors
- Add CORS + rate limiting to src/server.ts
- Test that /api/chat returns 429 after 20 rapid requests locally
-
-
-PHASE H: Database — Railway PostgreSQL
-Step H1: Provision Railway database
-bash# Install Railway CLI
-npm install -g @railway/cli
-
-# Login and initialise
+```bash
+# Login and link your project
 railway login
 railway init
 
- Go to railway.app → New Project → Add PostgreSQL
- In Railway dashboard: copy the DATABASE_URL connection string
- Add it as an environment variable in Railway: DATABASE_URL=<copied value>
- Run migrations against the Railway DB:
+# Deploy — Railway detects your Dockerfile automatically
+railway up
+```
 
-bashDATABASE_URL=<railway_url> npx prisma migrate deploy
+- [ ] In Railway dashboard: add a PostgreSQL plugin to your project
+- [ ] Copy the auto-generated `DATABASE_URL` — Railway injects this automatically
+- [ ] Add all remaining environment variables in Railway dashboard (use `.env.example` as your checklist): `OPENAI_API_KEY`, `LANGSMITH_API_KEY`, `NODE_ENV=production`, `FRONTEND_URL` (come back and set this after Vercel is deployed)
+- [ ] Run migrations against the production database:
+```bash
+DATABASE_URL=<railway_url> npx prisma migrate deploy
+```
+- [ ] Run the seed script against production:
+```bash
+DATABASE_URL=<railway_url> npm run seed
+```
+- [ ] Run the embed script against production (costs ~$0.01 in OpenAI credits):
+```bash
+DATABASE_URL=<railway_url> npx ts-node scripts/embed-structures.ts
+```
+- [ ] Confirm: hit `https://<your-railway-url>/api/structures` in the browser and get JSON back
 
- Run seed against Railway DB:
+**Deploy the frontend:**
 
-bashDATABASE_URL=<railway_url> npm run seed
-
- Run embed script against Railway DB (this costs ~$0.01 in OpenAI credits):
-
-bashDATABASE_URL=<railway_url> npx ts-node scripts/embed-structures.ts
-
- Verify in Railway's Postgres dashboard that structures table has rows and embedding column is populated
-
-
-Step H2: Deploy backend to Railway
-bashrailway up
-
- Set all environment variables in Railway dashboard (use .env.example as your checklist):
-
-DATABASE_URL (auto-set by Railway if Postgres is in the same project)
-OPENAI_API_KEY
-LANGSMITH_API_KEY
-FRONTEND_URL (your Vercel URL — set this after Step I1, come back)
-NODE_ENV=production
-
-
- Confirm Railway build logs show no errors
- Hit https://<your-railway-url>/api/structures in the browser — should return JSON
- Note your Railway backend URL for the frontend step
-
-
-PHASE I: Frontend — Vercel
-Step I1: Update frontend API base URL
-File: frontend/.env.production
-bashVITE_API_URL=https://<your-railway-url>
-File: frontend/src/lib/api.ts (or wherever you call fetch)
-typescriptconst API_BASE = import.meta.env.VITE_API_URL ?? 'http://localhost:3000';
-
- Replace all hardcoded http://localhost:3000 references with API_BASE
- Confirm frontend/.env.example includes VITE_API_URL=
-
-
-Step I2: Deploy frontend to Vercel
-bashnpm install -g vercel
+```bash
 cd frontend
 vercel
+# Follow prompts: framework = Vite, root = frontend/
+```
 
- Follow the CLI prompts (framework: Vite, root: frontend/)
- In Vercel dashboard → Settings → Environment Variables: add VITE_API_URL=https://<your-railway-url>
- Trigger a redeploy: vercel --prod
- Copy your Vercel URL, go back to Railway and set FRONTEND_URL=https://<your-vercel-url>
- Redeploy backend on Railway to pick up the updated CORS config
+- [ ] In Vercel dashboard → Settings → Environment Variables: add `VITE_API_URL=https://<your-railway-url>`
+- [ ] Redeploy to pick up the variable: `vercel --prod`
+- [ ] Copy your Vercel URL, go back to Railway and set `FRONTEND_URL=https://<your-vercel-url>`
+- [ ] Trigger a Railway redeploy to pick up the updated CORS config
 
+**You do after:** Run through this smoke test checklist against your live URLs before sharing with anyone:
 
-PHASE J: Smoke Tests & Demo Prep
-Step J1: Production smoke test checklist
-Run these manually against your live URLs:
+- [ ] Hover a bone → name appears in side panel
+- [ ] Click a bone → detail panel populates
+- [ ] Ask the AI chat: *"what is the femur?"* → response streams and highlights bones
+- [ ] Upload an X-ray image → structures are identified
+- [ ] Voice input transcribes and passes to chat
+- [ ] Make 25 rapid requests to `/api/chat` → 429 rate limit fires at 20
+- [ ] Set a **hard monthly spend limit of $10** in your [OpenAI dashboard](https://platform.openai.com/account/limits) before sharing the URL publicly
 
- GET /api/structures?system=SKELETAL returns bones
- Hover a bone on the SVG → structure name appears in side panel
- Click a bone → detail panel populates
- POST /api/chat with { "question": "what is the femur?" } streams a response
- AI response highlights relevant bones on the SVG
- Image upload identifies structures from an X-ray
- Voice input transcribes and passes to chat
- /api/metrics returns latency and token usage data
- Rapid-fire 25 requests to /api/chat → 429 rate limit kicks in at 20
+Then add this demo section to the top of your README:
 
-
-Step J2: Write the README demo section
-This is as important as the code for interview purposes. Add this section at the top of your README above Quick Start:
-markdown## Live demo
-**App**: https://<your-vercel-url>  
+```markdown
+## Live demo
+**App**: https://<your-vercel-url>
 **API**: https://<your-railway-url>
 
 ### What to try
@@ -387,28 +311,36 @@ markdown## Live demo
 
 ### Architecture
 - Frontend: React + TypeScript + Vite → Vercel
-- Backend: Node + Express + Prisma → Railway  
+- Backend: Node + Express + Prisma → Railway
 - Database: PostgreSQL + pgvector → Railway
 - AI: OpenAI GPT-4o (chat, vision, TTS) + Whisper (STT) + text-embedding-3-small (RAG)
 - Observability: LangSmith (tracing + evals)
+```
 
- Record a 90-second Loom walkthrough showing all five demo steps above
- Add the Loom link to the README
- Push everything to a public GitHub repo
-
-
-Step J3: Add OpenAI spend guard (so your demo doesn't bankrupt you)
-In your OpenAI dashboard → Usage limits → set a hard monthly limit of $10. A portfolio demo hitting the AI endpoints casually will cost well under $1/month, but a crawl bot or accidental loop could run up a bill. Set the limit before sharing the URL publicly.
-
- Set hard spend limit in OpenAI dashboard
- Confirm rate limiting is live (Step G3)
-
-
-Environment Variables Reference
-VariableWhere setDescriptionDATABASE_URLRailwayPostgreSQL connection stringOPENAI_API_KEYRailwayOpenAI API key (starts with sk-)LANGSMITH_API_KEYRailwayLangSmith tracing key (optional)FRONTEND_URLRailwayYour Vercel URL (for CORS)NODE_ENVRailwaySet to productionVITE_API_URLVercelYour Railway backend URL
-
-
+Record a 90-second Loom walkthrough showing all five demo steps and add the link to the README. Push everything to a public GitHub repo. This is your portfolio piece — the Loom demo is what interviewers will watch before reading a line of code.
 
 ---
 
-**Overall tip for Copilot:** After each paste, if the output looks wrong or incomplete, follow up with a second message in the same chat saying what's missing rather than starting over. Copilot has context from the previous message and will patch rather than regenerate.
+**If something breaks in production:**
+- **CORS errors in browser** → `FRONTEND_URL` in Railway doesn't exactly match your Vercel URL (check for trailing slash)
+- **Prisma connection errors** → migration not run against production DB, or `DATABASE_URL` not set
+- **AI endpoints returning 500** → `OPENAI_API_KEY` not set or quota exceeded; check logs with `railway logs`
+- **Embeddings returning no results** → `embed-structures.ts` was never run against the production DB; rerun with the Railway `DATABASE_URL`
+- **SVG index missing in production** → check Railway build logs for `extract-svg` output; the `prebuild` hook should have run it automatically
+
+---
+
+## Environment variables reference
+
+| Variable | Where set | Description |
+|---|---|---|
+| `DATABASE_URL` | Railway | PostgreSQL connection string |
+| `OPENAI_API_KEY` | Railway | OpenAI API key (starts with `sk-`) |
+| `LANGSMITH_API_KEY` | Railway | LangSmith tracing key (optional) |
+| `FRONTEND_URL` | Railway | Your Vercel URL (for CORS) |
+| `NODE_ENV` | Railway | Set to `production` |
+| `VITE_API_URL` | Vercel | Your Railway backend URL |
+
+---
+
+*Overall tip for Copilot: After each paste, if the output looks wrong or incomplete, follow up with a second message in the same chat saying what's missing rather than starting over. Copilot has context from the previous message and will patch rather than regenerate.*
