@@ -1,6 +1,7 @@
 import { create } from 'zustand'
-import { Structure, SystemEnum } from '../types'
+import { Structure, SystemEnum, Interaction, ChatRequest } from '../types'
 import { handleChat } from '../lib/streaming/handlers/chatHandler'
+import { InteractionDefaults, createChatRequest, isAbortError } from '../lib/interaction'
 
 type LoadingState = 'IDLE' | 'LOADING' | 'ERROR'
 
@@ -95,6 +96,12 @@ interface AnatomyStore {
   streamError: string | null
   chatAbortController: AbortController | null
   chatSourceStructures: Structure[] // Track which structures came from chat sources
+
+  // ===== NEW: UNIFIED INTERACTION MODEL (Phase 1) =====
+  interaction: Interaction
+  activeChat: ChatRequest | null
+  setInteraction: (patch: Partial<Interaction>) => void
+  clearInteraction: () => void
 
   // ===== CHAT ACTIONS (Basic Setters) =====
   setCurrentResponse: (response: string) => void
@@ -198,6 +205,28 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
   chatAbortController: null as AbortController | null,
   chatSourceStructures: [],
 
+  // ===== NEW: UNIFIED INTERACTION MODEL IMPLEMENTATIONS (Phase 1) =====
+  interaction: {
+    type: 'none',
+    structure: null,
+    sourceIds: [],
+  } as Interaction,
+  activeChat: null as ChatRequest | null,
+
+  setInteraction: (patch: Partial<Interaction>) =>
+    set((state) => ({
+      interaction: { ...state.interaction, ...patch },
+    })),
+
+  clearInteraction: () =>
+    set({
+      interaction: {
+        type: 'none',
+        structure: null,
+        sourceIds: [],
+      },
+    }),
+
   // ===== CHAT BASIC ACTIONS =====
   setCurrentResponse: (response: string) =>
     set({ currentResponse: response }),
@@ -237,21 +266,35 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
     const messageId = Date.now().toString()
     const startTime = Date.now()
 
-    // Create new AbortController for this request
-    const abortController = new AbortController()
+    // ===== STEP 1: Cancel previous chat request =====
+    // This prevents Chat A's in-flight fetches from corrupting Chat B's state
+    const state = useAnatomyStore.getState()
+    if (state.activeChat) {
+      state.activeChat.abortController.abort()
+      try {
+        // Wait for all fetches to settle
+        await Promise.allSettled(state.activeChat.fetchTasks)
+      } catch {
+        // Ignore errors from aborted requests
+      }
+    }
 
-    // Reset state
+    // ===== STEP 2: Create new chat request =====
+    const chatRequest = createChatRequest(question)
+
+    // ===== STEP 3: Reset interaction state =====
     set({
-      isStreamingChat: true,
+      activeChat: chatRequest,
+      interaction: InteractionDefaults.NONE as any,
       currentResponse: '',
       streamError: null,
-      chatAbortController: abortController,
+      isStreamingChat: true,
       highlightedIds: new Set<string>(),
-      chatSourceStructures: []
+      chatSourceStructures: [],
     })
 
     try {
-      // Call handler with callbacks and abort signal
+      // ===== STEP 4: Call chat handler with abort signal =====
       const result = await handleChat(
         question,
         {
@@ -259,36 +302,52 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
             // Stream started - loading spinner already shown via isStreamingChat
           },
           onData: (data, type) => {
+            const store = useAnatomyStore.getState()
+
             if (type === 'sources') {
-              // Highlight SVG paths and fetch structure data
-              const store = useAnatomyStore.getState()
               const sourceIds = data as string[]
               store.setHighlightedIds(new Set(sourceIds))
-              
-              // Fetch structure data for the first source to display after highlight
-              // This will update the info panel even if a bone is click-locked
+
+              // Fetch structure data for the first source to display in info panel
               const fetchFirstSourceStructure = async () => {
                 try {
-                  const response = await fetch(
-                    `/api/structures/by-svg-path/lookup?pathIds=${sourceIds[0]}&system=SKELETAL`
+                  const fetchPromise = fetch(
+                    `/api/structures/by-svg-path/lookup?pathIds=${sourceIds[0]}&system=SKELETAL`,
+                    { signal: chatRequest.abortController.signal }
                   )
-                  if (response.ok) {
-                    const result = await response.json()
-                    const structures = result.data || []
-                    if (structures.length > 0) {
-                      store.setChatSourceStructures([structures[0]])
-                      // Update selected structure to display in info panel (overrides click-lock)
-                      store.setSelectedStructure(structures[0])
-                    }
+                    .then((response) => {
+                      if (!response.ok) throw new Error(`HTTP ${response.status}`)
+                      return response.json()
+                    })
+                    .then((result) => {
+                      const structures = result.data || []
+                      if (structures.length > 0) {
+                        store.setChatSourceStructures([structures[0]])
+                        // Update interaction with first source structure
+                        store.setInteraction({
+                          type: 'chat-result',
+                          structure: structures[0],
+                          sourceId: `chat-${chatRequest.id}`,
+                          sourceIds,
+                          expiresAt: Date.now() + InteractionDefaults.CHAT_RESULT_TIMEOUT_MS,
+                        })
+                      }
+                    })
+
+                  // Track this fetch in activeChat
+                  if (store.activeChat) {
+                    store.activeChat.fetchTasks.push(fetchPromise)
                   }
                 } catch (err) {
-                  console.error('Error fetching first source structure:', err)
+                  if (!isAbortError(err)) {
+                    console.error('Error fetching first source structure:', err)
+                  }
                 }
               }
+
               fetchFirstSourceStructure()
             } else if (type === 'token') {
               // Accumulate response tokens
-              const store = useAnatomyStore.getState()
               const current = store.currentResponse
               store.setCurrentResponse(current + data)
             }
@@ -302,43 +361,39 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
               response: store.currentResponse,
               svgPathIds: Array.from(store.highlightedIds),
               timestamp: startTime,
-              duration: Date.now() - startTime
+              duration: Date.now() - startTime,
             }
             store.addChatMessage(newMessage)
             set({ isStreamingChat: false })
-            
-            // Clear highlights after 5 seconds and set first source as selected
-            setTimeout(() => {
-              const currentStore = useAnatomyStore.getState()
-              currentStore.setHighlightedIds(new Set<string>())
-              
-              // Switch to selected behavior for the first source structure
-              if (currentStore.chatSourceStructures?.length > 0) {
-                const firstSource = currentStore.chatSourceStructures[0] as any
-                currentStore.setSelectedStructure(firstSource)
-              }
-            }, 5000)
           },
           onError: (error) => {
-            // Stream failed
-            set({
-              isStreamingChat: false,
-              streamError: error
-            })
-          }
+            // Only set error if not aborted
+            if (!isAbortError(error)) {
+              set({
+                isStreamingChat: false,
+                streamError: error,
+              })
+            } else {
+              set({ isStreamingChat: false })
+            }
+          },
         },
-        { signal: abortController.signal }  // Pass abort signal for cancellation support
+        { signal: chatRequest.abortController.signal }
       )
 
       // Optional: Log metrics
       console.debug(`Chat completed in ${result.duration}ms with ${result.sources.length} sources`)
     } catch (error) {
-      // Catch any uncaught errors
-      const message = error instanceof Error ? error.message : 'Unknown error'
-      set({
-        isStreamingChat: false,
-        streamError: message
-      })
+      // Only set error if not aborted
+      if (!isAbortError(error)) {
+        const message = error instanceof Error ? error.message : 'Unknown error'
+        set({
+          isStreamingChat: false,
+          streamError: message,
+        })
+      } else {
+        set({ isStreamingChat: false })
+      }
     }
-  }
+  },
 }))

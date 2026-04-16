@@ -6,11 +6,11 @@ interface SidePanelProps {
 }
 
 export const SidePanel: React.FC<SidePanelProps> = () => {
-  const { selectedStructure, hoveredStructure, isPanelMinimized, togglePanelMinimize } = useAnatomyStore()
+  const { interaction, isPanelMinimized, togglePanelMinimize } = useAnatomyStore()
 
-  // Show hovered data if available, otherwise selected
-  const activeStructure = hoveredStructure || selectedStructure
-  const isHovered = hoveredStructure !== null
+  // Show structure from interaction if available
+  const activeStructure = interaction.structure
+  const isHovered = interaction.type === 'hover'
 
   return (
     <div className="h-full bg-white shadow-lg rounded-lg overflow-hidden flex flex-col">

@@ -2,6 +2,8 @@ import React, { useCallback, useRef, useEffect, useState } from "react";
 import { useAnatomyStore } from "../stores/anatomy";
 import { SystemEnum } from "../types";
 import { StructureInfoPanel } from "./StructureInfoPanel";
+import { useInteractionExpiry } from "../hooks/useInteractionExpiry";
+import { InteractionDefaults } from "../lib/interaction";
 
 interface AnatomySVGProps {
   systems: Record<SystemEnum, string>;
@@ -13,26 +15,22 @@ const HIGHLIGHT_OPACITY = 0.8;
 const DEFAULT_OPACITY = 0.5;
 const HOVER_SHADOW = "drop-shadow(0 0 8px rgba(59, 130, 246, 0.5))";
 
-const CLICK_LOCK_DURATION = 3000; // 3 seconds
-
 export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
   const svgRefsMap = useRef<Record<SystemEnum, HTMLDivElement | null>>(
     {} as any,
   );
-  const clickLockTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const isClickLockedRef = useRef<boolean>(false);
-  const clickLockedPathRef = useRef<SVGPathElement | null>(null);
   const [isReady, setIsReady] = useState(false);
 
   const {
-    setSelectedStructure,
-    setHoveredStructure,
-    selectedStructure,
-    hoveredStructure,
+    interaction,
+    setInteraction,
     visibleSystems,
     highlightedIds,
     clearHighlight,
   } = useAnatomyStore();
+
+  // ===== Set up interaction expiry polling =====
+  useInteractionExpiry();
 
   // ===== HELPER FUNCTIONS =====
 
@@ -133,7 +131,7 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
   }, [visibleSystems]);
 
   /**
-   * Update highlighting for all paths based on chat highlights.
+   * Update highlighting for all paths based on chat highlights and interaction sourceIds.
    * Handles both:
    * - Path IDs: Direct <path id="femur-left" />
    * - Group IDs: <g id="FemurLeft"><path .../><path .../></g>
@@ -142,6 +140,12 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
    */
   const updatePathHighlighting = useCallback((): void => {
     const missingIds: string[] = [];
+    
+    // Combine both chat highlights and interaction source IDs
+    const allHighlightedIds = new Set([
+      ...highlightedIds,
+      ...interaction.sourceIds,
+    ]);
 
     Object.values(SystemEnum).forEach((system) => {
       const systemContainer = svgRefsMap.current[system];
@@ -150,7 +154,7 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
       const svg = systemContainer.querySelector("svg");
       if (!svg) return;
 
-      // First, clear all highlighting from paths not in highlightedIds
+      // First, clear all highlighting from paths not in allHighlightedIds
       const allPaths = svg.querySelectorAll("path");
       allPaths.forEach((path) => {
         const pathId = path.getAttribute("id");
@@ -158,8 +162,8 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
         
         // Check if this path or its parent group is highlighted
         const isHighlighted = Boolean(
-          (pathId && highlightedIds.has(pathId)) || 
-          (parentGroupId && highlightedIds.has(parentGroupId))
+          (pathId && allHighlightedIds.has(pathId)) || 
+          (parentGroupId && allHighlightedIds.has(parentGroupId))
         );
 
         if (!isHighlighted && path.style.animation !== "none") {
@@ -168,8 +172,8 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
         }
       });
 
-      // Now apply highlighting for each ID in highlightedIds
-      highlightedIds.forEach((id) => {
+      // Now apply highlighting for each ID in allHighlightedIds
+      allHighlightedIds.forEach((id) => {
         // Try to find element by ID
         const element = svg.getElementById(id);
         
@@ -202,10 +206,16 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
         missingIds
       );
     }
-  }, [highlightedIds, updatePathStyle, getGroupId]);
+  }, [highlightedIds, interaction.sourceIds, updatePathStyle, getGroupId]);
 
   /**
    * Attach interactive event listeners to all paths in SVG
+   * 
+   * Event flow:
+   * - Mouseenter: Hover over a path → show structure in interaction.structure (if not chat-result)
+   * - Mouseleave: Leave the path → clear interaction if type was 'hover'
+   * - Click: Click a path → set interaction to click-locked for 3 seconds
+   *   (unless there's an active chat-result, in which case chat takes precedence)
    */
   const attachEventListeners = useCallback((): void => {
     Object.values(SystemEnum).forEach((system) => {
@@ -229,94 +239,81 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
         pathElement.style.transition = "all 200ms ease";
         pathElement.style.transformOrigin = "center";
 
-        // Mouseenter: fetch and show structure data
+        // Mouseenter: Fetch and show structure data (unless blocked by chat-result)
         pathElement.addEventListener("mouseenter", async () => {
-          // If click-locked on a different path, show hover glow but keep info panel locked
-          if (isClickLockedRef.current && clickLockedPathRef.current !== pathElement) {
-            // Apply hover styling without updating the info panel
+          const store = useAnatomyStore.getState();
+          
+          // Don't update panel if there's an active chat result
+          if (store.interaction.type === "chat-result") {
             const pathId = pathElement.getAttribute("id");
-            const isHighlighted = Boolean(pathId && highlightedIds.has(pathId));
+            const isHighlighted = Boolean(
+              pathId && (highlightedIds.has(pathId) || store.interaction.sourceIds.includes(pathId))
+            );
             updatePathStyle(pathElement, true, isHighlighted);
             return;
           }
 
-          // If click-locked on this same path, don't change anything
-          if (isClickLockedRef.current && clickLockedPathRef.current === pathElement) {
-            return;
-          }
-
-          // Normal hover (not click-locked)
+          // Normal hover: fetch structure and show in panel
           const pathId = pathElement.getAttribute("id");
           const isHighlighted = Boolean(pathId && highlightedIds.has(pathId));
           updatePathStyle(pathElement, true, isHighlighted);
 
           const structure = await fetchStructureData(groupId, system);
           if (structure) {
-            setHoveredStructure(structure);
+            setInteraction({
+              type: "hover",
+              structure,
+              sourceId: groupId,
+              sourceIds: [],
+            });
           }
         });
 
-        // Mouseleave: restore previous state (unless click-locked)
+        // Mouseleave: Clear hover interaction (unless click-locked or chat-result)
         pathElement.addEventListener("mouseleave", () => {
-          // Skip if this path is currently click-locked
-          if (isClickLockedRef.current && clickLockedPathRef.current === pathElement) {
-            return;
-          }
+          const store = useAnatomyStore.getState();
           
+          // Only clear if we're currently hovering
+          if (store.interaction.type === "hover") {
+            setInteraction(InteractionDefaults.NONE as any);
+          }
+
           const pathId = pathElement.getAttribute("id");
-          const isHighlighted = Boolean(pathId && highlightedIds.has(pathId));
+          const isHighlighted = Boolean(
+            pathId && (highlightedIds.has(pathId) || store.interaction.sourceIds.includes(pathId))
+          );
           updatePathStyle(pathElement, false, isHighlighted);
-          setHoveredStructure(null);
         });
 
-        // Click: select structure and lock it for a few seconds
+        // Click: Lock structure for 3 seconds
         pathElement.addEventListener("click", async (e) => {
           e.stopPropagation();
           const structure = await fetchStructureData(groupId, system);
           if (structure) {
-            setSelectedStructure(structure);
-            
-            // Clear existing timeout if any
-            if (clickLockTimeoutRef.current) {
-              clearTimeout(clickLockTimeoutRef.current);
-            }
-            
-            // Reset previous locked path styling
-            if (clickLockedPathRef.current) {
-              const pathId = clickLockedPathRef.current.getAttribute("id");
-              const isHighlighted = Boolean(pathId && highlightedIds.has(pathId));
-              updatePathStyle(clickLockedPathRef.current, false, isHighlighted);
-            }
-            
-            // Apply hover styling to the clicked path (glow)
+            // Set interaction to click-locked with 3-second expiry
+            setInteraction({
+              type: "click-locked",
+              structure,
+              sourceId: groupId,
+              sourceIds: [],
+              expiresAt: Date.now() + InteractionDefaults.CLICK_LOCK_TIMEOUT_MS,
+            });
+
+            // Apply hover styling to show click feedback
             updatePathStyle(pathElement, true, false);
-            clickLockedPathRef.current = pathElement;
-            
-            // Set lock and start timer
-            isClickLockedRef.current = true;
-            clickLockTimeoutRef.current = setTimeout(() => {
-              // Reset the locked path styling when lock expires
-              if (clickLockedPathRef.current) {
-                const pathId = clickLockedPathRef.current.getAttribute("id");
-                const isHighlighted = Boolean(pathId && highlightedIds.has(pathId));
-                updatePathStyle(clickLockedPathRef.current, false, isHighlighted);
-              }
-              isClickLockedRef.current = false;
-              clickLockTimeoutRef.current = null;
-              clickLockedPathRef.current = null;
-            }, CLICK_LOCK_DURATION);
           }
         });
       });
     });
-  }, [
-    getGroupId,
-    fetchStructureData,
-    updatePathStyle,
-    highlightedIds,
-    setHoveredStructure,
-    setSelectedStructure,
-  ]);
+  }, [getGroupId, fetchStructureData, setInteraction, highlightedIds, updatePathStyle]);
+
+  // ===== EFFECTS =====
+
+  // Initialize SVG after a brief delay to ensure rendering
+  useEffect(() => {
+    const timer = setTimeout(() => setIsReady(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   // ===== EFFECTS =====
 
@@ -338,24 +335,12 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
     updatePathVisibility();
   }, [updatePathVisibility]);
 
-  // Update highlighting when chat highlights change
+  // Update highlighting when chat highlights or interaction sourceIds change
   useEffect(() => {
     updatePathHighlighting();
   }, [updatePathHighlighting]);
 
-  // Cleanup click lock timeout on unmount
-  useEffect(() => {
-    return () => {
-      if (clickLockTimeoutRef.current) {
-        clearTimeout(clickLockTimeoutRef.current);
-      }
-      clickLockedPathRef.current = null;
-    };
-  }, []);
-
-  // When click-locked, show selected structure; otherwise show hover or selected
-  const activeStructure = isClickLockedRef.current ? selectedStructure : (hoveredStructure || selectedStructure);
-
+  // Display the current interaction's structure (or nothing if none)
   return (
     <div className="relative w-full h-full bg-white rounded-lg shadow overflow-hidden">
       {/* Main SVG container - render all systems as overlays */}
@@ -389,7 +374,7 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
       </div>
 
       {/* Structure info panel */}
-      <StructureInfoPanel structure={activeStructure} />
+      <StructureInfoPanel structure={interaction.structure} />
 
       <style>{`
         @keyframes svgPulse {

@@ -21,8 +21,7 @@ describe('AnatomySVG Component - User Interactions', () => {
   beforeEach(() => {
     // Reset store between tests
     const store = useAnatomyStore.getState()
-    store.setHoveredStructure(null)
-    store.setSelectedStructure(null)
+    store.clearInteraction()
 
     // Mock fetch for API calls
     setupFetchMock()
@@ -66,15 +65,16 @@ describe('AnatomySVG Component - User Interactions', () => {
       fireEvent.mouseEnter(pathInGroup)
     })
 
-    // Verify store was updated with structure
+    // Verify store was updated with interaction (hover state)
     await waitFor(() => {
       const store = useAnatomyStore.getState()
-      const hoveredStructure = store.hoveredStructure
+      const structure = store.interaction.structure
 
-      expect(hoveredStructure).toBeTruthy()
+      expect(structure).toBeTruthy()
+      expect(store.interaction.type).toBe('hover')
 
-      if (hoveredStructure) {
-        expect(hoveredStructure.svgPathIds).toContain(testBoneId)
+      if (structure) {
+        expect(structure.svgPathIds).toContain(testBoneId)
       }
     })
   })
@@ -113,7 +113,9 @@ describe('AnatomySVG Component - User Interactions', () => {
     })
 
     await waitFor(() => {
-      expect(useAnatomyStore.getState().hoveredStructure).toBeTruthy()
+      const interaction = useAnatomyStore.getState().interaction
+      expect(interaction.structure).toBeTruthy()
+      expect(interaction.type).toBe('hover')
     })
 
     await act(async () => {
@@ -122,7 +124,9 @@ describe('AnatomySVG Component - User Interactions', () => {
 
     // Verify store was cleared
     await waitFor(() => {
-      expect(useAnatomyStore.getState().hoveredStructure).toBeNull()
+      const interaction = useAnatomyStore.getState().interaction
+      expect(interaction.type).toBe('none')
+      expect(interaction.structure).toBeNull()
     })
   })
 
@@ -159,15 +163,16 @@ describe('AnatomySVG Component - User Interactions', () => {
       fireEvent.click(pathInGroup)
     })
 
-    // Verify store was updated with selected structure
+    // Verify store was updated with interaction (click-locked)
     await waitFor(() => {
       const store = useAnatomyStore.getState()
-      const selectedStructure = store.selectedStructure
+      const structure = store.interaction.structure
 
-      expect(selectedStructure).toBeTruthy()
+      expect(structure).toBeTruthy()
 
-      if (selectedStructure) {
-        expect(selectedStructure.svgPathIds).toContain(testBoneId)
+      if (structure) {
+        expect(structure.svgPathIds).toContain(testBoneId)
+        expect(store.interaction.type).toBe('click-locked')
       }
     })
   })
