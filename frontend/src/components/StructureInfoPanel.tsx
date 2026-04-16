@@ -19,15 +19,17 @@ export const StructureInfoPanel: React.FC<StructureInfoPanelProps> = ({
 }) => {
   const [descriptionState, setDescriptionState] =
     useState<DescriptionState>("expanded");
+  const [isPanelVisible, setIsPanelVisible] = useState(true);
 
   // Auto-expand description when a new structure is clicked
   useEffect(() => {
     if (structure) {
       setDescriptionState("expanded");
+      setIsPanelVisible(true);
     }
   }, [structure?.id]);
 
-  if (!structure) return null;
+  if (!structure || !isPanelVisible) return null;
 
   const getDisplayText = () => {
     if (descriptionState === "collapsed") {
@@ -40,9 +42,19 @@ export const StructureInfoPanel: React.FC<StructureInfoPanelProps> = ({
   };
 
   return (
-    <div className="absolute left-4 top-4 pointer-events-auto z-10 max-w-[calc(100%/3)] max-h-full">
-      <div className="text-left bg-white rounded-lg shadow-md border border-gray-200 p-3 flex flex-col" style={{ maxHeight: "70vh" }}>
-        <div className="flex-shrink-0">
+    <div className="absolute left-4 top-4 pointer-events-auto z-10 max-w-[calc(100%/3)]">
+      <div className="text-left flex flex-col relative">
+        <button
+          onClick={() => setIsPanelVisible(false)}
+          className="absolute top-0 right-0 text-gray-400 hover:text-gray-600 transition-colors"
+          title="Close"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+        
+        <div className="flex-shrink-0 pr-6">
           <h3 className="text-sm font-semibold text-gray-900">
             {structure.name}
           </h3>
@@ -52,7 +64,7 @@ export const StructureInfoPanel: React.FC<StructureInfoPanelProps> = ({
         </div>
         
         {descriptionState !== "collapsed" && (
-          <div className="border-t border-gray-200 pt-2 mt-2 flex-1 overflow-y-auto min-h-0">
+          <div className="flex-1 min-h-0 mt-1">
             <p className="text-xs text-gray-700 leading-relaxed">
               {getDisplayText()}
             </p>
