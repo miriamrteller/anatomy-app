@@ -246,8 +246,13 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
           }
         });
 
-        // Mouseleave: restore previous state
+        // Mouseleave: restore previous state (unless click-locked)
         pathElement.addEventListener("mouseleave", () => {
+          // Skip if this path is currently click-locked
+          if (isClickLockedRef.current && clickLockedPathRef.current === pathElement) {
+            return;
+          }
+          
           const pathId = pathElement.getAttribute("id");
           const isHighlighted = Boolean(pathId && highlightedIds.has(pathId));
           updatePathStyle(pathElement, false, isHighlighted);
