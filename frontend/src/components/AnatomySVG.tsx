@@ -21,6 +21,7 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
   );
   const clickLockTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const isClickLockedRef = useRef<boolean>(false);
+  const clickLockedPathRef = useRef<SVGPathElement | null>(null);
   const [isReady, setIsReady] = useState(false);
 
   const {
@@ -265,11 +266,29 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
               clearTimeout(clickLockTimeoutRef.current);
             }
             
+            // Reset previous locked path styling
+            if (clickLockedPathRef.current) {
+              const pathId = clickLockedPathRef.current.getAttribute("id");
+              const isHighlighted = Boolean(pathId && highlightedIds.has(pathId));
+              updatePathStyle(clickLockedPathRef.current, false, isHighlighted);
+            }
+            
+            // Apply hover styling to the clicked path (glow)
+            updatePathStyle(pathElement, true, false);
+            clickLockedPathRef.current = pathElement;
+            
             // Set lock and start timer
             isClickLockedRef.current = true;
             clickLockTimeoutRef.current = setTimeout(() => {
+              // Reset the locked path styling when lock expires
+              if (clickLockedPathRef.current) {
+                const pathId = clickLockedPathRef.current.getAttribute("id");
+                const isHighlighted = Boolean(pathId && highlightedIds.has(pathId));
+                updatePathStyle(clickLockedPathRef.current, false, isHighlighted);
+              }
               isClickLockedRef.current = false;
               clickLockTimeoutRef.current = null;
+              clickLockedPathRef.current = null;
             }, CLICK_LOCK_DURATION);
           }
         });
@@ -315,6 +334,7 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
       if (clickLockTimeoutRef.current) {
         clearTimeout(clickLockTimeoutRef.current);
       }
+      clickLockedPathRef.current = null;
     };
   }, []);
 

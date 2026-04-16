@@ -260,27 +260,29 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
           },
           onData: (data, type) => {
             if (type === 'sources') {
-              // Highlight SVG paths and track source structures
+              // Highlight SVG paths and fetch structure data
               const store = useAnatomyStore.getState()
               const sourceIds = data as string[]
               store.setHighlightedIds(new Set(sourceIds))
               
-              // Fetch structure data for these sources
-              const fetchSourceStructures = async () => {
+              // Fetch structure data for the first source to display after highlight
+              const fetchFirstSourceStructure = async () => {
                 try {
                   const response = await fetch(
-                    `/api/structures/by-svg-path/lookup?pathIds=${sourceIds.join(',')}&system=SKELETAL`
+                    `/api/structures/by-svg-path/lookup?pathIds=${sourceIds[0]}&system=SKELETAL`
                   )
                   if (response.ok) {
                     const result = await response.json()
                     const structures = result.data || []
-                    store.setChatSourceStructures(structures)
+                    if (structures.length > 0) {
+                      store.setChatSourceStructures([structures[0]])
+                    }
                   }
                 } catch (err) {
-                  console.error('Error fetching source structures:', err)
+                  console.error('Error fetching first source structure:', err)
                 }
               }
-              fetchSourceStructures()
+              fetchFirstSourceStructure()
             } else if (type === 'token') {
               // Accumulate response tokens
               const store = useAnatomyStore.getState()
@@ -302,11 +304,16 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
             store.addChatMessage(newMessage)
             set({ isStreamingChat: false })
             
-            // Clear highlights after 5 seconds
+            // Clear highlights after 5 seconds and set first source as selected
             setTimeout(() => {
               const currentStore = useAnatomyStore.getState()
               currentStore.setHighlightedIds(new Set<string>())
-              currentStore.setChatSourceStructures([])
+              
+              // Switch to selected behavior for the first source structure
+              if (currentStore.chatSourceStructures?.length > 0) {
+                const firstSource = currentStore.chatSourceStructures[0] as any
+                currentStore.setSelectedStructure(firstSource)
+              }
             }, 5000)
           },
           onError: (error) => {
