@@ -65,12 +65,12 @@ export function ChatPanel({ isExpanded = false, onToggleWidth }: ChatPanelProps)
     <div className="bg-white rounded-lg shadow flex flex-col h-full overflow-hidden p-4 gap-3">
       {/* Header and Input - Top */}
       <div className="flex-shrink-0 space-y-3">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between gap-2">
           <h2 className="text-lg font-semibold text-gray-800">Chat</h2>
           {onToggleWidth && (
             <button
               onClick={onToggleWidth}
-              className="text-xs font-medium text-gray-600 hover:text-blue-600 transition"
+              className="flex-shrink-0 text-xs font-medium text-gray-600 hover:text-blue-600 transition"
               title="Toggle width"
             >
               ↔
@@ -91,7 +91,7 @@ export function ChatPanel({ isExpanded = false, onToggleWidth }: ChatPanelProps)
           {isLoading ? (
             <button
               onClick={cancel}
-              className="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded text-sm font-medium transition flex-shrink-0"
+              className="bg-red-500 hover:bg-red-600 text-white px-2 py-2 rounded text-xs font-medium transition flex-shrink-0 whitespace-nowrap"
             >
               Stop
             </button>
@@ -99,14 +99,14 @@ export function ChatPanel({ isExpanded = false, onToggleWidth }: ChatPanelProps)
             <button
               onClick={handleSend}
               disabled={!input.trim()}
-              className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded text-sm font-medium transition disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
+              className="bg-blue-500 hover:bg-blue-600 text-white px-2 py-2 rounded text-xs font-medium transition disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0 whitespace-nowrap"
             >
               Send
             </button>
           )}
           <button
             onClick={handleClear}
-            className="bg-gray-300 hover:bg-gray-400 text-gray-800 px-3 py-2 rounded text-sm font-medium transition flex-shrink-0"
+            className="bg-gray-300 hover:bg-gray-400 text-gray-800 px-2 py-2 rounded text-xs font-medium transition flex-shrink-0 whitespace-nowrap"
           >
             Clear
           </button>
