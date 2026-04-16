@@ -92,10 +92,39 @@ export async function chat(req: Request, res: Response): Promise<void> {
       FROM structures
       WHERE embedding IS NOT NULL
       ORDER BY embedding <=> ${questionVector}::vector
-      LIMIT 5
+      LIMIT 10
     `) as SimilarStructure[];
 
-    similarStructures = results;
+    // Prioritize results that have name matches with the question
+    // Extract keywords from question (e.g., "cranium", "femur", "humerus")
+    const questionLower = question.toLowerCase();
+    const questionWords = questionLower
+      .split(/\s+/)
+      .filter((w) => w.length > 3); // Filter out small words
+
+    // Sort results: name matches first, then by similarity
+    const sorted = results.sort((a, b) => {
+      const aNameMatch = questionWords.some(
+        (word) =>
+          a.name.toLowerCase().includes(word) ||
+          a.latinName.toLowerCase().includes(word)
+      );
+      const bNameMatch = questionWords.some(
+        (word) =>
+          b.name.toLowerCase().includes(word) ||
+          b.latinName.toLowerCase().includes(word)
+      );
+
+      // Prioritize name matches
+      if (aNameMatch && !bNameMatch) return -1;
+      if (!aNameMatch && bNameMatch) return 1;
+
+      // Otherwise sort by similarity
+      return b.similarity - a.similarity;
+    });
+
+    // Take top 5 after sorting
+    similarStructures = sorted.slice(0, 5);
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error';
     throw new AppError(500, `Database search failed: ${message}`);
@@ -149,7 +178,10 @@ Keep responses concise and educational.`;
     // ============================================================
     // Frontend uses these IDs to highlight structures on the SVG
     // Use svgPathIds (from SVG) not id (UUID) so frontend can find the paths
-    const sourceIds = similarStructures.flatMap((s) => s.svgPathIds || []);
+    // Only highlight top 2 results to avoid lighting up too much of the skeleton
+    const sourceIds = similarStructures
+      .slice(0, 2)
+      .flatMap((s) => s.svgPathIds || []);
     res.write(
       `data: ${JSON.stringify({
         event: 'sources',
