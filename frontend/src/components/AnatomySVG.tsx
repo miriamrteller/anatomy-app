@@ -8,7 +8,7 @@ interface AnatomySVGProps {
 }
 
 // ===== CONSTANTS =====
-const PULSE_ANIMATION = "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite";
+const PULSE_ANIMATION = "svgPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite";
 const HIGHLIGHT_OPACITY = 0.8;
 const DEFAULT_OPACITY = 0.5;
 const HOVER_SHADOW = "drop-shadow(0 0 8px rgba(59, 130, 246, 0.5))";
@@ -132,9 +132,16 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
   }, [visibleSystems]);
 
   /**
-   * Update highlighting for all paths based on chat highlights
+   * Update highlighting for all paths based on chat highlights.
+   * Handles both:
+   * - Path IDs: Direct <path id="femur-left" />
+   * - Group IDs: <g id="FemurLeft"><path .../><path .../></g>
+   * 
+   * Logs missing IDs to console for debugging SVG/DB mismatches.
    */
   const updatePathHighlighting = useCallback((): void => {
+    const missingIds: string[] = [];
+
     Object.values(SystemEnum).forEach((system) => {
       const systemContainer = svgRefsMap.current[system];
       if (!systemContainer) return;
@@ -142,19 +149,59 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
       const svg = systemContainer.querySelector("svg");
       if (!svg) return;
 
-      const paths = svg.querySelectorAll("path");
-      paths.forEach((path) => {
+      // First, clear all highlighting from paths not in highlightedIds
+      const allPaths = svg.querySelectorAll("path");
+      allPaths.forEach((path) => {
         const pathId = path.getAttribute("id");
-        if (pathId && highlightedIds.has(pathId)) {
-          path.style.animation = PULSE_ANIMATION;
-          path.style.fillOpacity = String(HIGHLIGHT_OPACITY);
-        } else if (path.style.animation !== "none") {
+        const parentGroupId = getGroupId(path as SVGPathElement);
+        
+        // Check if this path or its parent group is highlighted
+        const isHighlighted = Boolean(
+          (pathId && highlightedIds.has(pathId)) || 
+          (parentGroupId && highlightedIds.has(parentGroupId))
+        );
+
+        if (!isHighlighted && path.style.animation !== "none") {
           // Only reset if it was animated (avoid overwriting hover states)
-          updatePathStyle(path, false, false);
+          updatePathStyle(path as SVGPathElement, false, false);
+        }
+      });
+
+      // Now apply highlighting for each ID in highlightedIds
+      highlightedIds.forEach((id) => {
+        // Try to find element by ID
+        const element = svg.getElementById(id);
+        
+        if (!element) {
+          missingIds.push(id);
+          return;
+        }
+
+        // If it's a group, highlight all paths within it
+        if (element.tagName === "g" || element.tagName === "G") {
+          const pathsInGroup = element.querySelectorAll("path");
+          pathsInGroup.forEach((path) => {
+            path.style.animation = PULSE_ANIMATION;
+            path.style.fillOpacity = String(HIGHLIGHT_OPACITY);
+          });
+        } 
+        // If it's a path, highlight it directly
+        else if (element.tagName === "path" || element.tagName === "PATH") {
+          const pathElement = element as SVGPathElement;
+          pathElement.style.animation = PULSE_ANIMATION;
+          pathElement.style.fillOpacity = String(HIGHLIGHT_OPACITY);
         }
       });
     });
-  }, [highlightedIds, updatePathStyle]);
+
+    // Log missing IDs for debugging
+    if (missingIds.length > 0) {
+      console.warn(
+        `[AnatomySVG Highlighting] ${missingIds.length} highlighted IDs not found in SVG. Missing IDs:`,
+        missingIds
+      );
+    }
+  }, [highlightedIds, updatePathStyle, getGroupId]);
 
   /**
    * Attach interactive event listeners to all paths in SVG
@@ -310,12 +357,14 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
       <StructureInfoPanel structure={activeStructure} />
 
       <style>{`
-        @keyframes pulse {
+        @keyframes svgPulse {
           0%, 100% {
-            fill-opacity: 0.8;
+            fill-opacity: 0.3;
+            filter: drop-shadow(0 0 2px rgba(59, 130, 246, 0));
           }
           50% {
             fill-opacity: 1;
+            filter: drop-shadow(0 0 6px rgba(59, 130, 246, 0.8));
           }
         }
         svg {

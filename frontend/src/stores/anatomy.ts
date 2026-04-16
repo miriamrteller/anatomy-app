@@ -94,6 +94,7 @@ interface AnatomyStore {
   isStreamingChat: boolean
   streamError: string | null
   chatAbortController: AbortController | null
+  chatSourceStructures: Structure[] // Track which structures came from chat sources
 
   // ===== CHAT ACTIONS (Basic Setters) =====
   setCurrentResponse: (response: string) => void
@@ -102,6 +103,7 @@ interface AnatomyStore {
   addChatMessage: (message: ChatMessage) => void
   clearChatHistory: () => void
   cancelChat: () => void
+  setChatSourceStructures: (structures: Structure[]) => void
 
   // ===== CHAT MIDDLEWARE ACTION (Orchestrates streaming) =====
   startChat: (question: string) => Promise<void>
@@ -194,6 +196,7 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
   isStreamingChat: false,
   streamError: null,
   chatAbortController: null as AbortController | null,
+  chatSourceStructures: [],
 
   // ===== CHAT BASIC ACTIONS =====
   setCurrentResponse: (response: string) =>
@@ -204,6 +207,9 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
 
   setStreamError: (error: string | null) =>
     set({ streamError: error }),
+
+  setChatSourceStructures: (structures: Structure[]) =>
+    set({ chatSourceStructures: structures }),
 
   addChatMessage: (message: ChatMessage) =>
     set((state) => {
@@ -239,7 +245,9 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
       isStreamingChat: true,
       currentResponse: '',
       streamError: null,
-      chatAbortController: abortController
+      chatAbortController: abortController,
+      highlightedIds: new Set<string>(),
+      chatSourceStructures: []
     })
 
     try {
@@ -252,9 +260,27 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
           },
           onData: (data, type) => {
             if (type === 'sources') {
-              // Highlight SVG paths
+              // Highlight SVG paths and track source structures
               const store = useAnatomyStore.getState()
-              store.setHighlightedIds(new Set(data as string[]))
+              const sourceIds = data as string[]
+              store.setHighlightedIds(new Set(sourceIds))
+              
+              // Fetch structure data for these sources
+              const fetchSourceStructures = async () => {
+                try {
+                  const response = await fetch(
+                    `/api/structures/by-svg-path/lookup?pathIds=${sourceIds.join(',')}&system=SKELETAL`
+                  )
+                  if (response.ok) {
+                    const result = await response.json()
+                    const structures = result.data || []
+                    store.setChatSourceStructures(structures)
+                  }
+                } catch (err) {
+                  console.error('Error fetching source structures:', err)
+                }
+              }
+              fetchSourceStructures()
             } else if (type === 'token') {
               // Accumulate response tokens
               const store = useAnatomyStore.getState()
@@ -275,6 +301,13 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
             }
             store.addChatMessage(newMessage)
             set({ isStreamingChat: false })
+            
+            // Clear highlights after 5 seconds
+            setTimeout(() => {
+              const currentStore = useAnatomyStore.getState()
+              currentStore.setHighlightedIds(new Set<string>())
+              currentStore.setChatSourceStructures([])
+            }, 5000)
           },
           onError: (error) => {
             // Stream failed

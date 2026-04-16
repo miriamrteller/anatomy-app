@@ -148,7 +148,8 @@ Keep responses concise and educational.`;
     // STEP 6: Send Source IDs Event
     // ============================================================
     // Frontend uses these IDs to highlight structures on the SVG
-    const sourceIds = similarStructures.map((s) => s.id);
+    // Use svgPathIds (from SVG) not id (UUID) so frontend can find the paths
+    const sourceIds = similarStructures.flatMap((s) => s.svgPathIds || []);
     res.write(
       `data: ${JSON.stringify({
         event: 'sources',

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useAnatomyStore } from "../stores/anatomy";
 
 interface Structure {
   id: string;
@@ -20,25 +21,31 @@ export const StructureInfoPanel: React.FC<StructureInfoPanelProps> = ({
   const [descriptionState, setDescriptionState] =
     useState<DescriptionState>("expanded");
   const [isPanelVisible, setIsPanelVisible] = useState(true);
+  
+  // Get the first chat source structure from the store
+  const chatSourceStructures = useAnatomyStore((state) => state.chatSourceStructures);
+  
+  // Use first chat source structure if available, otherwise use the passed structure
+  const displayStructure = chatSourceStructures?.length > 0 ? chatSourceStructures[0] : structure;
 
   // Auto-expand description when a new structure is clicked
   useEffect(() => {
-    if (structure) {
+    if (displayStructure) {
       setDescriptionState("expanded");
       setIsPanelVisible(true);
     }
-  }, [structure?.id]);
+  }, [displayStructure?.id]);
 
-  if (!structure || !isPanelVisible) return null;
+  if (!displayStructure || !isPanelVisible) return null;
 
   const getDisplayText = () => {
     if (descriptionState === "collapsed") {
       return null;
     }
     if (descriptionState === "truncated") {
-      return structure.description.slice(0, 150) + "...";
+      return displayStructure.description.slice(0, 150) + "...";
     }
-    return structure.description;
+    return displayStructure.description;
   };
 
   return (
@@ -56,10 +63,10 @@ export const StructureInfoPanel: React.FC<StructureInfoPanelProps> = ({
         
         <div className="flex-shrink-0 pr-6">
           <h3 className="text-sm font-semibold text-gray-900">
-            {structure.name}
+            {displayStructure.name}
           </h3>
           <p className="text-xs text-gray-600 italic mb-2">
-            {structure.latinName}
+            {displayStructure.latinName}
           </p>
         </div>
         
