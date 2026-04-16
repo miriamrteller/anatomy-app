@@ -32,7 +32,8 @@ describe('Interaction State Management', () => {
       const interaction = createExpiringInteraction({
         type: 'hover',
         structure: mockStructure,
-        sourceIds: [],
+        pulseIds: new Set(),
+        glowId: undefined,
       })
 
       expect(interaction.expiresAt).toBeUndefined()
@@ -45,7 +46,8 @@ describe('Interaction State Management', () => {
         {
           type: 'click-locked',
           structure: mockStructure,
-          sourceIds: [],
+          pulseIds: new Set(),
+          glowId: undefined,
         },
         3000
       )
@@ -63,7 +65,8 @@ describe('Interaction State Management', () => {
         type: 'click-locked',
         structure: mockStructure,
         sourceId: 'my-source',
-        sourceIds: [],
+        pulseIds: new Set(),
+        glowId: undefined,
       })
 
       expect(interaction.sourceId).toBe('my-source')
@@ -75,7 +78,8 @@ describe('Interaction State Management', () => {
       const interaction: Interaction = {
         type: 'hover',
         structure: mockStructure,
-        sourceIds: [],
+        pulseIds: new Set(),
+        glowId: undefined,
       }
 
       expect(isInteractionValid(interaction)).toBe(true)
@@ -85,7 +89,8 @@ describe('Interaction State Management', () => {
       const interaction: Interaction = {
         type: 'hover',
         structure: mockStructure,
-        sourceIds: [],
+        pulseIds: new Set(),
+        glowId: undefined,
         expiresAt: Date.now() + 1000, // 1 second in future
       }
 
@@ -96,7 +101,8 @@ describe('Interaction State Management', () => {
       const interaction: Interaction = {
         type: 'hover',
         structure: mockStructure,
-        sourceIds: [],
+        pulseIds: new Set(),
+        glowId: undefined,
         expiresAt: Date.now() - 1, // Already expired
       }
 
@@ -109,7 +115,8 @@ describe('Interaction State Management', () => {
       const interaction: Interaction = {
         type: 'hover',
         structure: mockStructure,
-        sourceIds: [],
+        pulseIds: new Set(),
+        glowId: undefined,
       }
 
       expect(millisecondsUntilExpiry(interaction)).toBe(Infinity)
@@ -120,7 +127,8 @@ describe('Interaction State Management', () => {
       const interaction: Interaction = {
         type: 'hover',
         structure: mockStructure,
-        sourceIds: [],
+        pulseIds: new Set(),
+        glowId: undefined,
         expiresAt: futureTime,
       }
 
@@ -133,7 +141,8 @@ describe('Interaction State Management', () => {
       const interaction: Interaction = {
         type: 'hover',
         structure: mockStructure,
-        sourceIds: [],
+        pulseIds: new Set(),
+        glowId: undefined,
         expiresAt: Date.now() - 1000, // Already expired
       }
 
@@ -145,7 +154,8 @@ describe('Interaction State Management', () => {
     it('provides NONE state', () => {
       expect(InteractionDefaults.NONE.type).toBe('none')
       expect(InteractionDefaults.NONE.structure).toBeNull()
-      expect(InteractionDefaults.NONE.sourceIds).toEqual([])
+      expect(InteractionDefaults.NONE.pulseIds?.size ?? 0).toBe(0)
+      expect(InteractionDefaults.NONE.glowId).toBeUndefined()
     })
 
     it('provides reasonable timeout durations', () => {

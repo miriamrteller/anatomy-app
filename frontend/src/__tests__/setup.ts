@@ -6,7 +6,8 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import { fileURLToPath } from 'url'
-import { useAnatomyStore } from '../stores/anatomy'
+// DISABLED: useAnatomyStore no longer needed in tests
+// import { useAnatomyStore } from '../stores/anatomy'
 import { SystemEnum, StructureCategory } from '../types'
 
 // Get __dirname from import.meta.url (ESM compatibility)
@@ -128,9 +129,10 @@ export function populateStoreWithTestData(): void {
   })
 
   // Populate the Zustand store
-  const store = useAnatomyStore.getState()
-  store.setStructures(SystemEnum.SKELETAL, structures)
-  store.setSvgPathToStructure(SystemEnum.SKELETAL, pathMap)
+  // DISABLED: These methods no longer exist (system-based caching removed)
+  // const store = useAnatomyStore.getState()
+  // store.setStructures(SystemEnum.SKELETAL, structures)
+  // store.setSvgPathToStructure(SystemEnum.SKELETAL, pathMap)
 }
 
 /**

@@ -36,11 +36,13 @@ interface ToolResult {
  * @returns ToolResult with structure names and SVG paths
  */
 export async function highlightStructuresHandler(args: unknown): Promise<ToolResult> {
-  console.log('[Tool] highlight_structures called with:', args);
-  
   try {
-    // Validate arguments
     const parsed = HighlightStructuresArgsSchema.parse(args);
+    
+    console.log('[Tool:highlight] Args:', {
+      count: parsed.ids.length,
+      ids: parsed.ids,
+    });
     
     // Query database for structures
     const structures = await db.structure.findMany({
@@ -58,6 +60,15 @@ export async function highlightStructuresHandler(args: unknown): Promise<ToolRes
       },
     });
     
+    const missingIds = parsed.ids.filter(id => !structures.find(s => s.id === id));
+    const svgPathCount = structures.flatMap(s => s.svgPathIds).length;
+    
+    console.log('[Tool:highlight] Result:', {
+      found: structures.length,
+      missing: missingIds.length,
+      svgPathsTotal: svgPathCount,
+    });
+    
     if (structures.length === 0) {
       return {
         success: false,
@@ -65,14 +76,6 @@ export async function highlightStructuresHandler(args: unknown): Promise<ToolRes
         error: 'Invalid structure IDs',
       };
     }
-    
-    const foundIds = structures.map(s => s.id);
-    const missingIds = parsed.ids.filter(id => !foundIds.includes(id));
-    
-    console.log(
-      `[Tool] highlight_structures: Found ${structures.length}/${parsed.ids.length} structures`,
-      `(Missing: ${missingIds.length ? missingIds.join(', ') : 'none'})`
-    );
     
     return {
       success: true,

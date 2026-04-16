@@ -3,7 +3,8 @@ import { z } from 'zod';
 import { getOpenAIClient } from '../lib/openai';
 import { AppError } from '../lib/errors';
 import { AGENT_TOOLS } from '../lib/tools';
-import { executeTool } from '../lib/toolHandlers';
+import { executeTool, getRelatedStructuresHandler } from '../lib/toolHandlers';
+import { db } from '../lib/db';
 
 /**
  * Type-safe request validation for chat endpoint
@@ -64,7 +65,73 @@ export async function chat(req: Request, res: Response): Promise<void> {
 
   try {
     // ============================================================
-    // STEP 3: Initialize Message History for Agent Loop
+    // STEP 3a: Extract Initial Sources (Related Structures)
+    // ============================================================
+    // Extract a bone name from the question to look up related structures
+    // This is a simple heuristic - looks for common bone names in the question
+    const boneKeywords = [
+      'femur', 'tibia', 'fibula', 'cranium', 'skull', 'pelvis', 'humerus',
+      'radius', 'ulna', 'spine', 'vertebra', 'ribs', 'sternum', 'clavicle',
+      'scapula', 'patella', 'talus', 'calcaneus', 'carpals', 'tarsals',
+      'phalanges', 'metacarpals', 'metatarsals', 'mandible', 'atlas', 'axis'
+    ];
+    
+    const lowerQuestion = question.toLowerCase();
+    const foundBone = boneKeywords.find(keyword => lowerQuestion.includes(keyword));
+    
+    console.log(`[Chat] Question: "${question}"`);
+    console.log(`[Chat] Extracted bone: ${foundBone || 'none'}`);
+
+    let sourceIds: string[] = [];
+    if (foundBone) {
+      try {
+        // Find structure by name
+        const targetStructure = await db.structure.findFirst({
+          where: {
+            name: {
+              contains: foundBone,
+              mode: 'insensitive',
+            },
+          },
+          select: { id: true },
+        });
+
+        if (targetStructure) {
+          // Now get related structures for this bone
+          const relatedStructures = await getRelatedStructuresHandler({
+            id: targetStructure.id,
+          });
+
+          if (relatedStructures.success && relatedStructures.data?.related) {
+            sourceIds = [
+              targetStructure.id,
+              ...relatedStructures.data.related.map((s: any) => s.id),
+            ];
+            console.log(`[Chat] Found ${sourceIds.length} related structures`);
+          }
+        } else {
+          console.log(`[Chat] No structure found for bone: ${foundBone}`);
+        }
+      } catch (error) {
+        console.error(`[Chat] Error extracting sources:`, error);
+      }
+    }
+
+    if (sourceIds.length > 0) {
+      res.write(
+        `data: ${JSON.stringify({
+          event: 'sources',
+          data: sourceIds,
+        })}\n\n`
+      );
+      console.log(`📌 Sources event: ${sourceIds.length} structure IDs`);
+      responseSent = true;
+    } else {
+      console.log(`[Chat] No sources to send`);
+    }
+
+    // ============================================================
+    // STEP 3b: Initialize Message History for Agent Loop
     // ============================================================
     // The message history persists across tool calls and iterations
     // So the LLM can see the context of its previous decisions

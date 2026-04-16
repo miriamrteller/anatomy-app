@@ -4,7 +4,8 @@ import { handleChat } from '../lib/streaming/handlers/chatHandler'
 import { InteractionDefaults, createChatRequest, isAbortError } from '../lib/interaction'
 import { fetchWithRetry } from '../lib/fetch'
 
-type LoadingState = 'IDLE' | 'LOADING' | 'ERROR'
+// DISABLED: LoadingState type - system caching removed for performance
+// type LoadingState = 'IDLE' | 'LOADING' | 'ERROR'
 
 /** Chat message stored in history */
 export interface ChatMessage {
@@ -78,17 +79,18 @@ interface AnatomyStore {
   clearHighlight: () => void
 
   // Data caching fields
-  structures: Record<string, Structure[]>
-  setStructures: (system: SystemEnum, structures: Structure[]) => void
+  // DISABLED: System-based structure caching removed for simplicity
+  // structures: Record<string, Structure[]>
+  // setStructures: (system: SystemEnum, structures: Structure[]) => void
 
-  loadingState: Record<string, LoadingState>
-  setLoadingState: (system: SystemEnum, state: LoadingState) => void
+  // loadingState: Record<string, LoadingState>
+  // setLoadingState: (system: SystemEnum, state: LoadingState) => void
 
-  svgPathToStructure: Record<string, Record<string, Structure>>
-  setSvgPathToStructure: (system: SystemEnum, map: Record<string, Structure>) => void
+  // svgPathToStructure: Record<string, Record<string, Structure>>
+  // setSvgPathToStructure: (system: SystemEnum, map: Record<string, Structure>) => void
 
-  error: Record<string, string>
-  setError: (system: SystemEnum, error: string) => void
+  // error: Record<string, string>
+  // setError: (system: SystemEnum, error: string) => void
 
   // ===== CHAT STATE (Phase 3B) =====
   chatResponses: ChatMessage[]
@@ -103,6 +105,10 @@ interface AnatomyStore {
   activeChat: ChatRequest | null
   setInteraction: (patch: Partial<Interaction>) => void
   clearInteraction: () => void
+  setHighlighting: (pulseIds?: Set<string>, glowId?: string) => void
+
+  // ===== CUMULATIVE PULSE HELPER =====
+  addToPulse: (structures: Structure[], primaryGlowId?: string) => void
 
   // ===== CHAT ACTIONS (Basic Setters) =====
   setCurrentResponse: (response: string) => void
@@ -161,42 +167,42 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
 
   clearHighlight: () => set({ highlightedIds: new Set<string>() }),
 
-  // NEW: Data caching implementations
-  structures: {},
-  setStructures: (system: SystemEnum, structures: Structure[]) =>
-    set((state) => ({
-      structures: {
-        ...state.structures,
-        [system]: structures,
-      },
-    })),
+  // DISABLED: System-based structure caching implementations removed for simplicity
+  // structures: {},
+  // setStructures: (system: SystemEnum, structures: Structure[]) =>
+  //   set((state) => ({
+  //     structures: {
+  //       ...state.structures,
+  //       [system]: structures,
+  //     },
+  //   })),
 
-  loadingState: {},
-  setLoadingState: (system: SystemEnum, newLoadingState: LoadingState) =>
-    set((state) => ({
-      loadingState: {
-        ...state.loadingState,
-        [system]: newLoadingState,
-      },
-    })),
+  // loadingState: {},
+  // setLoadingState: (system: SystemEnum, newLoadingState: LoadingState) =>
+  //   set((state) => ({
+  //     loadingState: {
+  //       ...state.loadingState,
+  //       [system]: newLoadingState,
+  //     },
+  //   })),
 
-  svgPathToStructure: {},
-  setSvgPathToStructure: (system: SystemEnum, map: Record<string, Structure>) =>
-    set((state) => ({
-      svgPathToStructure: {
-        ...state.svgPathToStructure,
-        [system]: map,
-      },
-    })),
+  // svgPathToStructure: {},
+  // setSvgPathToStructure: (system: SystemEnum, map: Record<string, Structure>) =>
+  //   set((state) => ({
+  //     svgPathToStructure: {
+  //       ...state.svgPathToStructure,
+  //       [system]: map,
+  //     },
+  //   })),
 
-  error: {},
-  setError: (system: SystemEnum, errorMsg: string) =>
-    set((state) => ({
-      error: {
-        ...state.error,
-        [system]: errorMsg,
-      },
-    })),
+  // error: {},
+  // setError: (system: SystemEnum, errorMsg: string) =>
+  //   set((state) => ({
+  //     error: {
+  //       ...state.error,
+  //       [system]: errorMsg,
+  //     },
+  //   })),
 
   // ===== CHAT STATE IMPLEMENTATIONS =====
   chatResponses: loadChatHistory(),  // Load persisted history on initialization
@@ -210,7 +216,8 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
   interaction: {
     type: 'none',
     structure: null,
-    sourceIds: [],
+    pulseIds: new Set(),
+    glowId: undefined,
   } as Interaction,
   activeChat: null as ChatRequest | null,
 
@@ -224,7 +231,24 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
       interaction: {
         type: 'none',
         structure: null,
-        sourceIds: [],
+        pulseIds: new Set(),
+        glowId: undefined,
+      },
+    }),
+
+  /**
+   * Unified method to set highlighting for chat results
+   * Replaces dual highlightedIds + sourceIds approach
+   * @param pulseIds - Set of IDs to pulse (chat results)
+   * @param glowId - Single ID to glow (primary/clicked structure)
+   */
+  setHighlighting: (pulseIds?: Set<string>, glowId?: string) =>
+    set({
+      interaction: {
+        type: 'chat-result',
+        structure: null, // Will be set separately if needed
+        pulseIds: pulseIds || new Set(),
+        glowId,
       },
     }),
 
@@ -260,6 +284,35 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
       isStreamingChat: false,
       streamError: 'Chat cancelled by user'
     })
+  },
+
+  addToPulse: (structures: Structure[], primaryGlowId?: string) => {
+    set((state) => {
+      const newSvgPathIds = structures.flatMap(s => s.svgPathIds || []);
+      const mergedPulseIds = new Set([
+        ...(state.interaction.pulseIds || []),
+        ...newSvgPathIds,
+      ]);
+
+      console.log('[Store:addToPulse] Before merge:', {
+        existing: Array.from(state.interaction.pulseIds || []),
+        incoming: newSvgPathIds,
+        merged: Array.from(mergedPulseIds),
+        structure: structures[0]?.name,
+        glowId: primaryGlowId || state.interaction.glowId,
+      });
+
+      return {
+        interaction: {
+          ...state.interaction,
+          type: 'chat-result',
+          structure: structures[0],
+          pulseIds: mergedPulseIds,
+          glowId: primaryGlowId || state.interaction.glowId || newSvgPathIds[0],
+          expiresAt: Date.now() + InteractionDefaults.CHAT_RESULT_TIMEOUT_MS,
+        },
+      };
+    });
   },
 
   // ===== CHAT MIDDLEWARE ACTION: Orchestrates the streaming flow =====
@@ -307,64 +360,44 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
 
             if (type === 'sources') {
               const sourceIds = data as string[]
-              store.setHighlightedIds(new Set(sourceIds))
-
-              // Fetch structure data for the first source to display in info panel
-              const fetchFirstSourceStructure = async () => {
-                try {
-                  const fetchPromise = fetchWithRetry(
-                    `/api/structures/by-svg-path/lookup?pathIds=${sourceIds[0]}&system=SKELETAL`,
-                    { signal: chatRequest.abortController.signal },
-                    3  // max 3 retries
-                  )
-                    .then((response) => {
-                      if (!response.ok) throw new Error(`HTTP ${response.status}`)
-                      return response.json()
-                    })
-                    .then((result) => {
-                      const structures = result.data || []
-                      if (structures.length > 0) {
-                        store.setChatSourceStructures([structures[0]])
-                        // Update interaction with first source structure
-                        // Pulse for 20 seconds
-                        store.setInteraction({
-                          type: 'chat-result',
-                          structure: structures[0],
-                          sourceId: `chat-${chatRequest.id}`,
-                          sourceIds,
-                        })
-                        
-                        // Set timeout to convert pulse to click glow after 20s
-                        setTimeout(() => {
-                          const currentState = useAnatomyStore.getState()
-                          // Only convert if still showing the same chat result
-                          if (currentState.interaction.type === 'chat-result' && 
-                              currentState.interaction.sourceId === `chat-${chatRequest.id}`) {
-                            // Clear highlights to remove pulse, then switch to click-locked glow
-                            currentState.clearHighlight()
-                            currentState.setInteraction({
-                              type: 'click-locked',
-                              structure: structures[0],
-                              sourceId: `chat-${chatRequest.id}`,
-                              sourceIds: [],
-                            })
-                          }
-                        }, InteractionDefaults.CHAT_RESULT_TIMEOUT_MS)
-                      }
-                    })
-
-                  // Track this fetch in activeChat
-                  if (store.activeChat) {
-                    store.activeChat.fetchTasks.push(fetchPromise)
+              console.log('[Chat:sources] Event received:', { count: sourceIds.length, ids: sourceIds })
+              
+              const fetchPromise = fetchWithRetry(
+                `/api/structures?ids=${sourceIds.join(',')}`,
+                { signal: chatRequest.abortController.signal },
+                3
+              )
+                .then((res) => {
+                  console.log('[Chat:sources] Fetch response status:', res.status);
+                  return res.ok ? res.json() : null;
+                })
+                .then((result) => {
+                  console.log('[Chat:sources] Fetch result:', {
+                    data: result?.data,
+                    count: result?.data?.length,
+                    firstStructure: result?.data?.[0],
+                  });
+                  const structures = result?.data || []
+                  if (structures.length > 0) {
+                    const svgPathIds = structures.flatMap((s: Structure) => s.svgPathIds || []);
+                    console.log('[Chat:sources] Extracted SVG paths:', { count: svgPathIds.length, ids: svgPathIds });
+                    
+                    store.setChatSourceStructures(structures)
+                    store.addToPulse(structures, structures[0].svgPathIds?.[0])
+                    console.log('[Chat:sources] addToPulse called')
+                  } else {
+                    console.warn('[Chat:sources] No structures returned from API');
                   }
-                } catch (err) {
+                })
+                .catch((err) => {
                   if (!isAbortError(err)) {
-                    console.error('Error fetching first source structure:', err)
+                    console.error('[Chat:sources] Fetch error:', err)
                   }
-                }
-              }
+                })
 
-              fetchFirstSourceStructure()
+              if (store.activeChat) {
+                store.activeChat.fetchTasks.push(fetchPromise)
+              }
             } else if (type === 'token') {
               // Accumulate response tokens
               const current = store.currentResponse
@@ -384,12 +417,41 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
 
               // Route tool calls to appropriate UI actions
               if (toolCall.tool_name === 'highlight_structures') {
-                // highlight_structures: { ids: string[] }
-                // Action: Highlight these structure IDs on the SVG
                 const ids = toolCall.arguments.ids as string[]
-                if (Array.isArray(ids)) {
-                  store.setHighlightedIds(new Set(ids))
-                  console.log(`✓ Highlighted ${ids.length} structure(s)`)
+                if (!Array.isArray(ids) || ids.length === 0) return
+
+                console.log('[Tool:highlight]', {
+                  iteration: toolCall.iteration,
+                  count: ids.length,
+                  ids,
+                })
+
+                const fetchPromise = fetchWithRetry(
+                  `/api/structures?ids=${ids.join(',')}`,
+                  { signal: chatRequest.abortController.signal },
+                  1
+                )
+                  .then((res) => (res.ok ? res.json() : null))
+                  .then((result) => {
+                    const structures = result?.data || []
+                    if (structures.length > 0) {
+                      store.addToPulse(structures, structures[0].svgPathIds?.[0])
+                      console.log('[Tool:highlight] Pulse added (cumulative)', {
+                        found: structures.length,
+                        totalPulseNow: store.interaction.pulseIds?.size || 0,
+                      })
+                    } else {
+                      console.warn('[Tool:highlight] No structures found')
+                    }
+                  })
+                  .catch((err) => {
+                    if (!isAbortError(err)) {
+                      console.error('[Tool:highlight] Fetch error:', err)
+                    }
+                  })
+
+                if (store.activeChat) {
+                  store.activeChat.fetchTasks.push(fetchPromise)
                 }
               } else if (toolCall.tool_name === 'show_layer') {
                 // show_layer: { system: string }

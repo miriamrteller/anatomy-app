@@ -22,3 +22,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+@keyframes svgPulse {
+  0%, 100% {
+    fill-opacity: 0.3;
+  }
+  50% {
+    fill-opacity: 1;
+  }
+}

@@ -13,15 +13,16 @@ export const InteractionDefaults = {
   NONE: Object.freeze({
     type: 'none',
     structure: null,
-    sourceIds: [] as string[],
+    pulseIds: new Set<string>(),
+    glowId: undefined,
   }) as Readonly<
-    Pick<Interaction, 'type' | 'structure' | 'sourceIds'>
+    Pick<Interaction, 'type' | 'structure' | 'pulseIds' | 'glowId'>
   >,
 
   /** How long click-lock lasts (milliseconds) - now persistent until new interaction */
   CLICK_LOCK_TIMEOUT_MS: 3000,
 
-  /** How long chat result pulse lasts before switching to click glow (milliseconds) */
+  /** How long chat result pulse lasts before auto-clearing (milliseconds) */
   CHAT_RESULT_TIMEOUT_MS: 20000,
 
   /** Poll interval for checking interaction expiry (milliseconds) */

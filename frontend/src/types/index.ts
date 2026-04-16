@@ -74,7 +74,7 @@ export interface Structure {
  * - none → click-locked (click)
  * - click-locked → none (timeout after 3s)
  * - any → chat-result (chat response arrives)
- * - chat-result → none (timeout after 5s)
+ * - chat-result → none (timeout after 20s, or user dismisses)
  */
 export type InteractionType = 'none' | 'hover' | 'click-locked' | 'chat-result'
 
@@ -88,8 +88,11 @@ export interface Interaction {
   /** What triggered this interaction (for debugging/tracking) */
   sourceId?: string
   
-  /** All IDs to highlight in SVG (from chat sources or single click) */
-  sourceIds: string[]
+  /** IDs to highlight with pulse animation (typically from chat results) */
+  pulseIds?: Set<string>
+  
+  /** Single ID to highlight with click glow (click-locked interaction or primary chat result) */
+  glowId?: string
   
   /** Millisecond timestamp: when this interaction expires and auto-clears */
   expiresAt?: number

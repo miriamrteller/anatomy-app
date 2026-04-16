@@ -1,51 +1,37 @@
 /**
  * useInteractionExpiry Hook
  * 
- * Polls interaction.expiresAt and auto-clears interaction when it expires.
- * This replaces manual setTimeout callbacks with a reactive, centralized approach.
- * Note: Chat results are handled directly in the chat handler via setTimeout.
- * 
- * Usage:
- * ```tsx
- * export function App() {
- *   useInteractionExpiry()  // Just call it, no return value needed
- *   // ... rest of component
- * }
- * ```
+ * Auto-clears pulse when expiresAt timestamp is reached.
+ * Handles timeout across multiple sources (sources + tool calls) via single unified expiration.
  */
 
 import { useEffect } from 'react'
 import { useAnatomyStore } from '../stores/anatomy'
-import {
-  InteractionDefaults,
-  millisecondsUntilExpiry,
-} from '../lib/interaction'
+import { InteractionDefaults } from '../lib/interaction'
 
-export function useInteractionExpiry(): void {
-  const { interaction, setInteraction } = useAnatomyStore()
+export function useInteractionExpiry(
+  timeoutMs: number = InteractionDefaults.CHAT_RESULT_TIMEOUT_MS
+): void {
+  const { interaction, clearInteraction } = useAnatomyStore()
 
   useEffect(() => {
-    // If no expiry set, nothing to do
-    if (!interaction.expiresAt) {
+    if (!interaction.expiresAt || interaction.type !== 'chat-result') {
       return
     }
 
-    // Set up polling interval
-    const pollInterval = setInterval(() => {
-      const msUntilExpiry = millisecondsUntilExpiry(interaction)
+    const now = Date.now()
+    const remaining = Math.max(0, interaction.expiresAt - now)
 
-      // If expired, clear interaction
-      if (msUntilExpiry <= 0) {
-        setInteraction({
-          type: 'none',
-          structure: null,
-          sourceIds: [],
-        })
-        clearInterval(pollInterval)
-      }
-    }, InteractionDefaults.EXPIRY_CHECK_INTERVAL_MS)
+    if (remaining === 0) {
+      clearInteraction()
+      return
+    }
 
-    // Cleanup interval on unmount or when interaction changes
-    return () => clearInterval(pollInterval)
-  }, [interaction, setInteraction])
+    const timer = setTimeout(() => {
+      clearInteraction()
+      console.log('[Expiry] Chat result pulse cleared')
+    }, remaining)
+
+    return () => clearTimeout(timer)
+  }, [interaction.expiresAt, interaction.type, clearInteraction])
 }

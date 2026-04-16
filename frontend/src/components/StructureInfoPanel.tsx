@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useAnatomyStore } from "../stores/anatomy";
 
 interface Structure {
   id: string;
@@ -20,6 +21,8 @@ export const StructureInfoPanel: React.FC<StructureInfoPanelProps> = ({
   const [descriptionState, setDescriptionState] =
     useState<DescriptionState>("expanded");
   const [isPanelVisible, setIsPanelVisible] = useState(true);
+  
+  const { clearInteraction } = useAnatomyStore();
 
   // Auto-expand description when a new structure is clicked
   useEffect(() => {
@@ -30,6 +33,11 @@ export const StructureInfoPanel: React.FC<StructureInfoPanelProps> = ({
   }, [structure?.id]);
 
   if (!structure || !isPanelVisible) return null;
+
+  const handleClose = () => {
+    setIsPanelVisible(false);
+    clearInteraction();
+  };
 
   const getDisplayText = () => {
     if (descriptionState === "collapsed") {
@@ -45,7 +53,7 @@ export const StructureInfoPanel: React.FC<StructureInfoPanelProps> = ({
     <div className="absolute left-4 top-4 pointer-events-auto z-10 max-w-[calc(100%/3)]">
       <div className="text-left flex flex-col relative">
         <button
-          onClick={() => setIsPanelVisible(false)}
+          onClick={handleClose}
           className="absolute top-0 right-0 text-gray-400 hover:text-gray-600 transition-colors"
           title="Close"
         >
