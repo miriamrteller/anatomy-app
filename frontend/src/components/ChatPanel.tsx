@@ -8,7 +8,7 @@
  * - Adjustable width
  */
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useChat } from "../hooks/useChat";
 
 interface ChatPanelProps {
@@ -28,7 +28,6 @@ export function ChatPanel({ isExpanded = false, onToggleWidth }: ChatPanelProps)
 
     try {
       await send(input);
-      setInput("");
     } catch (err) {
       console.error("Failed to send question:", err);
     }
@@ -46,6 +45,21 @@ export function ChatPanel({ isExpanded = false, onToggleWidth }: ChatPanelProps)
     setInput("");
     setIsHistoryExpanded(false);
   };
+
+  // Auto-expand response when loading starts
+  useEffect(() => {
+    if (isLoading) {
+      setIsResponseMinimized(false);
+    }
+  }, [isLoading]);
+
+  // Auto-collapse history and expand response when a response is received
+  useEffect(() => {
+    if (response && !isLoading) {
+      setIsHistoryExpanded(false);
+      setIsResponseMinimized(false);
+    }
+  }, [response, isLoading]);
 
   return (
     <div className="bg-white rounded-lg shadow flex flex-col h-full overflow-hidden p-4 gap-3">
