@@ -255,8 +255,8 @@ async function verifyDatabase() {
 
     // Check embeddings with raw query
     const embeddingsResult = (await db.$queryRaw<
-      Array<{ count: number }>
-    >`SELECT COUNT(*) as count FROM structures WHERE embedding IS NOT NULL`) as Array<{ count: BigInt }>;
+      Array<{ count: BigInt }>
+    >`SELECT COUNT(*) as count FROM structures WHERE embedding IS NOT NULL`) as Array<{ count: BigInt }> ;
     const embeddingCount = Number(embeddingsResult[0].count);
     console.log(`  ✅ Embeddings: ${embeddingCount}/${structures.length}`);
     totalChecks++;
@@ -272,7 +272,7 @@ async function verifyDatabase() {
     let matchedDescriptions = 0;
     let mismatchedDescriptions = 0;
 
-    for (const [key, expected] of Object.entries(EXPECTED_STRUCTURES)) {
+    for (const [, expected] of Object.entries(EXPECTED_STRUCTURES)) {
       totalChecks++;
       const dbStruct = structures.find((s) => s.name === expected.name);
 

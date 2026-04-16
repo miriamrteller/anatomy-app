@@ -266,6 +266,7 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
               store.setHighlightedIds(new Set(sourceIds))
               
               // Fetch structure data for the first source to display after highlight
+              // This will update the info panel even if a bone is click-locked
               const fetchFirstSourceStructure = async () => {
                 try {
                   const response = await fetch(
@@ -276,6 +277,8 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
                     const structures = result.data || []
                     if (structures.length > 0) {
                       store.setChatSourceStructures([structures[0]])
+                      // Update selected structure to display in info panel (overrides click-lock)
+                      store.setSelectedStructure(structures[0])
                     }
                   }
                 } catch (err) {

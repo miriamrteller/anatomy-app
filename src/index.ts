@@ -1,7 +1,7 @@
 import express from "express";
-import { structureRouter } from "./routes/structures";
-import chatRoutes from "./routes/chat";
-import { errorHandler } from "./middleware/validation";
+import { structureRouter } from "./routes/structures.js";
+import chatRoutes from "./routes/chat.js";
+import { errorHandler } from "./middleware/validation.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;

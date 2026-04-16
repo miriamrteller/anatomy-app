@@ -638,7 +638,7 @@ const carpals = [
     const isThumb = fingerNum === 1;
     const phalanxTypes = isThumb ? ['Proximal', 'Distal'] : ['Proximal', 'Middle', 'Distal'];
     
-    phalanxTypes.forEach((type, pIdx) => {
+    phalanxTypes.forEach((type) => {
       bones.push({
         name: `${side} ${finger} ${type} Phalanx`,
         latinName: `Phalanx ${type.toLowerCase()} digiti ${fingerNum === 1 ? 'pollicis' : fingerNum === 2 ? 'indicis' : fingerNum === 3 ? 'medii' : fingerNum === 4 ? 'anularis' : 'minimi'} manus ${side === 'Left' ? 'sinister' : 'dexter'}`,
@@ -830,7 +830,7 @@ const tarsals = [
     const isGreatToe = toeNum === 1;
     const phalanxTypes = isGreatToe ? ['Proximal', 'Distal'] : ['Proximal', 'Middle', 'Distal'];
     
-    phalanxTypes.forEach((type, pIdx) => {
+    phalanxTypes.forEach((type) => {
       bones.push({
         name: `${side} ${toe} ${type} Phalanx`,
         latinName: `Phalanx ${type.toLowerCase()} digiti ${toeNum === 1 ? 'hallucis' : toeNum === 2 ? 'secundi' : toeNum === 3 ? 'tertii' : toeNum === 4 ? 'quarti' : 'minimi'} pedis ${side === 'Left' ? 'sinister' : 'dexter'}`,
