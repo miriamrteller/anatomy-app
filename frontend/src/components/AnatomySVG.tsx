@@ -1,6 +1,7 @@
 import React, { useCallback, useRef, useEffect, useState } from "react";
 import { useAnatomyStore } from "../stores/anatomy";
 import { SystemEnum } from "../types";
+import { StructureInfoPanel } from "./StructureInfoPanel";
 
 interface AnatomySVGProps {
   systems: Record<SystemEnum, string>;
@@ -12,12 +13,15 @@ const HIGHLIGHT_OPACITY = 0.8;
 const DEFAULT_OPACITY = 0.5;
 const HOVER_SHADOW = "drop-shadow(0 0 8px rgba(59, 130, 246, 0.5))";
 
+const CLICK_LOCK_DURATION = 3000; // 3 seconds
+
 export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
   const svgRefsMap = useRef<Record<SystemEnum, HTMLDivElement | null>>(
     {} as any,
   );
+  const clickLockTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const isClickLockedRef = useRef<boolean>(false);
   const [isReady, setIsReady] = useState(false);
-  const [descriptionExpanded, setDescriptionExpanded] = useState(false);
 
   const {
     setSelectedStructure,
@@ -177,8 +181,13 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
         pathElement.style.transition = "all 200ms ease";
         pathElement.style.transformOrigin = "center";
 
-        // Mouseenter: fetch and show structure data
+        // Mouseenter: fetch and show structure data (unless click-locked)
         pathElement.addEventListener("mouseenter", async () => {
+          // Skip if click-locked to keep clicked structure visible
+          if (isClickLockedRef.current) {
+            return;
+          }
+
           const pathId = pathElement.getAttribute("id");
           const isHighlighted = Boolean(pathId && highlightedIds.has(pathId));
           updatePathStyle(pathElement, true, isHighlighted);
@@ -197,13 +206,24 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
           setHoveredStructure(null);
         });
 
-        // Click: select structure
+        // Click: select structure and lock it for a few seconds
         pathElement.addEventListener("click", async (e) => {
           e.stopPropagation();
           const structure = await fetchStructureData(groupId, system);
           if (structure) {
             setSelectedStructure(structure);
-            setDescriptionExpanded(true);
+            
+            // Clear existing timeout if any
+            if (clickLockTimeoutRef.current) {
+              clearTimeout(clickLockTimeoutRef.current);
+            }
+            
+            // Set lock and start timer
+            isClickLockedRef.current = true;
+            clickLockTimeoutRef.current = setTimeout(() => {
+              isClickLockedRef.current = false;
+              clickLockTimeoutRef.current = null;
+            }, CLICK_LOCK_DURATION);
           }
         });
       });
@@ -242,6 +262,18 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
     updatePathHighlighting();
   }, [updatePathHighlighting]);
 
+  // Cleanup click lock timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (clickLockTimeoutRef.current) {
+        clearTimeout(clickLockTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  // When click-locked, show selected structure; otherwise show hover or selected
+  const activeStructure = isClickLockedRef.current ? selectedStructure : (hoveredStructure || selectedStructure);
+
   return (
     <div className="relative w-full h-full bg-white rounded-lg shadow overflow-hidden">
       {/* Main SVG container - render all systems as overlays */}
@@ -274,74 +306,8 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
         ))}
       </div>
 
-      {/* Top-left - structure name and latin name */}
-      {(hoveredStructure || selectedStructure) && (
-        <div className="absolute left-4 top-4 pointer-events-none z-10">
-          <div className="text-left">
-            <h3 className="text-sm font-semibold text-gray-900">
-              {(hoveredStructure || selectedStructure)?.name}
-            </h3>
-            <p className="text-xs text-gray-600 italic">
-              {(hoveredStructure || selectedStructure)?.latinName}
-            </p>
-          </div>
-        </div>
-      )}
-
-      {/* Top-right - read more icon */}
-      {selectedStructure && !descriptionExpanded && (
-        <div className="absolute right-4 top-4 pointer-events-auto z-10">
-          <button
-            onClick={() => setDescriptionExpanded(true)}
-            className="p-1 text-gray-500 hover:text-gray-700 transition-colors"
-            title="Read more"
-          >
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-          </button>
-        </div>
-      )}
-
-      {/* Top-right - description box */}
-      {selectedStructure && descriptionExpanded && (
-        <div className="absolute right-4 top-4 pointer-events-auto z-10 bg-white rounded-lg shadow-md border border-gray-200 p-4 max-w-xs max-h-64 flex flex-col">
-          <button
-            onClick={() => setDescriptionExpanded(false)}
-            className="absolute top-2 right-2 text-gray-400 hover:text-gray-600 transition-colors"
-            title="Close"
-          >
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </button>
-          <div className="overflow-y-auto flex-1">
-            <p className="text-xs text-gray-700 leading-relaxed">
-              {selectedStructure.description}
-            </p>
-          </div>
-        </div>
-      )}
+      {/* Structure info panel */}
+      <StructureInfoPanel structure={activeStructure} />
 
       <style>{`
         @keyframes pulse {
