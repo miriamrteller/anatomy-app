@@ -43,7 +43,7 @@
         "FootLeft"
       ]
     },
-    "description": "Foot Left from the skeletal system.",
+    "description": "The composite structure of the left foot, comprising tarsal bones (ankle), metatarsals (midfoot), and phalanges (toes). It is a specialized structure for weight-bearing, balance, and locomotion, with the arches providing shock absorption and propulsive force.",
     "metadata": {
       "source": "auto-generated from SVG",
       "extractedFrom": "SKELETAL"
@@ -60,7 +60,7 @@
         "TarsalsLeft"
       ]
     },
-    "description": "Tarsals Left from the skeletal system.",
+    "description": "Seven bones per ankle: Talus (articulates with tibia), Calcaneus (the heel bone), Navicular, Cuboid, and three Cuneiforms (medial, intermediate, lateral). These bones are larger and stronger than carpals to support the body's entire weight and facilitate the distribution of force during walking.",
     "metadata": {
       "source": "auto-generated from SVG",
       "extractedFrom": "SKELETAL"
@@ -77,7 +77,7 @@
         "MetatarsalsLeft"
       ]
     },
-    "description": "Metatarsals Left from the skeletal system.",
+    "description": "Five bones forming the arch and midfoot. Like the hand, they are numbered 1 (big toe) to 5. The first metatarsal is significantly thicker as it plays a major role in the toe-off phase of walking. They provide the structural bridge between the ankle and the toes.",
     "metadata": {
       "source": "auto-generated from SVG",
       "extractedFrom": "SKELETAL"
@@ -94,7 +94,7 @@
         "PhalangesFootLeft"
       ]
     },
-    "description": "Phalanges Foot Left from the skeletal system.",
+    "description": "The bones of the toes. The big toe (hallux) has two phalanges: proximal and distal. The other four toes have three: proximal, middle, and distal. While smaller than those in the hand, they are vital for maintaining balance and providing propulsion during the gait cycle.",
     "metadata": {
       "source": "auto-generated from SVG",
       "extractedFrom": "SKELETAL"
@@ -111,7 +111,7 @@
         "FootRight"
       ]
     },
-    "description": "Foot Right from the skeletal system.",
+    "description": "The composite structure of the right foot, comprising tarsal bones (ankle), metatarsals (midfoot), and phalanges (toes). It is a specialized structure for weight-bearing, balance, and locomotion, with the arches providing shock absorption and propulsive force.",
     "metadata": {
       "source": "auto-generated from SVG",
       "extractedFrom": "SKELETAL"
@@ -128,7 +128,7 @@
         "TarsalsRight"
       ]
     },
-    "description": "Tarsals Right from the skeletal system.",
+    "description": "Seven bones per ankle: Talus (articulates with tibia), Calcaneus (the heel bone), Navicular, Cuboid, and three Cuneiforms (medial, intermediate, lateral). These bones are larger and stronger than carpals to support the body's entire weight and facilitate the distribution of force during walking.",
     "metadata": {
       "source": "auto-generated from SVG",
       "extractedFrom": "SKELETAL"
@@ -145,7 +145,7 @@
         "MetatarsalsRight"
       ]
     },
-    "description": "Metatarsals Right from the skeletal system.",
+    "description": "Five bones forming the arch and midfoot. Like the hand, they are numbered 1 (big toe) to 5. The first metatarsal is significantly thicker as it plays a major role in the toe-off phase of walking. They provide the structural bridge between the ankle and the toes.",
     "metadata": {
       "source": "auto-generated from SVG",
       "extractedFrom": "SKELETAL"
@@ -162,7 +162,7 @@
         "PhalangesFootRight"
       ]
     },
-    "description": "Phalanges Foot Right from the skeletal system.",
+    "description": "The bones of the toes. The big toe (hallux) has two phalanges: proximal and distal. The other four toes have three: proximal, middle, and distal. While smaller than those in the hand, they are vital for maintaining balance and providing propulsion during the gait cycle.",
     "metadata": {
       "source": "auto-generated from SVG",
       "extractedFrom": "SKELETAL"
@@ -274,7 +274,7 @@
         "PelvicGirdle"
       ]
     },
-    "description": "Pelvic Girdle from the skeletal system.",
+    "description": "Also called the coxal or pelvic bone; a large, irregular bone formed by the fusion of the Ilium (superior flare), Ischium (inferior posterior sit bone), and Pubis (anterior). The three meet at the acetabulum, the deep socket for the femur. The two hip bones articulate anteriorly at the pubic symphysis and posteriorly with the sacrum to form the bony pelvis.",
     "metadata": {
       "source": "auto-generated from SVG",
       "extractedFrom": "SKELETAL"
@@ -291,7 +291,7 @@
         "Scapula"
       ]
     },
-    "description": "Scapula from the skeletal system.",
+    "description": "The shoulder blade; a flat, triangular bone on the posterolateral aspect of the thorax (ribs 2-7). Key landmarks include the glenoid cavity (socket for the humerus), the acromion (the high point of the shoulder), and the coronoid process. It provides an expansive surface for the attachment of the rotator cuff muscles, facilitating complex shoulder mobility.",
     "metadata": {
       "source": "auto-generated from SVG",
       "extractedFrom": "SKELETAL"
@@ -364,7 +364,7 @@
         "LumbarVertebrae"
       ]
     },
-    "description": "Lumbar Vertebrae from the skeletal system.",
+    "description": "The largest and thickest vertebrae (L1–L5) in the lower back. They lack costal facets and transverse foramina. Their massive, kidney-shaped bodies are designed to support the weight of the entire upper body and facilitate lifting and twisting.",
     "metadata": {
       "source": "auto-generated from SVG",
       "extractedFrom": "SKELETAL"
@@ -381,7 +381,7 @@
         "ThoracicVertebrae"
       ]
     },
-    "description": "Thoracic Vertebrae from the skeletal system.",
+    "description": "Twelve mid-back vertebrae (T1–T12). They feature costal facets on their bodies and transverse processes for rib articulation. They have long, downward-pointing spinous processes that limit over-extension, providing a stable anchor for the rib cage.",
     "metadata": {
       "source": "auto-generated from SVG",
       "extractedFrom": "SKELETAL"
@@ -398,7 +398,7 @@
         "CervicalVertebrae"
       ]
     },
-    "description": "Cervical Vertebrae from the skeletal system.",
+    "description": "The seven vertebrae of the neck (C1–C7). Unique for their transverse foramina (passageways for vertebral arteries). C1 (Atlas) supports the skull and lacks a body; C2 (Axis) has the dens (odontoid process) which acts as a pivot for head rotation.",
     "metadata": {
       "source": "auto-generated from SVG",
       "extractedFrom": "SKELETAL"
@@ -415,7 +415,7 @@
         "Skull"
       ]
     },
-    "description": "Skull from the skeletal system.",
+    "description": "The complete skeletal structure of the head, consisting of 22 bones. Divided into the neurocranium (brain case) and viscerocranium (facial skeleton). It protects the brain, houses sensory organs, supports facial features, and provides attachment points for muscles and ligaments.",
     "metadata": {
       "source": "auto-generated from SVG",
       "extractedFrom": "SKELETAL"
@@ -465,7 +465,7 @@
         "Cranium"
       ]
     },
-    "description": "Cranium from the skeletal system.",
+    "description": "The brain case or neurocranium, consisting of 8 bones designed for the protection and housing of sensory organs. It includes the frontal, parietal, temporal, occipital, sphenoid, and ethmoid bones, which articulate to form a protective vault around the brain.",
     "metadata": {
       "source": "auto-generated from SVG",
       "extractedFrom": "SKELETAL"
@@ -482,7 +482,7 @@
         "Manubrium"
       ]
     },
-    "description": "Manubrium from the skeletal system.",
+    "description": "The superior part of the sternum (breastbone). It articulates with the clavicles and the first pair of ribs. It serves as a landmark for clinical examination and chest tube insertion and is palpable just below the neck.",
     "metadata": {
       "source": "auto-generated from SVG",
       "extractedFrom": "SKELETAL"
@@ -751,7 +751,7 @@
         "HandLeft"
       ]
     },
-    "description": "Hand Left from the skeletal system.",
+    "description": "The composite skeletal structure of the left hand, comprising carpal bones (wrist), metacarpals (palm), and phalanges (fingers). It is optimized for manipulation and fine motor control, allowing for both powerful gripping and precise movements.",
     "metadata": {
       "source": "auto-generated from SVG",
       "extractedFrom": "SKELETAL"
@@ -768,7 +768,7 @@
         "CarpalsLeft"
       ]
     },
-    "description": "Carpals Left from the skeletal system.",
+    "description": "Eight small, irregular bones per wrist arranged in two rows. Proximal row: Scaphoid, Lunate, Triquetrum, Pisiform. Distal row: Trapezium, Trapezoid, Capitate, Hamate. These bones glide against one another to allow the wrist its multi-axial range of movement and provide a stable base for the metacarpals.",
     "metadata": {
       "source": "auto-generated from SVG",
       "extractedFrom": "SKELETAL"
@@ -785,7 +785,7 @@
         "MetacarpalsLeft"
       ]
     },
-    "description": "Metacarpals Left from the skeletal system.",
+    "description": "Five miniature long bones per hand forming the framework of the palm. They are numbered 1 (thumb) to 5 (pinky). Each consists of a base (proximal), a shaft, and a head (distal), the latter of which forms the knuckles when the hand is clenched. They provide the structural span between the wrist and the fingers.",
     "metadata": {
       "source": "auto-generated from SVG",
       "extractedFrom": "SKELETAL"
@@ -802,7 +802,7 @@
         "PhalangesLeft"
       ]
     },
-    "description": "Phalanges Left from the skeletal system.",
+    "description": "The bones of the fingers. Each finger (2-5) contains three phalanges: proximal, middle, and distal. The thumb (pollex) contains only two: proximal and distal. These bones provide the leverage needed for both power grips and the precision grip required for fine motor tasks.",
     "metadata": {
       "source": "auto-generated from SVG",
       "extractedFrom": "SKELETAL"
@@ -819,7 +819,7 @@
         "HandRight"
       ]
     },
-    "description": "Hand Right from the skeletal system.",
+    "description": "The composite skeletal structure of the right hand, comprising carpal bones (wrist), metacarpals (palm), and phalanges (fingers). It is optimized for manipulation and fine motor control, allowing for both powerful gripping and precise movements.",
     "metadata": {
       "source": "auto-generated from SVG",
       "extractedFrom": "SKELETAL"
@@ -836,7 +836,7 @@
         "CarpalsRight"
       ]
     },
-    "description": "Carpals Right from the skeletal system.",
+    "description": "Eight small, irregular bones per wrist arranged in two rows. Proximal row: Scaphoid, Lunate, Triquetrum, Pisiform. Distal row: Trapezium, Trapezoid, Capitate, Hamate. These bones glide against one another to allow the wrist its multi-axial range of movement and provide a stable base for the metacarpals.",
     "metadata": {
       "source": "auto-generated from SVG",
       "extractedFrom": "SKELETAL"
@@ -853,7 +853,7 @@
         "PhalangesRight"
       ]
     },
-    "description": "Phalanges Right from the skeletal system.",
+    "description": "The bones of the fingers. Each finger (2-5) contains three phalanges: proximal, middle, and distal. The thumb (pollex) contains only two: proximal and distal. These bones provide the leverage needed for both power grips and the precision grip required for fine motor tasks.",
     "metadata": {
       "source": "auto-generated from SVG",
       "extractedFrom": "SKELETAL"
@@ -870,7 +870,7 @@
         "MetacarpalsRight"
       ]
     },
-    "description": "Metacarpals Right from the skeletal system.",
+    "description": "Five miniature long bones per hand forming the framework of the palm. They are numbered 1 (thumb) to 5 (pinky). Each consists of a base (proximal), a shaft, and a head (distal), the latter of which forms the knuckles when the hand is clenched. They provide the structural span between the wrist and the fingers.",
     "metadata": {
       "source": "auto-generated from SVG",
       "extractedFrom": "SKELETAL"
@@ -889,7 +889,7 @@
         "Sternum"
       ]
     },
-    "description": "Flat bone in center of chest connecting ribs and clavicles. Protects heart and lungs.",
+    "description": "The breastbone; a flat bone in the center of the chest. It consists of the manubrium (articulating with clavicles and 1st rib), the body (articulating with ribs 2-7), and the xiphoid process (cartilaginous in youth, ossifies in adults). It protects the heart and provides a central anchor for the rib cage.",
     "metadata": {
       "boneType": "Flat",
       "region": "Thorax",

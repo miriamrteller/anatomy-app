@@ -275,14 +275,14 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
       </div>
 
       {/* Top-left - structure name and latin name */}
-      {selectedStructure && (
+      {(hoveredStructure || selectedStructure) && (
         <div className="absolute left-4 top-4 pointer-events-none z-10">
           <div className="text-left">
             <h3 className="text-sm font-semibold text-gray-900">
-              {selectedStructure.name}
+              {(hoveredStructure || selectedStructure)?.name}
             </h3>
             <p className="text-xs text-gray-600 italic">
-              {selectedStructure.latinName}
+              {(hoveredStructure || selectedStructure)?.latinName}
             </p>
           </div>
         </div>
