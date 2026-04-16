@@ -1,25 +1,23 @@
-import React from 'react'
-import { useAnatomyStore } from './stores/anatomy'
+import React, { useState } from 'react'
 import { AppLayout } from './components/layout/AppLayout'
 import { SystemCanvas } from './components/SystemCanvas'
-import { SidePanel } from './components/SidePanel'
-import { LayerControls } from './components/LayerControls'
+import { ChatPanel } from './components/ChatPanel'
 
 export function App(): React.ReactElement {
-  const { isPanelMinimized } = useAnatomyStore()
+  const [chatPanelExpanded, setChatPanelExpanded] = useState(false)
+
+  const chatWidth = chatPanelExpanded ? 'w-full sm:w-2/3' : 'w-80'
 
   return (
     <AppLayout>
-      <div className="flex-1 flex flex-col gap-4">
+      <div className="flex-1 overflow-hidden flex flex-col">
         <SystemCanvas />
-        <LayerControls />
       </div>
-      <div
-        className={`transition-all duration-300 ease-in-out flex-shrink-0 overflow-hidden ${
-          isPanelMinimized ? 'w-16' : 'w-80'
-        }`}
-      >
-        <SidePanel />
+      <div className={`${chatWidth} flex-shrink-0 transition-all duration-300`}>
+        <ChatPanel
+          isExpanded={chatPanelExpanded}
+          onToggleWidth={() => setChatPanelExpanded(!chatPanelExpanded)}
+        />
       </div>
     </AppLayout>
   )

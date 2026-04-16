@@ -19,6 +19,8 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
   const {
     setSelectedStructure,
     setHoveredStructure,
+    selectedStructure,
+    hoveredStructure,
     visibleSystems,
     highlightedIds,
     clearHighlight,
@@ -219,6 +221,8 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
     updatePathHighlighting()
   }, [updatePathHighlighting])
 
+  const activeStructure = hoveredStructure || selectedStructure
+
   return (
     <div className="relative w-full h-full bg-white rounded-lg shadow">
       {/* Main SVG container - render all systems as overlays */}
@@ -244,6 +248,33 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
           </div>
         ))}
       </div>
+
+      {/* Left overlay - structure name and latin name */}
+      {activeStructure && (
+        <div className="absolute left-0 top-1/2 -translate-y-1/2 pointer-events-none">
+          <div className="bg-white/80 backdrop-blur-sm rounded-lg p-4 m-4 max-w-xs shadow-lg">
+            <h3 className="text-lg font-bold text-gray-900">{activeStructure.name}</h3>
+            <p className="text-sm text-gray-600 italic mt-1">{activeStructure.latinName}</p>
+            <p className="text-xs text-gray-500 mt-2">
+              <span className="inline-block bg-blue-100 text-blue-800 px-2 py-1 rounded font-medium">
+                {activeStructure.system}
+              </span>
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* Right overlay - description */}
+      {activeStructure && (
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none">
+          <div className="bg-white/80 backdrop-blur-sm rounded-lg p-4 m-4 max-w-xs shadow-lg">
+            <h4 className="text-xs font-semibold text-gray-700 mb-2">Description</h4>
+            <p className="text-sm text-gray-600 leading-relaxed">
+              {activeStructure.description}
+            </p>
+          </div>
+        </div>
+      )}
 
       <style>{`
         @keyframes pulse {
