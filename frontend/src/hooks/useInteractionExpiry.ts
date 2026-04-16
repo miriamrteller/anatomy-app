@@ -3,6 +3,7 @@
  * 
  * Polls interaction.expiresAt and auto-clears interaction when it expires.
  * This replaces manual setTimeout callbacks with a reactive, centralized approach.
+ * Note: Chat results are handled directly in the chat handler via setTimeout.
  * 
  * Usage:
  * ```tsx

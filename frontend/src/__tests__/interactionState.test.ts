@@ -13,14 +13,15 @@ import {
   InteractionDefaults,
 } from '../lib/interaction'
 import type { Interaction, Structure } from '../types'
+import { SystemEnum, StructureCategory } from '../types'
 
 // Mock structure for testing
 const mockStructure: Structure = {
   id: 'test-1',
   name: 'Test Bone',
   latinName: 'Os Testis',
-  system: 'SKELETAL',
-  category: 'BONE',
+  system: SystemEnum.SKELETAL,
+  category: StructureCategory.BONE,
   svgPathIds: ['test-path-1'],
   description: 'A test bone',
 }

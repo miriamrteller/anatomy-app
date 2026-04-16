@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { Structure, SystemEnum, Interaction, ChatRequest } from '../types'
 import { handleChat } from '../lib/streaming/handlers/chatHandler'
 import { InteractionDefaults, createChatRequest, isAbortError } from '../lib/interaction'
+import { fetchWithRetry } from '../lib/fetch'
 
 type LoadingState = 'IDLE' | 'LOADING' | 'ERROR'
 
@@ -311,9 +312,10 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
               // Fetch structure data for the first source to display in info panel
               const fetchFirstSourceStructure = async () => {
                 try {
-                  const fetchPromise = fetch(
+                  const fetchPromise = fetchWithRetry(
                     `/api/structures/by-svg-path/lookup?pathIds=${sourceIds[0]}&system=SKELETAL`,
-                    { signal: chatRequest.abortController.signal }
+                    { signal: chatRequest.abortController.signal },
+                    3  // max 3 retries
                   )
                     .then((response) => {
                       if (!response.ok) throw new Error(`HTTP ${response.status}`)
@@ -324,13 +326,30 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
                       if (structures.length > 0) {
                         store.setChatSourceStructures([structures[0]])
                         // Update interaction with first source structure
+                        // Pulse for 20 seconds
                         store.setInteraction({
                           type: 'chat-result',
                           structure: structures[0],
                           sourceId: `chat-${chatRequest.id}`,
                           sourceIds,
-                          expiresAt: Date.now() + InteractionDefaults.CHAT_RESULT_TIMEOUT_MS,
                         })
+                        
+                        // Set timeout to convert pulse to click glow after 20s
+                        setTimeout(() => {
+                          const currentState = useAnatomyStore.getState()
+                          // Only convert if still showing the same chat result
+                          if (currentState.interaction.type === 'chat-result' && 
+                              currentState.interaction.sourceId === `chat-${chatRequest.id}`) {
+                            // Clear highlights to remove pulse, then switch to click-locked glow
+                            currentState.clearHighlight()
+                            currentState.setInteraction({
+                              type: 'click-locked',
+                              structure: structures[0],
+                              sourceId: `chat-${chatRequest.id}`,
+                              sourceIds: [],
+                            })
+                          }
+                        }, InteractionDefaults.CHAT_RESULT_TIMEOUT_MS)
                       }
                     })
 

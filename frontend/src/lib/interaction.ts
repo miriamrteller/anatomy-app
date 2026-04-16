@@ -18,11 +18,11 @@ export const InteractionDefaults = {
     Pick<Interaction, 'type' | 'structure' | 'sourceIds'>
   >,
 
-  /** How long click-lock lasts (milliseconds) */
+  /** How long click-lock lasts (milliseconds) - now persistent until new interaction */
   CLICK_LOCK_TIMEOUT_MS: 3000,
 
-  /** How long chat result highlight lasts (milliseconds) */
-  CHAT_RESULT_TIMEOUT_MS: 5000,
+  /** How long chat result pulse lasts before switching to click glow (milliseconds) */
+  CHAT_RESULT_TIMEOUT_MS: 20000,
 
   /** Poll interval for checking interaction expiry (milliseconds) */
   EXPIRY_CHECK_INTERVAL_MS: 100,
