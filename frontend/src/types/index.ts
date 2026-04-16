@@ -37,6 +37,17 @@ export interface Coordinates {
   height: number
 }
 
+export interface BoneMetadata extends Record<string, unknown> {
+  boneType?: string
+  region?: string
+  side?: string
+  articulations?: string[]
+  innervation?: string
+  boneCount?: number
+  svgPathId?: string
+  [key: string]: unknown
+}
+
 export interface Structure {
   id: string
   name: string
@@ -47,7 +58,7 @@ export interface Structure {
   coordinates?: Coordinates
   aliases?: string[]
   hierarchyParent?: string
-  metadata?: Record<string, unknown>
+  metadata?: BoneMetadata
   description: string
   createdAt?: string
   updatedAt?: string

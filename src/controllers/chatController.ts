@@ -124,9 +124,11 @@ export async function chat(req: Request, res: Response): Promise<void> {
     .join('\n\n');
 
   const systemPrompt = `You are an anatomy expert assistant.
-Answer questions about anatomical structures using ONLY the provided context.
-Always reference structure names exactly as given.
-If the question cannot be answered with the provided information, say "I don't have enough information to answer that."
+Answer questions about anatomical structures using the provided context.
+You may synthesize and summarize information from multiple structures to answer general questions.
+Always reference structure names and details from the provided context.
+Use anatomical expertise to connect related structures and explain relationships.
+If truly insufficient information is provided, you may say "I don't have enough information to answer that."
 Keep responses concise and educational.`;
 
   // ============================================================
