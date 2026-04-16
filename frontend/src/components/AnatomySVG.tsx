@@ -321,6 +321,13 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
         pathElement.addEventListener("mouseenter", async () => {
           const store = useAnatomyStore.getState();
           
+          // DISABLE HOVER DURING ACTIVE CHAT
+          // Prevents user interactions from conflicting with agent-driven highlighting
+          if (store.isStreamingChat) {
+            pathElement.style.cursor = "wait";
+            return; // Skip all hover processing
+          }
+          
           // Don't update panel if there's an active chat result or click-locked interaction
           if (store.interaction.type === "chat-result" || store.interaction.type === "click-locked") {
             const pathId = pathElement.getAttribute("id");
@@ -341,6 +348,7 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
           }
 
           // Normal hover: fetch structure and show in panel
+          pathElement.style.cursor = "pointer";
           const pathId = pathElement.getAttribute("id");
           const isHighlighted = Boolean(pathId && highlightedIds.has(pathId));
           updatePathStyle(pathElement, true, isHighlighted);
@@ -375,6 +383,14 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
         // Click: Lock structure until a new interaction occurs
         pathElement.addEventListener("click", async (e) => {
           e.stopPropagation();
+          const store = useAnatomyStore.getState();
+          
+          // DISABLE CLICK DURING ACTIVE CHAT
+          // Prevents user clicks from interfering with agent control
+          if (store.isStreamingChat) {
+            return; // Skip click processing
+          }
+          
           const structure = await fetchStructureData(groupId, system);
           if (structure) {
             // Clear any previous chat highlights to prevent pulse from restarting

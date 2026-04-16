@@ -5,7 +5,7 @@
  */
 
 /** Event type definitions - kept tight to prevent typos at compile time */
-export type StreamEventType = 'sources' | 'token' | 'metadata' | 'done' | 'error'
+export type StreamEventType = 'sources' | 'token' | 'metadata' | 'tool_call' | 'done' | 'error'
 
 /** Raw SSE event as received from server */
 export interface StreamEvent {

@@ -13,8 +13,8 @@ export const InteractionDefaults = {
   NONE: Object.freeze({
     type: 'none',
     structure: null,
-    sourceIds: [],
-  } as const) as Readonly<
+    sourceIds: [] as string[],
+  }) as Readonly<
     Pick<Interaction, 'type' | 'structure' | 'sourceIds'>
   >,
 

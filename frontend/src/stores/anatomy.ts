@@ -369,6 +369,44 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
               // Accumulate response tokens
               const current = store.currentResponse
               store.setCurrentResponse(current + data)
+            } else if (type === 'tool_call') {
+              // ===== STAGE 4: Handle tool calls from agent loop =====
+              // Agent is calling a tool - dispatch UI action immediately (frontend acts optimistically)
+              const toolCall = data as {
+                tool_name: string
+                arguments: Record<string, unknown>
+                iteration: number
+              }
+
+              console.log(
+                `[Agent Tool] Iteration ${toolCall.iteration}: ${toolCall.tool_name}(${JSON.stringify(toolCall.arguments)})`
+              )
+
+              // Route tool calls to appropriate UI actions
+              if (toolCall.tool_name === 'highlight_structures') {
+                // highlight_structures: { ids: string[] }
+                // Action: Highlight these structure IDs on the SVG
+                const ids = toolCall.arguments.ids as string[]
+                if (Array.isArray(ids)) {
+                  store.setHighlightedIds(new Set(ids))
+                  console.log(`✓ Highlighted ${ids.length} structure(s)`)
+                }
+              } else if (toolCall.tool_name === 'show_layer') {
+                // show_layer: { system: string }
+                // Action: Make this system visible, hide others
+                const system = toolCall.arguments.system as string
+                if (system) {
+                  // Show only this system
+                  store.hideAllSystems()
+                  store.toggleSystem(system as SystemEnum)
+                  console.log(`✓ Showing layer: ${system}`)
+                }
+              } else if (toolCall.tool_name === 'get_related_structures') {
+                // get_related_structures: { id: string }
+                // Action: Just logging - agent uses this internally, frontend doesn't need to act
+                const id = toolCall.arguments.id as string
+                console.log(`✓ Agent fetching related structures for: ${id}`)
+              }
             }
           },
           onComplete: () => {

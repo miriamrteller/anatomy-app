@@ -5,7 +5,7 @@
  * Ensures no race conditions where Chat A's fetch corrupts Chat B's state.
  */
 
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { describe, it, expect } from 'vitest'
 import { createChatRequest, isAbortError, abortChatRequest } from '../lib/interaction'
 
 describe('Chat Request Lifecycle', () => {
@@ -67,7 +67,7 @@ describe('Chat Request Lifecycle', () => {
       request.fetchTasks.push(task1, task2)
 
       let allSettled = false
-      const settledPromise = abortChatRequest(request).then(() => {
+      abortChatRequest(request).then(() => {
         allSettled = true
       })
 

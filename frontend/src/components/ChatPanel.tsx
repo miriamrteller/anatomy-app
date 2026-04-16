@@ -11,12 +11,9 @@
 import { useEffect, useState } from "react";
 import { useChat } from "../hooks/useChat";
 
-interface ChatPanelProps {
-  isExpanded?: boolean;
-  onToggleWidth?: () => void;
-}
+interface ChatPanelProps {}
 
-export function ChatPanel({ isExpanded = false, onToggleWidth }: ChatPanelProps) {
+export function ChatPanel({}: ChatPanelProps) {
   const { response, isLoading, error, history, send, cancel, clear } =
     useChat();
   const [input, setInput] = useState("");
@@ -67,15 +64,6 @@ export function ChatPanel({ isExpanded = false, onToggleWidth }: ChatPanelProps)
       <div className="flex-shrink-0 space-y-3">
         <div className="flex items-center justify-between gap-2">
           <h2 className="text-lg font-semibold text-gray-800">Chat</h2>
-          {onToggleWidth && (
-            <button
-              onClick={onToggleWidth}
-              className="flex-shrink-0 text-xs font-medium text-gray-600 hover:text-blue-600 transition"
-              title="Toggle width"
-            >
-              ↔
-            </button>
-          )}
         </div>
 
         <div className="flex gap-2">

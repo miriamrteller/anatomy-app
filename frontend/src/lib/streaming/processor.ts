@@ -151,6 +151,15 @@ export async function processStream(
             },
 
             /**
+             * TOOL_CALL: Agent is calling a tool during function calling loop
+             * Response: {event: "tool_call", data: {tool_name: string, arguments: {...}, iteration: number}}
+             * Frontend uses this to act immediately on tool calls (highlight, show layer, etc.)
+             */
+            tool_call: (event) => {
+              callbacks.onData(event.data, 'tool_call')
+            },
+
+            /**
              * DONE: Stream complete, return accumulated result
              * Response: {event: "done"}
              */
