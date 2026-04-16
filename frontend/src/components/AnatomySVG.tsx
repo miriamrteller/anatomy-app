@@ -229,13 +229,23 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
         pathElement.style.transition = "all 200ms ease";
         pathElement.style.transformOrigin = "center";
 
-        // Mouseenter: fetch and show structure data (unless click-locked)
+        // Mouseenter: fetch and show structure data
         pathElement.addEventListener("mouseenter", async () => {
-          // Skip if click-locked to keep clicked structure visible
-          if (isClickLockedRef.current) {
+          // If click-locked on a different path, show hover glow but keep info panel locked
+          if (isClickLockedRef.current && clickLockedPathRef.current !== pathElement) {
+            // Apply hover styling without updating the info panel
+            const pathId = pathElement.getAttribute("id");
+            const isHighlighted = Boolean(pathId && highlightedIds.has(pathId));
+            updatePathStyle(pathElement, true, isHighlighted);
             return;
           }
 
+          // If click-locked on this same path, don't change anything
+          if (isClickLockedRef.current && clickLockedPathRef.current === pathElement) {
+            return;
+          }
+
+          // Normal hover (not click-locked)
           const pathId = pathElement.getAttribute("id");
           const isHighlighted = Boolean(pathId && highlightedIds.has(pathId));
           updatePathStyle(pathElement, true, isHighlighted);
