@@ -93,6 +93,7 @@ export function usePathHighlighting({
     }
 
     const debugInfo = {
+      timestamp: new Date().toISOString(),
       pulseIds: Array.from(interaction.pulseIds || []),
       glowId: interaction.glowId,
       visibleSystems: Array.from(visibleSystems),
@@ -100,6 +101,8 @@ export function usePathHighlighting({
     };
     console.log('[Hook:usePathHighlighting] Update triggered', debugInfo);
     // Store for debugging
+    if (!(window as any).__hookDebugHistory) (window as any).__hookDebugHistory = [];
+    (window as any).__hookDebugHistory.push(debugInfo);
     (window as any).__hookDebug = debugInfo;
 
     let totalPathsProcessed = 0;

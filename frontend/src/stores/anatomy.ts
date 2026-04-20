@@ -287,6 +287,16 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
   },
 
   addToPulse: (structures: Structure[], primaryGlowId?: string) => {
+    if (!structures || structures.length === 0) {
+      console.warn('[Store:addToPulse] Called with empty structures');
+      return;
+    }
+    
+    console.log('[Store:addToPulse] Called with:', {
+      count: structures.length,
+      names: structures.map(s => s.name)
+    });
+    
     set((state) => {
       const newSvgPathIds = structures.flatMap(s => s.svgPathIds || []);
       const mergedPulseIds = new Set([
@@ -300,6 +310,14 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
         merged: Array.from(mergedPulseIds),
         structure: structures[0]?.name,
         glowId: primaryGlowId || state.interaction.glowId,
+      });
+      
+      // Store for debugging
+      if (!(window as any).__addToPulseCalls) (window as any).__addToPulseCalls = [];
+      (window as any).__addToPulseCalls.push({
+        timestamp: new Date().toISOString(),
+        merged: Array.from(mergedPulseIds),
+        structures: structures.map(s => s.name)
       });
 
       return {
@@ -445,7 +463,11 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
                 )
                   .then((res) => {
                     console.log('[Tool:highlight] Fetch response:', res.status);
-                    return res.ok ? res.json() : null;
+                    if (!res.ok) {
+                      console.error('[Tool:highlight] Response not OK:', res.status, res.statusText);
+                      return null;
+                    }
+                    return res.json();
                   })
                   .then((result) => {
                     console.log('[Tool:highlight] Parse result:', {
@@ -453,6 +475,11 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
                       count: result?.data?.length || 0,
                       first: result?.data?.[0]?.name
                     });
+                    
+                    if (!result) {
+                      console.warn('[Tool:highlight] Result is null');
+                      return;
+                    }
                     
                     const structures = result?.data || []
                     if (structures.length > 0) {
@@ -474,8 +501,13 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
                     }
                   })
                   .catch((err) => {
+                    console.error('[Tool:highlight] Promise error:', {
+                      message: err?.message,
+                      name: err?.name,
+                      stack: err?.stack?.split('\n')[0]
+                    });
                     if (!isAbortError(err)) {
-                      console.error('[Tool:highlight] Fetch error:', err)
+                      console.error('[Tool:highlight] Non-abort error:', err)
                     }
                   })
 

@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { getOpenAIClient } from '../lib/openai';
 import { AppError } from '../lib/errors';
 import { AGENT_TOOLS } from '../lib/tools';
-import { executeTool, getRelatedStructuresHandler } from '../lib/toolHandlers';
+import { executeTool,  } from '../lib/toolHandlers';
 import { db } from '../lib/db';
 
 /**
@@ -159,6 +159,7 @@ Always explain what you're doing and why. Keep responses concise and educational
       role: MessageRole;
       content?: string;
       tool_call_id?: string;
+      tool_calls?: any;
     }
     
     const messageHistory: Message[] = [
