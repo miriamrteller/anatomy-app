@@ -363,7 +363,7 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
               console.log('[Chat:sources] Event received:', { count: sourceIds.length, ids: sourceIds })
               
               const fetchPromise = fetchWithRetry(
-                `/api/structures?ids=${sourceIds.join(',')}`,
+                `/api/structures/by-svg-path/lookup?pathIds=${sourceIds.join(',')}`,
                 { signal: chatRequest.abortController.signal },
                 3
               )
@@ -414,31 +414,60 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
               console.log(
                 `[Agent Tool] Iteration ${toolCall.iteration}: ${toolCall.tool_name}(${JSON.stringify(toolCall.arguments)})`
               )
+              
+              // Store for debugging
+              if (!(window as any).__toolCalls) (window as any).__toolCalls = [];
+              (window as any).__toolCalls.push({
+                tool_name: toolCall.tool_name,
+                iteration: toolCall.iteration,
+                timestamp: new Date().toISOString()
+              });
 
               // Route tool calls to appropriate UI actions
               if (toolCall.tool_name === 'highlight_structures') {
                 const ids = toolCall.arguments.ids as string[]
-                if (!Array.isArray(ids) || ids.length === 0) return
+                if (!Array.isArray(ids) || ids.length === 0) {
+                  console.warn('[Tool:highlight] Invalid IDs:', ids);
+                  return;
+                }
 
-                console.log('[Tool:highlight]', {
+                console.log('[Tool:highlight] START:', {
                   iteration: toolCall.iteration,
                   count: ids.length,
                   ids,
+                  storagBefore: Array.from(store.interaction.pulseIds || [])
                 })
 
                 const fetchPromise = fetchWithRetry(
-                  `/api/structures?ids=${ids.join(',')}`,
+                  `/api/structures/by-svg-path/lookup?pathIds=${ids.join(',')}`,
                   { signal: chatRequest.abortController.signal },
                   1
                 )
-                  .then((res) => (res.ok ? res.json() : null))
+                  .then((res) => {
+                    console.log('[Tool:highlight] Fetch response:', res.status);
+                    return res.ok ? res.json() : null;
+                  })
                   .then((result) => {
+                    console.log('[Tool:highlight] Parse result:', {
+                      hasData: !!result?.data,
+                      count: result?.data?.length || 0,
+                      first: result?.data?.[0]?.name
+                    });
+                    
                     const structures = result?.data || []
                     if (structures.length > 0) {
+                      console.log('[Tool:highlight] Calling addToPulse with:', {
+                        structureCount: structures.length,
+                        names: structures.map((s: any) => s.name),
+                        svgPathIds: structures.flatMap((s: any) => s.svgPathIds || [])
+                      });
+                      
                       store.addToPulse(structures, structures[0].svgPathIds?.[0])
-                      console.log('[Tool:highlight] Pulse added (cumulative)', {
+                      
+                      console.log('[Tool:highlight] After addToPulse:', {
                         found: structures.length,
                         totalPulseNow: store.interaction.pulseIds?.size || 0,
+                        pulseIds: Array.from(store.interaction.pulseIds || [])
                       })
                     } else {
                       console.warn('[Tool:highlight] No structures found')

@@ -15,7 +15,7 @@ export const OLD_TO_NEW_SVG_ID_MAPPING: Record<string, string> = {
 
   // Legs
   FemurLeft: "femur-left",
-  FemurRight: "femur", // Note: in SVG just "femur"
+  FemurRight: "femur-right",
   Femur: "femur",
   TibiaLeft: "tibia-left",
   TibiaRight: "tibia-right",
@@ -78,9 +78,9 @@ export const OLD_TO_NEW_SVG_ID_MAPPING: Record<string, string> = {
   CarpalsRight: "carpals-right",
   MetacarpalsLeft: "metacarpals-left",
   MetacarpalsRight: "metacarpals-right",
-  PhalangesLeft: "phalenges-left", // Note: typo in SVG
+  PhalangesLeft: "phalanges-left",
   PhalangesRight: "phalanges-right",
-  PhalengesLeft: "phalenges-left", // Alternative spelling
+  PhalengesLeft: "phalanges-left", // Alternative spelling
 };
 
 /**

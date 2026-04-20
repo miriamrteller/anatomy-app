@@ -93,22 +93,13 @@ export async function chat(req: Request, res: Response): Promise<void> {
               mode: 'insensitive',
             },
           },
-          select: { id: true },
+          select: { id: true, svgPathIds: true },
         });
 
         if (targetStructure) {
-          // Now get related structures for this bone
-          const relatedStructures = await getRelatedStructuresHandler({
-            id: targetStructure.id,
-          });
-
-          if (relatedStructures.success && relatedStructures.data?.related) {
-            sourceIds = [
-              targetStructure.id,
-              ...relatedStructures.data.related.map((s: any) => s.id),
-            ];
-            console.log(`[Chat] Found ${sourceIds.length} related structures`);
-          }
+          // Just use the target structure's svgPathIds, not related ones
+          sourceIds = targetStructure.svgPathIds || [];
+          console.log(`[Chat] Found structure "${foundBone}" with ${sourceIds.length} svg path IDs`);
         } else {
           console.log(`[Chat] No structure found for bone: ${foundBone}`);
         }
@@ -137,19 +128,31 @@ export async function chat(req: Request, res: Response): Promise<void> {
     // So the LLM can see the context of its previous decisions
     
     const systemPrompt = `You are an anatomy expert assistant with access to tools for interacting with an anatomical diagram.
+
+IMPORTANT: When highlighting structures, use ONLY these exact data-svg-id values (kebab-case with -left/-right suffixes):
+- Feet & Ankles: foot-left, foot-right, tarsals-left, tarsals-right, metatarsals-left, metatarsals-right, phalanges-left, phalanges-right
+- Legs: femur-left, femur-right, tibia, tibia-left, tibia-right, fibula-left, fibula-right
+- Knee & Hip: knee-joint-left, knee-joint-right, hip-joint, hip-joint-right, patella-left, patella-right
+- Pelvis & Spine: pelvis, sacrum, coccyx, lumbar-vertebrae, thoracic-vertebrae, cervical-vertebrae
+- Chest: ribcage, sternum, manubrium
+- Head: skull, cranium, mandible, teeth
+- Shoulders: scapula, scapular-left, scapula-right, clavicle-left, clavicle-right
+- Arms: humerus-left, humerus-right, radius-left, radius-right, ulna-left, ulna-right
+- Hands: hand-left, hand-right, carpals-left, carpals-right, metacarpals-left, metacarpals-right, phalanges-left, phalanges-right
+
 You have the following tools available:
-- highlight_structures: Highlight specific anatomical structures on the diagram
+- highlight_structures: Highlight specific anatomical structures on the diagram by their data-svg-id
 - show_layer: Switch the visible layer to show a specific body system
 - get_related_structures: Fetch related structures based on anatomical relationships
 
 Use these tools to help the user explore and understand anatomical structures.
 You can call multiple tools in sequence to provide a comprehensive answer.
 For example: if a user asks "show me everything connected to the femur", you might:
-1. Call get_related_structures to fetch related structures
-2. Call show_layer to display the appropriate system
-3. Call highlight_structures with all the relevant IDs
+1. Call show_layer to display the SKELETAL system
+2. Call highlight_structures with ["femur-left", "tibia-left", "fibula-left", "patella-left", "knee-joint-left"]
 
 Always explain what you're doing and why. Keep responses concise and educational.`;
+
 
     type MessageRole = 'system' | 'user' | 'assistant' | 'tool';
     interface Message {
@@ -261,8 +264,13 @@ Always explain what you're doing and why. Keep responses concise and educational
       if (toolCalls.length > 0) {
         console.log(`📞 Tool calls received: ${toolCalls.length}`);
 
-        // Add assistant message to history
-        messageHistory.push(assistantMessage);
+        // Add assistant message with tool_calls to history
+        // OpenAI requires tool result messages to follow an assistant message with tool_calls
+        messageHistory.push({
+          role: 'assistant' as const,
+          content: assistantMessage.content,
+          tool_calls: toolCalls as any,
+        });
 
         // Execute each tool call
         for (const toolCall of toolCalls) {

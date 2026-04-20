@@ -61,7 +61,21 @@ export function usePathHighlighting({
   hoveredId,
 }: UsePathHighlightingProps): void {
   useEffect(() => {
-    const getGroupId = (pathElement: SVGPathElement): string | null => {
+    /**
+     * Collect all ancestor data-svg-ids for a path element.
+     * This handles nested hierarchies like <g data-svg-id="skull"><g data-svg-id="mandible"><path/></g></g>
+     * Returns all matching ancestor IDs so the path can be highlighted if any ancestor is in pulseIds.
+     */
+    const getAllAncestorIds = (pathElement: SVGPathElement): string[] => {
+      const ids: string[] = []
+      
+      // Check the path element itself first
+      const pathDataId = pathElement.getAttribute('data-svg-id')
+      if (pathDataId && pathDataId.length > 0) {
+        ids.push(pathDataId)
+      }
+      
+      // Then collect all parent groups with data-svg-id
       let parent = pathElement.parentElement as HTMLElement | null
       while (parent) {
         if (parent.tagName.toLowerCase() === 'svg') break
@@ -69,26 +83,24 @@ export function usePathHighlighting({
         if (parent.tagName === 'g' || parent.tagName === 'G') {
           const dataSvgId = parent.getAttribute('data-svg-id')
           if (dataSvgId && dataSvgId.length > 0) {
-            return dataSvgId
+            ids.push(dataSvgId)
           }
         }
         parent = parent.parentElement
       }
-
-      const pathDataId = pathElement.getAttribute('data-svg-id')
-      if (pathDataId && pathDataId.length > 0) {
-        return pathDataId
-      }
-
-      return null
+      
+      return ids
     }
 
-    console.log('[Hook:usePathHighlighting] Update triggered', {
+    const debugInfo = {
       pulseIds: Array.from(interaction.pulseIds || []),
       glowId: interaction.glowId,
       visibleSystems: Array.from(visibleSystems),
       type: interaction.type,
-    });
+    };
+    console.log('[Hook:usePathHighlighting] Update triggered', debugInfo);
+    // Store for debugging
+    (window as any).__hookDebug = debugInfo;
 
     let totalPathsProcessed = 0;
     let pathsPulsing = 0;
@@ -107,29 +119,42 @@ export function usePathHighlighting({
       paths.forEach((pathElement) => {
         const path = pathElement as SVGPathElement
         const pathId = path.getAttribute('id')
-        const parentGroupId = getGroupId(path)
+        const ancestorIds = getAllAncestorIds(path)
 
         totalPathsProcessed++;
 
+        // Check if any ancestor (including self) has a matching glow
         const isGlowed = Boolean(
           (pathId && pathId === interaction.glowId) ||
-          (parentGroupId && parentGroupId === interaction.glowId)
+          ancestorIds.some(id => id === interaction.glowId)
         )
 
+        // Check if any ancestor (including self) is in pulseIds
         const isPulsing = Boolean(
           (pathId && interaction.pulseIds?.has(pathId)) ||
-          (parentGroupId && interaction.pulseIds?.has(parentGroupId))
+          ancestorIds.some(id => interaction.pulseIds?.has(id))
         )
 
+        // Check if any ancestor (including self) is being hovered
         const isHovered = Boolean(
           isHovering &&
           ((pathId && pathId === hoveredId) ||
-            (parentGroupId && parentGroupId === hoveredId))
+            ancestorIds.some(id => id === hoveredId))
         )
 
         // Log first few paths to understand structure
-        if (totalPathsProcessed <= 5) {
-          console.log(`[Hook:path] ${pathId || 'no-id'} | parent: ${parentGroupId || 'none'} | pulse: ${isPulsing} | glow: ${isGlowed}`);
+        if (totalPathsProcessed <= 10) {
+          const pathDebug = {
+            pathId,
+            ancestors: ancestorIds,
+            pulse: isPulsing,
+            glow: isGlowed,
+            hasSkull: ancestorIds.includes('skull'),
+            pulseHasSkull: interaction.pulseIds?.has('skull'),
+          };
+          console.log(`[Hook:path] ${pathId || 'no-id'} | ancestors: ${ancestorIds.join(',')} | pulse: ${isPulsing} | glow: ${isGlowed}`, pathDebug);
+          if (!((window as any).__pathDebugSamples)) (window as any).__pathDebugSamples = [];
+          (window as any).__pathDebugSamples.push(pathDebug);
         }
 
         if (isPulsing) pathsPulsing++;

@@ -13,24 +13,24 @@ import { z } from 'zod';
 /**
  * Tool 1: highlight_structures
  * 
- * Purpose: Highlight specific anatomical structures on the diagram by their IDs.
+ * Purpose: Highlight specific anatomical structures on the diagram by their data-svg-id values.
  * Called when the user wants to focus attention on particular structures.
  * 
- * Example: "highlight the femur and tibia"
- * → GPT-4 calls: highlight_structures({ ids: ["femur-id", "tibia-id"] })
+ * Example: "highlight the left femur and right tibia"
+ * → GPT-4 calls: highlight_structures({ ids: ["femur-left", "tibia-right"] })
  */
 export const HighlightStructuresTool = {
   type: 'function',
   function: {
     name: 'highlight_structures',
-    description: 'Highlight specific anatomical structures on the diagram by their svg_path_id. This makes them stand out visually with a pulsing animation so the user can see which structures you\'re referring to.',
+    description: 'Highlight specific anatomical structures on the diagram by their data-svg-id values. This makes them stand out visually with a pulsing animation so the user can see which structures you\'re referring to. Use kebab-case IDs like "femur-left", "skull", "tibia-right", etc.',
     parameters: {
       type: 'object',
       properties: {
         ids: {
           type: 'array',
           items: { type: 'string' },
-          description: 'Array of structure IDs to highlight (e.g., ["femur-left", "tibia-right"]). These IDs must match structures in the database.',
+          description: 'Array of data-svg-id values to highlight (e.g., ["femur-left", "tibia-right", "skull"]). Use kebab-case format. Include -left or -right suffix when applicable.',
         },
       },
       required: ['ids'],

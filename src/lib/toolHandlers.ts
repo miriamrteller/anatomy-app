@@ -29,11 +29,11 @@ interface ToolResult {
 /**
  * TOOL 1: highlight_structures
  * 
- * Validates that the requested structure IDs exist in the database,
- * then returns their names and SVG path IDs for the frontend to highlight.
+ * Finds structures that have any of the requested data-svg-id values in their svgPathIds array.
+ * Uses Prisma's hasSome operator to match partial array containment.
  * 
- * @param args - { ids: string[] }
- * @returns ToolResult with structure names and SVG paths
+ * @param args - { ids: string[] } where ids are data-svg-id values like ["femur-left", "skull"]
+ * @returns ToolResult with matching structures
  */
 export async function highlightStructuresHandler(args: unknown): Promise<ToolResult> {
   try {
@@ -44,11 +44,11 @@ export async function highlightStructuresHandler(args: unknown): Promise<ToolRes
       ids: parsed.ids,
     });
     
-    // Query database for structures
+    // Query database for structures that have ANY of these data-svg-id values
     const structures = await db.structure.findMany({
       where: {
-        id: {
-          in: parsed.ids,
+        svgPathIds: {
+          hasSome: parsed.ids,
         },
       },
       select: {
@@ -60,20 +60,23 @@ export async function highlightStructuresHandler(args: unknown): Promise<ToolRes
       },
     });
     
-    const missingIds = parsed.ids.filter(id => !structures.find(s => s.id === id));
-    const svgPathCount = structures.flatMap(s => s.svgPathIds).length;
+    // Find which requested IDs were found
+    const foundIds = new Set<string>();
+    structures.forEach(s => s.svgPathIds.forEach(id => foundIds.add(id)));
+    const missingIds = parsed.ids.filter(id => !foundIds.has(id));
     
     console.log('[Tool:highlight] Result:', {
       found: structures.length,
-      missing: missingIds.length,
-      svgPathsTotal: svgPathCount,
+      foundIds: Array.from(foundIds),
+      missing: missingIds,
+      svgPathsTotal: structures.reduce((sum, s) => sum + s.svgPathIds.length, 0),
     });
     
     if (structures.length === 0) {
       return {
         success: false,
-        message: `No structures found with IDs: ${parsed.ids.join(', ')}`,
-        error: 'Invalid structure IDs',
+        message: `No structures found with data-svg-ids: ${parsed.ids.join(', ')}`,
+        error: 'No matching structures',
       };
     }
     
@@ -151,12 +154,16 @@ export async function showLayerHandler(args: unknown): Promise<ToolResult> {
 /**
  * TOOL 3: get_related_structures
  * 
- * Fetches a structure and all related structures (same system + optionally by proximity).
+ * Fetches a structure and ONLY structures that genuinely share anatomical components
+ * or are in the same anatomical region (e.g., other head structures for skull).
+ * 
+ * For now, returns just the target structure since we don't have explicit relationship data.
  * Returns both the target and related structures for LLM context.
  * 
  * Relationship criteria:
- * - Same system (e.g., all skeletal structures are "related" to the femur)
- * - Up to 10 related structures sorted alphabetically
+ * - Same category (e.g., both are BONE structures)
+ * - In close proximity (would be detected by name patterns or coordinates)
+ * - Currently: just returns the target structure
  * 
  * @param args - { id: string }
  * @returns ToolResult with target structure and related structures
@@ -190,30 +197,13 @@ export async function getRelatedStructuresHandler(args: unknown): Promise<ToolRe
       };
     }
     
-    // Fetch related structures in the same system
-    // Related = same system, excluding the target itself
-    const relatedStructures = await db.structure.findMany({
-      where: {
-        AND: [
-          { system: targetStructure.system },
-          { id: { not: parsed.id } }, // Exclude the target
-        ],
-      },
-      select: {
-        id: true,
-        name: true,
-        latinName: true,
-        category: true,
-        svgPathIds: true,
-      },
-      orderBy: {
-        name: 'asc',
-      },
-      take: 10, // Limit to 10 related structures
-    });
+    // For now, just return the target structure itself
+    // In a future iteration, we could add more sophisticated relationship detection
+    // based on coordinates, anatomical groupings, etc.
+    const relatedStructures: any[] = [];
     
     console.log(
-      `[Tool] get_related_structures: Found target "${targetStructure.name}" with ${relatedStructures.length} related structures`
+      `[Tool] get_related_structures: Found target "${targetStructure.name}" with 0 related structures`
     );
     
     return {
@@ -221,9 +211,9 @@ export async function getRelatedStructuresHandler(args: unknown): Promise<ToolRe
       data: {
         target: targetStructure,
         related: relatedStructures,
-        relationshipType: 'same_system',
+        relationshipType: 'isolated',
       },
-      message: `${targetStructure.name} is related to ${relatedStructures.length} other ${targetStructure.system} structures: ${relatedStructures.slice(0, 3).map(s => s.name).join(', ')}${relatedStructures.length > 3 ? `, and ${relatedStructures.length - 3} more` : ''}`,
+      message: `${targetStructure.name} (no anatomically related structures found in current data)`,
     };
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error';
