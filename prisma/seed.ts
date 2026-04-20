@@ -3,6 +3,7 @@ import { randomUUID } from "node:crypto";
 import { readFileSync } from "fs";
 import { join } from "path";
 import { db } from "../src/lib/db";
+import { mapOldIdsToNew } from "./migrations/data-svg-id-mapping";
 
 interface BoneData {
   name: string;
@@ -25,11 +26,13 @@ function toPgvectorLiteral(values: number[]): string {
 }
 
 // Convert SvgPathIds from bone data to new array format
+// Applies mapping from old PascalCase IDs to new kebab-case data-svg-id values
 function buildSvgPathIds(
   svgPathIds: Record<string, string[]>,
   system: string
 ): string[] {
-  return svgPathIds[system] || [];
+  const oldIds = svgPathIds[system] || [];
+  return mapOldIdsToNew(oldIds);
 }
 
 async function main() {

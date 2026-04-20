@@ -30,7 +30,7 @@ export const HighlightStructuresTool = {
         ids: {
           type: 'array',
           items: { type: 'string' },
-          description: 'Array of structure IDs to highlight (e.g., ["FemurLeft", "TibiaRight"]). These IDs must match structures in the database.',
+          description: 'Array of structure IDs to highlight (e.g., ["femur-left", "tibia-right"]). These IDs must match structures in the database.',
         },
       },
       required: ['ids'],
@@ -77,8 +77,8 @@ export const ShowLayerTool = {
  * This tool helps the agent understand context before deciding what to highlight.
  * 
  * Example: "show me everything connected to the femur"
- * → GPT-4 calls: get_related_structures({ id: "femur-id" })
- * → Returns related structures (tibia, fibula, hip joint, etc.)
+ * → GPT-4 calls: get_related_structures({ id: "femur-left" })
+ * → Returns related structures (tibia-left, fibula-left, hip-joint-left, etc.)
  * → GPT-4 then calls: highlight_structures({ ids: [...all related ids...] })
  */
 export const GetRelatedStructuresTool = {
@@ -91,7 +91,7 @@ export const GetRelatedStructuresTool = {
       properties: {
         id: {
           type: 'string',
-          description: 'The structure ID to find relationships for (e.g., "femur-id"). Must be a valid structure ID from the database.',
+          description: 'The structure ID to find relationships for (e.g., "femur-left"). Must be a valid structure ID from the database.',
         },
       },
       required: ['id'],

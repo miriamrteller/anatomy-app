@@ -67,17 +67,17 @@ export function usePathHighlighting({
         if (parent.tagName.toLowerCase() === 'svg') break
 
         if (parent.tagName === 'g' || parent.tagName === 'G') {
-          const id = parent.getAttribute('id')
-          if (id && !/^(?:g|path)\d+$/.test(id)) {
-            return id
+          const dataSvgId = parent.getAttribute('data-svg-id')
+          if (dataSvgId && dataSvgId.length > 0) {
+            return dataSvgId
           }
         }
         parent = parent.parentElement
       }
 
-      const pathId = pathElement.getAttribute('id')
-      if (pathId && !/^(?:g|path)\d+$/.test(pathId)) {
-        return pathId
+      const pathDataId = pathElement.getAttribute('data-svg-id')
+      if (pathDataId && pathDataId.length > 0) {
+        return pathDataId
       }
 
       return null

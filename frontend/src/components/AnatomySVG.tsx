@@ -40,32 +40,32 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
   // ===== HELPER FUNCTIONS =====
 
   /**
-   * Find the group ID for a path element by walking up the DOM
-   * Prioritizes parent group IDs (like FemurRight) over path IDs
-   * Returns the path's own ID as fallback if no parent group found
+   * Find the SVG data-id for a path element by walking up the DOM
+   * Prioritizes parent group data-svg-id attributes (like femur-left)
+   * Returns the path's own data-svg-id as fallback if no parent group found
    */
   const getGroupId = useCallback(
     (pathElement: SVGPathElement): string | null => {
-      // Walk up to find a parent group with a meaningful ID
+      // Walk up to find a parent group with a data-svg-id attribute
       let parent = pathElement.parentElement as HTMLElement | null;
       while (parent) {
         // Stop if we've reached the SVG element (by tag name)
         if (parent.tagName.toLowerCase() === "svg") break;
 
         if (parent.tagName === "g" || parent.tagName === "G") {
-          const id = parent.getAttribute("id");
-          // Accept non-generic IDs (avoid g123, g1511, etc and path1, path2, etc)
-          if (id && !/^(?:g|path)\d+$/.test(id)) {
-            return id;
+          const dataSvgId = parent.getAttribute("data-svg-id");
+          // Accept non-empty data-svg-id values
+          if (dataSvgId && dataSvgId.length > 0) {
+            return dataSvgId;
           }
         }
         parent = parent.parentElement;
       }
 
-      // Fallback to path's own ID if it's not generic
-      const pathId = pathElement.getAttribute("id");
-      if (pathId && !/^(?:g|path)\d+$/.test(pathId)) {
-        return pathId;
+      // Fallback to path's own data-svg-id if available
+      const pathDataId = pathElement.getAttribute("data-svg-id");
+      if (pathDataId && pathDataId.length > 0) {
+        return pathDataId;
       }
 
       return null;
