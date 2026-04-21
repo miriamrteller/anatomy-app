@@ -4,9 +4,31 @@
 .env.*.local
 
 # Node
-node_modules
-dist
-build
+/node_modules/
+/frontend/node_modules/
+/dist/
+/frontend/dist/
+/build/
+/frontend/build/
+
+# Build and cache artifacts
+.vite/
+/dist/
+/build/
+*.map
+*.d.ts
+/src/lib/config.ts
+
+# Test output and artifacts
+/tests/
+test-semantic-search.ts
+
+# Logs
+*.log
+server.log
+
+# Temporary files
+NUL
 
 # IDE
 .vscode

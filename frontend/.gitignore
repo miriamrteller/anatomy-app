@@ -1,3 +1,27 @@
 # Anatomy Frontend
 
 Frontend project for the anatomy app.
+
+# Dependencies
+node_modules/
+dist/
+build/
+
+# Build artifacts
+.vite/
+*.map
+*.d.ts
+
+# Logs
+*.log
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
