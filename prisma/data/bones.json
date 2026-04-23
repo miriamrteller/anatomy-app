@@ -106,12 +106,12 @@
     }
   },
   {
-    "name": "Phalanges Foot Left",
-    "latinName": "Phalanges Foot Left",
+    "name": "Phalanges Left",
+    "latinName": "Phalanges",
     "aliases": [
       "phalanges left",
       "foot left",
-      "left phalanges foot",
+      "left phalanges",
       "feet",
       "left foot",
       "toe bones",
@@ -121,7 +121,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "PhalangesFootLeft"
+        "phalanges-left"
       ]
     },
     "description": "The bones of the toes. The big toe (hallux) has two phalanges: proximal and distal. The other four toes have three: proximal, middle, and distal. While smaller than those in the hand, they are vital for maintaining balance and providing propulsion during the gait cycle.",
@@ -198,12 +198,12 @@
     }
   },
   {
-    "name": "Phalanges Foot Right",
-    "latinName": "Phalanges Foot Right",
+    "name": "Phalanges Right",
+    "latinName": "Phalanges",
     "aliases": [
       "phalanges right",
       "foot right",
-      "right phalanges foot",
+      "right phalanges",
       "feet",
       "right foot",
       "toe bones",
@@ -213,7 +213,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "PhalangesFootRight"
+        "phalanges-right"
       ]
     },
     "description": "The bones of the toes. The big toe (hallux) has two phalanges: proximal and distal. The other four toes have three: proximal, middle, and distal. While smaller than those in the hand, they are vital for maintaining balance and providing propulsion during the gait cycle.",
@@ -318,14 +318,20 @@
     }
   },
   {
-    "name": "Pelvic Girdle",
-    "latinName": "Pelvic Girdle",
-    "aliases": ["pelvis", "hip bone", "coxal bone", "pelvic bone", "hip"],
+    "name": "Pelvis",
+    "latinName": "Pelvis",
+    "aliases": [
+      "pelvic girdle",
+      "hip bone",
+      "coxal bone",
+      "pelvic bone",
+      "hip"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "PelvicGirdle"
+        "pelvis"
       ]
     },
     "description": "Also called the coxal or pelvic bone; a large, irregular bone formed by the fusion of the Ilium (superior flare), Ischium (inferior posterior sit bone), and Pubis (anterior). The three meet at the acetabulum, the deep socket for the femur. The two hip bones articulate anteriorly at the pubic symphysis and posteriorly with the sacrum to form the bony pelvis.",
@@ -337,7 +343,12 @@
   {
     "name": "Scapula",
     "latinName": "Scapula",
-    "aliases": ["shoulder blade", "shoulder", "shoulder bone", "scapular"],
+    "aliases": [
+      "shoulder blade",
+      "shoulder",
+      "shoulder bone",
+      "scapular"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -470,7 +481,12 @@
   {
     "name": "Skull",
     "latinName": "Skull",
-    "aliases": ["head bone", "cranial vault", "skeletal head", "brain case"],
+    "aliases": [
+      "head bone",
+      "cranial vault",
+      "skeletal head",
+      "brain case"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -520,7 +536,18 @@
   {
     "name": "Cranium",
     "latinName": "Cranium",
-    "aliases": ["braincase", "neurocranium", "brain case", "brain vault", "cranial"],
+    "aliases": [
+      "braincase",
+      "neurocranium",
+      "brain case",
+      "brain vault",
+      "cranial",
+      "frontal bone",
+      "occipital bone",
+      "ethmoid bone",
+      "sphenoid bone",
+      "vomer"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -1122,34 +1149,6 @@
     }
   },
   {
-    "name": "Frontal Bone",
-    "latinName": "Os frontale",
-    "aliases": [
-      "Forehead bone"
-    ],
-    "system": "SKELETAL",
-    "category": "BONE",
-    "svgPathIds": {},
-    "description": "A thick, shell-like bone forming the anterior roof of the cranium and the forehead. It contains the frontal sinuses and forms the superior margin of the orbits (eye sockets). It articulates with the parietal bones at the coronal suture and with the sphenoid, ethmoid, and nasal bones. Functionally, it protects the brain's frontal lobes and supports facial structure.",
-    "metadata": {
-      "boneType": "Flat",
-      "region": "Head",
-      "articulations": [
-        "Parietal",
-        "Nasal",
-        "Lacrimal",
-        "Zygomatic",
-        "Maxilla",
-        "Ethmoid",
-        "Sphenoid"
-      ],
-      "innervation": "Trigeminal nerve (V1)",
-      "boneCount": 1,
-      "svgPathId": "Frontal",
-      "source": "anatomical reference (database only)"
-    }
-  },
-  {
     "name": "Parietal Bone",
     "latinName": "Os parietale",
     "aliases": [
@@ -1195,92 +1194,6 @@
       ],
       "innervation": "Facial nerve (VII), Glossopharyngeal nerve (IX)",
       "boneCount": 2,
-      "source": "anatomical reference (database only)"
-    }
-  },
-  {
-    "name": "Occipital Bone",
-    "latinName": "Os occipitale",
-    "aliases": [
-      "Back of skull"
-    ],
-    "system": "SKELETAL",
-    "category": "BONE",
-    "svgPathIds": {},
-    "description": "Forms the posterior and inferior base of the neurocranium. It contains the foramen magnum, the primary opening for the spinal cord to connect to the brainstem. It features the occipital condyles, which articulate with the Atlas (C1) to allow for nodding motions, and the external occipital protuberance for neck muscle attachment.",
-    "metadata": {
-      "boneType": "Irregular",
-      "region": "Head",
-      "articulations": [
-        "Parietal",
-        "Temporal",
-        "Sphenoid",
-        "Atlas (C1)"
-      ],
-      "landmarks": [
-        "Foramen magnum",
-        "Occipital condyles"
-      ],
-      "innervation": "Accessory nerve (XI)",
-      "boneCount": 1,
-      "svgPathId": "Occipital",
-      "source": "anatomical reference (database only)"
-    }
-  },
-  {
-    "name": "Ethmoid Bone",
-    "latinName": "Os ethmoidale",
-    "aliases": [
-      "Nasal cavity bone"
-    ],
-    "system": "SKELETAL",
-    "category": "BONE",
-    "svgPathIds": {},
-    "description": "A light, spongy, cubical bone located between the orbits at the roof of the nose. It features the cribriform plate, perforated with tiny holes for olfactory nerves to pass to the brain. Its crista galli serves as an attachment for the falx cerebri (brain membrane), and its perpendicular plate forms the superior part of the nasal septum.",
-    "metadata": {
-      "boneType": "Irregular",
-      "region": "Head",
-      "articulations": [
-        "Frontal",
-        "Sphenoid",
-        "Nasal",
-        "Lacrimal",
-        "Maxilla",
-        "Vomer"
-      ],
-      "boneCount": 1,
-      "svgPathId": "Ethmoid",
-      "source": "anatomical reference (database only)"
-    }
-  },
-  {
-    "name": "Sphenoid Bone",
-    "latinName": "Os sphenoidale",
-    "aliases": [
-      "Central skull base"
-    ],
-    "system": "SKELETAL",
-    "category": "BONE",
-    "svgPathIds": {},
-    "description": "Known as the \"keystone\" of the cranial floor because it articulates with all other cranial bones. Butterfly-shaped, it contains the sella turcica (a saddle-like depression housing the pituitary gland). It features the optic canals for the optic nerves and the greater/lesser wings that form part of the orbits and middle cranial fossa.",
-    "metadata": {
-      "boneType": "Irregular",
-      "region": "Head",
-      "articulations": [
-        "Frontal",
-        "Parietal",
-        "Temporal",
-        "Occipital",
-        "Ethmoid",
-        "Vomer"
-      ],
-      "landmarks": [
-        "Sella turcica",
-        "Optic foramen",
-        "Foramen ovale"
-      ],
-      "boneCount": 1,
-      "svgPathId": "Sphenoid",
       "source": "anatomical reference (database only)"
     }
   },
@@ -1379,30 +1292,6 @@
       "teeth": 8,
       "innervation": "Trigeminal nerve (V2)",
       "boneCount": 2,
-      "source": "anatomical reference (database only)"
-    }
-  },
-  {
-    "name": "Vomer",
-    "latinName": "Vomer",
-    "aliases": [
-      "Nasal septum bone"
-    ],
-    "system": "SKELETAL",
-    "category": "BONE",
-    "svgPathIds": {},
-    "description": "A thin, flat, plow-shaped bone situated in the midsagittal line. It articulates with the ethmoid bone and the maxillae/palatines to form the inferior and posterior portion of the bony nasal septum, which provides the primary structural division of the nasal airway.",
-    "metadata": {
-      "boneType": "Irregular",
-      "region": "Head",
-      "articulations": [
-        "Ethmoid",
-        "Sphenoid",
-        "Maxilla",
-        "Palatine"
-      ],
-      "boneCount": 1,
-      "svgPathId": "Vomer",
       "source": "anatomical reference (database only)"
     }
   },
@@ -1515,26 +1404,6 @@
         "Inner ear (oval window)"
       ],
       "boneCount": 2,
-      "source": "anatomical reference (database only)"
-    }
-  },
-  {
-    "name": "Hyoid Bone",
-    "latinName": "Os hyoideum",
-    "aliases": [
-      "U-shaped bone",
-      "Neck bone"
-    ],
-    "system": "SKELETAL",
-    "category": "BONE",
-    "svgPathIds": {},
-    "description": "A U-shaped bone in the anterior neck between the mandible and larynx. It is the only bone in the body that does not articulate with any other bone; it is suspended by muscles and ligaments. It serves as a movable base for the tongue and an attachment point for muscles that elevate the larynx during swallowing.",
-    "metadata": {
-      "boneType": "Irregular",
-      "region": "Neck",
-      "suspension": "Muscles and ligaments (no articulations)",
-      "boneCount": 1,
-      "svgPathId": "Hyoid",
       "source": "anatomical reference (database only)"
     }
   },

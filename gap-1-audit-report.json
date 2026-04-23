@@ -1,0 +1,21 @@
+{
+  "bonesWithMissingSvg": [],
+  "unusedSvgIds": [
+    "tibia",
+    "ribcage",
+    "knee-joint-left",
+    "knee-joint-right",
+    "hip-joint",
+    "hip-joint-right",
+    "teeth",
+    "scapular-left",
+    "scapula-right"
+  ],
+  "totalBones": 124,
+  "bonesWithValidSvg": 124,
+  "coverage": 100,
+  "recommendations": [
+    "⚠️  9 SVG IDs exist but NO bone references them",
+    "   ACTION: Either (1) Add missing bones to DB, or (2) Remove orphaned SVG groups"
+  ]
+}
