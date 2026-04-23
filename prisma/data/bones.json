@@ -13,7 +13,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "FemurRight"
+        "femur-right"
       ]
     },
     "description": "The thigh bone; the longest, heaviest, and strongest bone in the body. Its spherical head fits into the acetabulum, while its neck—a common site for fractures—projects the shaft laterally. Distally, the medial and lateral condyles articulate with the tibia and patella. It is the primary load-bearing bone of the lower body.",
@@ -294,7 +294,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "FemurLeft"
+        "femur-left"
       ]
     },
     "description": "The thigh bone; the longest, heaviest, and strongest bone in the body. Its spherical head fits into the acetabulum, while its neck—a common site for fractures—projects the shaft laterally. Distally, the medial and lateral condyles articulate with the tibia and patella. It is the primary load-bearing bone of the lower body.",
@@ -314,7 +314,7 @@
         "Medial/Lateral condyles"
       ],
       "boneCount": 1,
-      "svgPathId": "FemurLeft"
+      "svgPathId": "femur-left"
     }
   },
   {
@@ -331,7 +331,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "pelvis"
+        "pelvis", "pelvic-girdle"
       ]
     },
     "description": "Also called the coxal or pelvic bone; a large, irregular bone formed by the fusion of the Ilium (superior flare), Ischium (inferior posterior sit bone), and Pubis (anterior). The three meet at the acetabulum, the deep socket for the femur. The two hip bones articulate anteriorly at the pubic symphysis and posteriorly with the sacrum to form the bony pelvis.",
@@ -2653,7 +2653,7 @@
         "Medial/Lateral condyles"
       ],
       "boneCount": 1,
-      "svgPathId": "FemurRight",
+      "svgPathId": "femur-right",
       "source": "anatomical reference (database only)"
     }
   },
@@ -2683,7 +2683,7 @@
         "Medial/Lateral condyles"
       ],
       "boneCount": 1,
-      "svgPathId": "FemurLeft",
+      "svgPathId": "femur-left",
       "source": "anatomical reference (database only)"
     }
   },
@@ -2705,7 +2705,7 @@
         "Femur (patellar surface)"
       ],
       "boneCount": 1,
-      "svgPathId": "PatellaRight",
+      "svgPathId": "patella-right",
       "source": "anatomical reference (database only)"
     }
   },
@@ -2727,7 +2727,7 @@
         "Femur (patellar surface)"
       ],
       "boneCount": 1,
-      "svgPathId": "PatellaLeft",
+      "svgPathId": "patella-left",
       "source": "anatomical reference (database only)"
     }
   },
@@ -2839,7 +2839,7 @@
         "Lateral malleolus"
       ],
       "boneCount": 1,
-      "svgPathId": "FibulaLeft",
+      "svgPathId": "fibula-left",
       "source": "anatomical reference (database only)"
     }
   }

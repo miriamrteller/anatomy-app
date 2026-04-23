@@ -2,7 +2,7 @@ foot-left, tarsals-left, metatarsals-left, phalanges-left
 foot-right, tarsals-right, metatarsals-right, phalanges-right
 femur-right, femur-left, fibula-left, fibula-right, tibia, tibia-left, tibia-right
 patella-left, patella-right
-pelvis, sacrum, coccyx, lumbar-vertebrae, ribcage
+pelvis, pelvic-girdle, sacrum, coccyx, lumbar-vertebrae, ribcage
 thoracic-vertebrae, cervical-vertebrae, knee-joint-left, knee-joint-right
 hip-joint, hip-joint-right, sternum, manubrium
 skull, mandible, teeth, cranium
