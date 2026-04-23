@@ -3,7 +3,11 @@
     "name": "Femur (Right)",
     "latinName": "Femur",
     "aliases": [
-      "Thigh bone"
+      "Thigh bone",
+      "thigh",
+      "leg",
+      "femoral bone",
+      "right femur"
     ],
     "system": "SKELETAL",
     "category": "BONE",
@@ -35,7 +39,13 @@
   {
     "name": "Foot Left",
     "latinName": "Foot Left",
-    "aliases": [],
+    "aliases": [
+      "feet",
+      "Anvil bone",
+      "left foot",
+      "foot",
+      "leg"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -52,7 +62,12 @@
   {
     "name": "Tarsals Left",
     "latinName": "Tarsals Left",
-    "aliases": [],
+    "aliases": [
+      "tarsals left",
+      "left tarsals",
+      "ankle bones",
+      "left ankle"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -69,7 +84,14 @@
   {
     "name": "Metatarsals Left",
     "latinName": "Metatarsals Left",
-    "aliases": [],
+    "aliases": [
+      "metatarsals left",
+      "left metatarsals",
+      "ankle bones",
+      "left ankle",
+      "midfoot",
+      "sole bones"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -86,7 +108,15 @@
   {
     "name": "Phalanges Foot Left",
     "latinName": "Phalanges Foot Left",
-    "aliases": [],
+    "aliases": [
+      "phalanges left",
+      "foot left",
+      "left phalanges foot",
+      "feet",
+      "left foot",
+      "toe bones",
+      "toes"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -103,7 +133,11 @@
   {
     "name": "Foot Right",
     "latinName": "Foot Right",
-    "aliases": [],
+    "aliases": [
+      "foot right",
+      "right foot",
+      "feet"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -120,7 +154,12 @@
   {
     "name": "Tarsals Right",
     "latinName": "Tarsals Right",
-    "aliases": [],
+    "aliases": [
+      "tarsals right",
+      "right tarsals",
+      "ankle bones",
+      "right ankle"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -137,7 +176,14 @@
   {
     "name": "Metatarsals Right",
     "latinName": "Metatarsals Right",
-    "aliases": [],
+    "aliases": [
+      "metatarsals right",
+      "right metatarsals",
+      "ankle bones",
+      "right ankle",
+      "midfoot",
+      "sole bones"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -154,7 +200,15 @@
   {
     "name": "Phalanges Foot Right",
     "latinName": "Phalanges Foot Right",
-    "aliases": [],
+    "aliases": [
+      "phalanges right",
+      "foot right",
+      "right phalanges foot",
+      "feet",
+      "right foot",
+      "toe bones",
+      "toes"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -266,7 +320,7 @@
   {
     "name": "Pelvic Girdle",
     "latinName": "Pelvic Girdle",
-    "aliases": [],
+    "aliases": ["pelvis", "hip bone", "coxal bone", "pelvic bone", "hip"],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -283,7 +337,7 @@
   {
     "name": "Scapula",
     "latinName": "Scapula",
-    "aliases": [],
+    "aliases": ["shoulder blade", "shoulder", "shoulder bone", "scapular"],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -356,7 +410,10 @@
   {
     "name": "Lumbar Vertebrae",
     "latinName": "Lumbar Vertebrae",
-    "aliases": [],
+    "aliases": [
+      "spinal bones",
+      "vertebra"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -373,7 +430,10 @@
   {
     "name": "Thoracic Vertebrae",
     "latinName": "Thoracic Vertebrae",
-    "aliases": [],
+    "aliases": [
+      "spinal bones",
+      "vertebra"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -390,7 +450,10 @@
   {
     "name": "Cervical Vertebrae",
     "latinName": "Cervical Vertebrae",
-    "aliases": [],
+    "aliases": [
+      "spinal bones",
+      "vertebra"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -407,7 +470,7 @@
   {
     "name": "Skull",
     "latinName": "Skull",
-    "aliases": [],
+    "aliases": ["head bone", "cranial vault", "skeletal head", "brain case"],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -457,7 +520,7 @@
   {
     "name": "Cranium",
     "latinName": "Cranium",
-    "aliases": [],
+    "aliases": ["braincase", "neurocranium", "brain case", "brain vault", "cranial"],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -474,7 +537,10 @@
   {
     "name": "Manubrium",
     "latinName": "Manubrium",
-    "aliases": [],
+    "aliases": [
+      "upper sternum",
+      "sternal handle"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -743,7 +809,11 @@
   {
     "name": "Hand Left",
     "latinName": "Hand Left",
-    "aliases": [],
+    "aliases": [
+      "hand left",
+      "left hand",
+      "hands"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -760,7 +830,12 @@
   {
     "name": "Carpals Left",
     "latinName": "Carpals Left",
-    "aliases": [],
+    "aliases": [
+      "carpals left",
+      "left carpals",
+      "wrist bones",
+      "wrist"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -777,7 +852,14 @@
   {
     "name": "Metacarpals Left",
     "latinName": "Metacarpals Left",
-    "aliases": [],
+    "aliases": [
+      "metacarpals left",
+      "left metacarpals",
+      "wrist bones",
+      "wrist",
+      "palm bones",
+      "palm"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -794,7 +876,10 @@
   {
     "name": "Phalanges Left",
     "latinName": "Phalanges Left",
-    "aliases": [],
+    "aliases": [
+      "phalanges left",
+      "left phalanges"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -811,7 +896,11 @@
   {
     "name": "Hand Right",
     "latinName": "Hand Right",
-    "aliases": [],
+    "aliases": [
+      "hand right",
+      "right hand",
+      "hands"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -828,7 +917,12 @@
   {
     "name": "Carpals Right",
     "latinName": "Carpals Right",
-    "aliases": [],
+    "aliases": [
+      "carpals right",
+      "right carpals",
+      "wrist bones",
+      "wrist"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -845,7 +939,10 @@
   {
     "name": "Phalanges Right",
     "latinName": "Phalanges Right",
-    "aliases": [],
+    "aliases": [
+      "phalanges right",
+      "right phalanges"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {
@@ -862,7 +959,14 @@
   {
     "name": "Metacarpals Right",
     "latinName": "Metacarpals Right",
-    "aliases": [],
+    "aliases": [
+      "metacarpals right",
+      "right metacarpals",
+      "wrist bones",
+      "wrist",
+      "palm bones",
+      "palm"
+    ],
     "system": "SKELETAL",
     "category": "BONE",
     "svgPathIds": {

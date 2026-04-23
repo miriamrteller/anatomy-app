@@ -5,6 +5,7 @@ import { AppError } from '../lib/errors';
 import { AGENT_TOOLS } from '../lib/tools';
 import { executeTool,  } from '../lib/toolHandlers';
 import { db } from '../lib/db';
+import { findStructureInQuestion } from '../lib/structureCache';
 
 /**
  * Type-safe request validation for chat endpoint
@@ -67,45 +68,19 @@ export async function chat(req: Request, res: Response): Promise<void> {
     // ============================================================
     // STEP 3a: Extract Initial Sources (Related Structures)
     // ============================================================
-    // Extract a bone name from the question to look up related structures
-    // This is a simple heuristic - looks for common bone names in the question
-    const boneKeywords = [
-      'femur', 'tibia', 'fibula', 'cranium', 'skull', 'pelvis', 'humerus',
-      'radius', 'ulna', 'spine', 'vertebra', 'ribs', 'sternum', 'clavicle',
-      'scapula', 'patella', 'talus', 'calcaneus', 'carpals', 'tarsals',
-      'phalanges', 'metacarpals', 'metatarsals', 'mandible', 'atlas', 'axis'
-    ];
-    
-    const lowerQuestion = question.toLowerCase();
-    const foundBone = boneKeywords.find(keyword => lowerQuestion.includes(keyword));
-    
+    // Query database cache for any mentioned bone structures
+    // This searches all bones + aliases automatically
+    const targetStructure = await findStructureInQuestion(question);
+
     console.log(`[Chat] Question: "${question}"`);
-    console.log(`[Chat] Extracted bone: ${foundBone || 'none'}`);
+    console.log(`[Chat] Extracted structure: ${targetStructure?.name || 'none'}`);
 
     let sourceIds: string[] = [];
-    if (foundBone) {
-      try {
-        // Find structure by name
-        const targetStructure = await db.structure.findFirst({
-          where: {
-            name: {
-              contains: foundBone,
-              mode: 'insensitive',
-            },
-          },
-          select: { id: true, svgPathIds: true },
-        });
-
-        if (targetStructure) {
-          // Just use the target structure's svgPathIds, not related ones
-          sourceIds = targetStructure.svgPathIds || [];
-          console.log(`[Chat] Found structure "${foundBone}" with ${sourceIds.length} svg path IDs`);
-        } else {
-          console.log(`[Chat] No structure found for bone: ${foundBone}`);
-        }
-      } catch (error) {
-        console.error(`[Chat] Error extracting sources:`, error);
-      }
+    if (targetStructure) {
+      sourceIds = targetStructure.svgPathIds || [];
+      console.log(
+        `[Chat] Found structure "${targetStructure.name}" with ${sourceIds.length} svg path IDs`
+      );
     }
 
     if (sourceIds.length > 0) {
