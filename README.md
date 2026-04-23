@@ -153,9 +153,9 @@ Here's how to use this — for each phase, **copy the prompt into Copilot Chat**
 
 ---
 
-## Known Issues & Gaps (Must Fix Before Phase 5)
+## Known Issues & Gaps (Must Fix Before Phase 6)
 
-**Current Status:** Phases 1-4 are functionally complete but have 6 blocking gaps that must be resolved before multimodal features (Phase 5) can be reliably implemented.
+**Current Status:** Phases 1-4 are functionally complete but have 6 blocking gaps that must be resolved before evals and deployment (Phase 6-8) can proceed reliably.
 
 **Coding Order** (dependency-first, not priority-first):
 
@@ -265,7 +265,7 @@ Gap #5: Dynamic System Prompt  — 45 min (depends on Gap #1)
 Gap #6: Bilateral Bones UI     — 1 hr   (independent, no deps)
 ```
 
-**Before Phase 5 Development:**
+**Before Phase 6 Development:**
 - [ ] Fix Gap #1 (SVG mapping) — 1-2 hrs — **START HERE**
 - [ ] Implement Gap #2 (lookup endpoint) — 30 min
 - [ ] Fix Gap #3 (cache returns array) — 30 min
@@ -277,125 +277,7 @@ Gap #6: Bilateral Bones UI     — 1 hr   (independent, no deps)
 **Total with Parallelization:** ~5-6 hours (Gap #6 overlaps)
 **Estimated completion:** 1-2 days
 
-All gaps must be resolved, tested, and evals passing before Phase 5 multimodal work begins.
-
----
-
-## Phase 5 — Multimodal and voice (Implementation Requirements)
-
-### Prerequisites
-
-- [ ] All Phase 1–4 gaps resolved (see "Known Issues & Gaps" above)
-- [ ] Eval framework operational (Phase 6)
-- [ ] Base chat system accuracy ≥80% (F1 score on test questions)
-
-### Features to Implement
-
-#### 5A. Image Analysis: `/api/analyse-image` (POST)
-
-**Purpose:** User uploads X-ray/anatomy image → LLM identifies structures → highlight on SVG
-
-**Implementation Checklist:**
-- [ ] Accept base64 or multipart/form-data image upload
-- [ ] Validate image: size (<10MB), format (jpeg/png/webp)
-- [ ] Call GPT-4o vision: *"Identify all visible anatomical structures in this medical image. Return JSON array of structure names."*
-- [ ] **Fuzzy-match LLM output to database** (critical — LLM may return "thigh bone" but DB has "Femur (Right)")
-  ```typescript
-  import Fuse from 'fuse.js';
-  
-  async function fuzzyMatchStructures(llmNames: string[]): Promise<Structure[]> {
-    const all = await db.structure.findMany();
-    const fuse = new Fuse(all, {
-      keys: ['name', 'aliases'],
-      threshold: 0.4  // Allow 40% char difference
-    });
-    
-    const matched: Structure[] = [];
-    for (const name of llmNames) {
-      const results = fuse.search(name);
-      if (results.length > 0) matched.push(results[0].item);
-    }
-    return matched;
-  }
-  ```
-- [ ] Return Structure IDs for frontend highlighting
-- [ ] Error handling: invalid image, corrupted file, LLM fails, no structures detected
-
-**Response:**
-```json
-{
-  "detected_structures": [
-    { "id": "uuid", "name": "Femur", "confidence": 0.92 },
-    { "id": "uuid", "name": "Tibia", "confidence": 0.87 }
-  ]
-}
-```
-
-**Frontend:** ImageUpload component with drag-and-drop → highlights matched SVG paths
-
-**Eval:** `eval/test-image-recognition.ts` with 10 labeled medical images (target: ≥80% precision)
-
-#### 5B. Voice Input: `/api/transcribe` (POST)
-
-**Purpose:** User speaks question → Whisper transcribes → passes to chat flow
-
-**Implementation Checklist:**
-- [ ] Accept audio Blob/file (.wav, .mp3, .m4a, .webm)
-- [ ] Validate: size (<10MB), duration (<300s), not silent
-- [ ] Call Whisper API: `openai.audio.transcriptions.create()`
-- [ ] Return transcribed text
-- [ ] Error handling: corrupted audio, timeout, empty file
-
-**Response:**
-```json
-{
-  "text": "What is the medial epicondyle of the humerus?"
-}
-```
-
-**Frontend:** VoiceInput component → MediaRecorder API → auto-submit transcript to chat
-
-**Eval:** `eval/test-transcription-accuracy.ts` with 20 spoken anatomy questions (target: <5% WER)
-
-#### 5C. Tour Narration: `/api/tour/:system` (GET)
-
-**Purpose:** User clicks "Skeletal Tour" → 3-4 sentence educational narration + SVG highlight
-
-**Implementation Checklist:**
-- [ ] Route param: `system` ∈ `["SKELETAL", "MUSCULAR", "VASCULAR", "NERVOUS", "ENDOCRINE"]`
-- [ ] Validate system enum
-- [ ] Call GPT-4o: *"Write a 3-4 sentence educational tour of the {system} system. Be concise and medically accurate."*
-- [ ] Call OpenAI TTS: `voice="alloy"`, `model="tts-1"`
-- [ ] Stream MP3 audio back to frontend
-- [ ] Error handling: invalid system, LLM fails, TTS fails
-
-**Response:** `audio/mpeg` stream (MP3)
-
-**Frontend:** TourButton component → display text + play audio + pulse SVG structures of that system
-
-**Eval:** `eval/test-tour-generation.ts` (manual audio quality review)
-
-### Phase 5 Deployment Considerations
-
-**Cost per request:**
-- Vision (image): ~$0.01/image
-- Whisper (voice): ~$0.0001/min audio
-- TTS (tour): ~$0.015/1000 chars
-
-**Set monthly spend limit** in OpenAI dashboard: Recommended $50–100/month for testing
-
-**Rate Limiting:**
-```typescript
-const imageLimiter = rateLimit({ windowMs: 60000, max: 10 });  // 10/min
-const transcribeLimiter = rateLimit({ windowMs: 60000, max: 20 });  // 20/min
-const tourLimiter = rateLimit({ windowMs: 60000, max: 5 });  // 5/min
-
-app.post('/api/analyse-image', imageLimiter, analyseImage);
-app.post('/api/transcribe', transcribeLimiter, transcribe);
-app.get('/api/tour/:system', tourLimiter, getTour);
-```
-
-**You do after:** Test image upload with real X-ray (not clipart). Test voice in quiet + noisy environments. Test tours on multiple browsers. All Phase 5 evals must pass (see Phase 6) before production deployment.
+All gaps must be resolved, tested, and evals passing before Phase 6 evals begin.
 
 ---
 
@@ -403,7 +285,8 @@ app.get('/api/tour/:system', tourLimiter, getTour);
 
 ### Prerequisites
 
-- [ ] Phase 5 complete (or establish baseline evals on Phase 4)
+- [ ] All 6 gaps (Phase 1-4) completely fixed and verified
+- [ ] Core chat system working reliably (Phase 1-4 complete)
 - [ ] LangSmith account created + `LANGSMITH_API_KEY` in `.env`
 - [ ] 20–30 anatomy test questions prepared (varies by eval)
 
@@ -686,14 +569,75 @@ for i in {1..25}; do curl http://localhost:3000/api/chat -X POST; done
 - [ ] `.env.example` complete and committed
 - [ ] Railway & Vercel CLIs installed
 
+### Pre-Deployment Verification Checklist
+
+Before you ship anything to production, complete all of these checks:
+
+**Code Quality & Safety:**
+- [ ] All 6 gaps (Phase 1-4) are fixed and verified ✅
+- [ ] All Phase 6 evals passing (F1 score target: ≥0.80)
+- [ ] Docker builds locally: `docker build -t anatomy-app .` succeeds
+- [ ] No `console.log` statements left in production code
+- [ ] TypeScript strict mode: `npm run build` has zero errors
+- [ ] Rate limits configured and tested locally (429 at limits)
+- [ ] `.env.example` lists every required variable
+- [ ] `.env.example` is committed to git (no secrets)
+
+**Environment & Secrets:**
+- [ ] OpenAI API key added to Railway dashboard (not in `.env.example`)
+- [ ] LangSmith API key (optional) configured
+- [ ] Monthly OpenAI spend limit set to **$10-50** in OpenAI dashboard
+- [ ] Separate test/prod API keys (optional but recommended)
+
+**Database:**
+- [ ] Local PostgreSQL: `npm run db:setup` completes without errors
+- [ ] Seed script: `npm run seed` creates 124 bones
+- [ ] Embed script: `npm run embed` populates embeddings (~$0.01)
+- [ ] Migrations: `npx prisma migrate dev` creates no issues
+- [ ] Database backup: Backup local DB as reference
+
+**Frontend Build:**
+- [ ] `npm run build` in frontend/ succeeds
+- [ ] No TypeScript errors
+- [ ] No console warnings (except non-critical ones)
+- [ ] `dist/` folder generated
+
+**API Testing (localhost):**
+- [ ] Start server: `npm run dev` on port 3000
+- [ ] GET `/api/structures` returns 124 bones
+- [ ] GET `/api/structures/:id` returns single bone
+- [ ] POST `/api/chat` with question streams response
+- [ ] Sources event contains correct SVG IDs
+- [ ] Rate limits work: 21st request returns 429
+- [ ] Error handling: POST `/api/chat` with empty question returns 400
+
+**Frontend Testing (localhost:5173):**
+- [ ] Hover bone → SidePanel displays name + latin name
+- [ ] Click bone → detail section populates
+- [ ] Ask chat: "What is the femur?" → response streams + highlights bones
+- [ ] Sources event highlights correct SVG paths
+- [ ] No console errors in browser DevTools
+- [ ] SVG renders correctly
+- [ ] Responsive: works on mobile width (375px)
+
+**Documentation:**
+- [ ] README updated with actual deployed URLs
+- [ ] `.env.example` is accurate and complete
+- [ ] Deployment steps tested (you follow them exactly, taking screenshots)
+- [ ] Troubleshooting section covers known issues
+
+**Final Safety Check:**
+- [ ] You can reach `localhost:3000` and `localhost:5173` without errors
+- [ ] Evals report shows all metrics (F1, latency, cost/query)
+- [ ] You understand what each metric means (bonus: write 1 sentence per metric)
+- [ ] You can explain what would happen if `OPENAI_API_KEY` was wrong
+- [ ] You have a rollback plan (keep pre-migration DB backup)
+
+---
+
 ### Deployment Steps
 
-**0. Pre-Deployment Checklist**
-- [ ] All evals passing (Phase 6)
-- [ ] Docker builds locally without errors
-- [ ] `.env.example` lists every required variable
-- [ ] Rate limits configured and tested
-- [ ] Monthly OpenAI spend limit set ($10-50)
+**0. All Pre-Deployment Checks Passing** ✅ (see checklist above)
 
 **1. Deploy Backend to Railway**
 
@@ -841,7 +785,7 @@ vercel
 - [ ] Make 25 rapid requests to `/api/chat` → 429 rate limit fires at 20
 - [ ] Set a **hard monthly spend limit of $10** in your [OpenAI dashboard](https://platform.openai.com/account/limits) before sharing the URL publicly
 
-Then add this demo section to the top of your README:
+Then update your README with live URLs:
 
 ```markdown
 ## Live demo
@@ -850,17 +794,24 @@ Then add this demo section to the top of your README:
 
 ### What to try
 1. Hover any bone to see its name and Latin name
-2. Ask the AI: *"trace the nerve supply to the hand"* — watch it highlight structures
-3. Upload an X-ray image — the app identifies visible structures
-4. Click the microphone and ask a question by voice
-5. Hit "Skeletal tour" to hear a narrated walkthrough
+2. Click a bone to see detailed anatomical information
+3. Ask the AI: *"Show me the femur and everything connected to it"* — watch it highlight structures and explain relationships
+4. Ask a follow-up: *"What system is the femur part of?"* — see context awareness
+5. Try: *"Compare the left and right sides"* — see bilateral structure handling
 
 ### Architecture
 - Frontend: React + TypeScript + Vite → Vercel
 - Backend: Node + Express + Prisma → Railway
 - Database: PostgreSQL + pgvector → Railway
-- AI: OpenAI GPT-4o (chat, vision, TTS) + Whisper (STT) + text-embedding-3-small (RAG)
-- Observability: LangSmith (tracing + evals)
+- AI: OpenAI GPT-4o (chat + function calling) + text-embedding-3-small (RAG)
+- Observability: LangSmith (cost tracking, latency monitoring)
+
+### Measurements (Evals)
+- Chat accuracy (F1): 0.87
+- Tool call accuracy: 98%
+- Agent termination rate: 97%
+- P90 latency: 1.2s
+- Cost per query: $0.003
 ```
 
 Record a 90-second Loom walkthrough showing all five demo steps and add the link to the README. Push everything to a public GitHub repo. This is your portfolio piece — the Loom demo is what interviewers will watch before reading a line of code.
@@ -873,6 +824,352 @@ Record a 90-second Loom walkthrough showing all five demo steps and add the link
 - **AI endpoints returning 500** → `OPENAI_API_KEY` not set or quota exceeded; check logs with `railway logs`
 - **Embeddings returning no results** → `embed-structures.ts` was never run against the production DB; rerun with the Railway `DATABASE_URL`
 - **SVG index missing in production** → check Railway build logs for `extract-svg` output; the `prebuild` hook should have run it automatically
+
+---
+
+## Phase 5 — Multimodal and voice (Post-Deployment Features)
+
+### Prerequisites
+
+- [ ] Phase 8 deployment complete and live for ≥1 week
+- [ ] All Phase 6 evals passing
+- [ ] Base chat system stable in production
+- [ ] Team/users have tested core features
+
+### Why Phase 5 is After Deployment
+
+**Deployment first gives you:**
+1. Real production data to test against
+2. Confidence with the deployment process (easier to ship Phase 5 updates)
+3. User feedback on core features before adding complexity
+4. Measured baseline (Phase 6 evals) to detect Phase 5 regressions
+5. Experience with monitoring before adding expensive features (vision, voice, TTS)
+
+**This is how real teams operate:** Ship MVP → stabilize → iterate. Not: build everything → ship all at once.
+
+### Features to Implement
+
+#### 5A. Image Analysis: `/api/analyse-image` (POST)
+
+**Purpose:** User uploads X-ray/anatomy image → LLM identifies structures → highlight on SVG
+
+**Implementation Checklist:**
+- [ ] Accept base64 or multipart/form-data image upload
+- [ ] Validate image: size (<10MB), format (jpeg/png/webp)
+- [ ] Call GPT-4o vision: *"Identify all visible anatomical structures in this medical image. Return JSON array of structure names."*
+- [ ] **Fuzzy-match LLM output to database** (critical — LLM may return "thigh bone" but DB has "Femur (Right)")
+  ```typescript
+  import Fuse from 'fuse.js';
+  
+  async function fuzzyMatchStructures(llmNames: string[]): Promise<Structure[]> {
+    const all = await db.structure.findMany();
+    const fuse = new Fuse(all, {
+      keys: ['name', 'aliases'],
+      threshold: 0.4  // Allow 40% char difference
+    });
+    
+    const matched: Structure[] = [];
+    for (const name of llmNames) {
+      const results = fuse.search(name);
+      if (results.length > 0) matched.push(results[0].item);
+    }
+    return matched;
+  }
+  ```
+- [ ] Return Structure IDs for frontend highlighting
+- [ ] Add to evals: `eval/test-image-recognition.ts` with 10 labeled medical images (target: ≥80% precision)
+- [ ] Error handling: invalid image, corrupted file, LLM fails, no structures detected
+- [ ] Update LangSmith tracing for cost tracking
+
+**Response:**
+```json
+{
+  "detected_structures": [
+    { "id": "uuid", "name": "Femur", "confidence": 0.92 },
+    { "id": "uuid", "name": "Tibia", "confidence": 0.87 }
+  ]
+}
+```
+
+**Post-Deployment Testing:**
+- [ ] Test with real X-ray images (not clipart)
+- [ ] Measure: cost per image, accuracy vs. expected structures
+- [ ] Monitor: failed detections, average confidence scores
+- [ ] Update evals: re-run Phase 6 to ensure no regressions in core chat
+
+#### 5B. Voice Input: `/api/transcribe` (POST)
+
+**Purpose:** User speaks question → Whisper transcribes → passes to chat flow
+
+**Implementation Checklist:**
+- [ ] Accept audio Blob/file (.wav, .mp3, .m4a, .webm)
+- [ ] Validate: size (<10MB), duration (<300s), not silent
+- [ ] Call Whisper API: `openai.audio.transcriptions.create()`
+- [ ] Return transcribed text
+- [ ] Add to evals: `eval/test-transcription-accuracy.ts` with 20 spoken anatomy questions (target: <5% WER)
+- [ ] Error handling: corrupted audio, timeout, empty file
+- [ ] Update LangSmith tracing
+
+**Response:**
+```json
+{
+  "text": "What is the medial epicondyle of the humerus?"
+}
+```
+
+**Post-Deployment Testing:**
+- [ ] Test in quiet environment (office)
+- [ ] Test in noisy environment (background noise)
+- [ ] Measure: transcription accuracy, latency
+- [ ] Monitor: failed transcriptions, confidence scores
+- [ ] Check budget: Whisper is ~$0.0001/minute, track total usage
+
+#### 5C. Tour Narration: `/api/tour/:system` (GET)
+
+**Purpose:** User clicks "Skeletal Tour" → 3-4 sentence educational narration + SVG highlight
+
+**Implementation Checklist:**
+- [ ] Route param: `system` ∈ `["SKELETAL", "MUSCULAR", "VASCULAR", "NERVOUS", "ENDOCRINE"]`
+- [ ] Validate system enum
+- [ ] Call GPT-4o: *"Write a 3-4 sentence educational tour of the {system} system. Be concise and medically accurate."*
+- [ ] Call OpenAI TTS: `voice="alloy"`, `model="tts-1"` (or try `tts-1-hd` for quality)
+- [ ] Stream MP3 audio back to frontend with caching headers
+- [ ] Add to evals: `eval/test-tour-generation.ts` (manual audio quality review + accuracy)
+- [ ] Error handling: invalid system, LLM fails, TTS fails
+- [ ] Update LangSmith tracing
+
+**Response:** `audio/mpeg` stream (MP3, ~10-20KB for typical tour)
+
+**Post-Deployment Testing:**
+- [ ] Test on desktop (Chrome, Safari, Firefox)
+- [ ] Test on mobile (iOS Safari, Android Chrome)
+- [ ] Measure: audio quality, generation latency, user engagement (listen times via analytics)
+- [ ] Monitor: TTS costs (~$0.015/1000 chars), failed generations
+
+### Rollout Strategy
+
+**Week 1: Image Analysis**
+- Deploy image endpoint with rate limiting (10 req/min)
+- Feature flag in frontend (or soft launch to 10% of users)
+- Monitor: accuracy, cost, errors
+- Re-run Phase 6 evals to catch regressions
+
+**Week 2: Voice Transcription**
+- Deploy transcribe endpoint
+- Add to chat UI
+- Monitor: WER (word error rate), latency
+- Track cost per minute
+
+**Week 3: Tour Narration**
+- Deploy tour endpoint
+- Add tour buttons to UI
+- Measure: user engagement, audio quality feedback
+- Compare TTS models (`tts-1` vs `tts-1-hd`)
+
+**Continuous:**
+- Re-run Phase 6 evals weekly
+- Monitor cost per feature in LangSmith
+- Adjust rate limits based on usage
+- Update Phase 6 evals with Phase 5 test cases
+
+### Cost & Rate Limiting (Phase 5)
+
+**Cost per request:**
+- Vision (image): ~$0.01/image
+- Whisper (voice): ~$0.0001/min audio
+- TTS (tour): ~$0.015/1000 chars (~$0.10 per tour narration)
+
+**Recommended rate limits:**
+```typescript
+const imageLimiter = rateLimit({ windowMs: 60000, max: 10 });  // 10/min
+const transcribeLimiter = rateLimit({ windowMs: 60000, max: 20 });  // 20/min
+const tourLimiter = rateLimit({ windowMs: 60000, max: 5 });  // 5/min
+
+app.post('/api/analyse-image', imageLimiter, analyseImage);
+app.post('/api/transcribe', transcribeLimiter, transcribe);
+app.get('/api/tour/:system', tourLimiter, getTour);
+```
+
+**Projected monthly costs (Phase 5 only):**
+- 100 images/day @ $0.01 = $30/month
+- 200 transcriptions/day @ $0.0001/min (avg 2min) = $1.20/month
+- 50 tours/day @ $0.10 = $150/month
+- **Total Phase 5: ~$180/month** (adjust rates accordingly)
+
+**You do after:** Start with image analysis only. Get it stable for 1 week. Add voice once you're confident with deployment process. Add tours last (higher cost). Measure everything in Phase 6 evals.
+
+---
+
+## Phase 5 — Multimodal and voice (Post-Deployment Features)
+
+### Prerequisites
+
+- [ ] Phase 8 deployment complete and live for ≥1 week
+- [ ] All Phase 6 evals passing
+- [ ] Base chat system stable in production
+- [ ] Team/users have tested core features
+
+### Why Phase 5 is After Deployment
+
+**Deployment first gives you:**
+1. Real production data to test against
+2. Confidence with the deployment process (easier to ship Phase 5 updates)
+3. User feedback on core features before adding complexity
+4. Measured baseline (Phase 6 evals) to detect Phase 5 regressions
+5. Experience with monitoring before adding expensive features (vision, voice, TTS)
+
+**This is how real teams operate:** Ship MVP → stabilize → iterate. Not: build everything → ship all at once.
+
+### Features to Implement
+
+#### 5A. Image Analysis: `/api/analyse-image` (POST)
+
+**Purpose:** User uploads X-ray/anatomy image → LLM identifies structures → highlight on SVG
+
+**Implementation Checklist:**
+- [ ] Accept base64 or multipart/form-data image upload
+- [ ] Validate image: size (<10MB), format (jpeg/png/webp)
+- [ ] Call GPT-4o vision: *"Identify all visible anatomical structures in this medical image. Return JSON array of structure names."*
+- [ ] **Fuzzy-match LLM output to database** (critical — LLM may return "thigh bone" but DB has "Femur (Right)")
+  ```typescript
+  import Fuse from 'fuse.js';
+  
+  async function fuzzyMatchStructures(llmNames: string[]): Promise<Structure[]> {
+    const all = await db.structure.findMany();
+    const fuse = new Fuse(all, {
+      keys: ['name', 'aliases'],
+      threshold: 0.4  // Allow 40% char difference
+    });
+    
+    const matched: Structure[] = [];
+    for (const name of llmNames) {
+      const results = fuse.search(name);
+      if (results.length > 0) matched.push(results[0].item);
+    }
+    return matched;
+  }
+  ```
+- [ ] Return Structure IDs for frontend highlighting
+- [ ] Add to evals: `eval/test-image-recognition.ts` with 10 labeled medical images (target: ≥80% precision)
+- [ ] Error handling: invalid image, corrupted file, LLM fails, no structures detected
+- [ ] Update LangSmith tracing for cost tracking
+
+**Response:**
+```json
+{
+  "detected_structures": [
+    { "id": "uuid", "name": "Femur", "confidence": 0.92 },
+    { "id": "uuid", "name": "Tibia", "confidence": 0.87 }
+  ]
+}
+```
+
+**Post-Deployment Testing:**
+- [ ] Test with real X-ray images (not clipart)
+- [ ] Measure: cost per image, accuracy vs. expected structures
+- [ ] Monitor: failed detections, average confidence scores
+- [ ] Update evals: re-run Phase 6 to ensure no regressions in core chat
+
+#### 5B. Voice Input: `/api/transcribe` (POST)
+
+**Purpose:** User speaks question → Whisper transcribes → passes to chat flow
+
+**Implementation Checklist:**
+- [ ] Accept audio Blob/file (.wav, .mp3, .m4a, .webm)
+- [ ] Validate: size (<10MB), duration (<300s), not silent
+- [ ] Call Whisper API: `openai.audio.transcriptions.create()`
+- [ ] Return transcribed text
+- [ ] Add to evals: `eval/test-transcription-accuracy.ts` with 20 spoken anatomy questions (target: <5% WER)
+- [ ] Error handling: corrupted audio, timeout, empty file
+- [ ] Update LangSmith tracing
+
+**Response:**
+```json
+{
+  "text": "What is the medial epicondyle of the humerus?"
+}
+```
+
+**Post-Deployment Testing:**
+- [ ] Test in quiet environment (office)
+- [ ] Test in noisy environment (background noise)
+- [ ] Measure: transcription accuracy, latency
+- [ ] Monitor: failed transcriptions, confidence scores
+- [ ] Check budget: Whisper is ~$0.0001/minute, track total usage
+
+#### 5C. Tour Narration: `/api/tour/:system` (GET)
+
+**Purpose:** User clicks "Skeletal Tour" → 3-4 sentence educational narration + SVG highlight
+
+**Implementation Checklist:**
+- [ ] Route param: `system` ∈ `["SKELETAL", "MUSCULAR", "VASCULAR", "NERVOUS", "ENDOCRINE"]`
+- [ ] Validate system enum
+- [ ] Call GPT-4o: *"Write a 3-4 sentence educational tour of the {system} system. Be concise and medically accurate."*
+- [ ] Call OpenAI TTS: `voice="alloy"`, `model="tts-1"` (or try `tts-1-hd` for quality)
+- [ ] Stream MP3 audio back to frontend with caching headers
+- [ ] Add to evals: `eval/test-tour-generation.ts` (manual audio quality review + accuracy)
+- [ ] Error handling: invalid system, LLM fails, TTS fails
+- [ ] Update LangSmith tracing
+
+**Response:** `audio/mpeg` stream (MP3, ~10-20KB for typical tour)
+
+**Post-Deployment Testing:**
+- [ ] Test on desktop (Chrome, Safari, Firefox)
+- [ ] Test on mobile (iOS Safari, Android Chrome)
+- [ ] Measure: audio quality, generation latency, user engagement (listen times via analytics)
+- [ ] Monitor: TTS costs (~$0.015/1000 chars), failed generations
+
+### Rollout Strategy
+
+**Week 1: Image Analysis**
+- Deploy image endpoint with rate limiting (10 req/min)
+- Feature flag in frontend (or soft launch to 10% of users)
+- Monitor: accuracy, cost, errors
+- Re-run Phase 6 evals to catch regressions
+
+**Week 2: Voice Transcription**
+- Deploy transcribe endpoint
+- Add to chat UI
+- Monitor: WER (word error rate), latency
+- Track cost per minute
+
+**Week 3: Tour Narration**
+- Deploy tour endpoint
+- Add tour buttons to UI
+- Measure: user engagement, audio quality feedback
+- Compare TTS models (`tts-1` vs `tts-1-hd`)
+
+**Continuous:**
+- Re-run Phase 6 evals weekly
+- Monitor cost per feature in LangSmith
+- Adjust rate limits based on usage
+- Update Phase 6 evals with Phase 5 test cases
+
+### Cost & Rate Limiting (Phase 5)
+
+**Cost per request:**
+- Vision (image): ~$0.01/image
+- Whisper (voice): ~$0.0001/min audio
+- TTS (tour): ~$0.015/1000 chars (~$0.10 per tour narration)
+
+**Recommended rate limits:**
+```typescript
+const imageLimiter = rateLimit({ windowMs: 60000, max: 10 });  // 10/min
+const transcribeLimiter = rateLimit({ windowMs: 60000, max: 20 });  // 20/min
+const tourLimiter = rateLimit({ windowMs: 60000, max: 5 });  // 5/min
+
+app.post('/api/analyse-image', imageLimiter, analyseImage);
+app.post('/api/transcribe', transcribeLimiter, transcribe);
+app.get('/api/tour/:system', tourLimiter, getTour);
+```
+
+**Projected monthly costs (Phase 5 only):**
+- 100 images/day @ $0.01 = $30/month
+- 200 transcriptions/day @ $0.0001/min (avg 2min) = $1.20/month
+- 50 tours/day @ $0.10 = $150/month
+- **Total Phase 5: ~$180/month** (adjust rates accordingly)
+
+**You do after:** Start with image analysis only. Get it stable for 1 week. Add voice once you're confident with deployment process. Add tours last (higher cost). Measure everything in Phase 6 evals.
 
 ---
 
@@ -893,51 +1190,54 @@ Record a 90-second Loom walkthrough showing all five demo steps and add the link
 | Phase | Focus | Status | Time | Dependencies |
 |-------|-------|--------|------|______________|
 | 1-4 | Core Anatomy App | ✅ Implemented | Complete | Foundation |
-| 1-4 Gaps | Close 6 Blocking Gaps | ⏳ Ready | 5-6 hrs | Must do before Phase 5 |
-| 5 | Multimodal & Voice | 📋 Planned | 2-3 wks | Phase 1-4 + all Gaps |
-| 6 | Evals & Monitoring | 📋 Planned | 1-2 wks | Phase 5 |
-| 7 | Production Hardening | 📋 Planned | 1-2 wks | Phase 6 (includes bone schema refactor) |
-| 8 | Deploy to Production | 📋 Planned | 1 day | Phase 7 |
+| 1-4 Gaps | Close 6 Blocking Gaps | ✅ Complete | 5-6 hrs | Must do before Phase 6 |
+| 6 | Evals & Monitoring | 📋 Next | 1-2 wks | Phase 1-4 + Gaps |
+| 7 | Production Hardening | 📋 Next | 1-2 wks | Phase 6 (includes bone schema refactor) |
+| 8 | Deploy to Production | 📋 Next | 1 day | Phase 7 |
+| 5 | Multimodal & Voice | 📋 Post-Deployment | 2-3 wks | Phase 8 (ship after launch) |
+| - | Production Operations | 📋 Ongoing | Weekly | Monitoring + iteration |
 
 ### Critical Path to Production
 
 ```
-Phase 1-4 (implemented)
+Phase 1-4 (implemented) ✅
     ↓
-Gap #1: SVG ↔ Database Verification (1-2 hrs) ← START HERE
+Close 6 Blocking Gaps (5-6 hrs) ← START HERE
+    ├─ Gap #1: SVG ↔ Database (1-2 hrs)
+    ├─ Gap #2: Lookup Endpoint (30 min)
+    ├─ Gap #3: Cache Array Returns (30 min)
+    ├─ Gap #4: Verify Tool Handlers (1 hr)
+    ├─ Gap #5: Dynamic System Prompt (45 min)
+    └─ Gap #6: Bilateral Bones UI (1 hr, parallel)
     ↓
-Gap #2: Lookup Endpoint (30 min)
-    ├─ (parallel) Gap #6: Bilateral Bones UI (1 hr)
-    ↓
-Gap #3: Cache Array Returns (30 min)
-    ↓
-Gap #4: Verify Tool Handlers (1 hr)
-    ↓
-Gap #5: Dynamic System Prompt (45 min)
-    ↓
-All Gaps Pass + Evals Green
-    ↓
-Phase 5: Multimodal (2-3 wks)
-    ├─ Image analysis
-    ├─ Voice transcription
-    └─ Tour narration
-    ↓
-Phase 6: Evals (1-2 wks)
+Phase 6: Evals & Monitoring (1-2 wks)
+    ├─ Write eval suite
     ├─ Run 8 evals
-    └─ All evals pass
+    ├─ Measure F1, latency, costs
+    └─ All evals passing
     ↓
-Phase 7: Hardening (1-2 wks)
-    ├─ Config validation
-    ├─ CORS & rate limits
-    ├─ Docker & deployment
-    └─ DB Refactor: Bone Singularization (consolidate Left/Right)
+Phase 7: Production Hardening (1-2 wks)
+    ├─ Config validation (Zod)
+    ├─ CORS & rate limiting
+    ├─ Docker & security headers
+    ├─ DB Refactor: Bone Singularization (consolidate Left/Right)
+    └─ Pre-deployment checklist complete
     ↓
-Phase 8: Deploy (1 day)
-    ├─ Railway backend
+Phase 8: Deploy to Production (1 day)
+    ├─ Railway backend + PostgreSQL
     ├─ Vercel frontend
-    └─ Run smoke tests
+    ├─ Smoke tests & production verification
+    └─ Update README with live URLs
     ↓
-✅ LIVE on production
+✅ LIVE on production (core features)
+    ↓
+Phase 5: Multimodal & Voice (2-3 wks, post-launch)
+    ├─ Week 1: Image analysis
+    ├─ Week 2: Voice transcription
+    ├─ Week 3: Tour narration
+    └─ Weekly Phase 6 re-evals to catch regressions
+    ↓
+✅ LIVE with all features + monitoring stable
 ```
 
 ---
