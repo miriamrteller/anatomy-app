@@ -19,10 +19,6 @@
 *.d.ts
 /src/lib/config.ts
 
-# Test output and artifacts
-/tests/
-test-semantic-search.ts
-
 # Logs
 *.log
 server.log

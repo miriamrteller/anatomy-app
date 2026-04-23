@@ -1,0 +1,102 @@
+[
+  {
+    "id": "straightforward-001",
+    "category": "straightforward",
+    "difficulty": 1,
+    "query": "Where is the femur?",
+    "description": "Basic query about a single bone location",
+    "expectedStructures": ["femur-left", "femur-right"],
+    "expectedToolCalls": ["highlight_structures"],
+    "expectedSystems": ["SKELETAL"],
+    "answerMustContain": [
+      "femur",
+      "thigh",
+      "longest bone",
+      "hip",
+      "knee"
+    ],
+    "answerMustNotContain": [],
+    "notes": "Simple anatomical question; GPT should highlight both femurs and describe location."
+  },
+  {
+    "id": "straightforward-002",
+    "category": "straightforward",
+    "difficulty": 1,
+    "query": "Show me the radius and ulna.",
+    "description": "Request to highlight two specific forearm bones",
+    "expectedStructures": ["radius-left", "radius-right", "ulna-left", "ulna-right"],
+    "expectedToolCalls": ["highlight_structures"],
+    "expectedSystems": ["SKELETAL"],
+    "answerMustContain": [
+      "radius",
+      "ulna",
+      "forearm",
+      "arm"
+    ],
+    "answerMustNotContain": [],
+    "notes": "Bilateral bones; GPT should highlight all four (both sides of both bones)."
+  },
+  {
+    "id": "student-question-001",
+    "category": "common-student",
+    "difficulty": 2,
+    "query": "How many ribs do we have?",
+    "description": "Basic anatomy fact question about rib count",
+    "expectedStructures": ["rib-1-left", "rib-1-right", "rib-2-left", "rib-2-right"],
+    "expectedToolCalls": ["highlight_structures"],
+    "expectedSystems": ["SKELETAL"],
+    "answerMustContain": [
+      "24",
+      "12 pairs",
+      "ribs",
+      "thoracic cage",
+      "chest"
+    ],
+    "answerMustNotContain": [
+      "13 pairs",
+      "26 ribs"
+    ],
+    "notes": "Factual question; answer should mention 24 ribs (12 pairs). Highlight a sample of ribs to show location."
+  },
+  {
+    "id": "system-specific-001",
+    "category": "system-specific",
+    "difficulty": 3,
+    "query": "Show me the skeletal system and tell me the major bones of the leg.",
+    "description": "Multi-part: switch layer, identify structures",
+    "expectedStructures": ["femur-left", "femur-right", "tibia-left", "tibia-right", "fibula-left", "fibula-right"],
+    "expectedToolCalls": ["show_layer", "highlight_structures"],
+    "expectedSystems": ["SKELETAL"],
+    "answerMustContain": [
+      "skeletal",
+      "femur",
+      "tibia",
+      "fibula",
+      "knee",
+      "ankle"
+    ],
+    "answerMustNotContain": [],
+    "notes": "Expects show_layer call first, then highlight_structures. Student should understand limb anatomy."
+  },
+  {
+    "id": "edge-case-001",
+    "category": "edge-case",
+    "difficulty": 4,
+    "query": "What's the hyoid bone and where is it located?",
+    "description": "Edge case: bone that may not have SVG representation",
+    "expectedStructures": [],
+    "expectedToolCalls": [],
+    "expectedSystems": [],
+    "answerMustContain": [
+      "hyoid",
+      "neck",
+      "throat",
+      "floating",
+      "suspended"
+    ],
+    "answerMustNotContain": [
+      "highlight"
+    ],
+    "notes": "KNOWN ISSUE: Hyoid is in DB but not in SVG. GPT should describe it without trying to highlight. Mark as 'partial success' if description is accurate even if no highlight."
+  }
+]
