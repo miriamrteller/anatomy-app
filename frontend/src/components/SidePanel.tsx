@@ -1,5 +1,6 @@
 import React from 'react'
 import { useAnatomyStore } from '../stores/anatomy'
+import { getSide } from '../lib/groupStructures'
 
 interface SidePanelProps {
   onToggle?: () => void
@@ -7,29 +8,14 @@ interface SidePanelProps {
 
 /**
  * Helper: Check if a structure has bilateral pair highlighted
- * Returns the side of the current structure + whether both sides are lit
+ * Returns badge info for display
  */
-function getBilateralStatus(
-  name: string,
+function isBilateralHighlighted(
   highlightedIds: Set<string>,
   currentSvgIds: string[]
-): { isBilateral: boolean; side: 'left' | 'right' | 'single' } {
-  const isLeft = name.includes('(Left)')
-  const isRight = name.includes('(Right)')
-
-  if (!isLeft && !isRight) {
-    return { isBilateral: false, side: 'single' }
-  }
-
-  const side = isLeft ? 'left' : 'right'
-  
+): boolean {
   // Check if any SVG ID from this structure is highlighted
-  const isHighlighted = currentSvgIds.some((id) => highlightedIds.has(id))
-
-  return {
-    isBilateral: isHighlighted,
-    side,
-  }
+  return currentSvgIds.some((id) => highlightedIds.has(id))
 }
 
 export const SidePanel: React.FC<SidePanelProps> = () => {
@@ -41,9 +27,11 @@ export const SidePanel: React.FC<SidePanelProps> = () => {
   const isHovered = interaction.type === 'hover'
 
   // Check if both left and right versions are highlighted
-  const bilateralInfo = activeStructure
-    ? getBilateralStatus(activeStructure.name, highlightedIds, activeStructure.svgPathIds || [])
-    : null
+  const isBilateral = activeStructure
+    ? isBilateralHighlighted(highlightedIds, activeStructure.svgPathIds || [])
+    : false
+  
+  const side = activeStructure ? getSide(activeStructure.name) : null
 
   return (
     <div className="h-full bg-white shadow-lg rounded-lg overflow-hidden flex flex-col">
@@ -73,9 +61,9 @@ export const SidePanel: React.FC<SidePanelProps> = () => {
                   <h2 className="text-lg font-bold text-gray-900">
                     {activeStructure.name}
                   </h2>
-                  {bilateralInfo?.isBilateral && (
+                  {isBilateral && side && (
                     <span className="inline-block px-2 py-0.5 bg-green-100 text-green-800 rounded text-xs font-semibold">
-                      Bilateral
+                      {side === 'Left' || side === 'Right' ? side : 'Bilateral'}
                     </span>
                   )}
                 </div>
