@@ -175,9 +175,16 @@ export async function getRelatedStructuresHandler(args: unknown): Promise<ToolRe
     // Validate arguments
     const parsed = GetRelatedStructuresArgsSchema.parse(args);
     
-    // Fetch the target structure
-    const targetStructure = await db.structure.findUnique({
-      where: { id: parsed.id },
+    // The id can be either:
+    // 1. An SVG path ID like "femur-left" (preferred by LLM based on tool description)
+    // 2. A structure name like "Femur (Left)"
+    // 3. A database UUID (legacy)
+    
+    let targetStructure = null;
+    
+    // Try to find by SVG path ID first (most common case from LLM)
+    targetStructure = await db.structure.findFirst({
+      where: { svgPathIds: { has: parsed.id } },
       select: {
         id: true,
         name: true,
@@ -189,11 +196,48 @@ export async function getRelatedStructuresHandler(args: unknown): Promise<ToolRe
       },
     });
     
+    // If not found, try as structure name
+    if (!targetStructure) {
+      targetStructure = await db.structure.findFirst({
+        where: { 
+          name: {
+            contains: parsed.id,
+            mode: 'insensitive'
+          }
+        },
+        select: {
+          id: true,
+          name: true,
+          latinName: true,
+          system: true,
+          category: true,
+          description: true,
+          svgPathIds: true,
+        },
+      });
+    }
+    
+    // If still not found, try as UUID (legacy)
+    if (!targetStructure && parsed.id.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i)) {
+      targetStructure = await db.structure.findUnique({
+        where: { id: parsed.id },
+        select: {
+          id: true,
+          name: true,
+          latinName: true,
+          system: true,
+          category: true,
+          description: true,
+          svgPathIds: true,
+        },
+      });
+    }
+    
     if (!targetStructure) {
       return {
         success: false,
         message: `Structure not found: ${parsed.id}`,
-        error: 'Invalid structure ID',
+        error: 'Could not find structure by SVG path ID, name, or UUID',
       };
     }
     

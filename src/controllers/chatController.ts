@@ -3,9 +3,9 @@ import { z } from 'zod';
 import { getOpenAIClient } from '../lib/openai';
 import { AppError } from '../lib/errors';
 import { AGENT_TOOLS } from '../lib/tools';
-import { executeTool,  } from '../lib/toolHandlers';
-import { db } from '../lib/db';
+import { executeTool } from '../lib/toolHandlers';
 import { findStructureInQuestion } from '../lib/structureCache';
+import { getSystemPrompt } from '../lib/systemPrompt';
 
 /**
  * Type-safe request validation for chat endpoint
@@ -70,16 +70,23 @@ export async function chat(req: Request, res: Response): Promise<void> {
     // ============================================================
     // Query database cache for any mentioned bone structures
     // This searches all bones + aliases automatically
-    const targetStructure = await findStructureInQuestion(question);
+    const targetStructures = await findStructureInQuestion(question);
 
     console.log(`[Chat] Question: "${question}"`);
-    console.log(`[Chat] Extracted structure: ${targetStructure?.name || 'none'}`);
+    console.log(
+      `[Chat] Extracted structures: ${targetStructures.length > 0 ? targetStructures.map((s) => s.name).join(', ') : 'none'}`
+    );
 
     let sourceIds: string[] = [];
-    if (targetStructure) {
-      sourceIds = targetStructure.svgPathIds || [];
+    if (targetStructures.length > 0) {
+      // Flatten all SVG path IDs from all matched structures (avoid duplicates)
+      const idSet = new Set<string>();
+      targetStructures.forEach((structure) => {
+        (structure.svgPathIds || []).forEach((id) => idSet.add(id));
+      });
+      sourceIds = Array.from(idSet);
       console.log(
-        `[Chat] Found structure "${targetStructure.name}" with ${sourceIds.length} svg path IDs`
+        `[Chat] Found ${targetStructures.length} structure(s) with ${sourceIds.length} total svg path IDs`
       );
     }
 
@@ -102,32 +109,7 @@ export async function chat(req: Request, res: Response): Promise<void> {
     // The message history persists across tool calls and iterations
     // So the LLM can see the context of its previous decisions
     
-    const systemPrompt = `You are an anatomy expert assistant with access to tools for interacting with an anatomical diagram.
-
-IMPORTANT: When highlighting structures, use ONLY these exact data-svg-id values (kebab-case with -left/-right suffixes):
-- Feet & Ankles: foot-left, foot-right, tarsals-left, tarsals-right, metatarsals-left, metatarsals-right, phalanges-left, phalanges-right
-- Legs: femur-left, femur-right, tibia, tibia-left, tibia-right, fibula-left, fibula-right
-- Knee & Hip: knee-joint-left, knee-joint-right, hip-joint, hip-joint-right, patella-left, patella-right
-- Pelvis & Spine: pelvis, sacrum, coccyx, lumbar-vertebrae, thoracic-vertebrae, cervical-vertebrae
-- Chest: ribcage, sternum, manubrium
-- Head: skull, cranium, mandible, teeth
-- Shoulders: scapula, scapular-left, scapula-right, clavicle-left, clavicle-right
-- Arms: humerus-left, humerus-right, radius-left, radius-right, ulna-left, ulna-right
-- Hands: hand-left, hand-right, carpals-left, carpals-right, metacarpals-left, metacarpals-right, phalanges-left, phalanges-right
-
-You have the following tools available:
-- highlight_structures: Highlight specific anatomical structures on the diagram by their data-svg-id
-- show_layer: Switch the visible layer to show a specific body system
-- get_related_structures: Fetch related structures based on anatomical relationships
-
-Use these tools to help the user explore and understand anatomical structures.
-You can call multiple tools in sequence to provide a comprehensive answer.
-For example: if a user asks "show me everything connected to the femur", you might:
-1. Call show_layer to display the SKELETAL system
-2. Call highlight_structures with ["femur-left", "tibia-left", "fibula-left", "patella-left", "knee-joint-left"]
-
-Always explain what you're doing and why. Keep responses concise and educational.`;
-
+    const systemPrompt = getSystemPrompt();
 
     type MessageRole = 'system' | 'user' | 'assistant' | 'tool';
     interface Message {

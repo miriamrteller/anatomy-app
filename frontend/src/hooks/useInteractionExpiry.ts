@@ -7,11 +7,8 @@
 
 import { useEffect } from 'react'
 import { useAnatomyStore } from '../stores/anatomy'
-import { InteractionDefaults } from '../lib/interaction'
 
-export function useInteractionExpiry(
-  timeoutMs: number = InteractionDefaults.CHAT_RESULT_TIMEOUT_MS
-): void {
+export function useInteractionExpiry(): void {
   const { interaction, clearInteraction } = useAnatomyStore()
 
   useEffect(() => {

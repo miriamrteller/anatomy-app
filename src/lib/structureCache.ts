@@ -35,6 +35,12 @@ async function initializeCache(): Promise<void> {
           structureCache!.set(nameLower, structure);
         }
 
+        // Also extract main word from compound names (e.g., "femur" from "Femur (Left)")
+        const mainWord = structure.name.split('(')[0].trim().toLowerCase();
+        if (mainWord && mainWord !== nameLower && !structureCache!.has(mainWord)) {
+          structureCache!.set(mainWord, structure);
+        }
+
         // Also index each alias
         structure.aliases.forEach((alias) => {
           const aliasLower = alias.toLowerCase();
@@ -55,24 +61,46 @@ async function initializeCache(): Promise<void> {
 }
 
 /**
- * Find a structure by searching the question text
- * Returns first match or null
+ * Find structures by searching the question text
+ * Returns all matching structures (no duplicates)
+ * 
+ * Strategy:
+ * 1. Check for exact index matches (full name, aliases)
+ * 2. Check for partial matches in all structure names
+ * This ensures bilateral bones like "Femur (Left)" and "Femur (Right)" 
+ * are both found when searching for "femur"
  */
 export async function findStructureInQuestion(
   question: string
-): Promise<CachedStructure | null> {
+): Promise<CachedStructure[]> {
   await initializeCache();
 
   const lowerQuestion = question.toLowerCase();
+  const foundIds = new Set<string>();
+  const results: CachedStructure[] = [];
 
-  // Strategy: Check each cached search term and see if it appears in the question
+  // Strategy 1: Check each cached search term (exact and full name matches)
   for (const [searchTerm, structure] of structureCache!) {
-    if (lowerQuestion.includes(searchTerm)) {
-      return structure;
+    if (lowerQuestion.includes(searchTerm) && !foundIds.has(structure.id)) {
+      results.push(structure);
+      foundIds.add(structure.id);
     }
   }
 
-  return null;
+  // Strategy 2: Search all structure names for partial matches
+  // This ensures bilateral bones are found (e.g., "femur" finds both Left and Right)
+  for (const [_, structure] of structureCache!) {
+    if (foundIds.has(structure.id)) continue; // Already found
+    
+    // Check if question contains main bone name (e.g., "femur" from "Femur (Left)")
+    const mainWord = structure.name.split('(')[0].trim().toLowerCase();
+    if (mainWord && lowerQuestion.includes(mainWord)) {
+      results.push(structure);
+      foundIds.add(structure.id);
+    }
+  }
+
+  return results;
 }
 
 /**

@@ -5,12 +5,45 @@ interface SidePanelProps {
   onToggle?: () => void
 }
 
+/**
+ * Helper: Check if a structure has bilateral pair highlighted
+ * Returns the side of the current structure + whether both sides are lit
+ */
+function getBilateralStatus(
+  name: string,
+  highlightedIds: Set<string>,
+  currentSvgIds: string[]
+): { isBilateral: boolean; side: 'left' | 'right' | 'single' } {
+  const isLeft = name.includes('(Left)')
+  const isRight = name.includes('(Right)')
+
+  if (!isLeft && !isRight) {
+    return { isBilateral: false, side: 'single' }
+  }
+
+  const side = isLeft ? 'left' : 'right'
+  
+  // Check if any SVG ID from this structure is highlighted
+  const isHighlighted = currentSvgIds.some((id) => highlightedIds.has(id))
+
+  return {
+    isBilateral: isHighlighted,
+    side,
+  }
+}
+
 export const SidePanel: React.FC<SidePanelProps> = () => {
-  const { interaction, isPanelMinimized, togglePanelMinimize } = useAnatomyStore()
+  const { interaction, isPanelMinimized, togglePanelMinimize, highlightedIds } =
+    useAnatomyStore()
 
   // Show structure from interaction if available
   const activeStructure = interaction.structure
   const isHovered = interaction.type === 'hover'
+
+  // Check if both left and right versions are highlighted
+  const bilateralInfo = activeStructure
+    ? getBilateralStatus(activeStructure.name, highlightedIds, activeStructure.svgPathIds || [])
+    : null
 
   return (
     <div className="h-full bg-white shadow-lg rounded-lg overflow-hidden flex flex-col">
@@ -36,9 +69,16 @@ export const SidePanel: React.FC<SidePanelProps> = () => {
           ) : (
             <div className="space-y-4">
               <div>
-                <h2 className="text-lg font-bold text-gray-900">
-                  {activeStructure.name}
-                </h2>
+                <div className="flex items-center gap-2">
+                  <h2 className="text-lg font-bold text-gray-900">
+                    {activeStructure.name}
+                  </h2>
+                  {bilateralInfo?.isBilateral && (
+                    <span className="inline-block px-2 py-0.5 bg-green-100 text-green-800 rounded text-xs font-semibold">
+                      Bilateral
+                    </span>
+                  )}
+                </div>
                 <p className="text-sm text-gray-600 italic">{activeStructure.latinName}</p>
               </div>
 

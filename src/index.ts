@@ -2,6 +2,7 @@ import express from "express";
 import { structureRouter } from "./routes/structures.js";
 import chatRoutes from "./routes/chat.js";
 import { errorHandler } from "./middleware/validation.js";
+import { generateSystemPrompt } from "./lib/systemPrompt.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -47,7 +48,21 @@ app.get("/health", (_req, res) => {
 // Error handling
 app.use(errorHandler);
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`🚀 Server is running on http://localhost:${PORT}`);
-});
+// Initialize system prompt on startup
+async function startServer() {
+  try {
+    console.log("[Server] Initializing system prompt from database...");
+    await generateSystemPrompt();
+    console.log("[Server] ✅ System prompt initialized");
+    
+    // Start server
+    app.listen(PORT, () => {
+      console.log(`🚀 Server is running on http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error("[Server] ❌ Failed to initialize system prompt:", error);
+    process.exit(1);
+  }
+}
+
+startServer();
