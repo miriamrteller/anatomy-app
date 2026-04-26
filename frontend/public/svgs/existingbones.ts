@@ -1,4 +1,4 @@
-const existingBonesSVG = [
+export const existingBonesSVG = [
   "foot-left",
   "tarsals-left",
   "metatarsals-left",
