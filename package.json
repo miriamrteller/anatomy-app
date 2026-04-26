@@ -10,6 +10,7 @@
     "start": "node dist/index.js",
     "test": "vitest",
     "test:ui": "vitest --ui",
+    "eval": "tsx scripts/run-eval.ts",
     "prisma:migrate": "prisma migrate dev",
     "prisma:generate": "prisma generate",
     "seed": "tsx prisma/seed.ts",
