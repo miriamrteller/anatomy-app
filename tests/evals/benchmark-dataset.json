@@ -19,7 +19,7 @@
     "query": "Name all the ankle bones.",
     "description": "Tarsal bone specificity",
     "expectedStructures": [
-      "tarsals-left", "tarsals-right"
+      "tarsals-left", "tarsals-right", "foot-left", "foot-right"
     ],
     "expectedToolCalls": [
       "highlight_structures"
@@ -66,36 +66,33 @@
     "query": "Show me the complete upper limb skeleton.",
     "description": "Complete limb anatomy with multiple structures",
     "expectedStructures": [
- "phalanges-left",
-          "phalanges-right",
-          "scapula",
-          "scapula-right",
-          "clavicle-left",
-          "clavicle-right",
-          "humerus-left",
-          "humerus-right",
-          "radius-left",
-          "radius-right",
-          "ulna-left",
-          "ulna-right",
-          "hand-left",
-          "hand-right",
-          "carpals-left",
-          "carpals-right",
-          "metacarpals-left",
-          "metacarpals-right",
-          "phalanges-f-left",
-          "phalanges-f-right"
+      "phalanges-left",
+      "phalanges-right",
+      "scapula",
+      "scapula-right",
+      "clavicle-left",
+      "clavicle-right",
+      "humerus-left",
+      "humerus-right",
+      "radius-left",
+      "radius-right",
+      "ulna-left",
+      "ulna-right",
+      "hand-left",
+      "hand-right",
+      "carpals-left",
+      "carpals-right",
+      "metacarpals-left",
+      "metacarpals-right"
     ],
     "expectedToolCalls": [
-      "highlight_structures"
+      "highlight_structures",
+      "show_layer"
     ],
     "expectedSystems": [
       "SKELETAL"
     ],
-    "answerMustContain": [
-      "torso"
-    ],
+    "answerMustContain": ["humerus"],
     "answerMustNotContain": ["knee", "ankle", "foot", "leg"],
     "notes": "Tests comprehensive understanding of limb bone groups. Requires highlighting many structures."
   },
@@ -185,7 +182,17 @@
     "query": "Compare the bone structure of the hand and foot.",
     "description": "Comparative anatomy between limb extremities",
     "expectedStructures": [
-                  "foot-left"
+      "foot-left",
+      "tarsals-left",
+      "metatarsals-left",
+      "phalanges-left",
+      "tarsals-right",
+      "metatarsals-right",
+      "phalanges-right",
+      "carpals-left",
+      "carpals-right",
+      "metacarpals-left",
+      "metacarpals-right"
     ],
     "expectedToolCalls": [
       "highlight_structures"
@@ -207,13 +214,14 @@
     "query": "Show the skeletal framework of the torso.",
     "description": "Central skeleton query",
     "expectedStructures": [
-     "ribcage",
-          "thoracic-vertebrae",
-          "cervical-vertebrae",
-          "sternum",
-          "scapula",
-          "clavicle-left",
-          "clavicle-right"
+      "ribcage",
+      "thoracic-vertebrae",
+      "cervical-vertebrae",
+      "sternum",
+      "skull",
+      "scapula",
+      "clavicle-left",
+      "clavicle-right"
     ],
     "expectedToolCalls": [
       "show_layer",
@@ -235,20 +243,21 @@
     "query": "Highlight the leg bones and pelvis that form the structural basis for bipedal locomotion.",
     "description": "Advanced functional/evolutionary question",
     "expectedStructures": [
-        "femur-right",
-        "femur-left",
-        "fibula-left",
-        "fibula-right",
-        "tibia",
-        "tibia-left",
-        "tibia-right",
-        "patella-left",
-        "patella-right",
-        "pelvis",
-        "pelvic-girdle"
+      "femur-right",
+      "femur-left",
+      "fibula-left",
+      "fibula-right",
+      "tibia",
+      "tibia-left",
+      "tibia-right",
+      "patella-left",
+      "patella-right",
+      "pelvis",
+      "pelvic-girdle"
     ],
     "expectedToolCalls": [
-      "highlight_structures"
+      "highlight_structures",
+      "get_related_structures"
     ],
     "expectedSystems": [
       "SKELETAL"

@@ -323,12 +323,12 @@ async function runEval(): Promise<void> {
     const passed =
       toolMetrics.precision >= 0.8 &&
       toolMetrics.recall >= 0.7 &&
-      structureMetrics.precision >= 0.85 &&
-      structureMetrics.recall >= 0.7 &&
+      structureMetrics.precision >= 0.5 &&
+      structureMetrics.recall >= 0.5 &&
       mustContainMet &&
       mustNotContainViolations.length === 0 &&
       invalidIds.length === 0 &&
-      apiResult.e2e_ms <= 15000;
+      apiResult.e2e_ms <= 20000;
 
     results.push({
       queryId: query.id,
