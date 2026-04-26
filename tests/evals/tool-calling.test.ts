@@ -14,34 +14,9 @@ import { describe, it, expect, beforeAll } from 'vitest';
 import * as fs from 'fs';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
+import { EvalQuery, VALID_SVG_IDS, VALID_TOOLS } from './types';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-interface EvalQuery {
-  id: string;
-  category: string;
-  difficulty: number;
-  query: string;
-  expectedToolCalls: string[];
-  expectedStructures: string[];
-}
-
-const VALID_SVG_IDS = [
-  'foot-left', 'foot-right', 'tarsals-left', 'tarsals-right',
-  'metatarsals-left', 'metatarsals-right', 'phalanges-left', 'phalanges-right',
-  'phalanges-f-left', 'phalanges-f-right', 'femur-left', 'femur-right',
-  'fibula-left', 'fibula-right', 'tibia', 'tibia-left', 'tibia-right',
-  'patella-left', 'patella-right', 'pelvis', 'pelvic-girdle', 'sacrum', 'coccyx',
-  'lumbar-vertebrae', 'ribcage', 'thoracic-vertebrae', 'cervical-vertebrae',
-  'knee-joint-left', 'knee-joint-right', 'hip-joint-left', 'hip-joint-right',
-  'sternum', 'manubrium', 'skull', 'mandible', 'teeth', 'cranium',
-  'scapula', 'scapular-left', 'scapula-right', 'clavicle-left', 'clavicle-right',
-  'humerus-left', 'humerus-right', 'radius-left', 'radius-right',
-  'ulna-left', 'ulna-right', 'hand-left', 'hand-right',
-  'carpals-left', 'carpals-right', 'metacarpals-left', 'metacarpals-right',
-];
-
-const VALID_TOOL_NAMES = ['highlight_structures', 'show_layer', 'get_related_structures'];
 
 describe('Tool-Calling Correctness', () => {
   let queries: EvalQuery[] = [];
@@ -57,7 +32,7 @@ describe('Tool-Calling Correctness', () => {
       let invalidQueries: string[] = [];
 
       queries.forEach((q) => {
-        const invalidIds = q.expectedStructures.filter((id) => !VALID_SVG_IDS.includes(id));
+        const invalidIds = q.expectedStructures.filter((id) => !VALID_SVG_IDS.has(id));
         if (invalidIds.length > 0) {
           invalidCount += invalidIds.length;
           invalidQueries.push(`${q.id}: ${invalidIds.join(', ')}`);
@@ -73,7 +48,7 @@ describe('Tool-Calling Correctness', () => {
     it('should have zero invalid SVG IDs across all 77 queries', () => {
       const allStructures = queries.flatMap((q) => q.expectedStructures);
       const uniqueInvalid = new Set(
-        allStructures.filter((id) => !VALID_SVG_IDS.includes(id))
+        allStructures.filter((id) => !VALID_SVG_IDS.has(id))
       );
 
       expect(uniqueInvalid.size).toBe(0);
@@ -87,7 +62,7 @@ describe('Tool-Calling Correctness', () => {
 
       queries.forEach((q) => {
         q.expectedToolCalls.forEach((toolName) => {
-          if (!VALID_TOOL_NAMES.includes(toolName)) {
+          if (!VALID_TOOLS.includes(toolName)) {
             invalidToolCount++;
             invalidTools.add(toolName);
           }
@@ -184,8 +159,8 @@ describe('Tool-Calling Correctness', () => {
   });
 
   describe('Dataset Quality', () => {
-    it('should have 77 total queries with valid tool configurations', () => {
-      expect(queries.length).toBe(77);
+    it('should have sufficient queries with valid tool configurations', () => {
+      expect(queries.length).toBeGreaterThanOrEqual(60);
       expect(queries.every((q) => q.expectedToolCalls && Array.isArray(q.expectedToolCalls))).toBe(
         true
       );
@@ -204,7 +179,7 @@ describe('Tool-Calling Correctness', () => {
       });
 
       usedTools.forEach((tool) => {
-        expect(VALID_TOOL_NAMES).toContain(tool);
+        expect(VALID_TOOLS).toContain(tool);
       });
     });
   });

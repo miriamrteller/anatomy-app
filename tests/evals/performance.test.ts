@@ -14,15 +14,9 @@ import { describe, it, expect, beforeAll } from 'vitest';
 import * as fs from 'fs';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
+import { EvalQuery } from './types';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-interface EvalQuery {
-  id: string;
-  category: string;
-  difficulty: number;
-  difficulty: number;
-}
 
 const SLA_TARGETS: Record<string, { ttft_ms: number; e2e_ms: number }> = {
   straightforward: { ttft_ms: 1500, e2e_ms: 6000 },

@@ -5,9 +5,16 @@
     "difficulty": 1,
     "query": "Where is the femur?",
     "description": "Basic query about a single bone location",
-    "expectedStructures": ["femur-left", "femur-right"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
+    "expectedStructures": [
+      "femur-left",
+      "femur-right"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
     "answerMustContain": [
       "femur",
       "thigh",
@@ -22,9 +29,18 @@
     "difficulty": 1,
     "query": "Show me the radius and ulna.",
     "description": "Request to highlight two specific forearm bones",
-    "expectedStructures": ["radius-left", "radius-right", "ulna-left", "ulna-right"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
+    "expectedStructures": [
+      "radius-left",
+      "radius-right",
+      "ulna-left",
+      "ulna-right"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
     "answerMustContain": [
       "radius",
       "ulna",
@@ -39,9 +55,16 @@
     "difficulty": 1,
     "query": "What is the humerus?",
     "description": "Simple identification of upper arm bone",
-    "expectedStructures": ["humerus-left", "humerus-right"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
+    "expectedStructures": [
+      "humerus-left",
+      "humerus-right"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
     "answerMustContain": [
       "humerus",
       "upper arm",
@@ -56,9 +79,16 @@
     "difficulty": 1,
     "query": "Show me the scapula.",
     "description": "Shoulder blade identification",
-    "expectedStructures": ["scapular-left", "scapula-right"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
+    "expectedStructures": [
+      "scapular-left",
+      "scapula-right"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
     "answerMustContain": [
       "scapula",
       "shoulder blade",
@@ -73,9 +103,16 @@
     "difficulty": 1,
     "query": "Where is the tibia located?",
     "description": "Shin bone location",
-    "expectedStructures": ["tibia-left", "tibia-right"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
+    "expectedStructures": [
+      "tibia-left",
+      "tibia-right"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
     "answerMustContain": [
       "tibia",
       "shin",
@@ -91,9 +128,16 @@
     "difficulty": 2,
     "query": "Show me the sternum and ribs.",
     "description": "Multiple bone highlighting - anterior chest",
-    "expectedStructures": ["sternum", "ribcage"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
+    "expectedStructures": [
+      "sternum",
+      "ribcage"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
     "answerMustContain": [
       "sternum",
       "breastbone",
@@ -112,7 +156,9 @@
     "description": "Factual knowledge - total bone count",
     "expectedStructures": [],
     "expectedToolCalls": [],
-    "expectedSystems": ["SKELETAL"],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
     "answerMustContain": [
       "206",
       "bones"
@@ -130,9 +176,15 @@
     "difficulty": 2,
     "query": "How many ribs do we have?",
     "description": "Factual knowledge - rib count",
-    "expectedStructures": ["ribcage"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
+    "expectedStructures": [
+      "ribcage"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
     "answerMustContain": [
       "24",
       "12 pairs"
@@ -151,9 +203,18 @@
     "difficulty": 2,
     "query": "What's the difference between the radius and the ulna?",
     "description": "Comparative anatomy of forearm bones",
-    "expectedStructures": ["radius-left", "radius-right", "ulna-left", "ulna-right"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
+    "expectedStructures": [
+      "radius-left",
+      "radius-right",
+      "ulna-left",
+      "ulna-right"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
     "answerMustContain": [
       "radius",
       "ulna",
@@ -170,9 +231,20 @@
     "difficulty": 2,
     "query": "Name all the major bones in my arm.",
     "description": "Group identification - upper limb",
-    "expectedStructures": ["humerus-left", "humerus-right", "radius-left", "radius-right", "ulna-left", "ulna-right"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
+    "expectedStructures": [
+      "humerus-left",
+      "humerus-right",
+      "radius-left",
+      "radius-right",
+      "ulna-left",
+      "ulna-right"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
     "answerMustContain": [
       "humerus",
       "radius",
@@ -187,9 +259,19 @@
     "difficulty": 3,
     "query": "How many vertebrae do we have and what are they called?",
     "description": "Spinal anatomy - vertebral regions",
-    "expectedStructures": ["cervical-vertebrae", "thoracic-vertebrae", "lumbar-vertebrae", "sacrum", "coccyx"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
+    "expectedStructures": [
+      "cervical-vertebrae",
+      "thoracic-vertebrae",
+      "lumbar-vertebrae",
+      "sacrum",
+      "coccyx"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
     "answerMustContain": [
       "33",
       "vertebrae",
@@ -211,9 +293,16 @@
     "difficulty": 3,
     "query": "What bones make up the pelvis?",
     "description": "Pelvic anatomy - component bones",
-    "expectedStructures": ["pelvic-girdle", "pelvis"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
+    "expectedStructures": [
+      "pelvic-girdle",
+      "pelvis"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
     "answerMustContain": [
       "pelvis",
       "ilium",
@@ -229,9 +318,21 @@
     "difficulty": 3,
     "query": "Show me the skeletal system and tell me the major bones of the leg.",
     "description": "Layer switching + structure identification",
-    "expectedStructures": ["femur-left", "femur-right", "tibia-left", "tibia-right", "fibula-left", "fibula-right"],
-    "expectedToolCalls": ["show_layer", "highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
+    "expectedStructures": [
+      "femur-left",
+      "femur-right",
+      "tibia-left",
+      "tibia-right",
+      "fibula-left",
+      "fibula-right"
+    ],
+    "expectedToolCalls": [
+      "show_layer",
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
     "answerMustContain": [
       "skeletal",
       "femur",
@@ -248,9 +349,21 @@
     "difficulty": 4,
     "query": "Switch to the skeletal system and highlight all hand bones.",
     "description": "Layer switching + complex bone group",
-    "expectedStructures": ["carpals-left", "carpals-right", "metacarpals-left", "metacarpals-right", "phalanges-left", "phalanges-right"],
-    "expectedToolCalls": ["show_layer", "highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
+    "expectedStructures": [
+      "carpals-left",
+      "carpals-right",
+      "metacarpals-left",
+      "metacarpals-right",
+      "phalanges-left",
+      "phalanges-right"
+    ],
+    "expectedToolCalls": [
+      "show_layer",
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
     "answerMustContain": [
       "hand",
       "carpals",
@@ -268,9 +381,20 @@
     "difficulty": 4,
     "query": "What's the skeletal structure of the foot?",
     "description": "Foot bone anatomy",
-    "expectedStructures": ["tarsals-left", "tarsals-right", "metatarsals-left", "metatarsals-right", "phalanges-f-left", "phalanges-f-right"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
+    "expectedStructures": [
+      "tarsals-left",
+      "tarsals-right",
+      "metatarsals-left",
+      "metatarsals-right",
+      "phalanges-f-left",
+      "phalanges-f-right"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
     "answerMustContain": [
       "foot",
       "tarsals",
@@ -278,7 +402,10 @@
       "phalanges",
       "ankle"
     ],
-    "answerMustNotContain": ["phalanges-left", "phalanges-right"],
+    "answerMustNotContain": [
+      "phalanges-left",
+      "phalanges-right"
+    ],
     "notes": "Similar structure to hand but with 7 tarsals. Example: 'The foot has 26 bones organized in three groups: 7 tarsal bones in the ankle/heel, 5 metatarsals in the midfoot, and 14 phalanges in the toes.'"
   },
   {
@@ -305,8 +432,12 @@
     "difficulty": 4,
     "query": "Can you show me the frontal bone?",
     "description": "Edge case: skull detail not separated in basic SVG",
-    "expectedStructures": ["cranium"],
-    "expectedToolCalls": ["highlight_structures"],
+    "expectedStructures": [
+      "cranium"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
     "expectedSystems": [],
     "answerMustContain": [
       "frontal",
@@ -318,89 +449,27 @@
     "notes": "Known gap from GAP-1: Skull bones not individually separated. Success = describes relationship to skull. Example: 'The frontal bone forms your forehead and the top front of your skull. In the basic anatomy view shown here, it's part of the complete cranium.'"
   },
   {
-    "id": "multi-turn-001-query1",
-    "category": "multi-turn",
-    "sequence": 1,
-    "difficulty": 3,
-    "query": "Show me the femur.",
-    "description": "First query in a multi-turn sequence",
-    "expectedStructures": ["femur-left", "femur-right"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": [
-      "femur",
-      "thigh",
-      "longest"
-    ],
-    "answerMustNotContain": [],
-    "notes": "Start of sequence. Set up context for follow-up."
-  },
-  {
-    "id": "multi-turn-001-query2",
-    "category": "multi-turn",
-    "sequence": 2,
-    "difficulty": 3,
-    "query": "What bones connect to it?",
-    "description": "Follow-up query that requires context from previous turn",
-    "expectedStructures": ["pelvis", "tibia-left", "tibia-right"],
-    "expectedToolCalls": ["get_related_structures", "highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": [
-      "pelvis",
-      "tibia",
-      "hip",
-      "knee"
-    ],
-    "answerMustNotContain": [],
-    "notes": "Tests context preservation. Agent should remember 'it' = femur. Should call get_related_structures or use knowledge to list connecting bones. Example: 'The femur connects to the pelvis at the hip joint and to the tibia (and fibula) at the knee joint.'"
-  },
-  {
-    "id": "multi-turn-002-query1",
-    "category": "multi-turn",
-    "sequence": 1,
-    "difficulty": 3,
-    "query": "Where are my ribs?",
-    "description": "First query in anatomy exploration sequence",
-    "expectedStructures": ["ribcage"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": [
-      "ribs",
-      "chest",
-      "cage"
-    ],
-    "answerMustNotContain": [],
-    "notes": "Initial context setting."
-  },
-  {
-    "id": "multi-turn-002-query2",
-    "category": "multi-turn",
-    "sequence": 2,
-    "difficulty": 4,
-    "query": "What organs do they protect?",
-    "description": "Cross-system question requiring knowledge beyond SKELETAL",
-    "expectedStructures": ["ribcage"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": [
-      "heart",
-      "lungs",
-      "protect",
-      "thoracic cavity"
-    ],
-    "answerMustNotContain": [],
-    "notes": "Tests knowledge retention and cross-system reasoning. Example: 'Your ribs form the thoracic cage, which protects your heart and lungs. They work with your sternum and vertebrae to create a protective shield around these vital organs.'"
-  },
-  {
     "id": "straightforward-007",
     "category": "straightforward",
     "difficulty": 1,
     "query": "Show me the fibula.",
     "description": "Smaller of the two lower leg bones",
-    "expectedStructures": ["fibula-left", "fibula-right"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["fibula", "leg", "smaller", "lateral"],
+    "expectedStructures": [
+      "fibula-left",
+      "fibula-right"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "fibula",
+      "leg",
+      "smaller",
+      "lateral"
+    ],
     "answerMustNotContain": [],
     "notes": "Example: 'The fibula is the smaller bone on the lateral (outer) side of the lower leg, running parallel to the tibia.'"
   },
@@ -410,10 +479,22 @@
     "difficulty": 1,
     "query": "Where is the clavicle?",
     "description": "Collarbone identification",
-    "expectedStructures": ["clavicle-left", "clavicle-right"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["clavicle", "collarbone", "shoulder", "chest"],
+    "expectedStructures": [
+      "clavicle-left",
+      "clavicle-right"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "clavicle",
+      "collarbone",
+      "shoulder",
+      "chest"
+    ],
     "answerMustNotContain": [],
     "notes": "Example: 'The clavicle, or collarbone, is the long slender bone that connects your shoulder to your chest.'"
   },
@@ -423,10 +504,21 @@
     "difficulty": 1,
     "query": "Identify the sacrum.",
     "description": "Base of spine",
-    "expectedStructures": ["sacrum"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["sacrum", "spine", "base", "lower back"],
+    "expectedStructures": [
+      "sacrum"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "sacrum",
+      "spine",
+      "base",
+      "lower back"
+    ],
     "answerMustNotContain": [],
     "notes": "Example: 'The sacrum is a triangular bone at the base of your spine, formed by the fusion of five sacral vertebrae.'"
   },
@@ -436,10 +528,21 @@
     "difficulty": 1,
     "query": "Show me the patella.",
     "description": "Kneecap identification",
-    "expectedStructures": ["patella-left", "patella-right"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["patella", "kneecap", "knee"],
+    "expectedStructures": [
+      "patella-left",
+      "patella-right"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "patella",
+      "kneecap",
+      "knee"
+    ],
     "answerMustNotContain": [],
     "notes": "Example: 'The patella is your kneecap, a small bone at the front of your knee joint.'"
   },
@@ -449,10 +552,26 @@
     "difficulty": 2,
     "query": "Show me all the bones in the spine.",
     "description": "Complete vertebral column",
-    "expectedStructures": ["cervical-vertebrae", "thoracic-vertebrae", "lumbar-vertebrae", "sacrum", "coccyx"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["vertebrae", "spine", "cervical", "thoracic", "lumbar"],
+    "expectedStructures": [
+      "cervical-vertebrae",
+      "thoracic-vertebrae",
+      "lumbar-vertebrae",
+      "sacrum",
+      "coccyx"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "vertebrae",
+      "spine",
+      "cervical",
+      "thoracic",
+      "lumbar"
+    ],
     "answerMustNotContain": [],
     "notes": "Example: 'Your spine contains 33 vertebrae: 7 cervical in the neck, 12 thoracic in the mid-back, 5 lumbar in the lower back, plus the sacrum and coccyx.'"
   },
@@ -462,10 +581,23 @@
     "difficulty": 2,
     "query": "Highlight the talus and calcaneus.",
     "description": "Ankle and heel bones",
-    "expectedStructures": ["tarsals-left", "tarsals-right"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["talus", "calcaneus", "heel", "ankle", "tarsal"],
+    "expectedStructures": [
+      "tarsals-left",
+      "tarsals-right"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "talus",
+      "calcaneus",
+      "heel",
+      "ankle",
+      "tarsal"
+    ],
     "answerMustNotContain": [],
     "notes": "Example: 'The talus is the ankle bone that connects your leg to your foot, while the calcaneus is the heel bone, the largest tarsal bone.'"
   },
@@ -475,10 +607,26 @@
     "difficulty": 3,
     "query": "What's the difference between carpals and tarsals?",
     "description": "Comparative anatomy of hand vs foot bones",
-    "expectedStructures": ["carpals-left", "carpals-right", "tarsals-left", "tarsals-right"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["carpals", "tarsals", "wrist", "ankle", "hand", "foot"],
+    "expectedStructures": [
+      "carpals-left",
+      "carpals-right",
+      "tarsals-left",
+      "tarsals-right"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "carpals",
+      "tarsals",
+      "wrist",
+      "ankle",
+      "hand",
+      "foot"
+    ],
     "answerMustNotContain": [],
     "notes": "Example: 'Both are short bones in joints: carpals (8 bones) in the wrist/hand, tarsals (7 bones) in the ankle/foot.'"
   },
@@ -488,11 +636,25 @@
     "difficulty": 2,
     "query": "What is the largest bone in the human body?",
     "description": "Factual knowledge - superlative",
-    "expectedStructures": ["femur-left", "femur-right"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["femur", "largest", "thighbone"],
-    "answerMustNotContain": ["humerus", "tibia"],
+    "expectedStructures": [
+      "femur-left",
+      "femur-right"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "femur",
+      "largest",
+      "thighbone"
+    ],
+    "answerMustNotContain": [
+      "humerus",
+      "tibia"
+    ],
     "notes": "Example: 'The femur (thighbone) is the largest bone in the human body, making up about one-quarter of your height.'"
   },
   {
@@ -501,11 +663,29 @@
     "difficulty": 3,
     "query": "How many bones are in the foot?",
     "description": "Factual knowledge - foot anatomy",
-    "expectedStructures": ["tarsals-left", "tarsals-right", "metatarsals-left", "metatarsals-right", "phalanges-f-left", "phalanges-f-right"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["26", "foot", "bones"],
-    "answerMustNotContain": ["24", "28"],
+    "expectedStructures": [
+      "tarsals-left",
+      "tarsals-right",
+      "metatarsals-left",
+      "metatarsals-right",
+      "phalanges-f-left",
+      "phalanges-f-right"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "26",
+      "foot",
+      "bones"
+    ],
+    "answerMustNotContain": [
+      "24",
+      "28"
+    ],
     "notes": "Example: 'The foot has 26 bones: 7 tarsals, 5 metatarsals, and 14 phalanges in the toes.'"
   },
   {
@@ -514,10 +694,23 @@
     "difficulty": 3,
     "query": "What bones form the rib cage?",
     "description": "Rib cage components",
-    "expectedStructures": ["ribcage", "sternum", "thoracic-vertebrae"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["ribs", "sternum", "vertebrae", "thoracic cage"],
+    "expectedStructures": [
+      "ribcage",
+      "sternum",
+      "thoracic-vertebrae"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "ribs",
+      "sternum",
+      "vertebrae",
+      "thoracic cage"
+    ],
     "answerMustNotContain": [],
     "notes": "Example: 'The rib cage is formed by 12 pairs of ribs, the sternum in front, and the thoracic vertebrae in back, creating a protective cage around your lungs and heart.'"
   },
@@ -527,10 +720,18 @@
     "difficulty": 2,
     "query": "What's the smallest bone in the human body?",
     "description": "Factual knowledge - ear ossicle",
-    "expectedStructures": ["skull"],
-    "expectedToolCalls": ["highlight_structures"],
+    "expectedStructures": [
+      "skull"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
     "expectedSystems": [],
-    "answerMustContain": ["stapes", "smallest", "ear"],
+    "answerMustContain": [
+      "stapes",
+      "smallest",
+      "ear"
+    ],
     "answerMustNotContain": [],
     "notes": "Known gap: Ear bones not in skeleton view. Example: 'The stapes (stirrup bone) in your middle ear is the smallest bone, measuring about 2.6 millimeters.'"
   },
@@ -540,10 +741,21 @@
     "difficulty": 3,
     "query": "Explain the difference between true ribs, false ribs, and floating ribs.",
     "description": "Rib classification",
-    "expectedStructures": ["ribcage"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["true ribs", "false ribs", "floating ribs", "sternum"],
+    "expectedStructures": [
+      "ribcage"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "true ribs",
+      "false ribs",
+      "floating ribs",
+      "sternum"
+    ],
     "answerMustNotContain": [],
     "notes": "Example: 'True ribs (1-7) attach directly to the sternum; false ribs (8-10) attach indirectly; floating ribs (11-12) don't attach to the sternum.'"
   },
@@ -553,10 +765,25 @@
     "difficulty": 3,
     "query": "Display the skeletal system and show me the shoulder girdle.",
     "description": "Shoulder complex - scapula and clavicle",
-    "expectedStructures": ["scapular-left", "scapula-right", "clavicle-left", "clavicle-right"],
-    "expectedToolCalls": ["show_layer", "highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["shoulder girdle", "scapula", "clavicle", "pectoral"],
+    "expectedStructures": [
+      "scapular-left",
+      "scapula-right",
+      "clavicle-left",
+      "clavicle-right"
+    ],
+    "expectedToolCalls": [
+      "show_layer",
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "shoulder girdle",
+      "scapula",
+      "clavicle",
+      "pectoral"
+    ],
     "answerMustNotContain": [],
     "notes": "Example: 'The shoulder girdle (pectoral girdle) consists of the scapula (shoulder blade) and clavicle (collarbone) on each side.'"
   },
@@ -566,10 +793,29 @@
     "difficulty": 4,
     "query": "Switch to skeletal and tell me about the axial skeleton.",
     "description": "Central skeleton - skull, spine, ribcage",
-    "expectedStructures": ["skull", "cervical-vertebrae", "thoracic-vertebrae", "lumbar-vertebrae", "sacrum", "ribcage", "sternum"],
-    "expectedToolCalls": ["show_layer", "highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["axial", "skull", "vertebrae", "ribs", "sternum"],
+    "expectedStructures": [
+      "skull",
+      "cervical-vertebrae",
+      "thoracic-vertebrae",
+      "lumbar-vertebrae",
+      "sacrum",
+      "ribcage",
+      "sternum"
+    ],
+    "expectedToolCalls": [
+      "show_layer",
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "axial",
+      "skull",
+      "vertebrae",
+      "ribs",
+      "sternum"
+    ],
     "answerMustNotContain": [],
     "notes": "Example: 'The axial skeleton includes the skull, spine, and rib cage - it forms the central axis of your body.'"
   },
@@ -579,10 +825,30 @@
     "difficulty": 4,
     "query": "Show the appendicular skeleton.",
     "description": "Limbs and girdles",
-    "expectedStructures": ["scapular-left", "scapula-right", "clavicle-left", "clavicle-right", "humerus-left", "humerus-right", "pelvis", "femur-left", "femur-right"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["appendicular", "limbs", "girdles", "arms", "legs"],
+    "expectedStructures": [
+      "scapular-left",
+      "scapula-right",
+      "clavicle-left",
+      "clavicle-right",
+      "humerus-left",
+      "humerus-right",
+      "pelvis",
+      "femur-left",
+      "femur-right"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "appendicular",
+      "limbs",
+      "girdles",
+      "arms",
+      "legs"
+    ],
     "answerMustNotContain": [],
     "notes": "Example: 'The appendicular skeleton includes the shoulder girdles, upper limbs, pelvic girdle, and lower limbs - all the bones used for movement.'"
   },
@@ -592,10 +858,23 @@
     "difficulty": 3,
     "query": "What skeleton parts form the pelvic girdle?",
     "description": "Pelvic anatomy detail",
-    "expectedStructures": ["pelvic-girdle", "pelvis"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["pelvic girdle", "ilium", "ischium", "pubis", "pelvis"],
+    "expectedStructures": [
+      "pelvic-girdle",
+      "pelvis"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "pelvic girdle",
+      "ilium",
+      "ischium",
+      "pubis",
+      "pelvis"
+    ],
     "answerMustNotContain": [],
     "notes": "Example: 'The pelvic girdle is formed by three fused bones on each side: the ilium (hip bone), ischium (sitting bone), and pubis.'"
   },
@@ -608,7 +887,12 @@
     "expectedStructures": [],
     "expectedToolCalls": [],
     "expectedSystems": [],
-    "answerMustContain": ["occipital", "skull", "back", "base"],
+    "answerMustContain": [
+      "occipital",
+      "skull",
+      "back",
+      "base"
+    ],
     "answerMustNotContain": [],
     "notes": "Known gap: Part of cranium but not separately highlighted. Example: 'The occipital bone is at the base and back of your skull.'"
   },
@@ -618,10 +902,24 @@
     "difficulty": 4,
     "query": "What are phalanges?",
     "description": "Finger and toe bones - potentially ambiguous",
-    "expectedStructures": ["phalanges-left", "phalanges-right", "phalanges-f-left", "phalanges-f-right"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["phalanges", "fingers", "toes", "bones"],
+    "expectedStructures": [
+      "phalanges-left",
+      "phalanges-right",
+      "phalanges-f-left",
+      "phalanges-f-right"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "phalanges",
+      "fingers",
+      "toes",
+      "bones"
+    ],
     "answerMustNotContain": [],
     "notes": "Could mean hand or foot. Context should clarify. Example: 'Phalanges are the finger and toe bones - 14 in each hand/foot, 3 per digit except the thumb/big toe which has 2.'"
   },
@@ -631,11 +929,28 @@
     "difficulty": 5,
     "query": "How many individual bones make up the vertebral column?",
     "description": "Trick question - fused bones",
-    "expectedStructures": ["cervical-vertebrae", "thoracic-vertebrae", "lumbar-vertebrae", "sacrum", "coccyx"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["33", "vertebrae", "fused"],
-    "answerMustNotContain": ["24", "26"],
+    "expectedStructures": [
+      "cervical-vertebrae",
+      "thoracic-vertebrae",
+      "lumbar-vertebrae",
+      "sacrum",
+      "coccyx"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "33",
+      "vertebrae",
+      "fused"
+    ],
+    "answerMustNotContain": [
+      "24",
+      "26"
+    ],
     "notes": "Tests understanding of fused bones. Example: '33 vertebrae: 7 cervical, 12 thoracic, 5 lumbar, 5 sacral (fused into sacrum), 4 coccygeal (fused into coccyx).'"
   },
   {
@@ -647,7 +962,11 @@
     "expectedStructures": [],
     "expectedToolCalls": [],
     "expectedSystems": [],
-    "answerMustContain": ["vomer", "nose", "nasal"],
+    "answerMustContain": [
+      "vomer",
+      "nose",
+      "nasal"
+    ],
     "answerMustNotContain": [],
     "notes": "Known gap: Skull detail. Example: 'The vomer is a small flat bone that forms part of the nasal septum in your nose.'"
   },
@@ -660,7 +979,14 @@
     "expectedStructures": [],
     "expectedToolCalls": [],
     "expectedSystems": [],
-    "answerMustContain": ["bones", "ear", "ossicles", "malleus", "incus", "stapes"],
+    "answerMustContain": [
+      "bones",
+      "ear",
+      "ossicles",
+      "malleus",
+      "incus",
+      "stapes"
+    ],
     "answerMustNotContain": [],
     "notes": "Known gap: Ear ossicles outside skeleton display. Example: 'Yes! The middle ear contains three tiny bones called ossicles: the malleus, incus, and stapes.'"
   },
@@ -670,124 +996,25 @@
     "difficulty": 5,
     "query": "Show me all the bones of the pelvis.",
     "description": "Potentially ambiguous - individual vs. fused",
-    "expectedStructures": ["pelvic-girdle", "pelvis"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["pelvis", "ilium", "ischium", "pubis", "fused"],
+    "expectedStructures": [
+      "pelvic-girdle",
+      "pelvis"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "pelvis",
+      "ilium",
+      "ischium",
+      "pubis",
+      "fused"
+    ],
     "answerMustNotContain": [],
     "notes": "Example: 'The pelvis is formed by six fused bones: ilium, ischium, and pubis on each side. While fused in adults, these are three separate bones in children.'"
-  },
-  {
-    "id": "multi-turn-003-query1",
-    "category": "multi-turn",
-    "sequence": 1,
-    "difficulty": 3,
-    "query": "Where is my spine located?",
-    "description": "First query about vertebral column",
-    "expectedStructures": ["cervical-vertebrae", "thoracic-vertebrae", "lumbar-vertebrae", "sacrum", "coccyx"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["spine", "vertebrae", "center", "back"],
-    "answerMustNotContain": [],
-    "notes": "Context setting for follow-up."
-  },
-  {
-    "id": "multi-turn-003-query2",
-    "category": "multi-turn",
-    "sequence": 2,
-    "difficulty": 3,
-    "query": "Tell me about each region.",
-    "description": "Follow-up asking for regional details",
-    "expectedStructures": ["cervical-vertebrae", "thoracic-vertebrae", "lumbar-vertebrae", "sacrum"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["cervical", "thoracic", "lumbar", "sacral"],
-    "answerMustNotContain": [],
-    "notes": "Agent should remember 'spine' and break down regions. Example: 'The cervical region (neck) has 7 vertebrae, thoracic (mid-back) has 12, lumbar (lower back) has 5, then the fused sacrum and coccyx.'"
-  },
-  {
-    "id": "multi-turn-004-query1",
-    "category": "multi-turn",
-    "sequence": 1,
-    "difficulty": 2,
-    "query": "What are the major bones of my leg?",
-    "description": "Initial leg anatomy question",
-    "expectedStructures": ["femur-left", "femur-right", "tibia-left", "tibia-right", "fibula-left", "fibula-right"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["leg", "femur", "tibia", "fibula"],
-    "answerMustNotContain": [],
-    "notes": "Sets up context for foot."
-  },
-  {
-    "id": "multi-turn-004-query2",
-    "category": "multi-turn",
-    "sequence": 2,
-    "difficulty": 3,
-    "query": "What about the foot?",
-    "description": "Continuation to foot anatomy",
-    "expectedStructures": ["tarsals-left", "tarsals-right", "metatarsals-left", "metatarsals-right", "phalanges-f-left", "phalanges-f-right"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["foot", "tarsals", "metatarsals", "phalanges"],
-    "answerMustNotContain": [],
-    "notes": "Example: 'The foot has tarsals (ankle), metatarsals (sole), and phalanges (toes).'"
-  },
-  {
-    "id": "multi-turn-005-query1",
-    "category": "multi-turn",
-    "sequence": 1,
-    "difficulty": 2,
-    "query": "Tell me about the hand bones.",
-    "description": "Initial hand anatomy",
-    "expectedStructures": ["carpals-left", "carpals-right", "metacarpals-left", "metacarpals-right", "phalanges-left", "phalanges-right"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["hand", "carpals", "wrist", "metacarpals", "palm"],
-    "answerMustNotContain": [],
-    "notes": "Sets context for arm."
-  },
-  {
-    "id": "multi-turn-005-query2",
-    "category": "multi-turn",
-    "sequence": 2,
-    "difficulty": 2,
-    "query": "What connects the hand to the body?",
-    "description": "Arm bone continuity",
-    "expectedStructures": ["radius-left", "radius-right", "ulna-left", "ulna-right", "humerus-left", "humerus-right"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["radius", "ulna", "humerus", "arm", "forearm"],
-    "answerMustNotContain": [],
-    "notes": "Example: 'Your forearm bones (radius and ulna) connect your hand to your upper arm (humerus).'"
-  },
-  {
-    "id": "multi-turn-006-query1",
-    "category": "multi-turn",
-    "sequence": 1,
-    "difficulty": 3,
-    "query": "Show me the chest skeleton.",
-    "description": "Ribcage and related structures",
-    "expectedStructures": ["ribcage", "sternum", "thoracic-vertebrae"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["chest", "ribs", "sternum", "vertebrae"],
-    "answerMustNotContain": [],
-    "notes": "Context for follow-up about protection."
-  },
-  {
-    "id": "multi-turn-006-query2",
-    "category": "multi-turn",
-    "sequence": 2,
-    "difficulty": 4,
-    "query": "How does this protect my organs?",
-    "description": "Cross-system question about protection",
-    "expectedStructures": ["ribcage", "sternum"],
-    "expectedToolCalls": [],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["protect", "heart", "lungs", "thoracic cavity"],
-    "answerMustNotContain": [],
-    "notes": "Example: 'The rib cage forms a protective box around your heart and lungs.'"
   },
   {
     "id": "student-question-013",
@@ -797,8 +1024,16 @@
     "description": "Comprehensive bone function knowledge",
     "expectedStructures": [],
     "expectedToolCalls": [],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["support", "protect", "movement", "blood", "storage"],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "support",
+      "protect",
+      "movement",
+      "blood",
+      "storage"
+    ],
     "answerMustNotContain": [],
     "notes": "Example: 'Bones provide structural support, protect organs, enable movement through muscle attachment, produce blood cells, and store minerals like calcium.'"
   },
@@ -808,10 +1043,23 @@
     "difficulty": 3,
     "query": "What are the differences between the male and female pelvis?",
     "description": "Sex-based anatomical variation",
-    "expectedStructures": ["pelvic-girdle", "pelvis"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["pelvis", "female", "male", "wider", "angle"],
+    "expectedStructures": [
+      "pelvic-girdle",
+      "pelvis"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "pelvis",
+      "female",
+      "male",
+      "wider",
+      "angle"
+    ],
     "answerMustNotContain": [],
     "notes": "Example: 'Female pelvis is generally wider with a larger pelvic opening and a wider subpubic angle to accommodate childbirth.'"
   },
@@ -823,8 +1071,16 @@
     "description": "Classification of skeleton types",
     "expectedStructures": [],
     "expectedToolCalls": [],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["axial", "appendicular", "skull", "spine", "limbs"],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "axial",
+      "appendicular",
+      "skull",
+      "spine",
+      "limbs"
+    ],
     "answerMustNotContain": [],
     "notes": "Example: 'The axial skeleton (80 bones) includes skull, spine, and ribs. The appendicular skeleton (126 bones) includes limbs and girdles.'"
   },
@@ -834,10 +1090,20 @@
     "difficulty": 1,
     "query": "Point out the mandible.",
     "description": "Lower jaw bone",
-    "expectedStructures": ["mandible"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["mandible", "jaw", "lower"],
+    "expectedStructures": [
+      "mandible"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "mandible",
+      "jaw",
+      "lower"
+    ],
     "answerMustNotContain": [],
     "notes": "Example: 'The mandible is the lower jawbone, the only movable bone of the skull.'"
   },
@@ -847,10 +1113,20 @@
     "difficulty": 1,
     "query": "Where is the maxilla?",
     "description": "Upper jaw bone",
-    "expectedStructures": ["cranium"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["maxilla", "jaw", "upper"],
+    "expectedStructures": [
+      "cranium"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "maxilla",
+      "jaw",
+      "upper"
+    ],
     "answerMustNotContain": [],
     "notes": "Example: 'The maxilla is the upper jawbone, holding the upper teeth.'"
   },
@@ -860,10 +1136,20 @@
     "difficulty": 1,
     "query": "Show me the skull.",
     "description": "Head skeleton as whole",
-    "expectedStructures": ["skull"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["skull", "head", "cranium"],
+    "expectedStructures": [
+      "skull"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "skull",
+      "head",
+      "cranium"
+    ],
     "answerMustNotContain": [],
     "notes": "Example: 'The skull is the bony framework of your head, containing 22 bones that protect your brain.'"
   },
@@ -873,10 +1159,21 @@
     "difficulty": 2,
     "query": "Highlight the atlas and axis.",
     "description": "First two cervical vertebrae",
-    "expectedStructures": ["cervical-vertebrae"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["atlas", "axis", "cervical", "neck"],
+    "expectedStructures": [
+      "cervical-vertebrae"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "atlas",
+      "axis",
+      "cervical",
+      "neck"
+    ],
     "answerMustNotContain": [],
     "notes": "Example: 'The atlas (C1) supports your skull; the axis (C2) allows your head to rotate left and right.'"
   },
@@ -886,10 +1183,20 @@
     "difficulty": 2,
     "query": "Show me a rib.",
     "description": "Individual rib identification",
-    "expectedStructures": ["ribcage"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["rib", "bone", "curved"],
+    "expectedStructures": [
+      "ribcage"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "rib",
+      "bone",
+      "curved"
+    ],
     "answerMustNotContain": [],
     "notes": "Example: 'A rib is a long, curved bone that extends from the thoracic spine around to the sternum.'"
   },
@@ -902,7 +1209,12 @@
     "expectedStructures": [],
     "expectedToolCalls": [],
     "expectedSystems": [],
-    "answerMustContain": ["sesamoid", "tendon", "small", "embedded"],
+    "answerMustContain": [
+      "sesamoid",
+      "tendon",
+      "small",
+      "embedded"
+    ],
     "answerMustNotContain": [],
     "notes": "Known gap: Not shown in main skeleton. Example: 'Sesamoid bones are small bones embedded in tendons, like the patella in your knee.'"
   },
@@ -912,10 +1224,21 @@
     "difficulty": 2,
     "query": "Show me the coccyx.",
     "description": "Tailbone",
-    "expectedStructures": ["coccyx"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["coccyx", "tailbone", "tail", "fused"],
+    "expectedStructures": [
+      "coccyx"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "coccyx",
+      "tailbone",
+      "tail",
+      "fused"
+    ],
     "answerMustNotContain": [],
     "notes": "Example: 'The coccyx is your tailbone, a small fused bone at the end of your spine.'"
   },
@@ -925,10 +1248,22 @@
     "difficulty": 1,
     "query": "Identify the glenoid cavity.",
     "description": "Shoulder joint socket",
-    "expectedStructures": ["scapular-left", "scapula-right"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["glenoid", "scapula", "socket", "shoulder"],
+    "expectedStructures": [
+      "scapular-left",
+      "scapula-right"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "glenoid",
+      "scapula",
+      "socket",
+      "shoulder"
+    ],
     "answerMustNotContain": [],
     "notes": "Example: 'The glenoid cavity is the socket on your scapula that holds the head of the humerus, forming your shoulder joint.'"
   },
@@ -940,8 +1275,16 @@
     "description": "Developmental bone changes",
     "expectedStructures": [],
     "expectedToolCalls": [],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["babies", "bones", "fuse", "cartilage", "develop"],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "babies",
+      "bones",
+      "fuse",
+      "cartilage",
+      "develop"
+    ],
     "answerMustNotContain": [],
     "notes": "Example: 'Babies are born with about 270 bones, many made of cartilage. As they grow, some bones fuse together and cartilage ossifies, reducing to 206 adult bones.'"
   },
@@ -954,7 +1297,11 @@
     "expectedStructures": [],
     "expectedToolCalls": [],
     "expectedSystems": [],
-    "answerMustContain": ["ethmoid", "nasal", "skull"],
+    "answerMustContain": [
+      "ethmoid",
+      "nasal",
+      "skull"
+    ],
     "answerMustNotContain": [],
     "notes": "Known gap: Skull detail. Example: 'The ethmoid is a delicate bone between your eyes that forms part of the nasal cavity and supports the olfactory bulb.'"
   },
@@ -967,7 +1314,11 @@
     "expectedStructures": [],
     "expectedToolCalls": [],
     "expectedSystems": [],
-    "answerMustContain": ["sphenoid", "skull base", "pituitary"],
+    "answerMustContain": [
+      "sphenoid",
+      "skull base",
+      "pituitary"
+    ],
     "answerMustNotContain": [],
     "notes": "Known gap: Skull detail. Example: 'The sphenoid is at the base of the skull and contains the pituitary gland cavity.'"
   },
@@ -980,7 +1331,11 @@
     "expectedStructures": [],
     "expectedToolCalls": [],
     "expectedSystems": [],
-    "answerMustContain": ["nasal bones", "nose", "bridge"],
+    "answerMustContain": [
+      "nasal bones",
+      "nose",
+      "bridge"
+    ],
     "answerMustNotContain": [],
     "notes": "Known gap: Not in main view. Example: 'Yes, there are two small nasal bones that form the bridge of your nose above the cartilage.'"
   },
@@ -992,8 +1347,16 @@
     "description": "Structural tissue comparison",
     "expectedStructures": [],
     "expectedToolCalls": [],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["bone", "cartilage", "hard", "flexible", "mineralized"],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "bone",
+      "cartilage",
+      "hard",
+      "flexible",
+      "mineralized"
+    ],
     "answerMustNotContain": [],
     "notes": "Example: 'Bone is hard and mineralized with calcium, while cartilage is more flexible and lacks mineralization. Your ears and nose tip are cartilage.'"
   },
@@ -1006,7 +1369,12 @@
     "expectedStructures": [],
     "expectedToolCalls": [],
     "expectedSystems": [],
-    "answerMustContain": ["fontanels", "soft spots", "baby", "skull"],
+    "answerMustContain": [
+      "fontanels",
+      "soft spots",
+      "baby",
+      "skull"
+    ],
     "answerMustNotContain": [],
     "notes": "Example: 'Fontanels are soft spots on a baby's skull where the bones haven't fused yet, allowing flexibility during birth.'"
   },
@@ -1016,10 +1384,22 @@
     "difficulty": 5,
     "query": "Name all the ankle bones.",
     "description": "Tarsal bone specificity",
-    "expectedStructures": ["tarsals-left", "tarsals-right"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["talus", "calcaneus", "navicular", "cuboid"],
+    "expectedStructures": [
+      "tarsals-left",
+      "tarsals-right"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "talus",
+      "calcaneus",
+      "navicular",
+      "cuboid"
+    ],
     "answerMustNotContain": [],
     "notes": "Example: 'The 7 tarsal bones include: talus (connects leg to foot), calcaneus (heel), navicular, cuboid, and 3 cuneiforms.'"
   },
@@ -1029,10 +1409,24 @@
     "difficulty": 3,
     "query": "Highlight the joints of the lower leg.",
     "description": "Joint-specific query with highlighting",
-    "expectedStructures": ["knee-joint-left", "knee-joint-right", "hip-joint-left", "hip-joint-right"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["knee", "hip", "joint", "articulation"],
+    "expectedStructures": [
+      "knee-joint-left",
+      "knee-joint-right",
+      "hip-joint-left",
+      "hip-joint-right"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "knee",
+      "hip",
+      "joint",
+      "articulation"
+    ],
     "answerMustNotContain": [],
     "notes": "Tests understanding of major leg joints. Could expand to include ankle or specify types of joints (e.g., hinge vs ball-and-socket)."
   },
@@ -1042,10 +1436,31 @@
     "difficulty": 4,
     "query": "Show me the complete upper limb skeleton.",
     "description": "Complete limb anatomy with multiple structures",
-    "expectedStructures": ["scapular-left", "scapula-right", "clavicle-left", "clavicle-right", "humerus-left", "humerus-right", "radius-left", "radius-right", "ulna-left", "ulna-right"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["upper limb", "shoulder", "arm", "forearm", "wrist"],
+    "expectedStructures": [
+      "scapular-left",
+      "scapula-right",
+      "clavicle-left",
+      "clavicle-right",
+      "humerus-left",
+      "humerus-right",
+      "radius-left",
+      "radius-right",
+      "ulna-left",
+      "ulna-right"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "upper limb",
+      "shoulder",
+      "arm",
+      "forearm",
+      "wrist"
+    ],
     "answerMustNotContain": [],
     "notes": "Tests comprehensive understanding of limb bone groups. Requires highlighting many structures."
   },
@@ -1055,10 +1470,24 @@
     "difficulty": 3,
     "query": "What is the relationship between the spine and ribcage?",
     "description": "Anatomical relationship question",
-    "expectedStructures": ["thoracic-vertebrae", "ribcage", "sternum"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["ribcage", "thoracic", "vertebrae", "attached", "protection"],
+    "expectedStructures": [
+      "thoracic-vertebrae",
+      "ribcage",
+      "sternum"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "ribcage",
+      "thoracic",
+      "vertebrae",
+      "attached",
+      "protection"
+    ],
     "answerMustNotContain": [],
     "notes": "Tests understanding of skeletal interconnections. Can modify query to focus on different aspects."
   },
@@ -1068,10 +1497,25 @@
     "difficulty": 4,
     "query": "Switch to skeletal and show me the pelvic girdle anatomy.",
     "description": "Layer switching plus pelvic detail",
-    "expectedStructures": ["pelvic-girdle", "pelvis", "sacrum"],
-    "expectedToolCalls": ["show_layer", "highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["pelvic", "girdle", "hip", "sacrum", "weight-bearing"],
+    "expectedStructures": [
+      "pelvic-girdle",
+      "pelvis",
+      "sacrum"
+    ],
+    "expectedToolCalls": [
+      "show_layer",
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "pelvic",
+      "girdle",
+      "hip",
+      "sacrum",
+      "weight-bearing"
+    ],
     "answerMustNotContain": [],
     "notes": "Combines layer switching with highlighting. Sacrum connects to pelvis; good for testing understanding of connections."
   },
@@ -1081,10 +1525,25 @@
     "difficulty": 3,
     "query": "Highlight all bones that protect vital organs.",
     "description": "Function-based query requiring multiple structures",
-    "expectedStructures": ["ribcage", "skull", "pelvis"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["protect", "organs", "ribcage", "skull", "pelvis", "vital"],
+    "expectedStructures": [
+      "ribcage",
+      "skull",
+      "pelvis"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "protect",
+      "organs",
+      "ribcage",
+      "skull",
+      "pelvis",
+      "vital"
+    ],
     "answerMustNotContain": [],
     "notes": "Tests functional understanding - requires knowing which bones protect what. Multi-structure answer."
   },
@@ -1094,10 +1553,34 @@
     "difficulty": 4,
     "query": "Compare the bone structure of the hand and foot.",
     "description": "Comparative anatomy between limb extremities",
-    "expectedStructures": ["carpals-left", "carpals-right", "metacarpals-left", "metacarpals-right", "phalanges-left", "phalanges-right", "tarsals-left", "tarsals-right", "metatarsals-left", "metatarsals-right", "phalanges-f-left", "phalanges-f-right"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["hand", "foot", "similar", "carpals", "tarsals", "structure"],
+    "expectedStructures": [
+      "carpals-left",
+      "carpals-right",
+      "metacarpals-left",
+      "metacarpals-right",
+      "phalanges-left",
+      "phalanges-right",
+      "tarsals-left",
+      "tarsals-right",
+      "metatarsals-left",
+      "metatarsals-right",
+      "phalanges-f-left",
+      "phalanges-f-right"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "hand",
+      "foot",
+      "similar",
+      "carpals",
+      "tarsals",
+      "structure"
+    ],
     "answerMustNotContain": [],
     "notes": "Complex query testing comparative reasoning. Many structures; good for testing multi-structure highlighting accuracy."
   },
@@ -1107,10 +1590,30 @@
     "difficulty": 3,
     "query": "Show the skeletal framework of the torso.",
     "description": "Central skeleton query",
-    "expectedStructures": ["skull", "cervical-vertebrae", "thoracic-vertebrae", "lumbar-vertebrae", "ribcage", "sternum", "pelvis"],
-    "expectedToolCalls": ["show_layer", "highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["torso", "spine", "ribs", "sternum", "pelvis", "core"],
+    "expectedStructures": [
+      "skull",
+      "cervical-vertebrae",
+      "thoracic-vertebrae",
+      "lumbar-vertebrae",
+      "ribcage",
+      "sternum",
+      "pelvis"
+    ],
+    "expectedToolCalls": [
+      "show_layer",
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "torso",
+      "spine",
+      "ribs",
+      "sternum",
+      "pelvis",
+      "core"
+    ],
     "answerMustNotContain": [],
     "notes": "Comprehensive torso anatomy. Good for testing understanding of central skeleton organization."
   },
@@ -1120,10 +1623,31 @@
     "difficulty": 5,
     "query": "Which bones form the structural basis for bipedal locomotion?",
     "description": "Advanced functional/evolutionary question",
-    "expectedStructures": ["femur-left", "femur-right", "tibia-left", "tibia-right", "fibula-left", "fibula-right", "pelvis", "sacrum"],
-    "expectedToolCalls": ["highlight_structures"],
-    "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["femur", "tibia", "pelvis", "bipedal", "weight", "balance", "locomotion"],
+    "expectedStructures": [
+      "femur-left",
+      "femur-right",
+      "tibia-left",
+      "tibia-right",
+      "fibula-left",
+      "fibula-right",
+      "pelvis",
+      "sacrum"
+    ],
+    "expectedToolCalls": [
+      "highlight_structures"
+    ],
+    "expectedSystems": [
+      "SKELETAL"
+    ],
+    "answerMustContain": [
+      "femur",
+      "tibia",
+      "pelvis",
+      "bipedal",
+      "weight",
+      "balance",
+      "locomotion"
+    ],
     "answerMustNotContain": [],
     "notes": "Advanced query testing deep functional knowledge. Requires understanding of locomotion biomechanics."
   }

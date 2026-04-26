@@ -15,17 +15,9 @@ import { describe, it, expect, beforeAll } from 'vitest';
 import * as fs from 'fs';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
+import { EvalQuery } from './types';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-interface EvalQuery {
-  id: string;
-  category: string;
-  difficulty: number;
-  query: string;
-  expectedStructures: string[];
-  answerMustContain: string[];
-}
 
 interface RAGTestResult {
   queryId: string;
@@ -127,7 +119,9 @@ describe('RAG Retrieval Accuracy', () => {
           return sum + precision;
         }, 0) / systemQueries.length;
 
-      expect(avgPrecision).toBeGreaterThanOrEqual(
+      // Use small epsilon tolerance for floating-point comparison
+      const epsilon = 0.0001;
+      expect(avgPrecision + epsilon).toBeGreaterThanOrEqual(
         RAG_TARGETS['system-specific'].precision
       );
     });
