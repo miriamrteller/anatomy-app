@@ -9,6 +9,46 @@
       "totalCostUSD": 0.30355515,
       "inputTokens": 30741,
       "outputTokens": 49824
+    },
+    {
+      "date": "2026-04-26T16:09:58.359Z",
+      "evalName": "eval-2026-04-26",
+      "queriesRun": 10,
+      "totalCostUSD": 0.2706339,
+      "inputTokens": 30746,
+      "outputTokens": 44337
+    },
+    {
+      "date": "2026-04-26T16:16:21.273Z",
+      "evalName": "eval-2026-04-26",
+      "queriesRun": 10,
+      "totalCostUSD": 0.24689189999999997,
+      "inputTokens": 13666,
+      "outputTokens": 40807
+    },
+    {
+      "date": "2026-04-26T16:24:59.396Z",
+      "evalName": "eval-2026-04-26",
+      "queriesRun": 10,
+      "totalCostUSD": 0.032575650000000005,
+      "inputTokens": 4091,
+      "outputTokens": 5327
+    },
+    {
+      "date": "2026-04-26T16:27:47.837Z",
+      "evalName": "eval-2026-04-26",
+      "queriesRun": 10,
+      "totalCostUSD": 0.24827190000000002,
+      "inputTokens": 13666,
+      "outputTokens": 41037
+    },
+    {
+      "date": "2026-04-26T16:28:58.107Z",
+      "evalName": "eval-2026-04-26",
+      "queriesRun": 10,
+      "totalCostUSD": 0.2042679,
+      "inputTokens": 13666,
+      "outputTokens": 33703
     }
   ]
 }
