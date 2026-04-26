@@ -129,6 +129,22 @@
       "totalCostUSD": 0.24791790000000002,
       "inputTokens": 13666,
       "outputTokens": 40978
+    },
+    {
+      "date": "2026-04-26T18:26:04.936Z",
+      "evalName": "eval-2026-04-26",
+      "queriesRun": 21,
+      "totalCostUSD": 0.37610610000000005,
+      "inputTokens": 28653.999999999996,
+      "outputTokens": 61967.99999999999
+    },
+    {
+      "date": "2026-04-26T18:31:22.650Z",
+      "evalName": "eval-2026-04-26",
+      "queriesRun": 21,
+      "totalCostUSD": 0.3368061,
+      "inputTokens": 28653.999999999996,
+      "outputTokens": 55417.99999999999
     }
   ]
 }

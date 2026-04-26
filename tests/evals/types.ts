@@ -8,7 +8,7 @@ import { EXISTING_BONES_SVG } from '../../src/lib/bone-constants';
 export type ValidSvgId = typeof EXISTING_BONES_SVG[number];
 
 // Create a set for runtime validation
-export const VALID_SVG_IDS = new Set<ValidSvgId>(EXISTING_BONES_SVG as ValidSvgId[]);
+export const VALID_SVG_IDS = new Set<ValidSvgId>(EXISTING_BONES_SVG);
 
 // System types
 export type ValidSystem = 'SKELETAL' | 'MUSCULAR' | 'VASCULAR' | 'NERVOUS' | 'ENDOCRINE';

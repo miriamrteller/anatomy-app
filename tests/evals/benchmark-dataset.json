@@ -78,8 +78,6 @@
       "radius-right",
       "ulna-left",
       "ulna-right",
-      "hand-left",
-      "hand-right",
       "carpals-left",
       "carpals-right",
       "metacarpals-left",
@@ -87,7 +85,8 @@
     ],
     "expectedToolCalls": [
       "highlight_structures",
-      "show_layer"
+      "show_layer",
+      "get_related_structures"
     ],
     "expectedSystems": [
       "SKELETAL"
@@ -253,11 +252,11 @@
       "patella-left",
       "patella-right",
       "pelvis",
-      "pelvic-girdle"
+      "pelvic-girdle",
+      "sacrum"
     ],
     "expectedToolCalls": [
-      "highlight_structures",
-      "get_related_structures"
+      "highlight_structures"
     ],
     "expectedSystems": [
       "SKELETAL"
@@ -266,5 +265,148 @@
     ],
     "answerMustNotContain": [],
     "notes": "Advanced query testing deep functional knowledge. Requires understanding of locomotion biomechanics."
+  },
+  {
+    "id": "simple-001",
+    "category": "simple",
+    "difficulty": 1,
+    "query": "Where is the femur?",
+    "description": "Basic single bone location",
+    "expectedStructures": ["femur-left", "femur-right", "pelvis"],
+    "expectedToolCalls": ["highlight_structures"],
+    "expectedSystems": ["SKELETAL"],
+    "answerMustContain": ["femur", "thigh"],
+    "answerMustNotContain": [],
+    "notes": "Simple location query for the thigh bone."
+  },
+  {
+    "id": "simple-002",
+    "category": "simple",
+    "difficulty": 1,
+    "query": "Show me the skull.",
+    "description": "Basic skull highlighting",
+    "expectedStructures": ["skull"],
+    "expectedToolCalls": ["highlight_structures"],
+    "expectedSystems": ["SKELETAL"],
+    "answerMustContain": ["skull", "head"],
+    "answerMustNotContain": [],
+    "notes": "Simple direct request to highlight the skull."
+  },
+  {
+    "id": "simple-003",
+    "category": "simple",
+    "difficulty": 1,
+    "query": "What is the ribcage?",
+    "description": "Basic ribcage query",
+    "expectedStructures": ["ribcage"],
+    "expectedToolCalls": [],
+    "expectedSystems": ["SKELETAL"],
+    "answerMustContain": ["ribcage", "ribs", "protection"],
+    "answerMustNotContain": [],
+    "notes": "Simple information query about the rib cage."
+  },
+  {
+    "id": "medium-001",
+    "category": "medium",
+    "difficulty": 2,
+    "query": "Show me the spine.",
+    "description": "Spine/vertebrae highlighting",
+    "expectedStructures": ["cervical-vertebrae", "thoracic-vertebrae", "lumbar-vertebrae", "pelvis", "sacrum", "coccyx", "skull"],
+    "expectedToolCalls": ["highlight_structures"],
+    "expectedSystems": ["SKELETAL"],
+    "answerMustContain": ["spine", "vertebrae"],
+    "answerMustNotContain": [],
+    "notes": "Request to highlight the vertebral column."
+  },
+  {
+    "id": "medium-002",
+    "category": "medium",
+    "difficulty": 2,
+    "query": "Where are the knee joints?",
+    "description": "Knee joint location",
+    "expectedStructures": ["knee-joint-left", "knee-joint-right"],
+    "expectedToolCalls": ["highlight_structures", "get_related_structures"],
+    "expectedSystems": ["SKELETAL"],
+    "answerMustContain": ["knee", "joint"],
+    "answerMustNotContain": [],
+    "notes": "Location query for knee articulations."
+  },
+  {
+    "id": "medium-003",
+    "category": "medium",
+    "difficulty": 2,
+    "query": "Highlight the arm bones.",
+    "description": "Upper limb bones",
+    "expectedStructures": ["humerus-left", "humerus-right", "radius-left", "radius-right", "ulna-left", "ulna-right", "scapula", "scapula-right", "clavicle-left", "clavicle-right"],
+    "expectedToolCalls": ["highlight_structures"],
+    "expectedSystems": ["SKELETAL"],
+    "answerMustContain": ["arm", "humerus", "radius", "ulna"],
+    "answerMustNotContain": [],
+    "notes": "Request to highlight major arm bones."
+  },
+  {
+    "id": "medium-004",
+    "category": "medium",
+    "difficulty": 2,
+    "query": "Show the leg bones.",
+    "description": "Lower limb bones",
+    "expectedStructures": ["femur-left", "femur-right", "tibia-left", "tibia-right", "fibula-left", "fibula-right", "tibia", "patella-left", "patella-right", "pelvis"],
+    "expectedToolCalls": ["highlight_structures"],
+    "expectedSystems": ["SKELETAL"],
+    "answerMustContain": ["leg", "femur", "tibia", "fibula"],
+    "answerMustNotContain": [],
+    "notes": "Request to highlight major leg bones."
+  },
+  {
+    "id": "medium-005",
+    "category": "medium",
+    "difficulty": 2,
+    "query": "What makes up the pelvis?",
+    "description": "Pelvic structure",
+    "expectedStructures": ["pelvis", "sacrum", "pelvic-girdle", "coccyx"],
+    "expectedToolCalls": ["highlight_structures"],
+    "expectedSystems": ["SKELETAL"],
+    "answerMustContain": ["pelvis", "sacrum"],
+    "answerMustNotContain": [],
+    "notes": "Information about pelvic anatomy."
+  },
+  {
+    "id": "medium-006",
+    "category": "medium",
+    "difficulty": 2,
+    "query": "Where is the sternum?",
+    "description": "Breastbone location",
+    "expectedStructures": ["sternum"],
+    "expectedToolCalls": ["highlight_structures"],
+    "expectedSystems": ["SKELETAL"],
+    "answerMustContain": ["sternum"],
+    "answerMustNotContain": [],
+    "notes": "Location of the central chest bone."
+  },
+  {
+    "id": "medium-007",
+    "category": "medium",
+    "difficulty": 3,
+    "query": "Show the hand skeleton.",
+    "description": "Hand bones",
+    "expectedStructures": ["carpals-left", "carpals-right", "metacarpals-left", "metacarpals-right", "phalanges-left", "phalanges-right", "hand-left", "hand-right"],
+    "expectedToolCalls": ["highlight_structures"],
+    "expectedSystems": ["SKELETAL"],
+    "answerMustContain": ["hand", "carpals", "metacarpals", "phalanges"],
+    "answerMustNotContain": [],
+    "notes": "Request to highlight hand bone structure."
+  },
+  {
+    "id": "medium-008",
+    "category": "medium",
+    "difficulty": 3,
+    "query": "Show the foot skeleton.",
+    "description": "Foot bones",
+    "expectedStructures": ["tarsals-left", "tarsals-right", "metatarsals-left", "metatarsals-right", "phalanges-left", "phalanges-right", "foot-left", "foot-right"],
+    "expectedToolCalls": ["highlight_structures"],
+    "expectedSystems": ["SKELETAL"],
+    "answerMustContain": ["foot", "tarsals", "metatarsals"],
+    "answerMustNotContain": [],
+    "notes": "Request to highlight foot bone structure."
   }
 ]

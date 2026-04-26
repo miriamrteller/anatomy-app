@@ -1,4 +1,4 @@
-import { VALID_SVG_IDS } from '../../frontend/public/svgs/existingbones';
+import { VALID_SVG_IDS, ValidSvgId } from './types';
 
 /**
  * Eval Client: Core wrapper around /api/chat endpoint
@@ -457,7 +457,7 @@ export class EvalClient {
         const structures = tc.input.structures as string[] | undefined;
         if (structures) {
           for (const struct of structures) {
-            if (!VALID_SVG_IDS.includes(struct)) {
+            if (!VALID_SVG_IDS.has(struct as ValidSvgId)) {
               metrics.invalid_svg_ids.push(struct);
             }
           }
