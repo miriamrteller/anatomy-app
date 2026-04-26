@@ -1,0 +1,339 @@
+TAP version 13
+1..6
+not ok 1 - tests/evals/cost-tracking.test.ts # time=123.23ms {
+    1..1
+    not ok 1 - Cost Tracking & Budget # time=120.14ms {
+        1..10
+        not ok 1 - Pricing Configuration # time=36.84ms {
+            1..2
+            ok 1 - should have correct GPT-4o pricing rates # time=5.00ms
+            not ok 2 - output pricing should be higher than input pricing # time=30.16ms
+                ---
+                error:
+                    name: "AssertionError"
+                    message: "expected 0.000015 to be 0.000015000000000000002 // Object.is equality"
+                at: "D:/Miriam/Development/projects/anatomy-app/tests/evals/cost-tracking.test.ts:69:40"
+                actual: "0.000015"
+                expected: "0.000015000000000000002"
+                ...
+        }
+        not ok 2 - Cost Budget Definitions # time=43.64ms {
+            1..3
+            not ok 1 - should have budgets for all categories # time=32.28ms
+                ---
+                error:
+                    name: "AssertionError"
+                    message: "expected undefined to be defined"
+                at: "D:/Miriam/Development/projects/anatomy-app/tests/evals/cost-tracking.test.ts:78:40"
+                ...
+            ok 2 - budgets should scale with query complexity # time=9.24ms
+            ok 3 - budgets should be realistic for GPT-4o costs # time=1.35ms
+        }
+        not ok 3 - Token Count Estimation # time=9.65ms {
+            1..3
+            ok 1 - should have token estimates for all categories # time=1.49ms
+            ok 2 - output tokens should be less than input tokens # time=0.86ms
+            not ok 3 - estimated costs should match budget allocations # time=7.10ms
+                ---
+                error:
+                    name: "AssertionError"
+                    message: "expected 0.027000000000000003 to be less than 0.014175"
+                at: "D:/Miriam/Development/projects/anatomy-app/tests/evals/cost-tracking.test.ts:127:31"
+                ...
+        }
+        ok 4 - Token Counting Accuracy # time=8.73ms {
+            1..2
+            ok 1 - actual tokens should be within ±10% of estimates # time=3.58ms
+            ok 2 - should track input vs output token ratio separately # time=3.49ms
+        }
+        ok 5 - Cost Budget Enforcement # time=3.40ms {
+            1..3
+            ok 1 - no single query should cost more than 2x its category budget # time=0.96ms
+            ok 2 - straightforward queries should be most cost-efficient # time=0.80ms
+            ok 3 - edge-case queries can be up to 3.8x more expensive than straightforward # time=0.48ms
+        }
+        not ok 6 - Query Complexity Impact on Cost # time=2.71ms {
+            1..2
+            not ok 1 - query length might correlate with cost (longer queries = more tokens) # time=1.87ms
+                ---
+                error:
+                    name: "AssertionError"
+                    message: "expected 34.33766233766234 to be greater than 50"
+                at: "D:/Miriam/Development/projects/anatomy-app/tests/evals/cost-tracking.test.ts:199:30"
+                ...
+            ok 2 - difficulty level should not dramatically increase token cost # time=0.69ms
+        }
+        ok 7 - Monthly Budget Projections # time=1.07ms {
+            1..2
+            ok 1 - should calculate total dataset cost # time=0.53ms
+            ok 2 - monthly cost with daily evals should be manageable # time=0.43ms
+        }
+        not ok 8 - Cost Allocation by Category # time=3.92ms {
+            1..2
+            not ok 1 - total dataset should have realistic cost distribution # time=2.98ms
+                ---
+                error:
+                    name: "AssertionError"
+                    message: "expected NaN to be greater than 1.5"
+                at: "D:/Miriam/Development/projects/anatomy-app/tests/evals/cost-tracking.test.ts:262:25"
+                ...
+            ok 2 - should track which categories contribute most to total cost # time=0.73ms
+        }
+        ok 9 - Cost Optimization Opportunities # time=1.29ms {
+            1..2
+            ok 1 - should identify queries that might be cacheable (lower cost on repeat) # time=0.57ms
+            ok 2 - system-specific queries should be optimized to reduce tokens # time=0.48ms
+        }
+        ok 10 - Error Cost Prevention # time=2.11ms {
+            1..2
+            ok 1 - invalid queries should not incur API costs # time=0.55ms
+            ok 2 - retry logic should track cost of failed attempts # time=1.25ms
+        }
+    }
+}
+not ok 2 - tests/evals/end-to-end.test.ts # time=262.34ms {
+    1..1
+    not ok 1 - End-to-End Integration # time=258.85ms {
+        1..8
+        not ok 1 - Query Structure Validation # time=132.00ms {
+            1..3
+            ok 1 - all queries should have required fields # time=68.59ms
+            ok 2 - all queries should have non-empty query text # time=11.32ms
+            not ok 3 - query IDs should be unique and follow naming convention # time=50.26ms
+                ---
+                error:
+                    name: "AssertionError"
+                    message: "expected 'multi-turn-001-query1' to match /^[a-z\-]+\-\d+$/"
+                at: "D:/Miriam/Development/projects/anatomy-app/tests/evals/end-to-end.test.ts:67:20"
+                actual: "multi-turn-001-query1"
+                expected: "/^[a-z\-]+\-\d+$/"
+                ...
+        }
+        ok 2 - Category Distribution # time=8.59ms {
+            1..3
+            ok 1 - should have well-distributed queries across categories # time=5.18ms
+            ok 2 - straightforward category should be well represented # time=2.16ms
+            ok 3 - edge-case category should have notable representation # time=0.97ms
+        }
+        ok 3 - Difficulty Distribution # time=3.08ms {
+            1..2
+            ok 1 - should span difficulty levels 1-5 # time=0.71ms
+            ok 2 - should have more easy queries than hard queries # time=1.79ms
+        }
+        not ok 4 - System Coverage # time=33.82ms {
+            1..3
+            ok 1 - all queries should target valid systems # time=29.46ms
+            not ok 2 - should predominantly target SKELETAL system in Phase 6 # time=2.66ms
+                ---
+                error:
+                    name: "AssertionError"
+                    message: "expected 0.8571428571428571 to be greater than 0.95"
+                at: "D:/Miriam/Development/projects/anatomy-app/tests/evals/end-to-end.test.ts:136:55"
+                ...
+            ok 3 - non-SKELETAL systems should only be in factual questions (no tools) # time=1.29ms
+        }
+        ok 5 - Tool-Structure Alignment # time=19.05ms {
+            1..3
+            ok 1 - highlight_structures should correspond to expectedStructures # time=6.34ms
+            ok 2 - queries without structures should not expect highlighting # time=11.41ms
+            ok 3 - show_layer should be in system-specific queries primarily # time=1.05ms
+        }
+        ok 6 - Quality Guidelines Completeness # time=29.28ms {
+            1..3
+            ok 1 - all queries should have at least one quality guideline # time=7.30ms
+            ok 2 - most queries should have must-contain guidelines # time=0.62ms
+            ok 3 - guidelines should not be contradictory # time=21.07ms
+        }
+        not ok 7 - Dataset Integrity # time=19.53ms {
+            1..3
+            ok 1 - should have exactly 77 queries # time=0.57ms
+            not ok 2 - all query categories should be recognized # time=10.92ms
+                ---
+                error:
+                    name: "AssertionError"
+                    message: "expected [ 'straightforward', …(3) ] to include 'multi-turn'"
+                at: "D:/Miriam/Development/projects/anatomy-app/tests/evals/end-to-end.test.ts:222:33"
+                ...
+            ok 3 - no query should have empty ID # time=7.83ms
+        }
+        ok 8 - Dataset Readiness for Eval # time=1.91ms {
+            1..3
+            ok 1 - should have sufficient diversity for comprehensive evaluation # time=0.62ms
+            ok 2 - should include queries testing all three main tools # time=0.61ms
+            ok 3 - should test both structure-based and factual queries # time=0.53ms
+        }
+    }
+}
+not ok 3 - tests/evals/performance.test.ts # time=60.80ms {
+    1..1
+    not ok 1 - Performance & Latency # time=57.87ms {
+        1..8
+        not ok 1 - SLA Target Definitions # time=24.74ms {
+            1..3
+            not ok 1 - should have SLA targets defined for all categories # time=19.52ms
+                ---
+                error:
+                    name: "AssertionError"
+                    message: "expected undefined to be defined"
+                at: "D:/Miriam/Development/projects/anatomy-app/tests/evals/performance.test.ts:47:39"
+                ...
+            ok 2 - TTFT should be less than E2E for all targets # time=1.74ms
+            ok 3 - targets should scale with difficulty # time=1.59ms
+        }
+        ok 2 - Category-Specific Performance Expectations # time=2.97ms {
+            1..3
+            ok 1 - straightforward queries should have fastest SLA targets # time=1.17ms
+            ok 2 - system-specific queries should have moderate SLA targets # time=0.73ms
+            ok 3 - edge-case queries should have most lenient SLA targets # time=0.75ms
+        }
+        ok 3 - Difficulty vs Performance # time=1.94ms {
+            1..2
+            ok 1 - should have more easy queries than hard queries (for faster baseline) # time=0.84ms
+            ok 2 - difficult queries should be distributed across all categories # time=0.93ms
+        }
+        ok 4 - Baseline Latency Expectations # time=2.39ms {
+            1..2
+            ok 1 - baseline average should be within typical API response times # time=0.72ms
+            ok 2 - first token latency should be 15-20% of total E2E latency # time=1.46ms
+        }
+        ok 5 - Performance Tiering # time=1.01ms {
+            1..1
+            ok 1 - should tier SLA targets appropriately by query complexity # time=0.88ms
+        }
+        ok 6 - Query Distribution for Performance Testing # time=2.19ms {
+            1..2
+            ok 1 - should have sufficient queries per category for statistical significance # time=0.96ms
+            ok 2 - each category should have mixed difficulty levels # time=1.07ms
+        }
+        ok 7 - Streaming Performance Requirements # time=0.90ms {
+            1..2
+            ok 1 - TTFT should be fast enough for perceived responsiveness # time=0.41ms
+            ok 2 - E2E latency should be acceptable for student use cases # time=0.38ms
+        }
+        ok 8 - Performance Measurement Points # time=15.91ms {
+            1..2
+            ok 1 - should measure both TTFT and E2E latency # time=1.43ms
+            ok 2 - should track latency separately per category # time=0.85ms
+        }
+    }
+}
+not ok 4 - tests/evals/rag-retrieval.test.ts # time=95.39ms {
+    1..1
+    not ok 1 - RAG Retrieval Accuracy # time=92.24ms {
+        1..5
+        ok 1 - Straightforward Questions # time=8.16ms {
+            1..2
+            ok 1 - should meet precision target for straightforward category # time=5.41ms
+            ok 2 - should meet recall target for straightforward category # time=0.84ms
+        }
+        ok 2 - Common Student Questions # time=4.58ms {
+            1..2
+            ok 1 - should meet precision target for common-student category # time=1.15ms
+            ok 2 - should meet recall target for common-student category # time=3.18ms
+        }
+        not ok 3 - System-Specific Questions # time=20.35ms {
+            1..2
+            not ok 1 - should meet precision target for system-specific category # time=19.28ms
+                ---
+                error:
+                    name: "AssertionError"
+                    message: "expected 0.8499999999999998 to be greater than or equal to 0.85"
+                at: "D:/Miriam/Development/projects/anatomy-app/tests/evals/rag-retrieval.test.ts:130:28"
+                ...
+            ok 2 - should meet recall target for system-specific category # time=0.85ms
+        }
+        ok 4 - Edge Cases # time=3.94ms {
+            1..2
+            ok 1 - should meet precision target for edge-case category # time=0.90ms
+            ok 2 - should gracefully handle queries with no matching structures # time=2.83ms
+        }
+        ok 5 - Dataset Validation # time=48.22ms {
+            1..2
+            ok 1 - all queries should have valid expectedStructures # time=42.01ms
+            ok 2 - queries with expectedStructures should have answerMustContain entries # time=5.52ms
+        }
+    }
+}
+not ok 5 - tests/evals/response-quality.test.ts # time=200.57ms {
+    1..1
+    not ok 1 - Response Quality # time=197.41ms {
+        1..6
+        not ok 1 - Answer Must Contain Validation # time=57.21ms {
+            1..4
+            ok 1 - should have answerMustContain guidelines for all queries # time=11.97ms
+            ok 2 - straightforward queries should require specific anatomical terms # time=12.21ms
+            not ok 3 - student questions should require factual knowledge terms # time=26.38ms
+                ---
+                error:
+                    name: "AssertionError"
+                    message: "expected false to be true // Object.is equality"
+                at: "D:/Miriam/Development/projects/anatomy-app/tests/evals/response-quality.test.ts:64:73"
+                actual: "false"
+                expected: "true"
+                ...
+            ok 4 - system-specific queries should require multiple anatomical terms # time=1.79ms
+        }
+        ok 2 - Answer Must NOT Contain Validation # time=59.51ms {
+            1..3
+            ok 1 - should have answerMustNotContain guidelines where applicable # time=5.36ms
+            ok 2 - should not have overlapping terms in mustContain and mustNotContain # time=51.88ms
+            ok 3 - student factual questions should specify wrong answers to avoid # time=1.42ms
+        }
+        ok 3 - Answer Guidelines Quality # time=30.64ms {
+            1..3
+            ok 1 - should have reasonable length for must-contain terms (not sentences) # time=19.76ms
+            ok 2 - should have reasonable length for must-not-contain terms # time=3.62ms
+            ok 3 - each query should have at least one quality guideline # time=6.85ms
+        }
+        ok 4 - Category-Specific Patterns # time=7.35ms {
+            1..3
+            ok 1 - edge-case queries without structures should have strong quality guidelines # time=1.29ms
+            ok 2 - factual-only queries should have specific factual requirements # time=3.26ms
+            ok 3 - multi-structure queries should define expected concepts # time=2.36ms
+        }
+        ok 5 - Anatomical Accuracy of Guidelines # time=26.11ms {
+            1..2
+            ok 1 - must-contain guidelines should use correct anatomical terminology # time=23.71ms
+            ok 2 - queries about specific bones should require that bone name in answer # time=2.21ms
+        }
+        ok 6 - Dataset Completeness # time=1.98ms {
+            1..2
+            ok 1 - should have 77 total queries with quality guidelines # time=1.21ms
+            ok 2 - queries should not have empty must-contain lists (except rare cases) # time=0.58ms
+        }
+    }
+}
+ok 6 - tests/evals/tool-calling.test.ts # time=111.80ms {
+    1..1
+    ok 1 - Tool-Calling Correctness # time=108.64ms {
+        1..5
+        ok 1 - SVG ID Validation (Zero Tolerance) # time=7.82ms {
+            1..2
+            ok 1 - should reject any query with invalid SVG IDs in expectedStructures # time=5.38ms
+            ok 2 - should have zero invalid SVG IDs across all 77 queries # time=0.92ms
+        }
+        ok 2 - Tool Call Validation # time=70.73ms {
+            1..4
+            ok 1 - should only use valid tool names in expectedToolCalls # time=1.10ms
+            ok 2 - highlight_structures should only be called with valid SVG IDs # time=65.82ms
+            ok 3 - show_layer should only be used with valid system names # time=1.45ms
+            ok 4 - get_related_structures should reference structures in expectedStructures # time=1.59ms
+        }
+        ok 3 - Tool Precision Targets # time=2.96ms {
+            1..2
+            ok 1 - should have appropriate tool expectations for straightforward queries # time=1.15ms
+            ok 2 - should have appropriate tool expectations for system-specific queries # time=1.28ms
+        }
+        ok 4 - Tool Call Consistency # time=16.90ms {
+            1..2
+            ok 1 - queries without expectedStructures should not expect highlight_structures # time=10.07ms
+            ok 2 - all queries with highlight_structures should have expectedStructures # time=5.95ms
+        }
+        ok 5 - Dataset Quality # time=4.18ms {
+            1..3
+            ok 1 - should have 77 total queries with valid tool configurations # time=0.86ms
+            ok 2 - should not have duplicate query IDs # time=0.65ms
+            ok 3 - all expectedToolCalls should be in valid tool set # time=2.39ms
+        }
+    }
+}
