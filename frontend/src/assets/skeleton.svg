@@ -268,7 +268,7 @@
    d="M 220.243,783.063 C 219.834,782.959 219.654,783.611 219.64,783.981 C 219.52,783.76 219.407,783.548 219.341,783.294 C 219.587,783.11 219.889,782.956 220.164,782.93" />
 			</g></g><g
    id="PhalangesFootLeft"
-   data-svg-id="phalanges-left" inkscape:label="Phalanges"><g
+   data-svg-id="phalanges-f-left" inkscape:label="Phalanges"><g
      id="g103">
 				<g
    id="g105">
@@ -598,7 +598,7 @@
    d="M 178.234,782.168 C 178.636,782.048 178.853,782.65 178.888,782.996 C 178.995,782.783 179.094,782.577 179.147,782.335 C 178.891,782.176 178.58,782.048 178.305,782.038" />
 			</g></g><g
    id="PhalangesFootRight"
-   data-svg-id="phalanges-right" inkscape:label="Phalanges">
+   data-svg-id="phalanges-f-right" inkscape:label="Phalanges">
 				<g
    id="g287">
 					<path

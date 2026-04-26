@@ -12,8 +12,7 @@ humerus-left, humerus-right, radius-left, radius-right
 ulna-left, ulna-right
 hand-left, hand-right, carpals-left, carpals-right
 metacarpals-left, metacarpals-right
-phalanges-left, phalanges-right
-
+phalanges-left, phalanges-right, phalanges-f-left, phalanges-f-right
 
 
 
