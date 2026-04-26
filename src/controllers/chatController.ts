@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { z } from 'zod';
+import { encodingForModel } from 'js-tiktoken';
 import { getOpenAIClient } from '../lib/openai';
 import { AppError } from '../lib/errors';
 import { AGENT_TOOLS } from '../lib/tools';
@@ -283,14 +284,51 @@ export async function chat(req: Request, res: Response): Promise<void> {
     }
 
     // ============================================================
-    // STEP 5: Signal Stream Complete
+    // STEP 5: Calculate Token Usage and Signal Stream Complete
     // ============================================================
-    res.write(
-      `data: ${JSON.stringify({
-        event: 'done',
-        data: { iterations: iteration },
-      })}\n\n`
-    );
+    try {
+      const enc = encodingForModel('gpt-4o-mini');
+      
+      // Count input tokens (system prompt + user question)
+      const systemPrompt = await getSystemPrompt();
+      const systemTokens = enc.encode(systemPrompt).length;
+      const userTokens = enc.encode(question).length;
+      const inputTokens = systemTokens + userTokens;
+      
+      // Count output tokens (full assistant response)
+      const allMessages = messageHistory.map(m => 
+        typeof m.content === 'string' ? m.content : JSON.stringify(m.content)
+      ).join(' ');
+      const outputTokens = enc.encode(allMessages).length;
+      
+      // Calculate cost (GPT-4o mini pricing)
+      const inputCost = inputTokens * 0.00000015; // $0.15 per 1M input tokens
+      const outputCost = outputTokens * 0.000006;  // $6 per 1M output tokens
+      const totalCost = inputCost + outputCost;
+      
+      res.write(
+        `data: ${JSON.stringify({
+          event: 'done',
+          data: { 
+            iterations: iteration,
+            usage: {
+              inputTokens,
+              outputTokens,
+              totalTokens: inputTokens + outputTokens,
+              costUSD: parseFloat(totalCost.toFixed(6))
+            }
+          },
+        })}\n\n`
+      );
+    } catch (tokenError) {
+      // Fallback if token counting fails
+      res.write(
+        `data: ${JSON.stringify({
+          event: 'done',
+          data: { iterations: iteration },
+        })}\n\n`
+      );
+    }
     res.end();
   } catch (error) {
     // Only write error if headers haven't been sent

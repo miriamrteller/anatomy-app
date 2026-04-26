@@ -1,0 +1,14 @@
+{
+  "dailyBudgetUSD": 10,
+  "monthliBudgetUSD": 100,
+  "records": [
+    {
+      "date": "2026-04-26T16:01:52.931Z",
+      "evalName": "eval-2026-04-26",
+      "queriesRun": 10,
+      "totalCostUSD": 0.30355515,
+      "inputTokens": 30741,
+      "outputTokens": 49824
+    }
+  ]
+}

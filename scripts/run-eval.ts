@@ -14,6 +14,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { fileURLToPath } from "url";
 import { VALID_SVG_IDS, isValidSvgId } from "../tests/evals/types";
+import { recordEvalRun, displayCostSummary } from "./cost-tracker";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -96,9 +97,10 @@ interface EvalSummary {
   duration_seconds: number;
 }
 
+// GPT-4o mini pricing (as of 2026-04)
 const PRICING = {
-  input_per_token: 0.000005,
-  output_per_token: 0.000015,
+  input_per_token: 0.00000015,  // $0.15 per 1M input tokens
+  output_per_token: 0.000006,   // $6 per 1M output tokens
 };
 
 const API_BASE = "http://localhost:3000";
@@ -157,20 +159,31 @@ async function callChatAPI(
       console.log('DEBUG fullResponse contains "tool_call":', fullResponse.includes('tool_call'));
     }
 
-    // Extract tool calls from the complete SSE response
+    // Extract tool calls and usage from the complete SSE response
     // Split by \n\n to get individual SSE messages, then parse JSON
     const sseMessages = fullResponse.split('\n\n');
+    let inputTokens = 100; // Fallback defaults
+    let outputTokens = 150;
+    
     for (const message of sseMessages) {
       if (message.trim().startsWith('data: ')) {
         try {
           const jsonStr = message.replace('data: ', '').trim();
           if (jsonStr) {
             const eventData = JSON.parse(jsonStr);
+            
+            // Extract tool calls
             if (eventData.event === 'tool_call' && eventData.data?.tool_name) {
               const toolName = eventData.data.tool_name;
               if (!toolCalls.includes(toolName)) {
                 toolCalls.push(toolName);
               }
+            }
+            
+            // Extract actual token usage from done event
+            if (eventData.event === 'done' && eventData.data?.usage) {
+              inputTokens = eventData.data.usage.inputTokens;
+              outputTokens = eventData.data.usage.outputTokens;
             }
           }
         } catch {
@@ -178,13 +191,6 @@ async function callChatAPI(
         }
       }
     }
-
-    // Extract token counts from response metadata
-    const tokenMatch = fullResponse.match(
-      /"usage":\s*\{[^}]*"prompt_tokens":\s*(\d+)[^}]*"completion_tokens":\s*(\d+)/,
-    );
-    const inputTokens = tokenMatch ? parseInt(tokenMatch[1]) : 100;
-    const outputTokens = tokenMatch ? parseInt(tokenMatch[2]) : 150;
 
     return {
       response: fullResponse,
@@ -486,6 +492,21 @@ async function runEval(): Promise<void> {
   const resultsFile = path.join(__dirname, "../tests/evals/eval-results.json");
   fs.writeFileSync(resultsFile, JSON.stringify({ summary, results }, null, 2));
   console.log(`📁 Results saved to ${resultsFile}\n`);
+
+  // Record costs
+  const costTracking = recordEvalRun(
+    `eval-${new Date().toISOString().split('T')[0]}`,
+    results.length,
+    summary.aggregateMetrics.totalCostUSD,
+    summary.aggregateMetrics.avgInputTokens * results.length,
+    summary.aggregateMetrics.avgOutputTokens * results.length,
+  );
+
+  // Display cost summary and alerts
+  displayCostSummary();
+  if (costTracking.budgetWarnings.length > 0) {
+    console.log('\n' + costTracking.budgetWarnings.join('\n'));
+  }
 }
 
 runEval().catch(console.error);
