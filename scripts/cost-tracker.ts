@@ -151,12 +151,18 @@ export function getCostSummary(): {
 /**
  * Display cost summary in console
  */
-export function displayCostSummary(): void {
+export function displayCostSummary(currentRunCostUSD?: number, queriesInRun?: number): void {
   const summary = getCostSummary();
   const tracker = loadTracker();
 
   console.log('\n💰 COST SUMMARY');
   console.log('================');
+  if (currentRunCostUSD !== undefined) {
+    console.log(`This Run: $${currentRunCostUSD.toFixed(4)}`);
+    if (queriesInRun) {
+      console.log(`Cost per Query: $${(currentRunCostUSD / queriesInRun).toFixed(4)}`);
+    }
+  }
   console.log(`Today: $${summary.today.toFixed(4)} (Budget: $${tracker.dailyBudgetUSD})`);
   console.log(`This Month: $${summary.thisMonth.toFixed(2)} (Budget: $${tracker.monthliBudgetUSD})`);
   console.log(`All Time: $${summary.allTime.toFixed(2)}`);

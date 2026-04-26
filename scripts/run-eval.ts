@@ -503,7 +503,7 @@ async function runEval(): Promise<void> {
   );
 
   // Display cost summary and alerts
-  displayCostSummary();
+  displayCostSummary(summary.aggregateMetrics.totalCostUSD, results.length);
   if (costTracking.budgetWarnings.length > 0) {
     console.log('\n' + costTracking.budgetWarnings.join('\n'));
   }
