@@ -1,0 +1,521 @@
+{
+  "summary": {
+    "totalQueries": 10,
+    "passedQueries": 1,
+    "passRate": 0.1,
+    "byCategory": {
+      "edge-case": {
+        "count": 2,
+        "passed": 0,
+        "passRate": 0,
+        "avgLatencyE2E_ms": 2258.5,
+        "avgCostUSD": 0.0027500000000000003
+      },
+      "system-specific": {
+        "count": 8,
+        "passed": 1,
+        "passRate": 0.125,
+        "avgLatencyE2E_ms": 8194.75,
+        "avgCostUSD": 0.00240625
+      }
+    },
+    "aggregateMetrics": {
+      "avgLatencyTTFT_ms": 2090,
+      "avgLatencyE2E_ms": 7007.5,
+      "avgInputTokens": 90,
+      "avgOutputTokens": 135,
+      "totalCostUSD": 0.024749999999999998
+    },
+    "tools": {
+      "avgPrecision": 0.9,
+      "avgRecall": 0.65
+    },
+    "structures": {
+      "avgPrecision": 0.6949134199134199,
+      "avgRecall": 0.675595238095238,
+      "invalidIdRate": 0
+    },
+    "timestamp": "2026-04-26T15:52:17.777Z",
+    "duration_seconds": 80.059
+  },
+  "results": [
+    {
+      "queryId": "edge-case-014",
+      "category": "edge-case",
+      "query": "What are fontanels?",
+      "passed": false,
+      "metrics": {
+        "latencyTTFT_ms": 1365,
+        "latencyE2E_ms": 3087,
+        "inputTokens": 100,
+        "outputTokens": 150,
+        "costUSD": 0.0027500000000000003
+      },
+      "tools": {
+        "expected": [
+          "highlight_structures"
+        ],
+        "actual": [],
+        "precision": 1,
+        "recall": 0
+      },
+      "structures": {
+        "expected": [
+          "skull"
+        ],
+        "actual": [
+          "skull"
+        ],
+        "precision": 1,
+        "recall": 1,
+        "invalidIds": []
+      },
+      "quality": {
+        "mustContainMet": false,
+        "mustNotContainViolations": []
+      },
+      "errors": []
+    },
+    {
+      "queryId": "edge-case-015",
+      "category": "edge-case",
+      "query": "Name all the ankle bones.",
+      "passed": false,
+      "metrics": {
+        "latencyTTFT_ms": 9,
+        "latencyE2E_ms": 1430,
+        "inputTokens": 100,
+        "outputTokens": 150,
+        "costUSD": 0.0027500000000000003
+      },
+      "tools": {
+        "expected": [
+          "highlight_structures"
+        ],
+        "actual": [],
+        "precision": 1,
+        "recall": 0
+      },
+      "structures": {
+        "expected": [
+          "tarsals-left",
+          "tarsals-right"
+        ],
+        "actual": [
+          "tarsals-left"
+        ],
+        "precision": 1,
+        "recall": 0.5,
+        "invalidIds": []
+      },
+      "quality": {
+        "mustContainMet": false,
+        "mustNotContainViolations": []
+      },
+      "errors": []
+    },
+    {
+      "queryId": "system-specific-008",
+      "category": "system-specific",
+      "query": "Highlight the joints of the lower leg.",
+      "passed": false,
+      "metrics": {
+        "latencyTTFT_ms": 7,
+        "latencyE2E_ms": 5145,
+        "inputTokens": 100,
+        "outputTokens": 150,
+        "costUSD": 0.0027500000000000003
+      },
+      "tools": {
+        "expected": [
+          "highlight_structures"
+        ],
+        "actual": [
+          "highlight_structures"
+        ],
+        "precision": 1,
+        "recall": 1
+      },
+      "structures": {
+        "expected": [
+          "knee-joint-left",
+          "knee-joint-right",
+          "tarsals-left",
+          "tarsals-right"
+        ],
+        "actual": [
+          "femur-right",
+          "pelvis",
+          "knee-joint-left",
+          "knee-joint-right",
+          "hip-joint-left",
+          "hip-joint-right"
+        ],
+        "precision": 0.3333333333333333,
+        "recall": 0.5,
+        "invalidIds": []
+      },
+      "quality": {
+        "mustContainMet": false,
+        "mustNotContainViolations": [
+          "hip"
+        ]
+      },
+      "errors": []
+    },
+    {
+      "queryId": "system-specific-009",
+      "category": "system-specific",
+      "query": "Show me the complete upper limb skeleton.",
+      "passed": false,
+      "metrics": {
+        "latencyTTFT_ms": 1376,
+        "latencyE2E_ms": 4060,
+        "inputTokens": 100,
+        "outputTokens": 150,
+        "costUSD": 0.0027500000000000003
+      },
+      "tools": {
+        "expected": [
+          "highlight_structures"
+        ],
+        "actual": [
+          "highlight_structures"
+        ],
+        "precision": 1,
+        "recall": 1
+      },
+      "structures": {
+        "expected": [
+          "scapular-left",
+          "scapula-right",
+          "clavicle-left",
+          "clavicle-right",
+          "humerus-left",
+          "humerus-right",
+          "radius-left",
+          "radius-right",
+          "ulna-left",
+          "ulna-right"
+        ],
+        "actual": [
+          "scapula",
+          "scapular-left",
+          "scapula-right",
+          "clavicle-left",
+          "clavicle-right",
+          "humerus-left",
+          "humerus-right",
+          "radius-left",
+          "radius-right",
+          "ulna-left",
+          "ulna-right"
+        ],
+        "precision": 0.9090909090909091,
+        "recall": 1,
+        "invalidIds": []
+      },
+      "quality": {
+        "mustContainMet": false,
+        "mustNotContainViolations": []
+      },
+      "errors": []
+    },
+    {
+      "queryId": "system-specific-010",
+      "category": "system-specific",
+      "query": "What is the relationship between the spine and ribcage?",
+      "passed": false,
+      "metrics": {
+        "latencyTTFT_ms": 5,
+        "latencyE2E_ms": 7259,
+        "inputTokens": 100,
+        "outputTokens": 150,
+        "costUSD": 0.0027500000000000003
+      },
+      "tools": {
+        "expected": [
+          "highlight_structures"
+        ],
+        "actual": [
+          "highlight_structures"
+        ],
+        "precision": 1,
+        "recall": 1
+      },
+      "structures": {
+        "expected": [
+          "thoracic-vertebrae",
+          "ribcage",
+          "sternum"
+        ],
+        "actual": [
+          "pelvis",
+          "pelvic-girdle",
+          "ribcage",
+          "thoracic-vertebrae"
+        ],
+        "precision": 0.5,
+        "recall": 0.6666666666666666,
+        "invalidIds": []
+      },
+      "quality": {
+        "mustContainMet": true,
+        "mustNotContainViolations": []
+      },
+      "errors": []
+    },
+    {
+      "queryId": "system-specific-011",
+      "category": "system-specific",
+      "query": "Switch to skeletal and show me the pelvic girdle anatomy.",
+      "passed": false,
+      "metrics": {
+        "latencyTTFT_ms": 6,
+        "latencyE2E_ms": 4502,
+        "inputTokens": 100,
+        "outputTokens": 150,
+        "costUSD": 0.0027500000000000003
+      },
+      "tools": {
+        "expected": [
+          "show_layer",
+          "highlight_structures"
+        ],
+        "actual": [
+          "show_layer",
+          "highlight_structures"
+        ],
+        "precision": 1,
+        "recall": 1
+      },
+      "structures": {
+        "expected": [
+          "pelvic-girdle",
+          "pelvis",
+          "sacrum"
+        ],
+        "actual": [
+          "pelvis",
+          "pelvic-girdle"
+        ],
+        "precision": 1,
+        "recall": 0.6666666666666666,
+        "invalidIds": []
+      },
+      "quality": {
+        "mustContainMet": false,
+        "mustNotContainViolations": []
+      },
+      "errors": []
+    },
+    {
+      "queryId": "system-specific-012",
+      "category": "system-specific",
+      "query": "Highlight all bones that protect vital organs.",
+      "passed": false,
+      "metrics": {
+        "latencyTTFT_ms": 0,
+        "latencyE2E_ms": 0,
+        "inputTokens": 0,
+        "outputTokens": 0,
+        "costUSD": 0
+      },
+      "tools": {
+        "expected": [
+          "highlight_structures"
+        ],
+        "actual": [],
+        "precision": 0,
+        "recall": 0
+      },
+      "structures": {
+        "expected": [
+          "ribcage",
+          "skull",
+          "pelvis"
+        ],
+        "actual": [],
+        "precision": 0,
+        "recall": 0,
+        "invalidIds": []
+      },
+      "quality": {
+        "mustContainMet": false,
+        "mustNotContainViolations": []
+      },
+      "errors": [
+        "API call failed"
+      ]
+    },
+    {
+      "queryId": "system-specific-013",
+      "category": "system-specific",
+      "query": "Compare the bone structure of the hand and foot.",
+      "passed": true,
+      "metrics": {
+        "latencyTTFT_ms": 5,
+        "latencyE2E_ms": 8232,
+        "inputTokens": 100,
+        "outputTokens": 150,
+        "costUSD": 0.0027500000000000003
+      },
+      "tools": {
+        "expected": [
+          "highlight_structures"
+        ],
+        "actual": [
+          "highlight_structures"
+        ],
+        "precision": 1,
+        "recall": 1
+      },
+      "structures": {
+        "expected": [
+          "carpals-left",
+          "metacarpals-left",
+          "phalanges-left",
+          "tarsals-left",
+          "tarsals-right",
+          "metatarsals-left",
+          "phalanges-f-left",
+          "carpals-right",
+          "metacarpals-right",
+          "phalanges-right",
+          "metatarsals-right",
+          "phalanges-f-right"
+        ],
+        "actual": [
+          "foot-left",
+          "tarsals-left",
+          "metatarsals-left",
+          "phalanges-left",
+          "tarsals-right",
+          "metatarsals-right",
+          "phalanges-right",
+          "carpals-left",
+          "carpals-right",
+          "metacarpals-left",
+          "metacarpals-right"
+        ],
+        "precision": 0.9090909090909091,
+        "recall": 0.8333333333333334,
+        "invalidIds": []
+      },
+      "quality": {
+        "mustContainMet": true,
+        "mustNotContainViolations": []
+      },
+      "errors": []
+    },
+    {
+      "queryId": "system-specific-014",
+      "category": "system-specific",
+      "query": "Show the skeletal framework of the torso.",
+      "passed": false,
+      "metrics": {
+        "latencyTTFT_ms": 12153,
+        "latencyE2E_ms": 20275,
+        "inputTokens": 100,
+        "outputTokens": 150,
+        "costUSD": 0.0027500000000000003
+      },
+      "tools": {
+        "expected": [
+          "show_layer",
+          "highlight_structures"
+        ],
+        "actual": [
+          "highlight_structures"
+        ],
+        "precision": 1,
+        "recall": 0.5
+      },
+      "structures": {
+        "expected": [
+          "skull",
+          "cervical-vertebrae",
+          "thoracic-vertebrae",
+          "lumbar-vertebrae",
+          "ribcage",
+          "sternum",
+          "pelvis"
+        ],
+        "actual": [
+          "pelvis",
+          "sacrum",
+          "coccyx",
+          "lumbar-vertebrae",
+          "ribcage",
+          "thoracic-vertebrae",
+          "sternum"
+        ],
+        "precision": 0.7142857142857143,
+        "recall": 0.7142857142857143,
+        "invalidIds": []
+      },
+      "quality": {
+        "mustContainMet": false,
+        "mustNotContainViolations": []
+      },
+      "errors": []
+    },
+    {
+      "queryId": "system-specific-015",
+      "category": "system-specific",
+      "query": "Which bones form the structural basis for bipedal locomotion?",
+      "passed": false,
+      "metrics": {
+        "latencyTTFT_ms": 5974,
+        "latencyE2E_ms": 16085,
+        "inputTokens": 100,
+        "outputTokens": 150,
+        "costUSD": 0.0027500000000000003
+      },
+      "tools": {
+        "expected": [
+          "highlight_structures"
+        ],
+        "actual": [
+          "highlight_structures"
+        ],
+        "precision": 1,
+        "recall": 1
+      },
+      "structures": {
+        "expected": [
+          "femur-left",
+          "tibia-left",
+          "fibula-left",
+          "pelvis",
+          "sacrum",
+          "femur-right",
+          "tibia-right",
+          "fibula-right"
+        ],
+        "actual": [
+          "foot-left",
+          "foot-right",
+          "femur-right",
+          "femur-left",
+          "fibula-left",
+          "fibula-right",
+          "tibia",
+          "tibia-left",
+          "tibia-right",
+          "patella-left",
+          "patella-right",
+          "pelvis"
+        ],
+        "precision": 0.5833333333333334,
+        "recall": 0.875,
+        "invalidIds": []
+      },
+      "quality": {
+        "mustContainMet": false,
+        "mustNotContainViolations": []
+      },
+      "errors": []
+    }
+  ]
+}

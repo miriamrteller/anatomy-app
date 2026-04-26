@@ -50,7 +50,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "FootLeft"
+        "foot-left"
       ]
     },
     "description": "The composite structure of the left foot, comprising tarsal bones (ankle), metatarsals (midfoot), and phalanges (toes). It is a specialized structure for weight-bearing, balance, and locomotion, with the arches providing shock absorption and propulsive force.",
@@ -72,7 +72,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "TarsalsLeft"
+        "tarsals-left"
       ]
     },
     "description": "Seven bones per ankle: Talus (articulates with tibia), Calcaneus (the heel bone), Navicular, Cuboid, and three Cuneiforms (medial, intermediate, lateral). These bones are larger and stronger than carpals to support the body's entire weight and facilitate the distribution of force during walking.",
@@ -96,7 +96,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "MetatarsalsLeft"
+        "metatarsals-left"
       ]
     },
     "description": "Five bones forming the arch and midfoot. Like the hand, they are numbered 1 (big toe) to 5. The first metatarsal is significantly thicker as it plays a major role in the toe-off phase of walking. They provide the structural bridge between the ankle and the toes.",
@@ -121,7 +121,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "phalanges-left"
+        "phalanges-f-left"
       ]
     },
     "description": "The bones of the toes. The big toe (hallux) has two phalanges: proximal and distal. The other four toes have three: proximal, middle, and distal. While smaller than those in the hand, they are vital for maintaining balance and providing propulsion during the gait cycle.",
@@ -142,7 +142,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "FootRight"
+        "foot-right"
       ]
     },
     "description": "The composite structure of the right foot, comprising tarsal bones (ankle), metatarsals (midfoot), and phalanges (toes). It is a specialized structure for weight-bearing, balance, and locomotion, with the arches providing shock absorption and propulsive force.",
@@ -164,7 +164,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "TarsalsRight"
+        "tarsals-right"
       ]
     },
     "description": "Seven bones per ankle: Talus (articulates with tibia), Calcaneus (the heel bone), Navicular, Cuboid, and three Cuneiforms (medial, intermediate, lateral). These bones are larger and stronger than carpals to support the body's entire weight and facilitate the distribution of force during walking.",
@@ -188,7 +188,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "MetatarsalsRight"
+        "metatarsals-right"
       ]
     },
     "description": "Five bones forming the arch and midfoot. Like the hand, they are numbered 1 (big toe) to 5. The first metatarsal is significantly thicker as it plays a major role in the toe-off phase of walking. They provide the structural bridge between the ankle and the toes.",
@@ -213,7 +213,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "phalanges-right"
+        "phalanges-f-right"
       ]
     },
     "description": "The bones of the toes. The big toe (hallux) has two phalanges: proximal and distal. The other four toes have three: proximal, middle, and distal. While smaller than those in the hand, they are vital for maintaining balance and providing propulsion during the gait cycle.",
@@ -232,7 +232,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "FibulaRight"
+        "fibula-right"
       ]
     },
     "description": "A slender, non-weight-bearing bone on the lateral side of the tibia. Its proximal head does not reach the knee joint, but its distal end, the lateral malleolus, forms the outer prominence of the ankle and provides critical lateral stability to the talocrural (ankle) joint. It serves as a major origin point for leg muscles.",
@@ -249,7 +249,7 @@
         "Lateral malleolus"
       ],
       "boneCount": 1,
-      "svgPathId": "FibulaRight"
+      "svgPathId": "fibula-right"
     }
   },
   {
@@ -262,7 +262,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "TibiaRight"
+        "tibia-right"
       ]
     },
     "description": "The \\\"shinbone\\\"; the second-longest bone in the body and the primary weight-bearing bone of the lower leg. It articulates proximally with the femoral condyles to form the knee and distally with the talus to form the ankle. Its medial malleolus forms the inner prominence of the ankle.",
@@ -281,7 +281,7 @@
         "Medial malleolus"
       ],
       "boneCount": 1,
-      "svgPathId": "TibiaRight"
+      "svgPathId": "tibia-right"
     }
   },
   {
@@ -353,7 +353,9 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "Scapula"
+        "scapula",
+        "scapular-left",
+        "scapula-right"
       ]
     },
     "description": "The shoulder blade; a flat, triangular bone on the posterolateral aspect of the thorax (ribs 2-7). Key landmarks include the glenoid cavity (socket for the humerus), the acromion (the high point of the shoulder), and the coronoid process. It provides an expansive surface for the attachment of the rotator cuff muscles, facilitating complex shoulder mobility.",
@@ -373,7 +375,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "Coccyx"
+        "coccyx"
       ]
     },
     "description": "Small triangular bone formed by fusion of 3-5 coccygeal vertebrae at the base of spine.",
@@ -384,7 +386,7 @@
       "articulations": [
         "Sacrum"
       ],
-      "svgPathId": "Coccyx"
+      "svgPathId": "coccyx"
     }
   },
   {
@@ -398,7 +400,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "Sacrum"
+        "sacrum"
       ]
     },
     "description": "Large triangular bone formed by fusion of 5 sacral vertebrae. Base of the spine, articulates with pelvis.",
@@ -415,7 +417,7 @@
         "Sacral foramina",
         "Sacral promontory"
       ],
-      "svgPathId": "Sacrum"
+      "svgPathId": "sacrum"
     }
   },
   {
@@ -429,7 +431,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "LumbarVertebrae"
+        "lumbar-vertebrae"
       ]
     },
     "description": "The largest and thickest vertebrae (L1–L5) in the lower back. They lack costal facets and transverse foramina. Their massive, kidney-shaped bodies are designed to support the weight of the entire upper body and facilitate lifting and twisting.",
@@ -449,7 +451,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "ThoracicVertebrae"
+        "thoracic-vertebrae"
       ]
     },
     "description": "Twelve mid-back vertebrae (T1–T12). They feature costal facets on their bodies and transverse processes for rib articulation. They have long, downward-pointing spinous processes that limit over-extension, providing a stable anchor for the rib cage.",
@@ -469,7 +471,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "CervicalVertebrae"
+        "cervical-vertebrae"
       ]
     },
     "description": "The seven vertebrae of the neck (C1–C7). Unique for their transverse foramina (passageways for vertebral arteries). C1 (Atlas) supports the skull and lacks a body; C2 (Axis) has the dens (odontoid process) which acts as a pivot for head rotation.",
@@ -491,7 +493,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "Skull"
+        "skull"
       ]
     },
     "description": "The complete skeletal structure of the head, consisting of 22 bones. Divided into the neurocranium (brain case) and viscerocranium (facial skeleton). It protects the brain, houses sensory organs, supports facial features, and provides attachment points for muscles and ligaments.",
@@ -511,7 +513,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "Mandible"
+        "mandible"
       ]
     },
     "description": "The largest, strongest, and only movable bone of the skull. It consists of a horizontal body housing the lower teeth and two vertical rami. The condylar process articulates with the temporal bone (TMJ), while the coronoid process serves as a lever for the temporalis muscle during chewing. It is the primary structural component of the lower face.",
@@ -552,7 +554,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "Cranium"
+        "cranium"
       ]
     },
     "description": "The brain case or neurocranium, consisting of 8 bones designed for the protection and housing of sensory organs. It includes the frontal, parietal, temporal, occipital, sphenoid, and ethmoid bones, which articulate to form a protective vault around the brain.",
@@ -572,7 +574,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "Manubrium"
+        "manubrium"
       ]
     },
     "description": "The superior part of the sternum (breastbone). It articulates with the clavicles and the first pair of ribs. It serves as a landmark for clinical examination and chest tube insertion and is palpable just below the neck.",
@@ -591,7 +593,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "ClavicleRight"
+        "clavicle-right"
       ]
     },
     "description": "The \\\"collarbone\\\"; a doubly-curved long bone that serves as a horizontal strut connecting the upper limb to the axial skeleton. It articulates medially with the sternum (sternoclavicular joint) and laterally with the acromion of the scapula (acromioclavicular joint). It acts as a shock absorber and provides the only bony attachment between the trunk and the arm.",
@@ -607,7 +609,7 @@
         "S-shaped curvature"
       ],
       "boneCount": 1,
-      "svgPathId": "ClavicleRight"
+      "svgPathId": "clavicle-right"
     }
   },
   {
@@ -620,7 +622,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "ClavicleLeft"
+        "clavicle-left"
       ]
     },
     "description": "The \\\"collarbone\\\"; a doubly-curved long bone that serves as a horizontal strut connecting the upper limb to the axial skeleton. It articulates medially with the sternum (sternoclavicular joint) and laterally with the acromion of the scapula (acromioclavicular joint). It acts as a shock absorber and provides the only bony attachment between the trunk and the arm.",
@@ -636,7 +638,7 @@
         "S-shaped curvature"
       ],
       "boneCount": 1,
-      "svgPathId": "ClavicleLeft"
+      "svgPathId": "clavicle-left"
     }
   },
   {
@@ -649,7 +651,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "HumerusLeft"
+        "humerus-left"
       ]
     },
     "description": "The longest and largest bone of the upper limb. Proximally, its smooth head fits into the glenoid cavity. Distally, it features the trochlea and capitulum for articulation with the ulna and radius at the elbow. Significant landmarks include the deltoid tuberosity for muscle attachment and the bicipital groove which houses the long head of the biceps tendon.",
@@ -668,7 +670,7 @@
         "Olecranon fossa"
       ],
       "boneCount": 1,
-      "svgPathId": "HumerusLeft"
+      "svgPathId": "humerus-left"
     }
   },
   {
@@ -682,7 +684,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "RadiusLeft"
+        "radius-left"
       ]
     },
     "description": "The lateral bone of the forearm, situated on the thumb side. Its disc-shaped head articulates with the humerus and the radial notch of the ulna. It is the primary bone involved in the wrist joint (radiocarpal joint). Its unique ability to pivot over the ulna allows for pronation (palm down) and supination (palm up).",
@@ -701,7 +703,7 @@
         "Styloid process"
       ],
       "boneCount": 1,
-      "svgPathId": "RadiusLeft"
+      "svgPathId": "radius-left"
     }
   },
   {
@@ -715,7 +717,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "UlnaLeft"
+        "ulna-left"
       ]
     },
     "description": "The medial bone of the forearm (pinky side). It is longer than the radius and acts as the stabilizing bone. Its hook-like olecranon process forms the bony point of the elbow and fits into the olecranon fossa of the humerus. It articulates with the radius proximally and distally but does not articulate directly with the carpal bones of the wrist.",
@@ -733,7 +735,7 @@
         "Styloid process"
       ],
       "boneCount": 1,
-      "svgPathId": "UlnaLeft"
+      "svgPathId": "ulna-left"
     }
   },
   {
@@ -746,7 +748,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "HumerusRight"
+        "humerus-right"
       ]
     },
     "description": "The longest and largest bone of the upper limb. Proximally, its smooth head fits into the glenoid cavity. Distally, it features the trochlea and capitulum for articulation with the ulna and radius at the elbow. Significant landmarks include the deltoid tuberosity for muscle attachment and the bicipital groove which houses the long head of the biceps tendon.",
@@ -765,7 +767,7 @@
         "Olecranon fossa"
       ],
       "boneCount": 1,
-      "svgPathId": "HumerusRight"
+      "svgPathId": "humerus-right"
     }
   },
   {
@@ -779,7 +781,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "UlnaRight"
+        "ulna-right"
       ]
     },
     "description": "The medial bone of the forearm (pinky side). It is longer than the radius and acts as the stabilizing bone. Its hook-like olecranon process forms the bony point of the elbow and fits into the olecranon fossa of the humerus. It articulates with the radius proximally and distally but does not articulate directly with the carpal bones of the wrist.",
@@ -797,7 +799,7 @@
         "Styloid process"
       ],
       "boneCount": 1,
-      "svgPathId": "UlnaRight"
+      "svgPathId": "ulna-right"
     }
   },
   {
@@ -811,7 +813,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "RadiusRight"
+        "radius-right"
       ]
     },
     "description": "The lateral bone of the forearm, situated on the thumb side. Its disc-shaped head articulates with the humerus and the radial notch of the ulna. It is the primary bone involved in the wrist joint (radiocarpal joint). Its unique ability to pivot over the ulna allows for pronation (palm down) and supination (palm up).",
@@ -830,7 +832,7 @@
         "Styloid process"
       ],
       "boneCount": 1,
-      "svgPathId": "RadiusRight"
+      "svgPathId": "radius-right"
     }
   },
   {
@@ -845,7 +847,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "HandLeft"
+        "hand-left"
       ]
     },
     "description": "The composite skeletal structure of the left hand, comprising carpal bones (wrist), metacarpals (palm), and phalanges (fingers). It is optimized for manipulation and fine motor control, allowing for both powerful gripping and precise movements.",
@@ -867,7 +869,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "CarpalsLeft"
+        "carpals-left"
       ]
     },
     "description": "Eight small, irregular bones per wrist arranged in two rows. Proximal row: Scaphoid, Lunate, Triquetrum, Pisiform. Distal row: Trapezium, Trapezoid, Capitate, Hamate. These bones glide against one another to allow the wrist its multi-axial range of movement and provide a stable base for the metacarpals.",
@@ -891,7 +893,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "MetacarpalsLeft"
+        "metacarpals-left"
       ]
     },
     "description": "Five miniature long bones per hand forming the framework of the palm. They are numbered 1 (thumb) to 5 (pinky). Each consists of a base (proximal), a shaft, and a head (distal), the latter of which forms the knuckles when the hand is clenched. They provide the structural span between the wrist and the fingers.",
@@ -911,7 +913,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "PhalangesLeft"
+        "phalanges-left"
       ]
     },
     "description": "The bones of the fingers. Each finger (2-5) contains three phalanges: proximal, middle, and distal. The thumb (pollex) contains only two: proximal and distal. These bones provide the leverage needed for both power grips and the precision grip required for fine motor tasks.",
@@ -932,7 +934,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "HandRight"
+        "hand-right"
       ]
     },
     "description": "The composite skeletal structure of the right hand, comprising carpal bones (wrist), metacarpals (palm), and phalanges (fingers). It is optimized for manipulation and fine motor control, allowing for both powerful gripping and precise movements.",
@@ -954,7 +956,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "CarpalsRight"
+        "carpals-right"
       ]
     },
     "description": "Eight small, irregular bones per wrist arranged in two rows. Proximal row: Scaphoid, Lunate, Triquetrum, Pisiform. Distal row: Trapezium, Trapezoid, Capitate, Hamate. These bones glide against one another to allow the wrist its multi-axial range of movement and provide a stable base for the metacarpals.",
@@ -974,7 +976,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "PhalangesRight"
+        "phalanges-right"
       ]
     },
     "description": "The bones of the fingers. Each finger (2-5) contains three phalanges: proximal, middle, and distal. The thumb (pollex) contains only two: proximal and distal. These bones provide the leverage needed for both power grips and the precision grip required for fine motor tasks.",
@@ -998,7 +1000,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "MetacarpalsRight"
+        "metacarpals-right"
       ]
     },
     "description": "Five miniature long bones per hand forming the framework of the palm. They are numbered 1 (thumb) to 5 (pinky). Each consists of a base (proximal), a shaft, and a head (distal), the latter of which forms the knuckles when the hand is clenched. They provide the structural span between the wrist and the fingers.",
@@ -1017,7 +1019,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "Sternum"
+        "sternum"
       ]
     },
     "description": "The breastbone; a flat bone in the center of the chest. It consists of the manubrium (articulating with clavicles and 1st rib), the body (articulating with ribs 2-7), and the xiphoid process (cartilaginous in youth, ossifies in adults). It protects the heart and provides a central anchor for the rib cage.",
@@ -1033,7 +1035,7 @@
         "Ribs",
         "Clavicles"
       ],
-      "svgPathId": "Sternum"
+      "svgPathId": "sternum"
     }
   },
   {
@@ -1046,7 +1048,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "FibulaLeft"
+        "fibula-left"
       ]
     },
     "description": "A slender, non-weight-bearing bone on the lateral side of the tibia. Its proximal head does not reach the knee joint, but its distal end, the lateral malleolus, forms the outer prominence of the ankle and provides critical lateral stability to the talocrural (ankle) joint. It serves as a major origin point for leg muscles.",
@@ -1063,7 +1065,7 @@
         "Lateral malleolus"
       ],
       "boneCount": 1,
-      "svgPathId": "FibulaLeft"
+      "svgPathId": "fibula-left"
     }
   },
   {
@@ -1076,7 +1078,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "TibiaLeft"
+        "tibia-left"
       ]
     },
     "description": "The \\\"shinbone\\\"; the second-longest bone in the body and the primary weight-bearing bone of the lower leg. It articulates proximally with the femoral condyles to form the knee and distally with the talus to form the ankle. Its medial malleolus forms the inner prominence of the ankle.",
@@ -1108,7 +1110,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "PatellaRight"
+        "patella-right"
       ]
     },
     "description": "The \\\"kneecap\\\"; a large, flat sesamoid bone triangular in shape. It is situated within the quadriceps femoris tendon and articulates with the patellar surface of the femur. Its primary function is to increase the mechanical advantage (leverage) of the quadriceps muscle during leg extension and to protect the knee joint.",
@@ -1120,7 +1122,7 @@
         "Femur (patellar surface)"
       ],
       "boneCount": 1,
-      "svgPathId": "PatellaRight"
+      "svgPathId": "patella-right"
     }
   },
   {
@@ -1133,7 +1135,7 @@
     "category": "BONE",
     "svgPathIds": {
       "SKELETAL": [
-        "PatellaLeft"
+        "patella-left"
       ]
     },
     "description": "The \\\"kneecap\\\"; a large, flat sesamoid bone triangular in shape. It is situated within the quadriceps femoris tendon and articulates with the patellar surface of the femur. Its primary function is to increase the mechanical advantage (leverage) of the quadriceps muscle during leg extension and to protect the knee joint.",
@@ -1145,7 +1147,7 @@
         "Femur (patellar surface)"
       ],
       "boneCount": 1,
-      "svgPathId": "PatellaLeft"
+      "svgPathId": "patella-left"
     }
   },
   {
@@ -1156,7 +1158,11 @@
     ],
     "system": "SKELETAL",
     "category": "BONE",
-    "svgPathIds": {},
+    "svgPathIds": {
+      "SKELETAL": [
+        "skull"
+      ]
+    },
     "description": "Large, quadrilateral, paired bones forming the bulk of the cranial vault's roof and sides. They articulate with each other at the sagittal suture, the frontal bone at the coronal suture, and the occipital bone at the lambdoid suture. Their internal surface features grooves for the middle meningeal artery, making them clinically significant in head trauma cases.",
     "metadata": {
       "boneType": "Flat",
@@ -2790,6 +2796,159 @@
     }
   },
   {
+    "name": "Tibia",
+    "latinName": "Tibia",
+    "aliases": [
+      "shinbone",
+      "tibial bone"
+    ],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {
+      "SKELETAL": [
+        "tibia"
+      ]
+    },
+    "description": "The primary weight-bearing bone of the lower leg when considered as a whole structure.",
+    "metadata": {
+      "boneType": "Long",
+      "region": "Lower limb",
+      "source": "auto-generated from SVG"
+    }
+  },
+  {
+    "name": "Ribcage",
+    "latinName": "Thoracic Cage",
+    "aliases": [
+      "rib cage",
+      "chest cage",
+      "thorax",
+      "ribs"
+    ],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {
+      "SKELETAL": [
+        "ribcage"
+      ]
+    },
+    "description": "The complete rib cage structure consisting of the ribs, sternum, and vertebrae that protect the thoracic organs.",
+    "metadata": {
+      "boneType": "Composite",
+      "region": "Thorax",
+      "source": "auto-generated from SVG"
+    }
+  },
+  {
+    "name": "Teeth",
+    "latinName": "Dentes",
+    "aliases": [
+      "tooth",
+      "dental"
+    ],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {
+      "SKELETAL": [
+        "teeth"
+      ]
+    },
+    "description": "The complete set of teeth in both upper and lower jaws.",
+    "metadata": {
+      "boneType": "Composite",
+      "region": "Head",
+      "source": "auto-generated from SVG"
+    }
+  },
+  {
+    "name": "Knee Joint (Left)",
+    "latinName": "Articulatio genus",
+    "aliases": [
+      "left knee",
+      "knee joint"
+    ],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {
+      "SKELETAL": [
+        "knee-joint-left"
+      ]
+    },
+    "description": "The left knee joint articulation between femur, tibia, and patella.",
+    "metadata": {
+      "jointType": "Modified hinge",
+      "region": "Lower limb",
+      "side": "Left",
+      "source": "auto-generated from SVG"
+    }
+  },
+  {
+    "name": "Knee Joint (Right)",
+    "latinName": "Articulatio genus",
+    "aliases": [
+      "right knee",
+      "knee joint"
+    ],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {
+      "SKELETAL": [
+        "knee-joint-right"
+      ]
+    },
+    "description": "The right knee joint articulation between femur, tibia, and patella.",
+    "metadata": {
+      "jointType": "Modified hinge",
+      "region": "Lower limb",
+      "side": "Right",
+      "source": "auto-generated from SVG"
+    }
+  },
+  {
+    "name": "Hip Joint (Left)",
+    "latinName": "Articulatio coxae",
+    "aliases": [
+      "left hip",
+      "hip joint"
+    ],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {
+      "SKELETAL": [
+        "hip-joint-left"
+      ]
+    },
+    "description": "The left hip joint articulation between femur and pelvis (acetabulum).",
+    "metadata": {
+      "jointType": "Ball and socket",
+      "region": "Lower limb",
+      "side": "Left",
+      "source": "auto-generated from SVG"
+    }
+  },
+  {
+    "name": "Hip Joint (Right)",
+    "latinName": "Articulatio coxae",
+    "aliases": [
+      "right hip",
+      "hip joint"
+    ],
+    "system": "SKELETAL",
+    "category": "BONE",
+    "svgPathIds": {
+      "SKELETAL": [
+        "hip-joint-right"
+      ]
+    },
+    "description": "The right hip joint articulation between femur and pelvis (acetabulum).",
+    "metadata": {
+      "jointType": "Ball and socket",
+      "region": "Lower limb",
+      "side": "Right",
+      "source": "auto-generated from SVG"
+    }
+  },
+  {
     "name": "Fibula (Right)",
     "latinName": "Fibula",
     "aliases": [
@@ -2797,7 +2956,11 @@
     ],
     "system": "SKELETAL",
     "category": "BONE",
-    "svgPathIds": {},
+    "svgPathIds": {
+      "SKELETAL": [
+        "fibula-right"
+      ]
+    },
     "description": "A slender, non-weight-bearing bone on the lateral side of the tibia. Its proximal head does not reach the knee joint, but its distal end, the lateral malleolus, forms the outer prominence of the ankle and provides critical lateral stability to the talocrural (ankle) joint. It serves as a major origin point for leg muscles.",
     "metadata": {
       "boneType": "Long",
@@ -2812,8 +2975,7 @@
         "Lateral malleolus"
       ],
       "boneCount": 1,
-      "svgPathId": "FibulaRight",
-      "source": "anatomical reference (database only)"
+      "svgPathId": "fibula-right"
     }
   },
   {
@@ -2824,7 +2986,11 @@
     ],
     "system": "SKELETAL",
     "category": "BONE",
-    "svgPathIds": {},
+    "svgPathIds": {
+      "SKELETAL": [
+        "fibula-left"
+      ]
+    },
     "description": "A slender, non-weight-bearing bone on the lateral side of the tibia. Its proximal head does not reach the knee joint, but its distal end, the lateral malleolus, forms the outer prominence of the ankle and provides critical lateral stability to the talocrural (ankle) joint. It serves as a major origin point for leg muscles.",
     "metadata": {
       "boneType": "Long",
@@ -2839,8 +3005,7 @@
         "Lateral malleolus"
       ],
       "boneCount": 1,
-      "svgPathId": "fibula-left",
-      "source": "anatomical reference (database only)"
+      "svgPathId": "fibula-left"
     }
   }
 ]

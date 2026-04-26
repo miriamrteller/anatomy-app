@@ -10,8 +10,8 @@ export const OLD_TO_NEW_SVG_ID_MAPPING: Record<string, string> = {
   TarsalsRight: "tarsals-right",
   MetatarsalsLeft: "metatarsals-left",
   MetatarsalsRight: "metatarsals-right",
-  PhalangesFootLeft: "phalanges-left",
-  PhalangesFootRight: "phalanges-right",
+  PhalangesFootLeft: "phalanges-f-left",
+  PhalangesFootRight: "phalanges-f-right",
 
   // Legs
   FemurLeft: "femur-left",
@@ -29,12 +29,12 @@ export const OLD_TO_NEW_SVG_ID_MAPPING: Record<string, string> = {
   // Joints
   KneeJointLeft: "knee-joint-left",
   KneeJointRight: "knee-joint-right",
-  HipJoint: "hip-joint",
+  HipJoint: "hip-joint-left",
   HipJointRight: "hip-joint-right",
 
   // Pelvis
   Pelvis: "pelvis",
-  PelvicGirdle: "", // Empty in new SVG
+  PelvicGirdle: "pelvic-girdle",
 
   // Spine
   Sacrum: "sacrum",
@@ -80,7 +80,6 @@ export const OLD_TO_NEW_SVG_ID_MAPPING: Record<string, string> = {
   MetacarpalsRight: "metacarpals-right",
   PhalangesLeft: "phalanges-left",
   PhalangesRight: "phalanges-right",
-  PhalengesLeft: "phalanges-left", // Alternative spelling
 };
 
 /**

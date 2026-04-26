@@ -13,7 +13,7 @@
 import * as fs from "fs";
 import * as path from "path";
 import { fileURLToPath } from "url";
-import { VALID_SVG_IDS, ValidSvgId, isValidSvgId } from "../tests/evals/types";
+import { VALID_SVG_IDS, isValidSvgId } from "../tests/evals/types";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -123,7 +123,7 @@ async function callChatAPI(
     const response = await fetch(`${API_BASE}/api/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: query }),
+      body: JSON.stringify({ question: query }),
       signal: AbortSignal.timeout(TIMEOUT_MS),
     });
 
@@ -146,20 +146,38 @@ async function callChatAPI(
       if (ttftTime === 0 && fullResponse.length > 0) {
         ttftTime = Date.now() - startTime;
       }
-
-      // Extract tool calls from SSE events
-      const toolMatch = chunk.match(/"toolName":"(\w+)"/g);
-      if (toolMatch) {
-        toolMatch.forEach((match) => {
-          const toolName = match.match(/"toolName":"(\w+)"/)![1];
-          if (!toolCalls.includes(toolName)) {
-            toolCalls.push(toolName);
-          }
-        });
-      }
     }
 
     const e2eTime = Date.now() - startTime;
+
+    // DEBUG: Check what we got
+    if (queryId === 'straightforward-001') {
+      console.log('DEBUG fullResponse length:', fullResponse.length);
+      console.log('DEBUG fullResponse preview:', fullResponse.substring(0, 500));
+      console.log('DEBUG fullResponse contains "tool_call":', fullResponse.includes('tool_call'));
+    }
+
+    // Extract tool calls from the complete SSE response
+    // Split by \n\n to get individual SSE messages, then parse JSON
+    const sseMessages = fullResponse.split('\n\n');
+    for (const message of sseMessages) {
+      if (message.trim().startsWith('data: ')) {
+        try {
+          const jsonStr = message.replace('data: ', '').trim();
+          if (jsonStr) {
+            const eventData = JSON.parse(jsonStr);
+            if (eventData.event === 'tool_call' && eventData.data?.tool_name) {
+              const toolName = eventData.data.tool_name;
+              if (!toolCalls.includes(toolName)) {
+                toolCalls.push(toolName);
+              }
+            }
+          }
+        } catch {
+          // Skip messages that aren't valid JSON (e.g., incomplete)
+        }
+      }
+    }
 
     // Extract token counts from response metadata
     const tokenMatch = fullResponse.match(
@@ -298,7 +316,9 @@ async function runEval(): Promise<void> {
 
     const passed =
       toolMetrics.precision >= 0.8 &&
+      toolMetrics.recall >= 0.7 &&
       structureMetrics.precision >= 0.85 &&
+      structureMetrics.recall >= 0.7 &&
       mustContainMet &&
       mustNotContainViolations.length === 0 &&
       invalidIds.length === 0 &&

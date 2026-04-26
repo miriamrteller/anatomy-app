@@ -142,11 +142,11 @@ export async function chat(req: Request, res: Response): Promise<void> {
       console.log(`\n🔄 Agent Loop Iteration ${iteration}/${MAX_ITERATIONS}`);
 
       // ========================================================
-      // STEP 4a: Call GPT-4o with Tools
+      // STEP 4a: Call GPT-4o-mini with Tools
       // ========================================================
       const openai = getOpenAIClient();
       const response = await openai.chat.completions.create({
-        model: 'gpt-4o',
+        model: 'gpt-4o-mini',
         messages: messageHistory as any,
         tools: AGENT_TOOLS as any,
         tool_choice: 'auto', // Let GPT-4 decide whether to call a tool
