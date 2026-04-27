@@ -14,10 +14,11 @@
 
 import { processStream } from '../processor'
 import { StreamHandlerCallbacks, StreamResponse, ProcessorConfig } from '../types'
+import { config } from '../../config'
 
 /** Configuration specific to chat handler */
 export interface ChatHandlerConfig extends ProcessorConfig {
-  /** API endpoint for chat. Default: http://localhost:3000/api/chat */
+  /** API endpoint for chat. Default: from VITE_API_URL env var */
   endpoint?: string
 }
 
@@ -34,23 +35,19 @@ export interface ChatHandlerConfig extends ProcessorConfig {
 export async function handleChat(
   question: string,
   callbacks: StreamHandlerCallbacks,
-  config: ChatHandlerConfig = {}
+  chatConfig: ChatHandlerConfig = {}
 ): Promise<StreamResponse> {
-  const endpoint = config.endpoint || 'http://localhost:3000/api/chat'
+  const endpoint = chatConfig.endpoint || `${config.apiUrl}/api/chat`
 
-  // Validate input
   if (!question?.trim()) {
     throw new Error('Question cannot be empty')
   }
 
-  // POST question to backend
   const response = await fetch(endpoint, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ question })
   })
 
-  // Delegate SSE parsing to generic processor
-  // Processor handles all the complexity: batching, event routing, error handling
-  return processStream(response, callbacks, config)
+  return processStream(response, callbacks, chatConfig)
 }
