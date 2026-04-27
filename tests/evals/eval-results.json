@@ -1,56 +1,56 @@
 {
   "summary": {
     "totalQueries": 21,
-    "passedQueries": 16,
-    "passRate": 0.7619047619047619,
+    "passedQueries": 14,
+    "passRate": 0.6666666666666666,
     "byCategory": {
       "edge-case": {
         "count": 2,
         "passed": 2,
         "passRate": 1,
-        "avgLatencyE2E_ms": 5504.5,
-        "avgCostUSD": 0.01033545
+        "avgLatencyE2E_ms": 8132.5,
+        "avgCostUSD": 0.011100450000000001
       },
       "system-specific": {
         "count": 8,
-        "passed": 6,
-        "passRate": 0.75,
-        "avgLatencyE2E_ms": 7226.75,
-        "avgCostUSD": 0.011684512499999999
+        "passed": 5,
+        "passRate": 0.625,
+        "avgLatencyE2E_ms": 7635.875,
+        "avgCostUSD": 0.0135182625
       },
       "simple": {
         "count": 3,
         "passed": 1,
         "passRate": 0.3333333333333333,
-        "avgLatencyE2E_ms": 4293.666666666667,
-        "avgCostUSD": 0.00962845
+        "avgLatencyE2E_ms": 4149.333333333333,
+        "avgCostUSD": 0.00964045
       },
       "medium": {
         "count": 8,
-        "passed": 7,
-        "passRate": 0.875,
-        "avgLatencyE2E_ms": 7476.875,
-        "avgCostUSD": 0.011968856249999998
+        "passed": 6,
+        "passRate": 0.75,
+        "avgLatencyE2E_ms": 6450.125,
+        "avgCostUSD": 0.01211135625
       }
     },
     "aggregateMetrics": {
-      "avgLatencyTTFT_ms": 513.2380952380952,
-      "avgLatencyE2E_ms": 6739,
+      "avgLatencyTTFT_ms": 712.3333333333334,
+      "avgLatencyE2E_ms": 6733.380952380952,
       "avgInputTokens": 1364.1904761904761,
-      "avgOutputTokens": 1861,
-      "totalCostUSD": 0.2387832
+      "avgOutputTokens": 1998.904761904762,
+      "totalCostUSD": 0.2561591999999999
     },
     "tools": {
-      "avgPrecision": 1,
+      "avgPrecision": 0.9523809523809523,
       "avgRecall": 1
     },
     "structures": {
-      "avgPrecision": 0.8461038961038961,
-      "avgRecall": 0.8857142857142858,
+      "avgPrecision": 0.854834054834055,
+      "avgRecall": 0.9047619047619048,
       "invalidIdRate": 0
     },
-    "timestamp": "2026-04-27T09:00:11.966Z",
-    "duration_seconds": 143.804
+    "timestamp": "2026-04-27T10:33:08.597Z",
+    "duration_seconds": 143.675
   },
   "results": [
     {
@@ -59,11 +59,11 @@
       "query": "What are fontanels?",
       "passed": true,
       "metrics": {
-        "latencyTTFT_ms": 761,
-        "latencyE2E_ms": 5209,
+        "latencyTTFT_ms": 645,
+        "latencyE2E_ms": 5833,
         "inputTokens": 1363,
-        "outputTokens": 1567,
-        "costUSD": 0.00960645
+        "outputTokens": 1649,
+        "costUSD": 0.01009845
       },
       "tools": {
         "expected": [],
@@ -91,11 +91,11 @@
       "query": "Name all the ankle bones.",
       "passed": true,
       "metrics": {
-        "latencyTTFT_ms": 6,
-        "latencyE2E_ms": 5800,
+        "latencyTTFT_ms": 5,
+        "latencyE2E_ms": 10432,
         "inputTokens": 1363,
-        "outputTokens": 1810,
-        "costUSD": 0.01106445
+        "outputTokens": 1983,
+        "costUSD": 0.01210245
       },
       "tools": {
         "expected": [
@@ -130,11 +130,11 @@
       "query": "Highlight the knee and ankle joints.",
       "passed": false,
       "metrics": {
-        "latencyTTFT_ms": 2394,
-        "latencyE2E_ms": 7758,
+        "latencyTTFT_ms": 2438,
+        "latencyE2E_ms": 7394,
         "inputTokens": 1364,
-        "outputTokens": 1795,
-        "costUSD": 0.0109746
+        "outputTokens": 1788,
+        "costUSD": 0.010932599999999999
       },
       "tools": {
         "expected": [
@@ -159,7 +159,7 @@
         "invalidIds": []
       },
       "quality": {
-        "mustContainMet": true,
+        "mustContainMet": false,
         "mustNotContainViolations": []
       },
       "errors": []
@@ -168,26 +168,29 @@
       "queryId": "system-specific-009",
       "category": "system-specific",
       "query": "Highlight all the upper limb bones.",
-      "passed": true,
+      "passed": false,
       "metrics": {
-        "latencyTTFT_ms": 2351,
-        "latencyE2E_ms": 7591,
+        "latencyTTFT_ms": 6637,
+        "latencyE2E_ms": 20240,
         "inputTokens": 1364,
-        "outputTokens": 2244,
-        "costUSD": 0.0136686
+        "outputTokens": 4742,
+        "costUSD": 0.0286566
       },
       "tools": {
         "expected": [
           "highlight_structures"
         ],
         "actual": [
-          "highlight_structures"
+          "highlight_structures",
+          "get_related_structures"
         ],
-        "precision": 1,
+        "precision": 0.5,
         "recall": 1
       },
       "structures": {
         "actual": [
+          "phalanges-left",
+          "phalanges-right",
           "scapula",
           "scapula-right",
           "clavicle-left",
@@ -199,10 +202,14 @@
           "ulna-left",
           "ulna-right",
           "hand-left",
-          "hand-right"
+          "hand-right",
+          "carpals-left",
+          "carpals-right",
+          "metacarpals-left",
+          "metacarpals-right"
         ],
-        "precision": 0.75,
-        "recall": 0.6,
+        "precision": 0.8333333333333334,
+        "recall": 1,
         "invalidIds": []
       },
       "quality": {
@@ -217,11 +224,11 @@
       "query": "Highlight the spine and ribcage.",
       "passed": true,
       "metrics": {
-        "latencyTTFT_ms": 6,
-        "latencyE2E_ms": 7099,
+        "latencyTTFT_ms": 5,
+        "latencyE2E_ms": 7329,
         "inputTokens": 1365,
-        "outputTokens": 1846,
-        "costUSD": 0.01128075
+        "outputTokens": 1832,
+        "costUSD": 0.01119675
       },
       "tools": {
         "expected": [
@@ -256,11 +263,11 @@
       "query": "Highlight the pelvic girdle, sacrum, and coccyx.",
       "passed": true,
       "metrics": {
-        "latencyTTFT_ms": 8,
-        "latencyE2E_ms": 6955,
+        "latencyTTFT_ms": 3,
+        "latencyE2E_ms": 5002,
         "inputTokens": 1371,
-        "outputTokens": 1760,
-        "costUSD": 0.01076565
+        "outputTokens": 1752,
+        "costUSD": 0.01071765
       },
       "tools": {
         "expected": [
@@ -295,11 +302,11 @@
       "query": "Highlight the skull, ribcage, and pelvis.",
       "passed": true,
       "metrics": {
-        "latencyTTFT_ms": 4,
-        "latencyE2E_ms": 6087,
+        "latencyTTFT_ms": 5,
+        "latencyE2E_ms": 4565,
         "inputTokens": 1368,
-        "outputTokens": 1784,
-        "costUSD": 0.0109092
+        "outputTokens": 1832,
+        "costUSD": 0.011197200000000001
       },
       "tools": {
         "expected": [
@@ -334,11 +341,11 @@
       "query": "Show the hand and foot skeletal structures.",
       "passed": false,
       "metrics": {
-        "latencyTTFT_ms": 3,
-        "latencyE2E_ms": 5512,
+        "latencyTTFT_ms": 6,
+        "latencyE2E_ms": 4181,
         "inputTokens": 1365,
-        "outputTokens": 1727,
-        "costUSD": 0.01056675
+        "outputTokens": 1729,
+        "costUSD": 0.01057875
       },
       "tools": {
         "expected": [
@@ -373,11 +380,11 @@
       "query": "Highlight the ribcage, sternum, and thoracic vertebrae.",
       "passed": true,
       "metrics": {
-        "latencyTTFT_ms": 3,
-        "latencyE2E_ms": 7644,
+        "latencyTTFT_ms": 9,
+        "latencyE2E_ms": 5439,
         "inputTokens": 1373,
-        "outputTokens": 1781,
-        "costUSD": 0.010891950000000001
+        "outputTokens": 1749,
+        "costUSD": 0.01069995
       },
       "tools": {
         "expected": [
@@ -412,11 +419,11 @@
       "query": "Highlight the leg bones and pelvis.",
       "passed": true,
       "metrics": {
-        "latencyTTFT_ms": 5,
-        "latencyE2E_ms": 9168,
+        "latencyTTFT_ms": 6,
+        "latencyE2E_ms": 6937,
         "inputTokens": 1364,
-        "outputTokens": 2369,
-        "costUSD": 0.0144186
+        "outputTokens": 2327,
+        "costUSD": 0.0141666
       },
       "tools": {
         "expected": [
@@ -458,11 +465,11 @@
       "query": "Where is the femur?",
       "passed": true,
       "metrics": {
-        "latencyTTFT_ms": 3,
-        "latencyE2E_ms": 4777,
+        "latencyTTFT_ms": 6,
+        "latencyE2E_ms": 4031,
         "inputTokens": 1363,
-        "outputTokens": 1614,
-        "costUSD": 0.00988845
+        "outputTokens": 1607,
+        "costUSD": 0.00984645
       },
       "tools": {
         "expected": [
@@ -477,7 +484,8 @@
       "structures": {
         "actual": [
           "femur-right",
-          "femur-left"
+          "femur-left",
+          "pelvis"
         ],
         "precision": 1,
         "recall": 1,
@@ -495,11 +503,11 @@
       "query": "Show me the skull.",
       "passed": false,
       "metrics": {
-        "latencyTTFT_ms": 5,
-        "latencyE2E_ms": 3861,
+        "latencyTTFT_ms": 3,
+        "latencyE2E_ms": 4452,
         "inputTokens": 1362,
-        "outputTokens": 1578,
-        "costUSD": 0.0096723
+        "outputTokens": 1586,
+        "costUSD": 0.0097203
       },
       "tools": {
         "expected": [
@@ -531,11 +539,11 @@
       "query": "What is the ribcage?",
       "passed": false,
       "metrics": {
-        "latencyTTFT_ms": 3,
-        "latencyE2E_ms": 4243,
+        "latencyTTFT_ms": 4,
+        "latencyE2E_ms": 3965,
         "inputTokens": 1364,
-        "outputTokens": 1520,
-        "costUSD": 0.009324599999999999
+        "outputTokens": 1525,
+        "costUSD": 0.0093546
       },
       "tools": {
         "expected": [],
@@ -563,11 +571,11 @@
       "query": "Show me the spine.",
       "passed": true,
       "metrics": {
-        "latencyTTFT_ms": 1073,
-        "latencyE2E_ms": 4943,
+        "latencyTTFT_ms": 1230,
+        "latencyE2E_ms": 4651,
         "inputTokens": 1362,
-        "outputTokens": 1756,
-        "costUSD": 0.0107403
+        "outputTokens": 1850,
+        "costUSD": 0.0113043
       },
       "tools": {
         "expected": [
@@ -581,10 +589,11 @@
       },
       "structures": {
         "actual": [
+          "sacrum",
+          "coccyx",
           "lumbar-vertebrae",
           "thoracic-vertebrae",
-          "cervical-vertebrae",
-          "skull"
+          "cervical-vertebrae"
         ],
         "precision": 1,
         "recall": 1,
@@ -603,10 +612,10 @@
       "passed": true,
       "metrics": {
         "latencyTTFT_ms": 3,
-        "latencyE2E_ms": 5919,
+        "latencyE2E_ms": 5848,
         "inputTokens": 1363,
-        "outputTokens": 1795,
-        "costUSD": 0.01097445
+        "outputTokens": 1799,
+        "costUSD": 0.01099845
       },
       "tools": {
         "expected": [
@@ -641,11 +650,11 @@
       "query": "Highlight the arm bones.",
       "passed": true,
       "metrics": {
-        "latencyTTFT_ms": 2097,
-        "latencyE2E_ms": 7645,
+        "latencyTTFT_ms": 1638,
+        "latencyE2E_ms": 4670,
         "inputTokens": 1362,
-        "outputTokens": 2174,
-        "costUSD": 0.0132483
+        "outputTokens": 1865,
+        "costUSD": 0.0113943
       },
       "tools": {
         "expected": [
@@ -659,10 +668,6 @@
       },
       "structures": {
         "actual": [
-          "scapula",
-          "scapula-right",
-          "clavicle-left",
-          "clavicle-right",
           "humerus-left",
           "humerus-right",
           "radius-left",
@@ -670,7 +675,7 @@
           "ulna-left",
           "ulna-right"
         ],
-        "precision": 0.9,
+        "precision": 1,
         "recall": 1,
         "invalidIds": []
       },
@@ -686,11 +691,11 @@
       "query": "Show the leg bones.",
       "passed": true,
       "metrics": {
-        "latencyTTFT_ms": 6,
-        "latencyE2E_ms": 13129,
+        "latencyTTFT_ms": 5,
+        "latencyE2E_ms": 7708,
         "inputTokens": 1362,
-        "outputTokens": 2353,
-        "costUSD": 0.0143223
+        "outputTokens": 2308,
+        "costUSD": 0.0140523
       },
       "tools": {
         "expected": [
@@ -729,22 +734,23 @@
       "queryId": "medium-005",
       "category": "medium",
       "query": "What makes up the pelvis?",
-      "passed": true,
+      "passed": false,
       "metrics": {
-        "latencyTTFT_ms": 4,
-        "latencyE2E_ms": 8455,
+        "latencyTTFT_ms": 3,
+        "latencyE2E_ms": 10887,
         "inputTokens": 1363,
-        "outputTokens": 1904,
-        "costUSD": 0.01162845
+        "outputTokens": 2273,
+        "costUSD": 0.013842450000000001
       },
       "tools": {
         "expected": [
           "highlight_structures"
         ],
         "actual": [
-          "highlight_structures"
+          "highlight_structures",
+          "get_related_structures"
         ],
-        "precision": 1,
+        "precision": 0.5,
         "recall": 1
       },
       "structures": {
@@ -771,10 +777,10 @@
       "passed": false,
       "metrics": {
         "latencyTTFT_ms": 3,
-        "latencyE2E_ms": 4864,
+        "latencyE2E_ms": 4010,
         "inputTokens": 1363,
-        "outputTokens": 1530,
-        "costUSD": 0.00938445
+        "outputTokens": 1554,
+        "costUSD": 0.00952845
       },
       "tools": {
         "expected": [
@@ -806,11 +812,11 @@
       "query": "Show the hand skeleton.",
       "passed": true,
       "metrics": {
-        "latencyTTFT_ms": 2036,
-        "latencyE2E_ms": 6528,
+        "latencyTTFT_ms": 2301,
+        "latencyE2E_ms": 6546,
         "inputTokens": 1362,
-        "outputTokens": 2057,
-        "costUSD": 0.0125463
+        "outputTokens": 2118,
+        "costUSD": 0.0129123
       },
       "tools": {
         "expected": [
@@ -850,10 +856,10 @@
       "passed": true,
       "metrics": {
         "latencyTTFT_ms": 4,
-        "latencyE2E_ms": 8332,
+        "latencyE2E_ms": 7281,
         "inputTokens": 1362,
-        "outputTokens": 2117,
-        "costUSD": 0.012906299999999999
+        "outputTokens": 2109,
+        "costUSD": 0.0128583
       },
       "tools": {
         "expected": [

@@ -14,26 +14,26 @@
                      EVALUATION RESULTS                      
 ═══════════════════════════════════════════════════════════
 
-✅ Pass Rate: 57.1% (12/21 queries)
-⏱️  Duration: 144.1 seconds
+✅ Pass Rate: 66.7% (14/21 queries)
+⏱️  Duration: 143.7 seconds
 
 By Category:
-  edge-case: 100% (2/2) | E2E: 5527ms | Cost: $0.01031
-  system-specific: 63% (5/8) | E2E: 7402ms | Cost: $0.02845
-  simple: 33% (1/3) | E2E: 6848ms | Cost: $0.01000
-  medium: 50% (4/8) | E2E: 6380ms | Cost: $0.01167
+  edge-case: 100% (2/2) | E2E: 8133ms | Cost: $0.01110
+  system-specific: 63% (5/8) | E2E: 7636ms | Cost: $0.01352
+  simple: 33% (1/3) | E2E: 4149ms | Cost: $0.00964
+  medium: 75% (6/8) | E2E: 6450ms | Cost: $0.01211
 
 Aggregate Metrics:
-  TTFT: 736ms
-  E2E: 6755ms
-  Tokens: 1364 in / 2915 out
-  Total Cost: $0.37
+  TTFT: 712ms
+  E2E: 6733ms
+  Tokens: 1364 in / 1999 out
+  Total Cost: $0.26
 
 Quality Metrics:
-  Tool Precision: 100.0%
-  Tool Recall: 86.5%
-  Structure Precision: 97.4%
-  Structure Recall: 81.4%
+  Tool Precision: 95.2%
+  Tool Recall: 100.0%
+  Structure Precision: 85.5%
+  Structure Recall: 90.5%
   Invalid SVG ID Rate: 0.0%
 
 📁 Results saved to D:\Miriam\Development\projects\anatomy-app\tests\evals\eval-results.json
@@ -41,11 +41,13 @@ Quality Metrics:
 
 💰 COST SUMMARY
 ================
-This Run: $0.3716
-Cost per Query: $0.0177
-Today: $2.5882 (Budget: $10)
-This Month: $7.24 (Budget: $100)
-All Time: $7.24
-Total Queries: 370
-Total Tokens: 1,709,917
-Avg Cost/Query: $0.0196
+This Run: $0.2562
+Cost per Query: $0.0122
+Today: $18.8868 (Budget: $10)
+This Month: $23.54 (Budget: $100)
+All Time: $23.54
+Total Queries: 1588
+Total Tokens: 6,046,468
+Avg Cost/Query: $0.0148
+
+⚠️  Daily budget exceeded! Spent $18.89 of $10
