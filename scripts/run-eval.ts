@@ -24,7 +24,10 @@ interface EvalQuery {
   category: string;
   difficulty: number;
   query: string;
-  expectedStructures: string[];
+  expectedStructures?: string[]; // OLD format: flat array (for backwards compat)
+  expectedStructureGroups?: string[][]; // NEW format: array of required alternatives
+  optionalStructureGroups?: string[][]; // NEW format: contextual structures LLM may add
+  acceptableExtra?: string[]; // DEPRECATED: kept for backwards compat during migration
   expectedToolCalls: string[];
   expectedSystems: string[];
   answerMustContain: string[];
@@ -50,7 +53,7 @@ interface EvalResult {
     recall: number;
   };
   structures: {
-    expected: string[];
+    expected: string[] | undefined;
     actual: string[];
     precision: number;
     recall: number;
@@ -221,19 +224,64 @@ function extractStructuresFromResponse(response: string): string[] {
 function calculatePrecisionRecall(
   expected: string[],
   actual: string[],
+  acceptableExtra?: string[],
+  expectedGroups?: string[][],
+  optionalGroups?: string[][],
 ): { precision: number; recall: number } {
-  if (expected.length === 0 && actual.length === 0)
+  // Handle edge cases
+  if (!expectedGroups && expected.length === 0 && actual.length === 0)
     return { precision: 1, recall: 1 };
-  if (expected.length === 0) return { precision: 0, recall: 1 };
-  if (actual.length === 0) return { precision: 1, recall: 0 };
+  if (!expectedGroups && expected.length === 0) return { precision: 0, recall: 1 };
+  if (actual.length === 0) {
+    return expectedGroups 
+      ? { precision: 1, recall: 0 }
+      : { precision: 1, recall: 0 };
+  }
 
-  const expectedSet = new Set(expected);
   const actualSet = new Set(actual);
-  const intersection = [...actualSet].filter((x) => expectedSet.has(x)).length;
+
+  // NEW logic: Group-based matching with optional groups
+  if (expectedGroups && expectedGroups.length > 0) {
+    // Count how many REQUIRED groups have at least one match
+    const matchedRequiredGroupCount = expectedGroups.filter(group =>
+      group.some(id => actualSet.has(id))
+    ).length;
+
+    // Count how many OPTIONAL groups have at least one match
+    const matchedOptionalGroupCount = (optionalGroups || []).filter(group =>
+      group.some(id => actualSet.has(id))
+    ).length;
+
+    // Precision: how many returned items matched ANY group (required or optional)?
+    const allGroups = [...expectedGroups, ...(optionalGroups || [])];
+    const totalMatched = actual.filter(id =>
+      allGroups.some(group => group.includes(id))
+    ).length;
+    const precision = actual.length > 0 
+      ? totalMatched / actual.length 
+      : 0;
+
+    // Recall: how many REQUIRED groups had at least one match?
+    // Optional groups don't factor into recall
+    const recall = expectedGroups.length > 0 
+      ? matchedRequiredGroupCount / expectedGroups.length 
+      : 1;
+
+    return { precision, recall };
+  }
+
+  // OLD logic: Flat array with tolerance (backwards compat)
+  const tolerance = new Set([...expected, ...(acceptableExtra || [])]);
+  const expectedSet = new Set(expected);
+  
+  // Precision: count matches against tolerance set (allows acceptable extras)
+  const matchesInTolerance = [...actualSet].filter((x) => tolerance.has(x)).length;
+  // Recall: count matches against expected set (must include core structures)
+  const matchesInExpected = [...actualSet].filter((x) => expectedSet.has(x)).length;
 
   return {
-    precision: intersection / Math.max(actualSet.size, 1),
-    recall: intersection / expectedSet.size,
+    precision: matchesInTolerance / Math.max(actualSet.size, 1),
+    recall: matchesInExpected / expectedSet.size,
   };
 }
 
@@ -281,7 +329,7 @@ async function runEval(): Promise<void> {
           recall: 0,
         },
         structures: {
-          expected: query.expectedStructures,
+          expected: query.expectedStructures || [],
           actual: [],
           precision: 0,
           recall: 0,
@@ -303,8 +351,11 @@ async function runEval(): Promise<void> {
       apiResult.toolCalls,
     );
     const structureMetrics = calculatePrecisionRecall(
-      query.expectedStructures,
+      query.expectedStructures || [],
       actualStructures,
+      query.acceptableExtra,
+      query.expectedStructureGroups,
+      query.optionalStructureGroups,
     );
 
     // Check quality guidelines

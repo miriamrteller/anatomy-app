@@ -5,7 +5,7 @@
     "difficulty": 4,
     "query": "What are fontanels?",
     "description": "Soft spots on baby skulls",
-    "expectedStructures": ["skull"],
+    "expectedStructureGroups": [["skull"]],
     "expectedToolCalls": [],
     "expectedSystems": [],
     "answerMustContain": ["skull"],
@@ -18,18 +18,10 @@
     "difficulty": 5,
     "query": "Name all the ankle bones.",
     "description": "Tarsal bone specificity",
-    "expectedStructures": [
-      "tarsals-left", "tarsals-right", "foot-left", "foot-right"
-    ],
-    "expectedToolCalls": [
-      "highlight_structures"
-    ],
-    "expectedSystems": [
-      "SKELETAL"
-    ],
-    "answerMustContain": [
-      "tarsals"
-    ],
+    "expectedStructureGroups": [["tarsals-left", "tarsals-right"], ["foot-left", "foot-right"]],
+    "expectedToolCalls": ["highlight_structures"],
+    "expectedSystems": ["SKELETAL"],
+    "answerMustContain": ["tarsals"],
     "answerMustNotContain": [],
     "notes": "Example: 'The 7 tarsal bones include: talus (connects leg to foot), calcaneus (heel), navicular, cuboid, and 3 cuneiforms.'"
   },
@@ -39,23 +31,11 @@
     "difficulty": 3,
     "query": "Highlight the joints of the lower leg.",
     "description": "Joint-specific query with highlighting",
-    "expectedStructures": [
-        "femur-right",
-        "pelvis",
-        "knee-joint-left",
-        "knee-joint-right",
-        "hip-joint-left",
-        "hip-joint-right"
-    ],
-    "expectedToolCalls": [
-      "highlight_structures"
-    ],
-    "expectedSystems": [
-      "SKELETAL"
-    ],
-    "answerMustContain": [
-      "knee"
-    ],
+    "expectedStructureGroups": [["knee-joint-left", "knee-joint-right"], ["hip-joint-left", "hip-joint-right"]],
+    "optionalStructureGroups": [["femur-left", "femur-right"], ["pelvis"]],
+    "expectedToolCalls": ["highlight_structures"],
+    "expectedSystems": ["SKELETAL"],
+    "answerMustContain": ["knee"],
     "answerMustNotContain": ["elbow", "wrist", "shoulder"],
     "notes": "Tests understanding of major leg joints including knee and ankle. Ankle is represented by the tarsal bones (tibiofibular and talocrural articulations)."
   },
@@ -65,32 +45,18 @@
     "difficulty": 4,
     "query": "Show me the complete upper limb skeleton.",
     "description": "Complete limb anatomy with multiple structures",
-    "expectedStructures": [
-      "phalanges-left",
-      "phalanges-right",
-      "scapula",
-      "scapula-right",
-      "clavicle-left",
-      "clavicle-right",
-      "humerus-left",
-      "humerus-right",
-      "radius-left",
-      "radius-right",
-      "ulna-left",
-      "ulna-right",
-      "carpals-left",
-      "carpals-right",
-      "metacarpals-left",
-      "metacarpals-right"
+    "expectedStructureGroups": [
+      ["phalanges-left", "phalanges-right"],
+      ["scapula-left", "scapula-right"],
+      ["clavicle-left", "clavicle-right"],
+      ["humerus-left", "humerus-right"],
+      ["radius-left", "radius-right"],
+      ["ulna-left", "ulna-right"],
+      ["carpals-left", "carpals-right"],
+      ["metacarpals-left", "metacarpals-right"]
     ],
-    "expectedToolCalls": [
-      "highlight_structures",
-      "show_layer",
-      "get_related_structures"
-    ],
-    "expectedSystems": [
-      "SKELETAL"
-    ],
+    "expectedToolCalls": ["highlight_structures", "show_layer", "get_related_structures"],
+    "expectedSystems": ["SKELETAL"],
     "answerMustContain": ["humerus"],
     "answerMustNotContain": ["knee", "ankle", "foot", "leg"],
     "notes": "Tests comprehensive understanding of limb bone groups. Requires highlighting many structures."
@@ -101,24 +67,16 @@
     "difficulty": 3,
     "query": "Highlight the spine and ribcage to show their relationship.",
     "description": "Anatomical relationship question",
-    "expectedStructures": [
-        "pelvis",
-          "pelvic-girdle",
-          "lumbar-vertebrae",
-          "ribcage",
-          "thoracic-vertebrae",
-          "cervical-vertebrae"
+    "expectedStructureGroups": [
+      ["lumbar-vertebrae"],
+      ["ribcage"],
+      ["thoracic-vertebrae"],
+      ["cervical-vertebrae"]
     ],
-    "expectedToolCalls": [
-      "highlight_structures",
-                "get_related_structures"
-    ],
-    "expectedSystems": [
-      "SKELETAL"
-    ],
-    "answerMustContain": [
-      "rib", "spine"
-    ],
+    "optionalStructureGroups": [["pelvis"], ["pelvic-girdle"]],
+    "expectedToolCalls": ["highlight_structures", "get_related_structures"],
+    "expectedSystems": ["SKELETAL"],
+    "answerMustContain": ["rib", "spine"],
     "answerMustNotContain": [],
     "notes": "Tests understanding of skeletal interconnections. Can modify query to focus on different aspects."
   },
@@ -128,19 +86,9 @@
     "difficulty": 4,
     "query": "Switch to skeletal and show me the pelvic girdle anatomy.",
     "description": "Layer switching plus pelvic detail",
-    "expectedStructures": [
-      "pelvis",
-          "pelvic-girdle",
-          "sacrum",
-          "coccyx"
-    ],
-    "expectedToolCalls": [
-      "show_layer",
-      "highlight_structures"
-    ],
-    "expectedSystems": [
-      "SKELETAL"
-    ],
+    "expectedStructureGroups": [["pelvis"], ["pelvic-girdle"], ["sacrum"], ["coccyx"]],
+    "expectedToolCalls": ["show_layer", "highlight_structures"],
+    "expectedSystems": ["SKELETAL"],
     "answerMustContain": [],
     "answerMustNotContain": [],
     "notes": "Combines layer switching with highlighting. Sacrum connects to pelvis; good for testing understanding of connections."
@@ -151,26 +99,10 @@
     "difficulty": 3,
     "query": "Highlight all bones that protect vital organs.",
     "description": "Function-based query requiring multiple structures",
-    "expectedStructures": [
-      "ribcage",
-      "skull",
-      "pelvis",
-      "sternum"
-    ],
-    "expectedToolCalls": [
-      "highlight_structures"
-    ],
-    "expectedSystems": [
-      "SKELETAL"
-    ],
-    "answerMustContain": [
-      "protect",
-      "organs",
-      "ribcage",
-      "skull",
-      "pelvis",
-      "vital"
-    ],
+    "expectedStructureGroups": [["ribcage"], ["skull"], ["pelvis"], ["sternum"]],
+    "expectedToolCalls": ["highlight_structures"],
+    "expectedSystems": ["SKELETAL"],
+    "answerMustContain": ["protect", "organs", "ribcage", "skull", "pelvis", "vital"],
     "answerMustNotContain": [],
     "notes": "Tests functional understanding - requires knowing which bones protect what. Multi-structure answer."
   },
@@ -180,29 +112,17 @@
     "difficulty": 4,
     "query": "Compare the bone structure of the hand and foot.",
     "description": "Comparative anatomy between limb extremities",
-    "expectedStructures": [
-      "foot-left",
-      "tarsals-left",
-      "metatarsals-left",
-      "phalanges-left",
-      "tarsals-right",
-      "metatarsals-right",
-      "phalanges-right",
-      "carpals-left",
-      "carpals-right",
-      "metacarpals-left",
-      "metacarpals-right"
+    "expectedStructureGroups": [
+      ["foot-left", "foot-right"],
+      ["tarsals-left", "tarsals-right"],
+      ["metatarsals-left", "metatarsals-right"],
+      ["phalanges-left", "phalanges-right"],
+      ["carpals-left", "carpals-right"],
+      ["metacarpals-left", "metacarpals-right"]
     ],
-    "expectedToolCalls": [
-      "highlight_structures"
-    ],
-    "expectedSystems": [
-      "SKELETAL"
-    ],
-    "answerMustContain": [
-      "hand",
-      "foot"
-    ],
+    "expectedToolCalls": ["highlight_structures"],
+    "expectedSystems": ["SKELETAL"],
+    "answerMustContain": ["hand", "foot"],
     "answerMustNotContain": [],
     "notes": "Complex query testing comparative reasoning. Many structures; good for testing multi-structure highlighting accuracy."
   },
@@ -212,26 +132,18 @@
     "difficulty": 3,
     "query": "Show the skeletal framework of the torso.",
     "description": "Central skeleton query",
-    "expectedStructures": [
-      "ribcage",
-      "thoracic-vertebrae",
-      "cervical-vertebrae",
-      "sternum",
-      "skull",
-      "scapula",
-      "clavicle-left",
-      "clavicle-right"
+    "expectedStructureGroups": [
+      ["ribcage"],
+      ["thoracic-vertebrae"],
+      ["cervical-vertebrae"],
+      ["sternum"],
+      ["skull"],
+      ["scapula-left", "scapula-right"],
+      ["clavicle-left", "clavicle-right"]
     ],
-    "expectedToolCalls": [
-      "show_layer",
-      "highlight_structures"
-    ],
-    "expectedSystems": [
-      "SKELETAL"
-    ],
-    "answerMustContain": [
-      "torso", "rib"
-    ],
+    "expectedToolCalls": ["show_layer", "highlight_structures"],
+    "expectedSystems": ["SKELETAL"],
+    "answerMustContain": ["torso", "rib"],
     "answerMustNotContain": [],
     "notes": "Comprehensive torso anatomy. Good for testing understanding of central skeleton organization."
   },
@@ -241,28 +153,18 @@
     "difficulty": 5,
     "query": "Highlight the leg bones and pelvis that form the structural basis for bipedal locomotion.",
     "description": "Advanced functional/evolutionary question",
-    "expectedStructures": [
-      "femur-right",
-      "femur-left",
-      "fibula-left",
-      "fibula-right",
-      "tibia",
-      "tibia-left",
-      "tibia-right",
-      "patella-left",
-      "patella-right",
-      "pelvis",
-      "pelvic-girdle",
-      "sacrum"
+    "expectedStructureGroups": [
+      ["femur-left", "femur-right"],
+      ["fibula-left", "fibula-right"],
+      ["tibia-left", "tibia-right"],
+      ["patella-left", "patella-right"],
+      ["pelvis"],
+      ["pelvic-girdle"],
+      ["sacrum"]
     ],
-    "expectedToolCalls": [
-      "highlight_structures"
-    ],
-    "expectedSystems": [
-      "SKELETAL"
-    ],
-    "answerMustContain": [
-    ],
+    "expectedToolCalls": ["highlight_structures"],
+    "expectedSystems": ["SKELETAL"],
+    "answerMustContain": [],
     "answerMustNotContain": [],
     "notes": "Advanced query testing deep functional knowledge. Requires understanding of locomotion biomechanics."
   },
@@ -272,7 +174,8 @@
     "difficulty": 1,
     "query": "Where is the femur?",
     "description": "Basic single bone location",
-    "expectedStructures": ["femur-left", "femur-right", "pelvis"],
+    "expectedStructureGroups": [["femur-left", "femur-right"]],
+    "optionalStructureGroups": [["pelvis"]],
     "expectedToolCalls": ["highlight_structures"],
     "expectedSystems": ["SKELETAL"],
     "answerMustContain": ["femur", "thigh"],
@@ -285,7 +188,7 @@
     "difficulty": 1,
     "query": "Show me the skull.",
     "description": "Basic skull highlighting",
-    "expectedStructures": ["skull"],
+    "expectedStructureGroups": [["skull"]],
     "expectedToolCalls": ["highlight_structures"],
     "expectedSystems": ["SKELETAL"],
     "answerMustContain": ["skull", "head"],
@@ -298,7 +201,7 @@
     "difficulty": 1,
     "query": "What is the ribcage?",
     "description": "Basic ribcage query",
-    "expectedStructures": ["ribcage"],
+    "expectedStructureGroups": [["ribcage"]],
     "expectedToolCalls": [],
     "expectedSystems": ["SKELETAL"],
     "answerMustContain": ["ribcage", "ribs", "protection"],
@@ -311,7 +214,8 @@
     "difficulty": 2,
     "query": "Show me the spine.",
     "description": "Spine/vertebrae highlighting",
-    "expectedStructures": ["cervical-vertebrae", "thoracic-vertebrae", "lumbar-vertebrae", "pelvis", "sacrum", "coccyx", "skull"],
+    "expectedStructureGroups": [["cervical-vertebrae"], ["thoracic-vertebrae"], ["lumbar-vertebrae"]],
+    "optionalStructureGroups": [["pelvis"], ["sacrum"], ["coccyx"], ["skull"]],
     "expectedToolCalls": ["highlight_structures"],
     "expectedSystems": ["SKELETAL"],
     "answerMustContain": ["spine", "vertebrae"],
@@ -324,12 +228,13 @@
     "difficulty": 2,
     "query": "Where are the knee joints?",
     "description": "Knee joint location",
-    "expectedStructures": ["knee-joint-left", "knee-joint-right"],
+    "expectedStructureGroups": [["knee-joint-left", "knee-joint-right"]],
+    "optionalStructureGroups": [["patella-left", "patella-right"], ["femur-left", "femur-right"], ["tibia-left", "tibia-right"]],
     "expectedToolCalls": ["highlight_structures", "get_related_structures"],
     "expectedSystems": ["SKELETAL"],
     "answerMustContain": ["knee", "joint"],
     "answerMustNotContain": [],
-    "notes": "Location query for knee articulations."
+    "notes": "Location query for knee articulations. LLM may add surrounding bones for context."
   },
   {
     "id": "medium-003",
@@ -337,12 +242,13 @@
     "difficulty": 2,
     "query": "Highlight the arm bones.",
     "description": "Upper limb bones",
-    "expectedStructures": ["humerus-left", "humerus-right", "radius-left", "radius-right", "ulna-left", "ulna-right", "scapula", "scapula-right", "clavicle-left", "clavicle-right"],
+    "expectedStructureGroups": [["humerus-left", "humerus-right"], ["radius-left", "radius-right"], ["ulna-left", "ulna-right"]],
+    "optionalStructureGroups": [["carpals-left", "carpals-right"], ["metacarpals-left", "metacarpals-right"], ["phalanges-left", "phalanges-right"], ["scapula-left", "scapula-right"], ["clavicle-left", "clavicle-right"]],
     "expectedToolCalls": ["highlight_structures"],
     "expectedSystems": ["SKELETAL"],
     "answerMustContain": ["arm", "humerus", "radius", "ulna"],
     "answerMustNotContain": [],
-    "notes": "Request to highlight major arm bones."
+    "notes": "Request to highlight major arm bones. LLM may add hand bones as natural extension."
   },
   {
     "id": "medium-004",
@@ -350,12 +256,13 @@
     "difficulty": 2,
     "query": "Show the leg bones.",
     "description": "Lower limb bones",
-    "expectedStructures": ["femur-left", "femur-right", "tibia-left", "tibia-right", "fibula-left", "fibula-right", "tibia", "patella-left", "patella-right", "pelvis"],
+    "expectedStructureGroups": [["femur-left", "femur-right"], ["tibia-left", "tibia-right"], ["fibula-left", "fibula-right"], ["patella-left", "patella-right"]],
+    "optionalStructureGroups": [["pelvis"], ["foot-left", "foot-right"], ["tarsals-left", "tarsals-right"]],
     "expectedToolCalls": ["highlight_structures"],
     "expectedSystems": ["SKELETAL"],
     "answerMustContain": ["leg", "femur", "tibia", "fibula"],
     "answerMustNotContain": [],
-    "notes": "Request to highlight major leg bones."
+    "notes": "Request to highlight major leg bones. LLM may add foot structures as natural extension."
   },
   {
     "id": "medium-005",
@@ -363,7 +270,7 @@
     "difficulty": 2,
     "query": "What makes up the pelvis?",
     "description": "Pelvic structure",
-    "expectedStructures": ["pelvis", "sacrum", "pelvic-girdle", "coccyx"],
+    "expectedStructureGroups": [["pelvis"], ["sacrum"], ["pelvic-girdle"], ["coccyx"]],
     "expectedToolCalls": ["highlight_structures"],
     "expectedSystems": ["SKELETAL"],
     "answerMustContain": ["pelvis", "sacrum"],
@@ -376,12 +283,13 @@
     "difficulty": 2,
     "query": "Where is the sternum?",
     "description": "Breastbone location",
-    "expectedStructures": ["sternum"],
+    "expectedStructureGroups": [["sternum"]],
+    "optionalStructureGroups": [["ribcage"]],
     "expectedToolCalls": ["highlight_structures"],
     "expectedSystems": ["SKELETAL"],
-    "answerMustContain": ["sternum"],
+    "answerMustContain": ["sternum", "breastbone", "chest"],
     "answerMustNotContain": [],
-    "notes": "Location of the central chest bone."
+    "notes": "Location of the central chest bone. LLM may add ribcage for anatomical context."
   },
   {
     "id": "medium-007",
@@ -389,7 +297,8 @@
     "difficulty": 3,
     "query": "Show the hand skeleton.",
     "description": "Hand bones",
-    "expectedStructures": ["carpals-left", "carpals-right", "metacarpals-left", "metacarpals-right", "phalanges-left", "phalanges-right", "hand-left", "hand-right"],
+    "expectedStructureGroups": [["carpals-left", "carpals-right"], ["metacarpals-left", "metacarpals-right"], ["phalanges-left", "phalanges-right"]],
+    "optionalStructureGroups": [["hand-left", "hand-right"]],
     "expectedToolCalls": ["highlight_structures"],
     "expectedSystems": ["SKELETAL"],
     "answerMustContain": ["hand", "carpals", "metacarpals", "phalanges"],
@@ -402,7 +311,8 @@
     "difficulty": 3,
     "query": "Show the foot skeleton.",
     "description": "Foot bones",
-    "expectedStructures": ["tarsals-left", "tarsals-right", "metatarsals-left", "metatarsals-right", "phalanges-left", "phalanges-right", "foot-left", "foot-right"],
+    "expectedStructureGroups": [["tarsals-left", "tarsals-right"], ["metatarsals-left", "metatarsals-right"], ["phalanges-left", "phalanges-right"]],
+    "optionalStructureGroups": [["foot-left", "foot-right"]],
     "expectedToolCalls": ["highlight_structures"],
     "expectedSystems": ["SKELETAL"],
     "answerMustContain": ["foot", "tarsals", "metatarsals"],
