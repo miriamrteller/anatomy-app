@@ -29,7 +29,7 @@ async function initializeCache(): Promise<void> {
       structureCache = new Map();
 
       // Index by exact name (case-insensitive)
-      structures.forEach((structure) => {
+      structures.forEach((structure: typeof structures[number]) => {
         const nameLower = structure.name.toLowerCase();
         if (!structureCache!.has(nameLower)) {
           structureCache!.set(nameLower, structure);
@@ -42,7 +42,7 @@ async function initializeCache(): Promise<void> {
         }
 
         // Also index each alias
-        structure.aliases.forEach((alias) => {
+        structure.aliases.forEach((alias: string) => {
           const aliasLower = alias.toLowerCase();
           if (!structureCache!.has(aliasLower)) {
             structureCache!.set(aliasLower, structure);

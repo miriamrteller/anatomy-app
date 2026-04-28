@@ -184,7 +184,7 @@ export const searchStructures = async (req: Request, res: Response) => {
 
   // Filter for text match in name, latin name, description, and aliases
   const structures = allStructures
-    .filter((struct) => {
+    .filter((struct: typeof allStructures[number]) => {
       const matchName = struct.name.toLowerCase().includes(searchTerms);
       const matchLatin = struct.latinName.toLowerCase().includes(searchTerms);
       const matchDesc = struct.description

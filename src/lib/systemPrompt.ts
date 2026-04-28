@@ -49,14 +49,6 @@ export async function generateSystemPrompt(): Promise<string> {
       bySystem[structure.system].push(structure.name);
     }
 
-    // Build the prompt
-    const systemsBySection = Object.entries(bySystem)
-      .map(
-        ([system, names]) =>
-          `**${system} System:**\n${names.map((n) => `- ${n}`).join('\n')}`
-      )
-      .join('\n\n');
-
     const timestamp = new Date().toISOString();
     const totalCount = allStructures.length;
 

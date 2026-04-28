@@ -62,14 +62,14 @@ export async function highlightStructuresHandler(args: unknown): Promise<ToolRes
     
     // Find which requested IDs were found
     const foundIds = new Set<string>();
-    structures.forEach(s => s.svgPathIds.forEach(id => foundIds.add(id)));
+    structures.forEach((s: typeof structures[number]) => s.svgPathIds.forEach((id: string) => foundIds.add(id)));
     const missingIds = parsed.ids.filter(id => !foundIds.has(id));
     
     console.log('[Tool:highlight] Result:', {
       found: structures.length,
       foundIds: Array.from(foundIds),
       missing: missingIds,
-      svgPathsTotal: structures.reduce((sum, s) => sum + s.svgPathIds.length, 0),
+      svgPathsTotal: structures.reduce((sum: number, s: typeof structures[number]) => sum + s.svgPathIds.length, 0),
     });
     
     if (structures.length === 0) {
@@ -83,7 +83,7 @@ export async function highlightStructuresHandler(args: unknown): Promise<ToolRes
     return {
       success: true,
       data: structures,
-      message: `Highlighting ${structures.length} structure(s): ${structures.map(s => s.name).join(', ')}`,
+      message: `Highlighting ${structures.length} structure(s): ${structures.map((s: typeof structures[number]) => s.name).join(', ')}`,
     };
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error';
@@ -138,7 +138,7 @@ export async function showLayerHandler(args: unknown): Promise<ToolResult> {
         count: structures.length,
         structures,
       },
-      message: `Showing ${parsed.system} system with ${structures.length} structures: ${structures.slice(0, 5).map(s => s.name).join(', ')}${structures.length > 5 ? `, and ${structures.length - 5} more` : ''}`,
+      message: `Showing ${parsed.system} system with ${structures.length} structures: ${structures.slice(0, 5).map((s: typeof structures[number]) => s.name).join(', ')}${structures.length > 5 ? `, and ${structures.length - 5} more` : ''}`,
     };
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error';
