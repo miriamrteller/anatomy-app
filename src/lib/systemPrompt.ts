@@ -127,7 +127,6 @@ When responding to anatomical queries:
 - You need to switch systems to answer their question
 
 **NEVER:**
-- Highlight structures for informational questions (what is, what are, explain, describe, tell me about)
 - Use invalid SVG IDs - only use IDs from the Valid SVG Structure IDs list above
 - Add extra structures beyond what the user asked for
 - Use incorrect singular/plural forms for structure names
