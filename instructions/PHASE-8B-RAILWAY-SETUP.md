@@ -178,6 +178,73 @@ In Railway dashboard:
 
 ---
 
+## Critical Build Configuration Issues
+
+If deployment fails, check these common issues:
+
+### Issue: `require is not defined in ES module scope`
+
+**Symptoms**: Server crashes during startup with `ReferenceError: require is not defined`
+
+**Root Cause**: esbuild build script not outputting pure ES modules
+
+**Fix**:
+1. Verify `package.json` build script includes `--format=esm`:
+   ```json
+   "build": "esbuild src/index.ts --bundle --platform=node --target=node20 --format=esm --outfile=dist/index.js --packages=external"
+   ```
+2. Commit and push changes
+3. Railway will auto-redeploy
+
+### Issue: `Cannot find module '/app/src/lib/db'` during seeding
+
+**Symptoms**: Seeding fails with module not found error
+
+**Root Cause**: One of two issues:
+- (a) Source code has `.js` extensions in local imports: `import { x } from "./lib/foo.js"`
+- (b) Production Docker container doesn't have `src/` files copied
+
+**Fix**:
+1. Check imports in `src/index.ts`:
+   - ❌ Wrong: `import { foo } from "./lib/bar.js"`
+   - ✅ Correct: `import { foo } from "./lib/bar"`
+2. Check `Dockerfile` production stage has:
+   ```dockerfile
+   COPY src ./src
+   COPY tsconfig.json ./
+   ```
+3. Ensure `docker-entrypoint.sh` is executable: `RUN chmod +x docker-entrypoint.sh`
+4. Commit, push, and redeploy on Railway
+
+### Issue: PostgreSQL logs show `SSL error: unexpected eof while reading`
+
+**Symptoms**: PostgreSQL logs spam SSL errors; backend can't connect
+
+**Root Cause**: DATABASE_URL missing `?sslmode=require` parameter
+
+**Fix**:
+1. Go to Railway dashboard → backend service → Variables
+2. Find DATABASE_URL variable
+3. Append `?sslmode=require` to the end:
+   ```
+   postgresql://postgres:KzWENEChqBzoxcxdsZLDPZlMNLMTuWoC@postgres.railway.internal:5432/railway?sslmode=require
+   ```
+4. Save and Railway will auto-redeploy
+5. PostgreSQL SSL errors should stop
+
+### Issue: `npm install` fails in Docker build with "no space left on device"
+
+**Symptoms**: Build fails during `npm ci` with ENOSPC error
+
+**Root Cause**: Disk space exhausted on Railway build system
+
+**Fix**: Usually temporary — Railway cleans up automatically. If persistent:
+1. Clear npm cache: `npm cache clean --force`
+2. Commit empty change: `git commit --allow-empty -m "trigger rebuild"`
+3. Push and redeploy
+
+---
+
 ## Summary: What You Should Have After Phase 8B
 
 ✅ PostgreSQL 16 running on Railway with pgvector extension  

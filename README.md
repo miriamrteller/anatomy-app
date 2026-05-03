@@ -559,6 +559,78 @@ for i in {1..25}; do curl http://localhost:3000/api/chat -X POST; done
 
 ---
 
+## Production Build Configuration
+
+Before deploying, ensure your build system is production-ready. These configurations are **required** for proper ES module handling and Docker builds:
+
+### Package.json Build Script
+
+```json
+"build": "esbuild src/index.ts --bundle --platform=node --target=node20 --format=esm --outfile=dist/index.js --packages=external"
+```
+
+**Key flags:**
+- `--bundle` — Bundles all local source files (not node_modules)
+- `--format=esm` — **Critical**: Outputs pure ES modules, not CommonJS interop code
+- `--packages=external` — Keeps node_modules external (dependencies loaded from node_modules/)
+- `--platform=node` — Targets Node.js runtime
+
+### Source Code Imports
+
+- **Remove `.js` extensions** from local imports: `import { foo } from "./lib/bar"` (not `"./lib/bar.js"`)
+- TypeScript will resolve `.ts` files automatically
+- `.js` extensions cause `tsx` (seeding) and `require()` errors in bundled output
+
+### Dockerfile Production Stage
+
+Ensure your production Docker stage:
+
+```dockerfile
+# Install ALL dependencies (not just production)
+# - Seeding needs tsx (dev dependency)
+# - Prisma migrations need @prisma/client
+RUN npm ci
+
+# Copy source code to container
+COPY src ./src
+COPY tsconfig.json ./
+
+# Prisma client generation
+RUN npx prisma generate
+
+# All other copies
+COPY prisma ./prisma
+COPY docker-entrypoint.sh .
+```
+
+### Environment Variables (Production)
+
+**Required on Railway/Vercel:**
+
+| Variable | Value | Notes |
+|----------|-------|-------|
+| `NODE_ENV` | `production` | Controls CORS and logging |
+| `PORT` | `8080` or `3000` | Railway typically uses 8080 |
+| `DATABASE_URL` | `postgresql://...?sslmode=require` | **Include `?sslmode=require`** for SSL/TLS |
+| `OPENAI_API_KEY` | `sk-...` | Never commit; add to platform dashboard |
+| `FRONTEND_URL` | `https://your-vercel-url.vercel.app` | For CORS allow-list |
+
+### Common Build Issues & Fixes
+
+**Issue: `require is not defined in ES module scope`**
+- **Cause**: esbuild outputting CommonJS interop code
+- **Fix**: Add `--format=esm` to build script
+
+**Issue: `Cannot find module '/app/src/lib/db'` during seeding**
+- **Cause**: `.js` extensions in imports or missing `src/` in Docker
+- **Fix**: Remove `.js` extensions from source; copy `src/` to production container
+
+**Issue: `SSL error: unexpected eof while reading` in PostgreSQL logs**
+- **Cause**: DATABASE_URL missing `?sslmode=require`
+- **Fix**: Append `?sslmode=require` to DATABASE_URL in environment variables
+
+---
+
 ## Phase 8 — Deployment
 
 ### Prerequisites
