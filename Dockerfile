@@ -34,3 +34,4 @@ RUN npx prisma migrate deploy && npx prisma db seed
 EXPOSE 3000
 
 CMD ["npm", "start"]
+
