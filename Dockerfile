@@ -7,10 +7,9 @@ COPY package*.json ./
 RUN npm ci
 
 COPY src ./src
-COPY prisma ./prisma
-COPY tsconfig.json tsconfig.prod.json ./
+COPY tsconfig.json ./
 
-RUN npx tsc --project tsconfig.prod.json
+RUN npm run build
 
 FROM node:20-alpine
 
@@ -24,7 +23,7 @@ COPY package*.json ./
 RUN npm ci --only=production
 
 COPY --from=builder /app/dist ./dist
-COPY --from=builder /app/prisma ./prisma
+COPY prisma ./prisma
 COPY docker-entrypoint.sh .
 
 ENV NODE_ENV=production
