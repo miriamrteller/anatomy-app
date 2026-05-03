@@ -21,6 +21,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install frontend dependencies
+        run: npm ci --prefix frontend
+
       - name: TypeScript type check (backend)
         run: npx tsc --project tsconfig.prod.json --noEmit
 
