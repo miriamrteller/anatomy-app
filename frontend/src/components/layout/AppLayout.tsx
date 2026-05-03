@@ -16,7 +16,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         <HeaderDropdown />
       </div>
 
-      <div className="flex-1 flex gap-4 overflow-hidden m-4 mt-0">
+      <div className="flex-1 flex flex-col md:flex-row gap-4 overflow-hidden m-4 mt-0">
         {children}
       </div>
     </div>
