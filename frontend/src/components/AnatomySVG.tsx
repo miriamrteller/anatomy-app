@@ -5,6 +5,7 @@ import { StructureInfoPanel } from "./StructureInfoPanel";
 import { useInteractionExpiry } from "../hooks/useInteractionExpiry";
 import { usePathHighlighting } from "../hooks/usePathHighlighting";
 import { fetchWithRetry } from "../lib/fetch";
+import { config } from "../lib/config";
 
 interface AnatomySVGProps {
   systems: Record<SystemEnum, string>;
@@ -94,7 +95,7 @@ export const AnatomySVG: React.FC<AnatomySVGProps> = ({ systems }) => {
       const fetchPromise = (async () => {
         try {
           const response = await fetchWithRetry(
-            `/api/structures/by-svg-path/lookup?pathIds=${groupId}`,
+            `${config.apiUrl}/api/structures/by-svg-path/lookup?pathIds=${groupId}`,
             {},
             3
           );
