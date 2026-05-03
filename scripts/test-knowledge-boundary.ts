@@ -219,7 +219,7 @@ class KnowledgeBoundaryTestRunner {
     if (this.passCount >= total * 0.75) {
       console.log('✅ Tests passing! Ready to deploy.\n');
       console.log('1. Commit changes: git add . && git commit');
-      console.log('2. Set env vars in Railway/Vercel (see PRODUCTION_ENV_VARS.md)');
+      console.log('2. Set env vars in Railway/Vercel (see instructions/PRODUCTION_ENV_VARS.md)');
       console.log('3. Deploy: git push');
       console.log('4. Verify in production\n');
     } else {
@@ -228,7 +228,7 @@ class KnowledgeBoundaryTestRunner {
       console.log('2. Test FMA API: npx tsx scripts/test-fma-api.ts');
       console.log('3. Check system prompt: curl http://localhost:3000/api/system-prompt');
       console.log('4. Manual test in browser: npm run dev');
-      console.log('5. See KNOWLEDGE_BOUNDARY_TESTING.md for details\n');
+      console.log('5. See instructions/KNOWLEDGE_BOUNDARY_TESTING.md for details\n');
     }
   }
 }
