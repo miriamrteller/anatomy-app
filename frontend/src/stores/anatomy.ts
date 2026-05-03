@@ -3,6 +3,7 @@ import { Structure, SystemEnum, Interaction, ChatRequest } from '../types'
 import { handleChat } from '../lib/streaming/handlers/chatHandler'
 import { InteractionDefaults, createChatRequest, isAbortError } from '../lib/interaction'
 import { fetchWithRetry } from '../lib/fetch'
+import { config } from '../lib/config'
 
 // DISABLED: LoadingState type - system caching removed for performance
 // type LoadingState = 'IDLE' | 'LOADING' | 'ERROR'
@@ -457,7 +458,7 @@ export const useAnatomyStore = create<AnatomyStore>((set) => ({
                 })
 
                 const fetchPromise = fetchWithRetry(
-                  `/api/structures/by-svg-path/lookup?pathIds=${ids.join(',')}`,
+                  `${config.apiUrl}/api/structures/by-svg-path/lookup?pathIds=${ids.join(',')}`,
                   { signal: chatRequest.abortController.signal },
                   1
                 )
