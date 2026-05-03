@@ -13,6 +13,10 @@ if [ -z "$DATABASE_URL" ]; then
   exit 1
 fi
 
+# Show DATABASE_URL (with password masked for security)
+MASKED_URL=$(echo "$DATABASE_URL" | sed 's/:[^:/@]*@/:***@/')
+echo "[Docker] DATABASE_URL: $MASKED_URL"
+
 echo "[Docker] Running Prisma migrations..."
 if ! npx prisma migrate deploy; then
   echo "[Docker] ❌ ERROR: Migrations failed"
