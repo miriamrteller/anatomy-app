@@ -5,8 +5,11 @@
 
 import { readFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
-const COST_TRACKER_FILE = join(process.cwd(), '.cost-tracker.json');
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const COST_TRACKER_FILE = join(__dirname, '../instructions/.cost-tracker.json');
 
 export interface CostRecord {
   date: string; // ISO date string

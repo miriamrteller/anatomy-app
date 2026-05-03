@@ -194,9 +194,9 @@ function printReport(result: AuditResult): void {
   console.log('\n' + '='.repeat(70) + '\n');
   
   // Write JSON report
-  const reportPath = path.join(__dirname, '../gap-1-audit-report.json');
+  const reportPath = path.join(__dirname, '../instructions/gap-1-audit-report.json');
   fs.writeFileSync(reportPath, JSON.stringify(result, null, 2));
-  console.log(`✅ Full report saved to: gap-1-audit-report.json`);
+  console.log(`✅ Full report saved to: instructions/gap-1-audit-report.json`);
 }
 
 // Run audit
