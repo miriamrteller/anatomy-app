@@ -1,6 +1,10 @@
 import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-const dataStr = fs.readFileSync('./tests/evals/benchmark-dataset.json', 'utf8');
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const dataPath = path.join(__dirname, '../tests/evals/benchmark-dataset.json');
+const dataStr = fs.readFileSync(dataPath, 'utf8');
 const data = JSON.parse(dataStr);
 
 const validIds = [

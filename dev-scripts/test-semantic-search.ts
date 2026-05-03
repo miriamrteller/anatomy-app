@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { embedText } from './src/lib/embeddings.js';
+import { embedText } from '../src/lib/embeddings.js';
 
 const db = new PrismaClient();
 
