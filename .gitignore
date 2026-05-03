@@ -17,7 +17,6 @@
 /build/
 *.map
 *.d.ts
-/src/lib/config.ts
 
 # Logs
 *.log
