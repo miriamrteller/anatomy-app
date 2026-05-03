@@ -93,79 +93,44 @@ FRONTEND_URL=[will set after Vercel deployment]
 
 ### Deploy
 
-1. Click **"Deploy"** (or Railway auto-deploys on commit)
-2. Watch the logs - deployment takes 2-5 minutes
-3. When status shows **"Running"** with a green checkmark, deployment is complete
-4. Railway assigns a public URL like: `https://anatomy-app-production.railway.app`
-5. **Save this URL** - you'll need it for Vercel and to test the API
+1. **First time only**: Commit the updated Dockerfile that includes migrations:
+   ```bash
+   git add Dockerfile
+   git commit -m "fix: Add Prisma migrations and seeding to Docker build"
+   git push
+   ```
+
+2. Click **"Deploy"** in Railway (or Railway auto-deploys on commit)
+3. **Watch the logs carefully** - deployment takes 3-5 minutes:
+   - You should see:
+     ```
+     Running migrations...
+     ✓ Seeding database with bone data
+     ✅ System prompt initialized
+     🚀 Server running on port 3000
+     ```
+   - **If you see database errors, that means the environment variables aren't set correctly** - check that DATABASE_URL and OPENAI_API_KEY are set
+
+4. When status shows **"Running"** with a green checkmark, deployment is complete
+5. Railway assigns a public URL like: `https://anatomy-app-production.railway.app`
+6. **Save this URL** - you'll need it for Vercel and to test the API
+
+### Troubleshooting B3 Crashes
+
+**If you see "Cannot find table" or "relation does not exist" errors:**
+- This means migrations didn't run in the Docker build
+- Go back and verify the Dockerfile has the migration commands
+- Force a rebuild by clicking "Redeploy" in Railway
+
+**If you see "OPENAI_API_KEY not configured" error:**
+- The environment variables aren't set in Railway
+- Go back to "Variables" tab and add: `NODE_ENV=production`, `DATABASE_URL`, `OPENAI_API_KEY`
 
 ---
 
-## Step B4: Run Prisma Migrations on Railway
+## Step B4: Verify Backend is Running
 
-**Action: Connect to Railway and run migrations**
-
-### Option A: Using Railway CLI (Recommended)
-
-1. **Install Railway CLI locally**:
-   ```bash
-   npm install -g @railway/cli
-   ```
-
-2. **Login to Railway**:
-   ```bash
-   railway login
-   ```
-   (Opens browser for auth, then returns to terminal)
-
-3. **Link your project**:
-   ```bash
-   cd d:/Miriam/Development/projects/anatomy-app
-   railway link
-   ```
-   (Select your Railway project from the list)
-
-4. **Run migrations inside Railway container**:
-   ```bash
-   railway run npm run prisma:generate
-   railway run npx prisma migrate deploy
-   ```
-
-5. **Optional: Seed with initial data**:
-   ```bash
-   railway run npm run seed
-   ```
-
-6. **Verify migration success**:
-   ```bash
-   railway run npx prisma studio
-   ```
-   (Opens Prisma Studio to view database schema)
-
-### Option B: Manual psql Commands
-
-If Railway CLI doesn't work:
-
-```bash
-# Connect directly to Railway PostgreSQL
-psql postgresql://[user]:[password]@[host]:[port]/[database]
-
-# Then in psql prompt:
-\dt  -- List all tables (should be empty before migrations)
-```
-
-Then run migrations from your local machine by temporarily setting DATABASE_URL:
-
-```bash
-export DATABASE_URL="postgresql://[user]:[password]@[host]:[port]/[database]"
-npx prisma migrate deploy
-```
-
----
-
-## Step B5: Verify Backend Deployment
-
-**Test all endpoints to ensure everything works**
+**Action: Test the Railway API endpoint**
 
 ### Test 1: Health Check
 ```bash
@@ -182,40 +147,48 @@ Expected response:
 curl https://[railway-url]/api/structures
 ```
 
-Expected response: Array of structures (or empty array if no seed data)
+Expected response: Array of 131 bone structures with details
 
-### Test 3: Check Logs
+### Test 3: Check Railway Logs
+
 In Railway dashboard:
 1. Click backend service
 2. Go to **"Logs"** tab
-3. Should see Express startup message and no errors
+3. Should see:
+   ```
+   ✓ Seeding database with bone data
+   ✅ System prompt initialized
+   🚀 Server running on http://0.0.0.0:3000
+   📡 Environment: production
+   ```
 
-**Troubleshooting**:
-- **502 Bad Gateway**: Check logs, usually missing DATABASE_URL
-- **CORS errors**: Will appear after Vercel connects - we'll fix in Phase 8C
-- **Database connection failed**: Verify DATABASE_URL format and pgvector extension
+**Troubleshooting Deployment**:
+- **502 Bad Gateway**: Container crashed. Check logs for missing env vars or database errors
+- **"Cannot find table" errors**: Migrations didn't run. Verify Dockerfile includes migration steps
+- **"OPENAI_API_KEY not configured"**: Check Railway Variables tab has OPENAI_API_KEY set
+- **Connection timeout**: Check DATABASE_URL is correct and pgvector extension exists
 
 ---
 
 ## Summary: What You Should Have After Phase 8B
 
 ✅ PostgreSQL 16 running on Railway with pgvector extension  
-✅ Backend Docker image deployed and accessible at `https://[railway-url]`  
+✅ Backend Docker image deployed and running at `https://[railway-url]`  
 ✅ All Prisma migrations applied to production database  
+✅ Database seeded with 131 bone structures  
 ✅ Health check responding at `/health` endpoint  
-✅ Backend ready to serve requests  
+✅ Backend ready to serve API requests  
 
-**Next**: Phase 8C will deploy the frontend and connect them together.
+**Next Step**: Phase 8C will deploy the frontend to Vercel and connect it to this backend.
 
 ---
 
-## Common Issues & Solutions
+## Quick Reference: Your Railway URLs
 
-| Problem | Solution |
-|---------|----------|
-| pgvector extension not found | Check Railway PostgreSQL version supports it (16+), ask support if needed |
-| `DATABASE_URL` env var not working | Copy exact value from Railway, check quotes in terminal |
-| Migrations fail with "Connection timeout" | Check PostgreSQL is running and DATABASE_URL is correct |
-| Backend won't start | Check logs for missing env vars (OPENAI_API_KEY) |
-|502 Bad Gateway | Container likely crashed, check build logs and error logs |
+| Resource | URL |
+|----------|-----|
+| Railway Dashboard | https://railway.app/dashboard |
+| Backend API | `https://[your-backend-url]` (shown in Railway) |
+| Health Endpoint | `https://[your-backend-url]/health` |
+| API Docs | `https://[your-backend-url]` (shows available endpoints) |
 
