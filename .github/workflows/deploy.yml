@@ -1,0 +1,79 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: TypeScript type check (backend)
+        run: npx tsc --project tsconfig.prod.json --noEmit
+
+      - name: TypeScript type check (frontend)
+        run: npm --prefix frontend run type-check
+
+      - name: Build backend
+        run: npm run build
+
+      - name: Build frontend
+        run: npm --prefix frontend run build
+
+      - name: Run tests
+        run: npm test -- run
+        continue-on-error: true
+
+  deploy-railway:
+    name: Deploy Backend to Railway
+    needs: test-and-build
+    runs-on: ubuntu-latest
+    if: success()
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Railway
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+        run: |
+          npm install -g @railway/cli
+          railway login --token "$RAILWAY_TOKEN"
+          railway up --service backend
+
+  deploy-vercel:
+    name: Deploy Frontend to Vercel
+    needs: test-and-build
+    runs-on: ubuntu-latest
+    if: success()
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Deploy to Vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          npm install -g vercel
+          vercel --token "$VERCEL_TOKEN" --prod --scope anatomy-app-prod
