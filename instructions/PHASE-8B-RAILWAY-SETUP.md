@@ -93,38 +93,46 @@ FRONTEND_URL=[will set after Vercel deployment]
 
 ### Deploy
 
-1. **First time only**: Commit the updated Dockerfile that includes migrations:
+1. **Ensure you have the latest code** (with docker-entrypoint.sh):
    ```bash
-   git add Dockerfile
-   git commit -m "fix: Add Prisma migrations and seeding to Docker build"
+   git pull
+   ```
+   The Dockerfile now runs migrations at container startup, not build time.
+
+2. **Commit and push any outstanding changes**:
+   ```bash
+   git add .
+   git commit -m "your message"
    git push
    ```
 
-2. Click **"Deploy"** in Railway (or Railway auto-deploys on commit)
-3. **Watch the logs carefully** - deployment takes 3-5 minutes:
-   - You should see:
-     ```
-     Running migrations...
-     ✓ Seeding database with bone data
-     ✅ System prompt initialized
-     🚀 Server running on port 3000
-     ```
-   - **If you see database errors, that means the environment variables aren't set correctly** - check that DATABASE_URL and OPENAI_API_KEY are set
+3. Railway will auto-deploy on push (or click "**Redeploy**" in Railway dashboard)
 
-4. When status shows **"Running"** with a green checkmark, deployment is complete
-5. Railway assigns a public URL like: `https://anatomy-app-production.railway.app`
-6. **Save this URL** - you'll need it for Vercel and to test the API
+4. **Watch the logs** - You should see:
+   ```
+   [Docker] Starting application...
+   [Docker] Running Prisma migrations...
+   [Docker] Seeding database...
+   [Docker] ✅ Database ready
+   [Docker] Starting Express server...
+   ✅ System prompt initialized
+   🚀 Server running on http://0.0.0.0:3000
+   ```
 
-### Troubleshooting B3 Crashes
+5. When status shows **"Running"** with a green checkmark, deployment is complete
+6. Railway assigns a public URL like: `https://anatomy-app-production.railway.app`
+7. **Save this URL** - you'll need it for Vercel and to test the API
 
-**If you see "Cannot find table" or "relation does not exist" errors:**
-- This means migrations didn't run in the Docker build
-- Go back and verify the Dockerfile has the migration commands
-- Force a rebuild by clicking "Redeploy" in Railway
+### How Migrations Work Now
 
-**If you see "OPENAI_API_KEY not configured" error:**
-- The environment variables aren't set in Railway
-- Go back to "Variables" tab and add: `NODE_ENV=production`, `DATABASE_URL`, `OPENAI_API_KEY`
+The Docker container now:
+1. Copies and makes executable the `docker-entrypoint.sh` script
+2. When the container starts, it runs the entrypoint script
+3. The script runs migrations with DATABASE_URL (now available at runtime)
+4. Seeds the database with bone data
+5. Starts the Express server
+
+This approach works with Railway because `DATABASE_URL` is injected as an environment variable when the container starts.
 
 ---
 

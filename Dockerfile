@@ -22,16 +22,18 @@ RUN npm ci --only=production
 
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/prisma ./prisma
+COPY docker-entrypoint.sh .
 
 ENV NODE_ENV=production
 
 # Generate Prisma client
 RUN npx prisma generate
 
-# Run migrations and seed database
-RUN npx prisma migrate deploy && npx prisma db seed
+# Make entrypoint script executable
+RUN chmod +x docker-entrypoint.sh
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
+# Use entrypoint script to run migrations and start server
+ENTRYPOINT ["./docker-entrypoint.sh"]
 
