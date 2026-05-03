@@ -24,6 +24,8 @@ RUN npm ci
 
 COPY --from=builder /app/dist ./dist
 COPY prisma ./prisma
+COPY src ./src
+COPY tsconfig.json ./
 COPY docker-entrypoint.sh .
 
 ENV NODE_ENV=production
