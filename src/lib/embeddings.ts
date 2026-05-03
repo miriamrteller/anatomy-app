@@ -1,4 +1,4 @@
-import { getOpenAIClient } from './openai';
+import { getOpenAIClient } from './openai.js';
 
 /**
  * Embed text using OpenAI's text-embedding-3-small model

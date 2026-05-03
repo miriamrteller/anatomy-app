@@ -11,8 +11,8 @@
  * - Enables easy A/B testing of different prompts
  */
 
-import { db } from './db';
-import { EXISTING_BONES_SVG } from './bone-constants';
+import { db } from './db.js';
+import { EXISTING_BONES_SVG } from './bone-constants.js';
 
 let cachedSystemPrompt: string | null = null;
 

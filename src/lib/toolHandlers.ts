@@ -8,12 +8,12 @@
  * 3. Returns structured result for LLM context
  */
 
-import { db } from './db';
+import { db } from './db.js';
 import {
   HighlightStructuresArgsSchema,
   ShowLayerArgsSchema,
   GetRelatedStructuresArgsSchema,
-} from './tools';
+} from './tools.js';
 
 /**
  * Tool Result Format

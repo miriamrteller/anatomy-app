@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { asyncHandler } from "../middleware/asyncHandler";
-import { validateRequest } from "../middleware/validation";
+import { asyncHandler } from "../middleware/asyncHandler.js";
+import { validateRequest } from "../middleware/validation.js";
 import {
   getAllStructures,
   getStructureById,
@@ -8,8 +8,8 @@ import {
   getStructuresBySvgPath,
   searchStructures,
   getSystems,
-} from "../controllers/structureController";
-import { StructureParamSchema } from "../lib/schemas";
+} from "../controllers/structureController.js";
+import { StructureParamSchema } from "../lib/schemas.js";
 
 export const structureRouter = Router();
 

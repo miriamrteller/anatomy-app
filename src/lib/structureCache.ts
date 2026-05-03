@@ -1,4 +1,4 @@
-import { db } from './db';
+import { db } from './db.js';
 
 interface CachedStructure {
   id: string;

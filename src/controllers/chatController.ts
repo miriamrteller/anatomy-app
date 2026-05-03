@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
 import { z } from 'zod';
 import { encodingForModel } from 'js-tiktoken';
-import { getOpenAIClient } from '../lib/openai';
-import { AppError } from '../lib/errors';
-import { AGENT_TOOLS } from '../lib/tools';
-import { executeTool } from '../lib/toolHandlers';
-import { findStructureInQuestion } from '../lib/structureCache';
-import { getSystemPrompt } from '../lib/systemPrompt';
+import { getOpenAIClient } from '../lib/openai.js';
+import { AppError } from '../lib/errors.js';
+import { AGENT_TOOLS } from '../lib/tools.js';
+import { executeTool } from '../lib/toolHandlers.js';
+import { findStructureInQuestion } from '../lib/structureCache.js';
+import { getSystemPrompt } from '../lib/systemPrompt.js';
 
 /**
  * Type-safe request validation for chat endpoint

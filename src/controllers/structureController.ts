@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
-import { db } from "../lib/db";
+import { db } from "../lib/db.js";
 import {
   StructureParamSchema,
   BulkStructureQuerySchema,
   SvgPathLookupSchema,
   SemanticSearchSchema,
-} from "../lib/schemas";
-import { AppError } from "../lib/errors";
+} from "../lib/schemas.js";
+import { AppError } from "../lib/errors.js";
 
 export const getAllStructures = async (_req: Request, res: Response) => {
   const structures = await db.structure.findMany({
