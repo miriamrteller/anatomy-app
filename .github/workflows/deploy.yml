@@ -55,7 +55,6 @@ jobs:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
         run: |
           npm install -g @railway/cli
-          railway login --token "$RAILWAY_TOKEN"
           railway up --service backend
 
   deploy-vercel:
@@ -79,4 +78,5 @@ jobs:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
         run: |
           npm install -g vercel
-          vercel --token "$VERCEL_TOKEN" --prod --scope anatomy-app-prod
+          cd frontend
+          vercel --token "$VERCEL_TOKEN" --prod
