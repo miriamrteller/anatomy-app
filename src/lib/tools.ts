@@ -23,14 +23,14 @@ export const HighlightStructuresTool = {
   type: 'function',
   function: {
     name: 'highlight_structures',
-    description: 'Highlight specific anatomical structures on the diagram by their data-svg-id values. This makes them stand out visually with a pulsing animation so the user can see which structures you\'re referring to. Use kebab-case IDs like "femur-left", "skull", "tibia-right", etc.',
+    description: 'CRITICAL REQUIREMENT: Call this whenever your response mentions any anatomical structures. This is mandatory - if you discuss anatomy (bones, joints, muscles, etc.) in your answer, you MUST highlight the specific structures being discussed, or the nearest relevant structures, e.g. if the ossicles is mentioned, higlight the cranium. Highlight specific anatomical structures on the diagram by their data-svg-id values. This makes them stand out visually with a pulsing animation so the user can see which structures you\'re referring to. Example: discussing mobility might require highlighting the spine/vertebrae. Use kebab-case IDs like "femur-left", "skull", "tibia-right", etc. Choose either right or left when applicable, no need for both. If unsure, highlight all reasonable interpretations. Always use valid structure IDs from the provided list.',
     parameters: {
       type: 'object',
       properties: {
         ids: {
           type: 'array',
           items: { type: 'string' },
-          description: 'Array of data-svg-id values to highlight (e.g., ["femur-left", "tibia-right", "skull"]). Use kebab-case format. Include -left or -right suffix when applicable.',
+          description: 'Array of data-svg-id values to highlight (e.g., ["femur-left", "tibia-right", "skull"]). Use kebab-case format. Include -left or -right suffix when applicable. MUST include at least one valid structure ID.',
         },
       },
       required: ['ids'],

@@ -5,7 +5,7 @@ import { getOpenAIClient } from '../lib/openai';
 import { AppError } from '../lib/errors';
 import { AGENT_TOOLS } from '../lib/tools';
 import { executeTool } from '../lib/toolHandlers';
-import { findStructureInQuestion } from '../lib/structureCache';
+import { findStructureInQuestion, getAllStructureTerms } from '../lib/structureCache';
 import { getSystemPrompt } from '../lib/systemPrompt';
 
 /**
@@ -17,6 +17,30 @@ const ChatRequestSchema = z.object({
     .min(1, 'Question cannot be empty')
     .max(500, 'Question must be less than 500 characters'),
 });
+
+/**
+ * Detects if a text response contains anatomical content
+ * that should be highlighted (uses actual structure names from database)
+ */
+function containsAnatomicalContent(text: string, structureTerms: Set<string>): boolean {
+  const lowerText = text.toLowerCase();
+  
+  // Check if any database structure term appears in the text
+  for (const term of structureTerms) {
+    if (lowerText.includes(term)) {
+      return true;
+    }
+  }
+  
+  return false;
+}
+
+/**
+ * Checks if highlight_structures was called in the tool calls array
+ */
+function hasHighlightStructuresCall(toolCalls: any[]): boolean {
+  return toolCalls.some(call => call.function.name === 'highlight_structures');
+}
 
 /**
  * Chat endpoint handler with OpenAI function calling and agent loop
@@ -33,7 +57,9 @@ const ChatRequestSchema = z.object({
  *       - Append tool result to message history
  *       - CONTINUE loop (go back to step 3a)
  *    d. ELSE (finish_reason === 'stop'):
- *       - BREAK loop (LLM is done)
+ *       - Check if response contains anatomy but no highlight call
+ *       - If so, force another iteration to add highlighting
+ *       - ELSE BREAK loop (LLM is done)
  * 4. Send SSE 'done' event
  *
  * Safety: Hard stop at 5 iterations to prevent infinite loops
@@ -72,6 +98,9 @@ export async function chat(req: Request, res: Response): Promise<void> {
     // Query database cache for any mentioned bone structures
     // This searches all bones + aliases automatically
     const targetStructures = await findStructureInQuestion(question);
+    
+    // Fetch all structure terms from database for content detection
+    const structureTerms = await getAllStructureTerms();
 
     console.log(`[Chat] Question: "${question}"`);
     console.log(
@@ -277,9 +306,36 @@ export async function chat(req: Request, res: Response): Promise<void> {
           shouldContinue = false;
         }
       } else {
-        // No tool calls, add assistant message and finish
-        messageHistory.push(assistantMessage);
-        shouldContinue = false;
+        // No tool calls were made
+        // Check if response contains anatomical content without highlighting
+        const hasAnatomy = containsAnatomicalContent(assistantMessage.content, structureTerms);
+        const hasHighlight = hasHighlightStructuresCall(toolCalls);
+        
+        if (hasAnatomy && !hasHighlight && iteration < MAX_ITERATIONS) {
+          // Response discusses anatomy but didn't highlight - force highlighting
+          console.log(
+            `⚠️  Response mentions anatomy but didn't call highlight_structures. Forcing another iteration...`
+          );
+          
+          // Add assistant message to history
+          messageHistory.push(assistantMessage);
+          
+          // Force another iteration with explicit instruction
+          const forceHighlightMessage = `Your response discusses anatomical structures but you didn't call highlight_structures(). You MUST highlight the anatomical structures you mentioned. Please call highlight_structures() with the valid IDs for the structures in your answer.`;
+          
+          messageHistory.push({
+            role: 'user',
+            content: forceHighlightMessage,
+          });
+          
+          console.log(`[Chat] Added forced highlight instruction, continuing loop...`);
+          shouldContinue = true;
+          // Loop will continue for another iteration
+        } else {
+          // Either no anatomy, has highlight, or max iterations reached
+          messageHistory.push(assistantMessage);
+          shouldContinue = false;
+        }
       }
     }
 
