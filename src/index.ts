@@ -1,11 +1,11 @@
 import express from "express";
 import helmet from "helmet";
-import { structureRouter } from "./routes/structures.js";
-import chatRoutes from "./routes/chat.js";
-import { errorHandler } from "./middleware/validation.js";
-import { generateSystemPrompt } from "./lib/systemPrompt.js";
-import { config } from "./lib/config.js";
-import { apiChatLimiter, apiReadLimiter, healthLimiter } from "./middleware/rateLimiter.js";
+import { structureRouter } from "./routes/structures";
+import chatRoutes from "./routes/chat";
+import { errorHandler } from "./middleware/validation";
+import { generateSystemPrompt } from "./lib/systemPrompt";
+import { config } from "./lib/config";
+import { apiChatLimiter, apiReadLimiter, healthLimiter } from "./middleware/rateLimiter";
 
 const app = express();
 
