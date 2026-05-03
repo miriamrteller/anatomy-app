@@ -7,6 +7,7 @@ import { AGENT_TOOLS } from '../lib/tools';
 import { executeTool } from '../lib/toolHandlers';
 import { findStructureInQuestion, getAllStructureTerms } from '../lib/structureCache';
 import { getSystemPrompt } from '../lib/systemPrompt';
+import { fmaClient } from '../lib/fmaApi';
 
 /**
  * Type-safe request validation for chat endpoint
@@ -107,6 +108,54 @@ export async function chat(req: Request, res: Response): Promise<void> {
       `[Chat] Extracted structures: ${targetStructures.length > 0 ? targetStructures.map((s) => s.name).join(', ') : 'none'}`
     );
 
+    // ============================================================
+    // STEP 3a-FMA: Enrich Structures with FMA Data
+    // ============================================================
+    // Fetch official FMA definitions for each target structure
+    // This ensures we only use authoritative anatomical sources
+    let fmaEnrichment = '';
+    if (targetStructures.length > 0) {
+      const enrichedStructures: Array<{ name: string; definition?: string; relationships: string[] }> = [];
+
+      for (const structure of targetStructures) {
+        try {
+          const fmaDetails = await fmaClient.getDetails(structure.name);
+          if (fmaDetails) {
+            enrichedStructures.push({
+              name: structure.name,
+              definition: fmaDetails.definition,
+              relationships: fmaDetails.relationships,
+            });
+            console.log(
+              `[FMA] Enriched "${structure.name}" from ${fmaDetails.source.toUpperCase()}`
+            );
+          }
+        } catch (error) {
+          console.warn(
+            `[FMA] Failed to enrich "${structure.name}": ${error instanceof Error ? error.message : 'unknown error'}`
+          );
+        }
+      }
+
+      // Build enrichment context for LLM
+      if (enrichedStructures.length > 0) {
+        fmaEnrichment = `\n\n## Official Anatomical Sources (FMA - Foundational Model of Anatomy)\n\n`;
+        enrichedStructures.forEach((struct) => {
+          fmaEnrichment += `**${struct.name}**\n`;
+          if (struct.definition) {
+            fmaEnrichment += `- Definition: ${struct.definition}\n`;
+          }
+          if (struct.relationships.length > 0) {
+            fmaEnrichment += `- Relationships: ${struct.relationships.join('; ')}\n`;
+          }
+          fmaEnrichment += '\n';
+        });
+
+        const rateLimitStatus = fmaClient.getRateLimitStatus();
+        fmaEnrichment += `[Source: BioPortal FMA API (${rateLimitStatus.remaining} requests remaining)]\n`;
+      }
+    }
+
     let sourceIds: string[] = [];
     if (targetStructures.length > 0) {
       // Flatten all SVG path IDs from all matched structures (avoid duplicates)
@@ -156,7 +205,7 @@ export async function chat(req: Request, res: Response): Promise<void> {
       },
       {
         role: 'user',
-        content: question,
+        content: question + fmaEnrichment,
       },
     ];
 
@@ -164,8 +213,10 @@ export async function chat(req: Request, res: Response): Promise<void> {
     // STEP 4: Agent Loop (Max 5 iterations)
     // ============================================================
     const MAX_ITERATIONS = 5;
+    const MAX_RESPONSE_TOKENS = 300; // Keep responses concise (~200 words)
     let iteration = 0;
     let shouldContinue = true;
+    let hasTriedForceHighlight = false; // Prevent infinite loop on highlight
 
     while (shouldContinue && iteration < MAX_ITERATIONS) {
       iteration++;
@@ -182,7 +233,7 @@ export async function chat(req: Request, res: Response): Promise<void> {
         tool_choice: 'auto', // Let GPT-4 decide whether to call a tool
         stream: true,
         temperature: 0.7,
-        max_tokens: 1000,
+        max_tokens: MAX_RESPONSE_TOKENS,
       });
 
       // ========================================================
@@ -311,16 +362,17 @@ export async function chat(req: Request, res: Response): Promise<void> {
         const hasAnatomy = containsAnatomicalContent(assistantMessage.content, structureTerms);
         const hasHighlight = hasHighlightStructuresCall(toolCalls);
         
-        if (hasAnatomy && !hasHighlight && iteration < MAX_ITERATIONS) {
-          // Response discusses anatomy but didn't highlight - force highlighting
+        // Only try to force highlighting ONCE to prevent infinite loops
+        if (hasAnatomy && !hasHighlight && !hasTriedForceHighlight && iteration < MAX_ITERATIONS) {
+          // Response discusses anatomy but didn't highlight - try forcing once
           console.log(
-            `⚠️  Response mentions anatomy but didn't call highlight_structures. Forcing another iteration...`
+            `⚠️  Response mentions anatomy but didn't call highlight_structures. Trying once more...`
           );
           
           // Add assistant message to history
           messageHistory.push(assistantMessage);
           
-          // Force another iteration with explicit instruction
+          // Force one more iteration with explicit instruction
           const forceHighlightMessage = `Your response discusses anatomical structures but you didn't call highlight_structures(). You MUST highlight the anatomical structures you mentioned. Please call highlight_structures() with the valid IDs for the structures in your answer.`;
           
           messageHistory.push({
@@ -328,12 +380,20 @@ export async function chat(req: Request, res: Response): Promise<void> {
             content: forceHighlightMessage,
           });
           
-          console.log(`[Chat] Added forced highlight instruction, continuing loop...`);
+          hasTriedForceHighlight = true; // Mark that we tried (only try once!)
+          console.log(`[Chat] Attempting to force highlight (will accept response if still missing)...`);
           shouldContinue = true;
-          // Loop will continue for another iteration
+          // Loop will continue for one more iteration only
         } else {
-          // Either no anatomy, has highlight, or max iterations reached
+          // Either:
+          // - No anatomy mentioned (safe to skip highlighting)
+          // - Has highlight call (success!)
+          // - Already tried forcing highlight once (accept without it)
+          // - Max iterations reached (timeout)
           messageHistory.push(assistantMessage);
+          if (hasTriedForceHighlight && !hasHighlight) {
+            console.log(`[Chat] Highlight was requested but not provided, accepting response anyway`);
+          }
           shouldContinue = false;
         }
       }
