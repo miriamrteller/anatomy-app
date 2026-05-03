@@ -59,7 +59,7 @@ export function ChatPanel({}: ChatPanelProps) {
   }, [response, isLoading]);
 
   return (
-    <div className="bg-white rounded-lg shadow flex flex-col h-full overflow-hidden p-4 gap-3">
+    <div className="bg-white rounded-lg shadow flex flex-col h-64 md:h-full overflow-hidden p-4 gap-3">
       {/* Header and Input - Top */}
       <div className="flex-shrink-0 space-y-3">
         <div className="flex items-center justify-between gap-2">
