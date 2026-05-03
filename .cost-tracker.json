@@ -1,0 +1,678 @@
+{
+  "dailyBudgetUSD": 10,
+  "monthliBudgetUSD": 100,
+  "records": [
+    {
+      "date": "2026-04-26T16:01:52.931Z",
+      "evalName": "eval-2026-04-26",
+      "queriesRun": 10,
+      "totalCostUSD": 0.30355515,
+      "inputTokens": 30741,
+      "outputTokens": 49824
+    },
+    {
+      "date": "2026-04-26T16:09:58.359Z",
+      "evalName": "eval-2026-04-26",
+      "queriesRun": 10,
+      "totalCostUSD": 0.2706339,
+      "inputTokens": 30746,
+      "outputTokens": 44337
+    },
+    {
+      "date": "2026-04-26T16:16:21.273Z",
+      "evalName": "eval-2026-04-26",
+      "queriesRun": 10,
+      "totalCostUSD": 0.24689189999999997,
+      "inputTokens": 13666,
+      "outputTokens": 40807
+    },
+    {
+      "date": "2026-04-26T16:24:59.396Z",
+      "evalName": "eval-2026-04-26",
+      "queriesRun": 10,
+      "totalCostUSD": 0.032575650000000005,
+      "inputTokens": 4091,
+      "outputTokens": 5327
+    },
+    {
+      "date": "2026-04-26T16:27:47.837Z",
+      "evalName": "eval-2026-04-26",
+      "queriesRun": 10,
+      "totalCostUSD": 0.24827190000000002,
+      "inputTokens": 13666,
+      "outputTokens": 41037
+    },
+    {
+      "date": "2026-04-26T16:28:58.107Z",
+      "evalName": "eval-2026-04-26",
+      "queriesRun": 10,
+      "totalCostUSD": 0.2042679,
+      "inputTokens": 13666,
+      "outputTokens": 33703
+    },
+    {
+      "date": "2026-04-26T16:34:41.940Z",
+      "evalName": "eval-2026-04-26",
+      "queriesRun": 10,
+      "totalCostUSD": 0.25724790000000003,
+      "inputTokens": 13666,
+      "outputTokens": 42533
+    },
+    {
+      "date": "2026-04-26T17:38:32.845Z",
+      "evalName": "eval-2026-04-26",
+      "queriesRun": 10,
+      "totalCostUSD": 0,
+      "inputTokens": 0,
+      "outputTokens": 0
+    },
+    {
+      "date": "2026-04-26T17:42:23.873Z",
+      "evalName": "eval-2026-04-26",
+      "queriesRun": 10,
+      "totalCostUSD": 0.2521059,
+      "inputTokens": 13666,
+      "outputTokens": 41676
+    },
+    {
+      "date": "2026-04-26T17:48:06.816Z",
+      "evalName": "eval-2026-04-26",
+      "queriesRun": 10,
+      "totalCostUSD": 0.24723989999999998,
+      "inputTokens": 13666,
+      "outputTokens": 40865
+    },
+    {
+      "date": "2026-04-26T17:50:26.717Z",
+      "evalName": "eval-2026-04-26",
+      "queriesRun": 10,
+      "totalCostUSD": 0.2068239,
+      "inputTokens": 13666,
+      "outputTokens": 34129
+    },
+    {
+      "date": "2026-04-26T17:58:21.499Z",
+      "evalName": "eval-2026-04-26",
+      "queriesRun": 10,
+      "totalCostUSD": 0.2522079,
+      "inputTokens": 13666,
+      "outputTokens": 41693
+    },
+    {
+      "date": "2026-04-26T18:01:32.370Z",
+      "evalName": "eval-2026-04-26",
+      "queriesRun": 10,
+      "totalCostUSD": 0.2525199,
+      "inputTokens": 13666,
+      "outputTokens": 41745
+    },
+    {
+      "date": "2026-04-26T18:04:29.238Z",
+      "evalName": "eval-2026-04-26",
+      "queriesRun": 10,
+      "totalCostUSD": 0.2550579,
+      "inputTokens": 13666,
+      "outputTokens": 42168
+    },
+    {
+      "date": "2026-04-26T18:06:13.889Z",
+      "evalName": "eval-2026-04-26",
+      "queriesRun": 10,
+      "totalCostUSD": 0.24918389999999999,
+      "inputTokens": 13666,
+      "outputTokens": 41189
+    },
+    {
+      "date": "2026-04-26T18:07:53.055Z",
+      "evalName": "eval-2026-04-26",
+      "queriesRun": 10,
+      "totalCostUSD": 0.24791790000000002,
+      "inputTokens": 13666,
+      "outputTokens": 40978
+    },
+    {
+      "date": "2026-04-26T18:26:04.936Z",
+      "evalName": "eval-2026-04-26",
+      "queriesRun": 21,
+      "totalCostUSD": 0.37610610000000005,
+      "inputTokens": 28653.999999999996,
+      "outputTokens": 61967.99999999999
+    },
+    {
+      "date": "2026-04-26T18:31:22.650Z",
+      "evalName": "eval-2026-04-26",
+      "queriesRun": 21,
+      "totalCostUSD": 0.3368061,
+      "inputTokens": 28653.999999999996,
+      "outputTokens": 55417.99999999999
+    },
+    {
+      "date": "2026-04-26T21:08:04.897Z",
+      "evalName": "eval-2026-04-26",
+      "queriesRun": 21,
+      "totalCostUSD": 0.4126641,
+      "inputTokens": 28653.999999999996,
+      "outputTokens": 68061
+    },
+    {
+      "date": "2026-04-27T05:50:06.139Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.3411081000000001,
+      "inputTokens": 28653.999999999996,
+      "outputTokens": 56135
+    },
+    {
+      "date": "2026-04-27T05:58:25.934Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.33221009999999995,
+      "inputTokens": 28653.999999999996,
+      "outputTokens": 54652
+    },
+    {
+      "date": "2026-04-27T06:01:03.173Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.37590809999999997,
+      "inputTokens": 28653.999999999996,
+      "outputTokens": 61935
+    },
+    {
+      "date": "2026-04-27T06:04:16.131Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.37457009999999996,
+      "inputTokens": 28653.999999999996,
+      "outputTokens": 61712
+    },
+    {
+      "date": "2026-04-27T06:15:28.295Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.4152861000000001,
+      "inputTokens": 28653.999999999996,
+      "outputTokens": 68498
+    },
+    {
+      "date": "2026-04-27T06:27:05.873Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.37754010000000005,
+      "inputTokens": 28653.999999999996,
+      "outputTokens": 62207
+    },
+    {
+      "date": "2026-04-27T06:27:48.396Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.3715581,
+      "inputTokens": 28653.999999999996,
+      "outputTokens": 61210
+    },
+    {
+      "date": "2026-04-27T06:28:26.957Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.3750201,
+      "inputTokens": 28653.999999999996,
+      "outputTokens": 61787
+    },
+    {
+      "date": "2026-04-27T06:29:42.144Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.33054210000000017,
+      "inputTokens": 28653.999999999996,
+      "outputTokens": 54374
+    },
+    {
+      "date": "2026-04-27T06:33:07.484Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.3350001,
+      "inputTokens": 28653.999999999996,
+      "outputTokens": 55117
+    },
+    {
+      "date": "2026-04-27T06:36:13.665Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.4202361,
+      "inputTokens": 28653.999999999996,
+      "outputTokens": 69323
+    },
+    {
+      "date": "2026-04-27T06:38:51.427Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.34033410000000003,
+      "inputTokens": 28653.999999999996,
+      "outputTokens": 56005.99999999999
+    },
+    {
+      "date": "2026-04-27T06:42:06.830Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.4206501,
+      "inputTokens": 28653.999999999996,
+      "outputTokens": 69392
+    },
+    {
+      "date": "2026-04-27T08:32:10.176Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.3694280999999999,
+      "inputTokens": 28653.999999999996,
+      "outputTokens": 60854.99999999999
+    },
+    {
+      "date": "2026-04-27T08:33:04.248Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.37530810000000003,
+      "inputTokens": 28653.999999999996,
+      "outputTokens": 61835
+    },
+    {
+      "date": "2026-04-27T08:35:56.524Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.41109809999999997,
+      "inputTokens": 28653.999999999996,
+      "outputTokens": 67800
+    },
+    {
+      "date": "2026-04-27T08:38:29.498Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.3702681,
+      "inputTokens": 28653.999999999996,
+      "outputTokens": 60995
+    },
+    {
+      "date": "2026-04-27T08:40:55.004Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.4137020999999999,
+      "inputTokens": 28653.999999999996,
+      "outputTokens": 68234
+    },
+    {
+      "date": "2026-04-27T08:47:34.694Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.28374119999999997,
+      "inputTokens": 28648,
+      "outputTokens": 46574
+    },
+    {
+      "date": "2026-04-27T08:48:57.580Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.2863692,
+      "inputTokens": 28648,
+      "outputTokens": 47012
+    },
+    {
+      "date": "2026-04-27T08:49:47.062Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.2852652,
+      "inputTokens": 28648,
+      "outputTokens": 46828
+    },
+    {
+      "date": "2026-04-27T08:52:31.641Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.29045519999999997,
+      "inputTokens": 28648,
+      "outputTokens": 47693
+    },
+    {
+      "date": "2026-04-27T08:55:16.298Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.2456892,
+      "inputTokens": 28648,
+      "outputTokens": 40232
+    },
+    {
+      "date": "2026-04-27T08:57:46.270Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.2415432,
+      "inputTokens": 28648,
+      "outputTokens": 39541
+    },
+    {
+      "date": "2026-04-27T09:00:11.992Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.2387832,
+      "inputTokens": 28648,
+      "outputTokens": 39081
+    },
+    {
+      "date": "2026-04-27T09:03:14.792Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.24266520000000003,
+      "inputTokens": 28648,
+      "outputTokens": 39728
+    },
+    {
+      "date": "2026-04-27T09:05:56.757Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.2438052,
+      "inputTokens": 28648,
+      "outputTokens": 39918
+    },
+    {
+      "date": "2026-04-27T09:08:53.398Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.28996320000000003,
+      "inputTokens": 28648,
+      "outputTokens": 47611
+    },
+    {
+      "date": "2026-04-27T09:11:24.976Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.28372920000000007,
+      "inputTokens": 28648,
+      "outputTokens": 46572
+    },
+    {
+      "date": "2026-04-27T09:13:39.459Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.24186719999999998,
+      "inputTokens": 28648,
+      "outputTokens": 39595
+    },
+    {
+      "date": "2026-04-27T09:16:01.279Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.24205919999999997,
+      "inputTokens": 28648,
+      "outputTokens": 39627
+    },
+    {
+      "date": "2026-04-27T09:18:23.227Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.28396319999999997,
+      "inputTokens": 28648,
+      "outputTokens": 46611
+    },
+    {
+      "date": "2026-04-27T09:20:32.284Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.24459720000000004,
+      "inputTokens": 28648,
+      "outputTokens": 40050
+    },
+    {
+      "date": "2026-04-27T09:22:49.996Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.2408292,
+      "inputTokens": 28648,
+      "outputTokens": 39422
+    },
+    {
+      "date": "2026-04-27T09:25:11.740Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.24132120000000004,
+      "inputTokens": 28648,
+      "outputTokens": 39504
+    },
+    {
+      "date": "2026-04-27T09:27:21.184Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.2411532,
+      "inputTokens": 28648,
+      "outputTokens": 39476
+    },
+    {
+      "date": "2026-04-27T09:29:26.265Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.24074519999999996,
+      "inputTokens": 28648,
+      "outputTokens": 39408
+    },
+    {
+      "date": "2026-04-27T09:31:52.111Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.2860092,
+      "inputTokens": 28648,
+      "outputTokens": 46952
+    },
+    {
+      "date": "2026-04-27T09:34:06.350Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.28450919999999996,
+      "inputTokens": 28648,
+      "outputTokens": 46702
+    },
+    {
+      "date": "2026-04-27T09:36:29.510Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.24448920000000002,
+      "inputTokens": 28648,
+      "outputTokens": 40032
+    },
+    {
+      "date": "2026-04-27T09:38:58.744Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.2422332,
+      "inputTokens": 28648,
+      "outputTokens": 39656
+    },
+    {
+      "date": "2026-04-27T09:42:01.480Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.2506272,
+      "inputTokens": 28648,
+      "outputTokens": 41055
+    },
+    {
+      "date": "2026-04-27T09:44:22.038Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.28626120000000005,
+      "inputTokens": 28648,
+      "outputTokens": 46994
+    },
+    {
+      "date": "2026-04-27T09:46:24.296Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.24349319999999997,
+      "inputTokens": 28648,
+      "outputTokens": 39866
+    },
+    {
+      "date": "2026-04-27T09:48:33.948Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.24408720000000006,
+      "inputTokens": 28648,
+      "outputTokens": 39965
+    },
+    {
+      "date": "2026-04-27T09:50:36.480Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.2557332,
+      "inputTokens": 28648,
+      "outputTokens": 41906
+    },
+    {
+      "date": "2026-04-27T09:52:36.910Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.24454919999999997,
+      "inputTokens": 28648,
+      "outputTokens": 40042
+    },
+    {
+      "date": "2026-04-27T09:54:26.201Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.24288720000000003,
+      "inputTokens": 28648,
+      "outputTokens": 39765
+    },
+    {
+      "date": "2026-04-27T09:56:25.148Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.24513720000000003,
+      "inputTokens": 28648,
+      "outputTokens": 40140
+    },
+    {
+      "date": "2026-04-27T09:58:21.174Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.23961720000000003,
+      "inputTokens": 28648,
+      "outputTokens": 39220
+    },
+    {
+      "date": "2026-04-27T10:00:37.524Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.2426052,
+      "inputTokens": 28648,
+      "outputTokens": 39718
+    },
+    {
+      "date": "2026-04-27T10:03:39.695Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.28027320000000006,
+      "inputTokens": 28648,
+      "outputTokens": 45996
+    },
+    {
+      "date": "2026-04-27T10:06:08.474Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.2842212,
+      "inputTokens": 28648,
+      "outputTokens": 46654
+    },
+    {
+      "date": "2026-04-27T10:08:23.946Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.24089520000000006,
+      "inputTokens": 28648,
+      "outputTokens": 39433
+    },
+    {
+      "date": "2026-04-27T10:10:24.269Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.24192720000000004,
+      "inputTokens": 28648,
+      "outputTokens": 39605
+    },
+    {
+      "date": "2026-04-27T10:12:30.653Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.2840712,
+      "inputTokens": 28648,
+      "outputTokens": 46629
+    },
+    {
+      "date": "2026-04-27T10:14:42.176Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.24887520000000002,
+      "inputTokens": 28648,
+      "outputTokens": 40763
+    },
+    {
+      "date": "2026-04-27T10:17:02.687Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.24939119999999995,
+      "inputTokens": 28648,
+      "outputTokens": 40849
+    },
+    {
+      "date": "2026-04-27T10:19:07.991Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.2877672,
+      "inputTokens": 28648,
+      "outputTokens": 47245
+    },
+    {
+      "date": "2026-04-27T10:21:18.189Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.28710719999999995,
+      "inputTokens": 28648,
+      "outputTokens": 47135
+    },
+    {
+      "date": "2026-04-27T10:23:30.863Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.2468352,
+      "inputTokens": 28648,
+      "outputTokens": 40423
+    },
+    {
+      "date": "2026-04-27T10:26:03.924Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.2840052,
+      "inputTokens": 28648,
+      "outputTokens": 46618
+    },
+    {
+      "date": "2026-04-27T10:28:23.711Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.24038520000000005,
+      "inputTokens": 28648,
+      "outputTokens": 39348
+    },
+    {
+      "date": "2026-04-27T10:30:42.210Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.24436919999999998,
+      "inputTokens": 28648,
+      "outputTokens": 40012
+    },
+    {
+      "date": "2026-04-27T10:33:08.756Z",
+      "evalName": "eval-2026-04-27",
+      "queriesRun": 21,
+      "totalCostUSD": 0.2561591999999999,
+      "inputTokens": 28648,
+      "outputTokens": 41977
+    }
+  ]
+}

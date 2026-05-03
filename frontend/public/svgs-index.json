@@ -1,0 +1,137 @@
+{
+  "_version": "2026-04-15T20:38:44.618Z+f8abcc68",
+  "SKELETAL": {
+    "FemurRight": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "FootLeft": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "TarsalsLeft": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "MetatarsalsLeft": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "PhalangesFootLeft": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "FootRight": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "TarsalsRight": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "MetatarsalsRight": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "PhalangesFootRight": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "FibulaRight": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "TibiaRight": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "FemurLeft": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "PelvicGirdle": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "Scapula": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "Coccyx": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "Sacrum": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "LumbarVertebrae": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "ThoracicVertebrae": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "CervicalVertebrae": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "Skull": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "Mandible": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "Cranium": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "Manubrium": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "ClavicleRight": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "ClavicleLeft": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "HumerusLeft": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "RadiusLeft": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "UlnaLeft": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "HumerusRight": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "UlnaRight": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "RadiusRight": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "HandLeft": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "CarpalsLeft": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "MetacarpalsLeft": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "PhalangesLeft": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "HandRight": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "CarpalsRight": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "PhalangesRight": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "MetacarpalsRight": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "Sternum": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "FibulaLeft": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "TibiaLeft": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "PatellaRight": {
+      "viewBox": "0 0 435.687 841.89"
+    },
+    "PatellaLeft": {
+      "viewBox": "0 0 435.687 841.89"
+    }
+  }
+}
