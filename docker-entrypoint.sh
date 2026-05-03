@@ -3,10 +3,9 @@
 # Docker entrypoint script for production deployments
 # Runs migrations and seeds database before starting the server
 
-set -e
-
 echo "[Docker] Starting application..."
 echo "[Docker] NODE_ENV: $NODE_ENV"
+echo "[Docker] Working directory: $(pwd)"
 
 # Check if DATABASE_URL is set
 if [ -z "$DATABASE_URL" ]; then
@@ -15,13 +14,26 @@ if [ -z "$DATABASE_URL" ]; then
 fi
 
 echo "[Docker] Running Prisma migrations..."
-npx prisma migrate deploy
+if ! npx prisma migrate deploy; then
+  echo "[Docker] ❌ ERROR: Migrations failed"
+  exit 1
+fi
+
+echo "[Docker] Checking if bones.json exists..."
+if [ ! -f "prisma/data/bones.json" ]; then
+  echo "[Docker] ⚠️  WARNING: bones.json not found at prisma/data/bones.json"
+  ls -la prisma/data/ || echo "prisma/data directory doesn't exist"
+else
+  echo "[Docker] ✓ Found bones.json"
+fi
 
 echo "[Docker] Seeding database..."
-npx prisma db seed
+if ! npx prisma db seed; then
+  echo "[Docker] ⚠️  WARNING: Seeding failed (continuing anyway - database schema is ready)"
+fi
 
 echo "[Docker] ✅ Database ready"
 echo "[Docker] Starting Express server..."
 
 # Start the server
-node dist/index.js
+exec node dist/index.js
