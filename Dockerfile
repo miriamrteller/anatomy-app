@@ -25,6 +25,13 @@ COPY --from=builder /app/prisma ./prisma
 
 ENV NODE_ENV=production
 
+# Generate Prisma client
+RUN npx prisma generate
+
+# Run migrations and seed database
+RUN npx prisma migrate deploy && npx prisma db seed
+
 EXPOSE 3000
 
 CMD ["npm", "start"]
+

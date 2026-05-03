@@ -15,15 +15,13 @@
 .vite/
 /dist/
 /build/
+/instructions/
 *.map
 *.d.ts
 
 # Logs
 *.log
 server.log
-
-# Temporary files
-NUL
 
 # IDE
 .vscode
