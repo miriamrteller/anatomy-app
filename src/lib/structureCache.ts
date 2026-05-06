@@ -129,6 +129,16 @@ export async function findStructureByName(
 }
 
 /**
+ * Get all structure names and aliases for content detection
+ * Returns a Set of all searchable terms (names + aliases, lowercase)
+ * Used to detect if response mentions anatomical structures
+ */
+export async function getAllStructureTerms(): Promise<Set<string>> {
+  await initializeCache();
+  return new Set(structureCache?.keys() || []);
+}
+
+/**
  * For debugging: Get all cached structures
  */
 export async function getCachedStructureCount(): Promise<number> {
