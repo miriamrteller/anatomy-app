@@ -40,22 +40,7 @@ jobs:
         run: npm test -- run
         continue-on-error: true
 
-  deploy-railway:
-    name: Deploy Backend to Railway
-    needs: test-and-build
-    runs-on: ubuntu-latest
-    if: success()
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Deploy to Railway
-        env:
-          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
-        run: |
-          npm install -g @railway/cli
-          railway up --service anatomy-app
+  # Backend deploys automatically from GitHub via Render (see render.yaml).
 
   deploy-vercel:
     name: Deploy Frontend to Vercel
