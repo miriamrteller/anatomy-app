@@ -1,0 +1,26 @@
+# Render Blueprint — deploys the Anatomy App API as a free Docker web service.
+# Usage: Render dashboard → New → Blueprint → select this repo.
+# Render prompts for the two secrets (sync: false) at creation time.
+services:
+  - type: web
+    name: anatomy-api
+    runtime: docker
+    plan: free
+    region: frankfurt
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "3000"
+      - key: LOG_LEVEL
+        value: info
+      - key: FRONTEND_URL
+        value: https://anatomy-app-omega.vercel.app
+      - key: DATABASE_URL
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
